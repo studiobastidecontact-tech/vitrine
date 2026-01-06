@@ -1,0 +1,616 @@
+@font-face {
+  font-family: "Panchang";
+  src: url("assets/fonts/Panchang-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Panchang";
+  src: url("assets/fonts/Panchang-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Panchang";
+  src: url("assets/fonts/Panchang-Semibold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Panchang";
+  src: url("assets/fonts/Panchang-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Panchang";
+  src: url("assets/fonts/Panchang-Extrabold.otf") format("opentype");
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Switzer";
+  src: url("assets/fonts/Switzer-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Switzer";
+  src: url("assets/fonts/Switzer-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Switzer";
+  src: url("assets/fonts/Switzer-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Switzer";
+  src: url("assets/fonts/Switzer-Semibold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Switzer";
+  src: url("assets/fonts/Switzer-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Switzer";
+  src: url("assets/fonts/Switzer-Italic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+}
+
+.logo-image {
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+  cursor: pointer;
+}
+
+.logo-image img {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .logo-image {
+    height: 1.5rem;
+  }
+
+  #navbar .container {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .logo-image:not(.scrolled) {
+    margin-top: 0rem;
+  }
+}
+
+.logo-image.scrolled {
+  height: 2.5rem;
+}
+
+@media (max-width: 768px) {
+  .logo-image.scrolled {
+    height: 1.2rem;
+  }
+
+  #navbar.scrolled .container {
+    padding-top: 1.75rem;
+    padding-bottom: 1.25rem;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+#navbar {
+  background-color: transparent;
+}
+
+.overflow-x-auto::-webkit-scrollbar {
+  height: 8px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.opacity-content {
+  position: relative;
+}
+
+.opacity-content .word {
+  display: inline-block;
+  white-space: nowrap;
+  margin-right: 0;
+}
+
+.opacity-content .char {
+  display: inline-block;
+  opacity: 0.2;
+  transition: opacity 0.1s ease-out;
+}
+
+.opacity-content .char.revealed {
+  opacity: 1;
+}
+
+.opacity-content .char.space {
+  display: inline-block;
+  width: 0.25em;
+}
+
+.opacity-content p {
+  word-spacing: normal;
+}
+
+.hero-video-section {
+  height: 100vh;
+}
+
+@media (max-width: 768px) {
+  .hero-video-section {
+    height: 100vh;
+  }
+}
+
+#hero-video {
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  #hero-video {
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+#menu-overlay {
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+  max-height: 100vh;
+}
+
+.menu-link {
+  display: inline-flex;
+  align-items: center;
+}
+
+#menu-overlay,
+#menu-overlay * {
+  font-family: "Switzer", sans-serif !important;
+}
+
+.menu-switzer {
+  font-family: "Switzer", sans-serif !important;
+}
+
+#burger-btn {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+}
+
+.tab-btn {
+  position: relative;
+}
+
+.tab-btn:hover {
+  color: white;
+}
+
+.audio-content-bg {
+  background-image: url("https://images.unsplash.com/photo-1557683316-973673baf926?w=1920&q=80");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.audio-content-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 0;
+}
+
+.audio-content-bg > div {
+  position: relative;
+  z-index: 1;
+}
+
+.audio-player {
+  transition: background-color 0.2s;
+  font-family: "Switzer", sans-serif;
+  background: transparent;
+}
+
+#audio-content,
+#videos-content {
+  padding-left: 0;
+  padding-right: 0;
+  overflow-x: visible;
+  overflow-y: visible;
+}
+
+@media (max-width: 767px) {
+  #videos-content {
+    overflow-x: visible;
+    overflow-y: visible;
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  #nos-creations {
+    overflow-x: visible;
+    overflow-y: visible;
+  }
+}
+
+@media (min-width: 768px) {
+  #audio-content {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  #videos-content {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+.audio-player:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.audio-player h3 {
+  font-family: "Switzer", sans-serif;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+}
+
+.volume-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  border: none;
+}
+
+.progress-bar-container {
+  position: relative;
+}
+
+.progress-bar {
+  transition: width 0.1s linear;
+}
+
+#scroll-to-top {
+  transition: all 0.3s ease;
+}
+
+#scroll-to-top:hover {
+  transform: translateY(-5px);
+}
+
+input:focus,
+textarea:focus {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+
+.reveal-element {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+#contact-form button[type="submit"] {
+  position: relative;
+  overflow: hidden;
+}
+
+#contact-form button[type="submit"]::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.1);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+#contact-form button[type="submit"]:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+iframe {
+  border-radius: 0.5rem;
+}
+
+.video-thumbnail {
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.video-thumbnail:hover,
+.video-thumbnail:active {
+  transform: scale(1.05);
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.video-progress-overlay {
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.video-thumbnail.active .video-progress-overlay {
+  opacity: 0.3;
+}
+
+.video-thumbnail.active img {
+  border-color: white !important;
+}
+
+.z-40 {
+  z-index: 40;
+}
+
+.z-50 {
+  z-index: 50;
+}
+
+img {
+  transition: opacity 0.3s ease;
+}
+
+img:not([src]) {
+  opacity: 0;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4a4a4a;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6a6a6a;
+}
+
+*:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+body {
+  font-family: "Switzer", sans-serif;
+  font-weight: 400;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.font-bold,
+strong,
+b {
+  font-family: "Panchang", sans-serif;
+}
+
+h1 {
+  font-weight: 800;
+}
+
+h2 {
+  font-weight: 700;
+}
+
+h3 {
+  font-weight: 600;
+}
+
+button,
+.btn {
+  font-family: "Panchang", sans-serif;
+  font-weight: 600;
+}
+
+.menu-link {
+  font-family: "Panchang", sans-serif;
+  font-weight: 700;
+}
+
+body.zoom-high .logo-image {
+  height: 2.5rem;
+}
+
+body.zoom-high #navbar.scrolled .logo-image {
+  height: 2rem;
+}
+
+body.zoom-high footer .mx-auto {
+  padding-top: 2rem !important;
+}
+
+body.zoom-high footer .grid {
+  gap: 2rem !important;
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
+}
+
+body.zoom-high footer {
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+body.zoom-high footer .grid + div img {
+  height: 3rem !important;
+}
+
+body.zoom-high footer .grid + div {
+  margin-top: 0.5rem !important;
+}
+
+#main-video {
+  width: 100%;
+  background-color: #000;
+  display: block;
+  margin: 0 auto;
+}
+
+#video-content-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #000;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  #main-video {
+    width: 100%;
+    height: auto;
+    max-height: 80vh;
+    max-width: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  #video-content-inner {
+    min-height: 60vh;
+    padding-bottom: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  #main-video {
+    width: 100%;
+    height: auto;
+    max-height: 50vh;
+    max-width: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  #video-content-inner {
+    min-height: 40vh;
+    padding-bottom: 0;
+    overflow-x: visible;
+    overflow-y: visible;
+    width: 100%;
+    max-width: 100vw;
+    position: relative;
+  }
+
+  /* Conteneur des miniatures mobiles */
+  #video-content-inner > div[class*="md:hidden"] {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: auto !important;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    position: relative;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  #video-content-inner > div[class*="md:hidden"]::-webkit-scrollbar {
+    display: none;
+  }
+
+  #video-content-inner > div[class*="md:hidden"] > .flex {
+    display: flex !important;
+    width: max-content;
+    min-width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    flex-wrap: nowrap;
+  }
+}
