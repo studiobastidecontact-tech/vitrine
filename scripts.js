@@ -502,26 +502,45 @@ document.addEventListener("DOMContentLoaded", function () {
   // ===== FORMULAIRE DE CONTACT =====
   const contactForm = document.getElementById("contact-form");
 
+  emailjs.init("ytHKxQLRKzU342fff");
+
   contactForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
+    // Désactiver le bouton pendant l'envoi
+    const submitButton = contactForm.querySelector('button[type="submit"]');
+    const originalButtonText = submitButton.textContent;
+    submitButton.disabled = true;
+    submitButton.textContent = "ENVOI EN COURS...";
+
     // Récupérer les valeurs du formulaire
     const formData = {
-      email: document.getElementById("email").value,
-      objet: document.getElementById("objet").value,
+      from_email: document.getElementById("email").value,
+      subject: document.getElementById("objet").value,
       message: document.getElementById("message").value,
     };
 
-    // Afficher un message de succès (à remplacer par votre logique d'envoi)
-    alert(
-      "Merci pour votre message ! Nous vous répondrons dans les plus brefs délais."
+    // Envoyer l'email via EmailJS
+    emailjs.send("service_t3azqdo", "template_i7rxtxn", formData).then(
+      function (response) {
+        // Succès
+        alert(
+          "Merci pour votre message ! Nous vous répondrons dans les plus brefs délais."
+        );
+        contactForm.reset();
+        submitButton.disabled = false;
+        submitButton.textContent = originalButtonText;
+      },
+      function (error) {
+        // Erreur
+        console.error("Erreur lors de l'envoi:", error);
+        alert(
+          "Une erreur est survenue lors de l'envoi de votre message. Veuillez réessayer plus tard."
+        );
+        submitButton.disabled = false;
+        submitButton.textContent = originalButtonText;
+      }
     );
-
-    // Réinitialiser le formulaire
-    contactForm.reset();
-
-    // Ici, vous pourrez ajouter votre logique d'envoi (fetch API, EmailJS, etc.)
-    console.log("Données du formulaire:", formData);
   });
 
   // ===== VIDÉOS - Gestion des miniatures et progression =====
