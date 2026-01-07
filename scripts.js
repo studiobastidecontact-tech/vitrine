@@ -551,11 +551,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Chemins des vidéos MP4 (à mettre dans assets/videos/)
   const videoSources = [
-    "assets/videos/video2.mp4", // LEO Walk - ALTO WATCH (maintenant première)
+    "assets/videos/video5.mp4", // alpine (maintenant première)
     "assets/videos/video1.mp4", // Mon nom est Alexandre Cavalier (maintenant deuxième)
     "assets/videos/video3.mp4", // MAKING-OF ALTO WATCH
+    "assets/videos/video2.mp4", // LEO Walk - ALTO WATCH
     "assets/videos/video4.mp4", // alto WQTCH PUB
-    "assets/videos/video5.mp4", // alpine
     "assets/videos/video6.mp4", // EP 1
     "assets/videos/video7.mp4", // EP 2
     "assets/videos/video8.mp4", // EP3
@@ -568,12 +568,12 @@ document.addEventListener("DOMContentLoaded", function () {
   ];
 
   // IDs YouTube pour les miniatures (temporaire, en attendant les MP4)
-  const youtubeIds = [
-    "lkLfYOta3bU", // LEO Walk - ALTO WATCH (maintenant première)
+  const youtubeIds = 
+    "fbyIUvPFW8A", // alpine (maintenant première)
     "SL4TNhToFns", // Mon nom est Alexandre Cavalier (maintenant deuxième)
-    "eRZfwzOD0U0", // MAKING-OF ALTO WATCH
+    "eRZfwzOD0U0", // MAKING-OF ALTO WATCH[
+    "lkLfYOta3bU", // LEO Walk - ALTO WATCH 
     "cmt147mwLu4", // alto WQTCH PUB
-    "fbyIUvPFW8A", // alpine
     "ySfBBxVpcDE", // EP 1
     "m5NYm08dves", // EP 2
     "V2iMFDCzlA4", // EP3
