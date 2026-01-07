@@ -568,11 +568,11 @@ document.addEventListener("DOMContentLoaded", function () {
   ];
 
   // IDs YouTube pour les miniatures (temporaire, en attendant les MP4)
-  const youtubeIds = 
+  const youtubeIds = [
     "fbyIUvPFW8A", // alpine (maintenant première)
     "SL4TNhToFns", // Mon nom est Alexandre Cavalier (maintenant deuxième)
     "eRZfwzOD0U0", // MAKING-OF ALTO WATCH[
-    "lkLfYOta3bU", // LEO Walk - ALTO WATCH 
+    "lkLfYOta3bU", // LEO Walk - ALTO WATCH
     "cmt147mwLu4", // alto WQTCH PUB
     "ySfBBxVpcDE", // EP 1
     "m5NYm08dves", // EP 2
