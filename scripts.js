@@ -255,9 +255,43 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       // Volume
-      volumeSlider.addEventListener("input", (e) => {
-        audio.volume = e.target.value / 100;
-      });
+      // Détection iOS
+      const isIOS =
+        /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+      if (volumeSlider) {
+        // Sur iOS, le volume HTML5 est contrôlé par le système (boutons volume physique)
+        // On ne peut pas le modifier via JavaScript, donc on masque le contrôle
+        if (isIOS) {
+          const volumeControl = volumeSlider.closest(".volume-control");
+          if (volumeControl) {
+            volumeControl.style.display = "none";
+          }
+        } else {
+          // Sur les autres plateformes, le contrôle de volume fonctionne normalement
+          volumeSlider.addEventListener("input", (e) => {
+            audio.volume = e.target.value / 100;
+          });
+
+          // Événements tactiles pour Android et autres mobiles
+          volumeSlider.addEventListener("touchstart", (e) => {
+            e.stopPropagation();
+          });
+
+          volumeSlider.addEventListener("touchmove", (e) => {
+            e.stopPropagation();
+            const touch = e.touches[0];
+            const rect = volumeSlider.getBoundingClientRect();
+            const percent = Math.max(
+              0,
+              Math.min(1, (touch.clientX - rect.left) / rect.width)
+            );
+            const value = percent * 100;
+            volumeSlider.value = value;
+            audio.volume = value / 100;
+          });
+        }
+      }
 
       // Fin de la musique
       audio.addEventListener("ended", () => {
