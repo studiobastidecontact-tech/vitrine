@@ -1,0 +1,6 @@
+# Ignorer tous les fichiers .md (markdown) partout dans le projet
+*.md
+
+# Ignorer tous les fichiers .DS_Store partout dans le projet
+.DS_Store
+
