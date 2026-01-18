@@ -125,6 +125,16 @@ html {
 
 #navbar {
   background-color: transparent;
+  pointer-events: none;
+}
+
+#navbar .container {
+  pointer-events: none;
+}
+
+#navbar #logo,
+#navbar #burger-btn {
+  pointer-events: auto;
 }
 
 .overflow-x-auto::-webkit-scrollbar {
