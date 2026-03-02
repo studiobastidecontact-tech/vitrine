@@ -358,11 +358,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const audioObserver = new IntersectionObserver(
           function (entries) {
             entries.forEach((entry) => {
-              // Vérifier que l'onglet audio est actif
-              if (audioContent && audioContent.classList.contains("hidden")) {
-                return;
-              }
-
               if (!entry.isIntersecting) {
                 // Le lecteur audio sort de l'écran : le mettre en pause
                 if (!audio.paused) {
@@ -402,94 +397,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // ===== SYSTÈME D'ONGLETS (AUDIO/VIDÉOS) =====
-  const tabAudio = document.getElementById("tab-audio");
-  const tabVideos = document.getElementById("tab-videos");
+  // ===== SECTIONS AUDIO ET VIDÉO (affichées en permanence, audio au-dessus, vidéo en dessous) =====
   const audioContent = document.getElementById("audio-content");
   const videosContent = document.getElementById("videos-content");
-
-  // Par défaut, Audio est sélectionné
-  tabAudio.addEventListener("click", function () {
-    // Activer l'onglet Audio
-    tabAudio.classList.add("border-white", "text-white");
-    tabAudio.classList.remove("border-transparent", "text-gray-500");
-
-    // Désactiver l'onglet Vidéos
-    tabVideos.classList.remove("border-white", "text-white");
-    tabVideos.classList.add("border-transparent", "text-gray-500");
-
-    // Afficher le skeleton puis le contenu Audio
-    const audioSkeleton = document.getElementById("audio-skeleton");
-    const audioContentInner = document.getElementById("audio-content-inner");
-    const videoSkeleton = document.getElementById("video-skeleton");
-
-    videosContent.classList.add("hidden");
-    if (videoSkeleton) videoSkeleton.classList.add("hidden");
-
-    if (audioSkeleton) audioSkeleton.classList.remove("hidden");
-    if (audioContentInner) audioContentInner.classList.add("hidden");
-
-    audioContent.classList.remove("hidden");
-
-    // Simuler un chargement pour éviter le saut de page
-    setTimeout(() => {
-      if (audioSkeleton) audioSkeleton.classList.add("hidden");
-      if (audioContentInner) audioContentInner.classList.remove("hidden");
-    }, 300);
-
-    // Mettre la vidéo en pause
-    if (mainVideo) {
-      mainVideo.pause();
-    }
-  });
-
-  tabVideos.addEventListener("click", function () {
-    // Mettre en pause tous les lecteurs audio
-    pauseAllAudioPlayers();
-
-    // Activer l'onglet Vidéos
-    tabVideos.classList.add("border-white", "text-white");
-    tabVideos.classList.remove("border-transparent", "text-gray-500");
-
-    // Désactiver l'onglet Audio
-    tabAudio.classList.remove("border-white", "text-white");
-    tabAudio.classList.add("border-transparent", "text-gray-500");
-
-    // Afficher le skeleton puis le contenu Vidéos
-    const videoSkeleton = document.getElementById("video-skeleton");
-    const videoContentInner = document.getElementById("video-content-inner");
-    const audioSkeleton = document.getElementById("audio-skeleton");
-
-    audioContent.classList.add("hidden");
-    if (audioSkeleton) audioSkeleton.classList.add("hidden");
-
-    if (videoSkeleton) videoSkeleton.classList.remove("hidden");
-    if (videoContentInner) videoContentInner.classList.add("hidden");
-
-    videosContent.classList.remove("hidden");
-
-    // Simuler un chargement pour éviter le saut de page
-    setTimeout(() => {
-      if (videoSkeleton) videoSkeleton.classList.add("hidden");
-      if (videoContentInner) videoContentInner.classList.remove("hidden");
-
-      // Lancer la vidéo automatiquement après le chargement
-      if (mainVideo && videoSources.length > 0) {
-        // Toujours charger la première vidéo pour s'assurer qu'elle est prête
-        loadAndPlayVideo(0);
-
-        // Scroll vers la vidéo après un court délai pour laisser le temps au chargement
-        setTimeout(() => {
-          if (mainVideo) {
-            mainVideo.scrollIntoView({
-              behavior: "smooth",
-              block: "start",
-            });
-          }
-        }, 400);
-      }
-    }, 300);
-  });
 
   // ===== AUTOPLAY DE LA VIDÉO PRINCIPALE AU SCROLL =====
   const mainVideoForAutoplay = document.getElementById("main-video");
@@ -510,6 +420,27 @@ document.addEventListener("DOMContentLoaded", function () {
         clearTimeout(videoPlayTimeout);
         videoPlayTimeout = null;
       }
+    }
+
+    // Fonction pour lancer la vidéo avec son en respectant les règles d'autoplay
+    function attemptAutoplayWithSound(video) {
+      const wasMuted = video.muted;
+
+      // Forcer temporairement le mute pour satisfaire les politiques d'autoplay,
+      // puis réactiver le son juste après le démarrage si nécessaire.
+      video.muted = true;
+
+      video
+        .play()
+        .then(() => {
+          if (!wasMuted) {
+            video.muted = false;
+          }
+        })
+        .catch((error) => {
+          // Si l'autoplay est bloqué, restaurer l'état initial
+          video.muted = wasMuted;
+        });
     }
 
     // Fonction pour lancer la vidéo avec délai intelligent
@@ -542,19 +473,15 @@ document.addEventListener("DOMContentLoaded", function () {
             const rect = video.getBoundingClientRect();
             const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
             
-            if (isVisible && videosContent && !videosContent.classList.contains("hidden")) {
-              video.play().catch((error) => {
-                // Autoplay bloqué par le navigateur
-              });
+            if (isVisible) {
+              attemptAutoplayWithSound(video);
             }
           }
           videoPlayTimeout = null;
         }, VIDEO_PLAY_DELAY);
       } else {
         // Pas de scroll actif depuis assez longtemps, lancer immédiatement
-        video.play().catch((error) => {
-          // Autoplay bloqué par le navigateur
-        });
+        attemptAutoplayWithSound(video);
       }
     }
 
@@ -585,7 +512,7 @@ document.addEventListener("DOMContentLoaded", function () {
         
         // Vérifier si la vidéo est visible après la fin du scroll et la relancer si nécessaire
         // L'IntersectionObserver ne se déclenche pas si la vidéo est déjà visible
-        if (mainVideoForAutoplay && videosContent && !videosContent.classList.contains("hidden")) {
+        if (mainVideoForAutoplay) {
           const rect = mainVideoForAutoplay.getBoundingClientRect();
           const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
           const isIntersecting = rect.top < window.innerHeight && rect.bottom > 0 && rect.left < window.innerWidth && rect.right > 0;
@@ -616,11 +543,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const videoAutoplayObserver = new IntersectionObserver(
       function (entries) {
         entries.forEach((entry) => {
-          // Vérifier que l'onglet vidéo est actif
-          if (videosContent.classList.contains("hidden")) {
-            return;
-          }
-
           if (entry.isIntersecting) {
             // La vidéo entre dans l'écran : la lancer avec délai intelligent
             playVideoWithDelay(mainVideoForAutoplay);
@@ -639,7 +561,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Observer directement la vidéo
     videoAutoplayObserver.observe(mainVideoForAutoplay);
 
-    // Nettoyer les timers si l'onglet change
+    // Nettoyer les timers si l'utilisateur change d'onglet navigateur
     document.addEventListener("visibilitychange", function () {
       if (document.hidden) {
         cancelPendingVideoPlay();
@@ -650,42 +572,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   }
-
-  // ===== LIENS SOUS-MENUS DANS BURGER =====
-  // Gérer les clics sur "Réalisations son" et "Réalisations vidéo"
-  const allMenuLinks = document.querySelectorAll(
-    '#menu-overlay a[href="#nos-creations"]'
-  );
-  allMenuLinks.forEach((link, index) => {
-    link.addEventListener("click", function (e) {
-      // Si c'est "Réalisations son" (premier lien)
-      if (link.textContent.includes("Réalisations son")) {
-        e.preventDefault();
-        // Activer l'onglet Audio avant de scroller
-        tabAudio.click();
-        // Attendre un peu puis scroller
-        setTimeout(() => {
-          document.querySelector("#nos-creations").scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-          });
-        }, 100);
-      }
-      // Si c'est "Réalisations vidéo" (deuxième lien)
-      else if (link.textContent.includes("Réalisations vidéo")) {
-        e.preventDefault();
-        // Activer l'onglet Vidéos avant de scroller
-        tabVideos.click();
-        // Attendre un peu puis scroller
-        setTimeout(() => {
-          document.querySelector("#nos-creations").scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-          });
-        }, 100);
-      }
-    });
-  });
 
   // ===== FORMULAIRE DE CONTACT =====
   const contactForm = document.getElementById("contact-form");
@@ -964,7 +850,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Lecture automatique en chaîne : passer à la vidéo suivante quand une vidéo se termine
     mainVideo.addEventListener("ended", function () {
       // Vérifier que l'onglet vidéo est actif
-      if (videosContent && !videosContent.classList.contains("hidden")) {
+      if (videosContent) {
         // Passer à la vidéo suivante
         const nextIndex = (currentVideoIndex + 1) % videoSources.length;
         loadAndPlayVideo(nextIndex);
@@ -974,6 +860,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Initialiser la première vidéo comme active
   updateActiveVideo(0);
+
+  // Charger la première vidéo au chargement (les deux sections sont maintenant toujours visibles)
+  if (mainVideo && videoSources.length > 0) {
+    const sourceElement = mainVideo.querySelector("source");
+    if (sourceElement) {
+      sourceElement.src = videoSources[0];
+      mainVideo.load();
+    }
+  }
 
   // ===== GESTION DE LA VIDÉO HERO =====
   const heroVideo = document.getElementById("hero-video");

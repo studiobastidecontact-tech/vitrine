@@ -375,7 +375,9 @@ video {
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.1);
   transform: translate(-50%, -50%);
-  transition: width 0.6s, height 0.6s;
+  transition:
+    width 0.6s,
+    height 0.6s;
 }
 
 #contact-form button[type="submit"]:hover::before {
@@ -541,6 +543,32 @@ body.zoom-high footer .grid + div img {
 
 body.zoom-high footer .grid + div {
   margin-top: 0.5rem !important;
+}
+
+/* ===== BANDEAU CONFIANCE ===== */
+.trust-track {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  width: max-content;
+  animation: trust-scroll 30s linear infinite;
+}
+
+.trust-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes trust-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ===== SECTION TARIFS ===== */
+#tarifs,
+#tarifs h2,
+#tarifs h3,
+#tarifs span {
+  font-family: "Panchang", sans-serif;
 }
 
 #main-video {
