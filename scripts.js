@@ -667,9 +667,17 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     mainVideo.addEventListener("play", updatePlayOverlay);
+    mainVideo.addEventListener("playing", updatePlayOverlay); // iOS : déclenché quand la lecture commence vraiment
     mainVideo.addEventListener("pause", updatePlayOverlay);
     mainVideo.addEventListener("ended", updatePlayOverlay);
     mainVideo.addEventListener("loadeddata", updatePlayOverlay);
+
+    // Filet de sécurité iOS : masquer le bouton dès que la vidéo avance
+    mainVideo.addEventListener("timeupdate", function () {
+      if (!mainVideo.paused && videoPlayOverlay && videoPlayOverlay.style.display !== "none") {
+        videoPlayOverlay.style.display = "none";
+      }
+    });
 
     // État initial
     updatePlayOverlay();
