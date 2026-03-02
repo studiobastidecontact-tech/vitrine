@@ -649,38 +649,45 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // ===== BOUTON PLAY OVERLAY =====
+  // iOS gère nativement la lecture, le bouton custom est inutile et conflictuel
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
   const videoPlayOverlay = document.getElementById("video-play-overlay");
   const videoPlayBtn = document.getElementById("video-play-btn");
 
-  function updatePlayOverlay() {
-    if (!videoPlayOverlay) return;
-    if (mainVideo && mainVideo.paused) {
-      videoPlayOverlay.style.display = "flex";
-    } else {
-      videoPlayOverlay.style.display = "none";
-    }
-  }
-
-  if (mainVideo && videoPlayBtn) {
-    videoPlayBtn.addEventListener("click", function () {
-      mainVideo.play();
-    });
-
-    mainVideo.addEventListener("play", updatePlayOverlay);
-    mainVideo.addEventListener("playing", updatePlayOverlay); // iOS : déclenché quand la lecture commence vraiment
-    mainVideo.addEventListener("pause", updatePlayOverlay);
-    mainVideo.addEventListener("ended", updatePlayOverlay);
-    mainVideo.addEventListener("loadeddata", updatePlayOverlay);
-
-    // Filet de sécurité iOS : masquer le bouton dès que la vidéo avance
-    mainVideo.addEventListener("timeupdate", function () {
-      if (!mainVideo.paused && videoPlayOverlay && videoPlayOverlay.style.display !== "none") {
+  if (isIOS && videoPlayOverlay) {
+    // Masquer définitivement le bouton sur iOS
+    videoPlayOverlay.style.display = "none";
+  } else {
+    function updatePlayOverlay() {
+      if (!videoPlayOverlay) return;
+      if (mainVideo && mainVideo.paused) {
+        videoPlayOverlay.style.display = "flex";
+      } else {
         videoPlayOverlay.style.display = "none";
       }
-    });
+    }
 
-    // État initial
-    updatePlayOverlay();
+    if (mainVideo && videoPlayBtn) {
+      videoPlayBtn.addEventListener("click", function () {
+        mainVideo.play();
+      });
+
+      mainVideo.addEventListener("play", updatePlayOverlay);
+      mainVideo.addEventListener("playing", updatePlayOverlay);
+      mainVideo.addEventListener("pause", updatePlayOverlay);
+      mainVideo.addEventListener("ended", updatePlayOverlay);
+      mainVideo.addEventListener("loadeddata", updatePlayOverlay);
+      mainVideo.addEventListener("timeupdate", function () {
+        if (!mainVideo.paused && videoPlayOverlay && videoPlayOverlay.style.display !== "none") {
+          videoPlayOverlay.style.display = "none";
+        }
+      });
+
+      // État initial
+      updatePlayOverlay();
+    }
   }
 
   // Mettre à jour la progression de la vidéo sur la miniature active
