@@ -84,19 +84,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // Clic sur le logo pour remonter en haut
   logo.addEventListener("click", function (e) {
     e.preventDefault();
-    
-    // Marquer le scroll comme programmé pour éviter l'autoplay vidéo
-    const mainVideo = document.getElementById("main-video");
-    if (mainVideo) {
-      mainVideo.dataset.programmaticScroll = "true";
-      // Réinitialiser le flag après un délai suffisant
-      setTimeout(() => {
-        if (mainVideo) {
-          delete mainVideo.dataset.programmaticScroll;
-        }
-      }, 1500); // Délai correspondant à VIDEO_PLAY_DELAY
-    }
-    
     window.scrollTo({
       top: 0,
       behavior: "smooth",
@@ -401,176 +388,20 @@ document.addEventListener("DOMContentLoaded", function () {
   const audioContent = document.getElementById("audio-content");
   const videosContent = document.getElementById("videos-content");
 
-  // ===== AUTOPLAY DE LA VIDÉO PRINCIPALE AU SCROLL =====
-  const mainVideoForAutoplay = document.getElementById("main-video");
-  if (mainVideoForAutoplay && videosContent) {
-    // Variables d'état pour la gestion intelligente de l'autoplay
-    let isScrolling = false;
-    let scrollTimeout = null;
-    let videoPlayTimeout = null;
-    let lastScrollTime = 0;
-    let isProgrammaticScroll = false;
-    const SCROLL_DEBOUNCE_DELAY = 200; // Délai pour détecter la fin du scroll (ms)
-    const VIDEO_PLAY_DELAY = 1500; // Délai avant de lancer la vidéo si scroll détecté (ms)
-    const MIN_TIME_SINCE_SCROLL = 250; // Temps minimum depuis le dernier scroll pour lancer immédiatement (ms)
-
-    // Fonction pour annuler le lancement vidéo prévu
-    function cancelPendingVideoPlay() {
-      if (videoPlayTimeout) {
-        clearTimeout(videoPlayTimeout);
-        videoPlayTimeout = null;
-      }
-    }
-
-    // Fonction pour lancer la vidéo avec son en respectant les règles d'autoplay
-    function attemptAutoplayWithSound(video) {
-      const wasMuted = video.muted;
-
-      // Forcer temporairement le mute pour satisfaire les politiques d'autoplay,
-      // puis réactiver le son juste après le démarrage si nécessaire.
-      video.muted = true;
-
-      video
-        .play()
-        .then(() => {
-          if (!wasMuted) {
-            video.muted = false;
-          }
-        })
-        .catch((error) => {
-          // Si l'autoplay est bloqué, restaurer l'état initial
-          video.muted = wasMuted;
-        });
-    }
-
-    // Fonction pour lancer la vidéo avec délai intelligent
-    function playVideoWithDelay(video) {
-      // Annuler tout lancement précédent
-      cancelPendingVideoPlay();
-
-      // Vérifier si un scroll programmé est en cours (via attribut data)
-      const hasProgrammaticScroll = video.dataset.programmaticScroll === "true";
-      
-      // Calculer le temps depuis le dernier scroll
-      const timeSinceLastScroll = Date.now() - lastScrollTime;
-      
-      // Conditions pour attendre :
-      // 1. Scroll actif en cours
-      // 2. Scroll programmé détecté
-      // 3. On vient de scroller (moins de MIN_TIME_SINCE_SCROLL)
-      const shouldWait = isScrolling || hasProgrammaticScroll || timeSinceLastScroll < MIN_TIME_SINCE_SCROLL;
-
-      if (shouldWait) {
-        // Programmer le lancement après le délai
-        videoPlayTimeout = setTimeout(() => {
-          // Vérifier que la vidéo est toujours visible et que le scroll est terminé
-          const stillHasProgrammaticScroll = video.dataset.programmaticScroll === "true";
-          const stillScrolling = isScrolling;
-          
-          // Après le délai, si on n'est plus en train de scroller et qu'il n'y a pas de scroll programmé,
-          // on peut lancer la vidéo (même si on vient de scroller récemment)
-          if (!stillScrolling && !stillHasProgrammaticScroll) {
-            const rect = video.getBoundingClientRect();
-            const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
-            
-            if (isVisible) {
-              attemptAutoplayWithSound(video);
-            }
-          }
-          videoPlayTimeout = null;
-        }, VIDEO_PLAY_DELAY);
-      } else {
-        // Pas de scroll actif depuis assez longtemps, lancer immédiatement
-        attemptAutoplayWithSound(video);
-      }
-    }
-
-    // Détection de scroll actif
-    function handleScroll() {
-      isScrolling = true;
-      lastScrollTime = Date.now();
-
-      // Annuler le lancement vidéo prévu si on scroll
-      cancelPendingVideoPlay();
-
-      // Réinitialiser le timeout de fin de scroll
-      if (scrollTimeout) {
-        clearTimeout(scrollTimeout);
-      }
-
-      scrollTimeout = setTimeout(() => {
-        isScrolling = false;
-        scrollTimeout = null;
-        
-        // Réinitialiser aussi le flag programmaticScroll quand le scroll se termine naturellement
-        // Cela permet de réinitialiser le flag plus tôt si l'utilisateur s'arrête avant la fin du délai fixe
-        if (mainVideoForAutoplay && mainVideoForAutoplay.dataset.programmaticScroll === "true") {
-          // Réinitialiser immédiatement quand le scroll se termine
-          // Le délai fixe dans les gestionnaires de clic sert de backup
-          delete mainVideoForAutoplay.dataset.programmaticScroll;
-        }
-        
-        // Vérifier si la vidéo est visible après la fin du scroll et la relancer si nécessaire
-        // L'IntersectionObserver ne se déclenche pas si la vidéo est déjà visible
-        if (mainVideoForAutoplay) {
-          const rect = mainVideoForAutoplay.getBoundingClientRect();
-          const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
-          const isIntersecting = rect.top < window.innerHeight && rect.bottom > 0 && rect.left < window.innerWidth && rect.right > 0;
-          
-          if (isVisible && isIntersecting && mainVideoForAutoplay.paused) {
-            // Attendre un petit délai pour être sûr que le scroll est vraiment terminé
-            setTimeout(() => {
-              // Vérifier à nouveau que le scroll n'a pas repris
-              if (!isScrolling) {
-                playVideoWithDelay(mainVideoForAutoplay);
-              }
-            }, 100);
-          }
-        }
-      }, SCROLL_DEBOUNCE_DELAY);
-    }
-
-    // Détection de scroll avec la molette
-    function handleWheel() {
-      handleScroll();
-    }
-
-    // Écouter les événements de scroll
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("wheel", handleWheel, { passive: true });
-
-    // IntersectionObserver modifié avec gestion intelligente
-    const videoAutoplayObserver = new IntersectionObserver(
+  // ===== PAUSE VIDÉO QUAND ELLE SORT DE L'ÉCRAN =====
+  const mainVideoForPause = document.getElementById("main-video");
+  if (mainVideoForPause) {
+    const videoPauseObserver = new IntersectionObserver(
       function (entries) {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // La vidéo entre dans l'écran : la lancer avec délai intelligent
-            playVideoWithDelay(mainVideoForAutoplay);
-          } else {
-            // La vidéo sort complètement de l'écran : la mettre en pause immédiatement
-            cancelPendingVideoPlay();
-            mainVideoForAutoplay.pause();
+          if (!entry.isIntersecting && !mainVideoForPause.paused) {
+            mainVideoForPause.pause();
           }
         });
       },
-      {
-        threshold: 0.1, // Déclencher quand au moins 10% de la vidéo est visible
-      }
+      { threshold: 0.1 }
     );
-
-    // Observer directement la vidéo
-    videoAutoplayObserver.observe(mainVideoForAutoplay);
-
-    // Nettoyer les timers si l'utilisateur change d'onglet navigateur
-    document.addEventListener("visibilitychange", function () {
-      if (document.hidden) {
-        cancelPendingVideoPlay();
-        if (scrollTimeout) {
-          clearTimeout(scrollTimeout);
-          scrollTimeout = null;
-        }
-      }
-    });
+    videoPauseObserver.observe(mainVideoForPause);
   }
 
   // ===== FORMULAIRE DE CONTACT =====
@@ -817,6 +648,33 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  // ===== BOUTON PLAY OVERLAY =====
+  const videoPlayOverlay = document.getElementById("video-play-overlay");
+  const videoPlayBtn = document.getElementById("video-play-btn");
+
+  function updatePlayOverlay() {
+    if (!videoPlayOverlay) return;
+    if (mainVideo && mainVideo.paused) {
+      videoPlayOverlay.style.display = "flex";
+    } else {
+      videoPlayOverlay.style.display = "none";
+    }
+  }
+
+  if (mainVideo && videoPlayBtn) {
+    videoPlayBtn.addEventListener("click", function () {
+      mainVideo.play();
+    });
+
+    mainVideo.addEventListener("play", updatePlayOverlay);
+    mainVideo.addEventListener("pause", updatePlayOverlay);
+    mainVideo.addEventListener("ended", updatePlayOverlay);
+    mainVideo.addEventListener("loadeddata", updatePlayOverlay);
+
+    // État initial
+    updatePlayOverlay();
+  }
+
   // Mettre à jour la progression de la vidéo sur la miniature active
   if (mainVideo) {
     mainVideo.addEventListener("timeupdate", function () {
@@ -906,18 +764,6 @@ document.addEventListener("DOMContentLoaded", function () {
       const targetElement = document.querySelector(targetId);
 
       if (targetElement) {
-        // Marquer le scroll comme programmé pour éviter l'autoplay vidéo
-        const mainVideo = document.getElementById("main-video");
-        if (mainVideo) {
-          mainVideo.dataset.programmaticScroll = "true";
-          // Réinitialiser le flag après un délai suffisant
-          setTimeout(() => {
-            if (mainVideo) {
-              delete mainVideo.dataset.programmaticScroll;
-            }
-          }, 1500); // Délai correspondant à VIDEO_PLAY_DELAY
-        }
-        
         targetElement.scrollIntoView({
           behavior: "smooth",
           block: "start",
@@ -936,21 +782,6 @@ document.addEventListener("DOMContentLoaded", function () {
   if (footerScrollTop) {
     footerScrollTop.addEventListener("click", function (e) {
       e.preventDefault();
-      
-      // Marquer le scroll comme programmé pour éviter l'autoplay vidéo
-      if (mainVideoForAutoplay && videosContent) {
-        // Accéder à la variable isProgrammaticScroll via une closure ou un flag global
-        // On va utiliser une approche avec un attribut data sur la vidéo
-        mainVideoForAutoplay.dataset.programmaticScroll = "true";
-        
-        // Réinitialiser le flag après un délai suffisant pour que le scroll se termine
-        setTimeout(() => {
-          if (mainVideoForAutoplay) {
-            delete mainVideoForAutoplay.dataset.programmaticScroll;
-          }
-        }, 1500); // Délai correspondant à VIDEO_PLAY_DELAY
-      }
-      
       window.scrollTo({
         top: 0,
         behavior: "smooth",
