@@ -1,187 +1,728 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Studio Bastide Production — Vidéo Entreprise</title>
-  <meta name="description" content="Production vidéo pour entreprises : immobilier, viticole, artisans et commerces. Devis rapide.">
-
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Studio Bastide — Prestations Vidéo Entreprise</title>
+  <meta name="description" content="Production vidéo pour entreprises : immobilier, viticole, artisans, commerces. Contenus premium pour site et réseaux. Devis rapide." />
+  <meta name="robots" content="index,follow" />
 
   <style>
-    body { background:#0a0a0a; }
-    .card {
-      border:1px solid rgba(255,255,255,.1);
-      background:rgba(255,255,255,.04);
-      border-radius:20px;
-      transition:.2s ease;
+    :root{
+      --bg:#050505;
+      --fg:#ffffff;
+      --muted:rgba(255,255,255,.72);
+      --dim:rgba(255,255,255,.10);
+      --dim2:rgba(255,255,255,.16);
+      --accent:#ff3b00; /* orange proche de ton overlay */
+      --card:rgba(255,255,255,.06);
+      --glass:rgba(0,0,0,.55);
+      --max:1180px;
     }
-    .card:hover {
-      background:rgba(255,255,255,.07);
-      transform:translateY(-3px);
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background:var(--bg);
+      color:var(--fg);
+      overflow-x:hidden;
+    }
+
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 20px}
+
+    /* Header */
+    .header{
+      position:fixed; top:0; left:0; right:0;
+      z-index:60;
+      background:linear-gradient(to bottom, rgba(0,0,0,.65), rgba(0,0,0,0));
+      padding:18px 0;
+    }
+    .headerRow{
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
+    }
+    .brand{
+      display:flex; align-items:flex-end; gap:12px;
+      line-height:1;
+    }
+    .brandTitle{
+      font-size:44px;
+      letter-spacing:.02em;
+      font-weight:800;
+      text-transform:none;
+    }
+    .brandSub{
+      font-size:12px;
+      color:var(--muted);
+      margin-bottom:6px;
+    }
+    .burger{
+      width:44px; height:44px;
+      border:1px solid var(--dim);
+      background:rgba(255,255,255,.04);
+      border-radius:12px;
+      display:grid; place-items:center;
+      cursor:pointer;
+    }
+    .burger span{
+      width:18px; height:2px; background:#fff; display:block; position:relative;
+    }
+    .burger span::before,.burger span::after{
+      content:""; position:absolute; left:0; width:18px; height:2px; background:#fff;
+    }
+    .burger span::before{top:-6px}
+    .burger span::after{top:6px}
+
+    /* Overlay menu (orange) */
+    .overlay{
+      position:fixed; inset:0;
+      background:var(--accent);
+      z-index:90;
+      display:none;
+    }
+    .overlay.open{display:block}
+    .overlayInner{
+      height:100%;
+      padding:28px 22px;
+      display:flex;
+      flex-direction:column;
+      gap:22px;
+    }
+    .overlayTop{
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .overlayClose{
+      width:44px; height:44px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.35);
+      background:rgba(255,255,255,.10);
+      cursor:pointer;
+      display:grid; place-items:center;
+      font-size:22px;
+      font-weight:800;
+      color:#fff;
+    }
+    .overlayCols{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:22px;
+      margin-top:10px;
+    }
+    .overlayBlock h3{
+      margin:0 0 10px 0;
+      font-size:34px;
+      letter-spacing:.01em;
+    }
+    .overlayLink{
+      display:flex; align-items:center; gap:10px;
+      padding:10px 0;
+      font-size:16px;
+      font-weight:700;
+      opacity:.95;
+    }
+    .overlayLink .arrow{font-weight:900}
+    .overlayCta{
+      margin-top:auto;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .btn{
+      border-radius:999px;
+      padding:12px 16px;
+      font-weight:800;
+      font-size:13px;
+      letter-spacing:.02em;
+      border:1px solid rgba(255,255,255,.30);
+      background:rgba(255,255,255,.12);
+      color:#fff;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+    }
+    .btn.primary{
+      background:#fff;
+      color:#000;
+      border-color:#fff;
+    }
+
+    /* Hero */
+    .hero{
+      min-height:100vh;
+      padding-top:92px;
+      display:flex;
+      align-items:flex-end;
+      position:relative;
+    }
+    .heroBg{
+      position:absolute; inset:0;
+      background:
+        radial-gradient(700px 420px at 20% 25%, rgba(0,120,255,.20), transparent 55%),
+        radial-gradient(700px 420px at 80% 30%, rgba(0,60,255,.18), transparent 55%),
+        linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.90));
+      filter:saturate(1.1);
+    }
+    .heroMedia{
+      position:absolute; inset:0;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.92)),
+        url("../assets/hero.jpg");
+      background-size:cover;
+      background-position:center;
+      opacity:.22;
+      pointer-events:none;
+    }
+    .heroContent{position:relative; z-index:2; padding:70px 0 64px;}
+    .kicker{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--dim);
+      background:rgba(255,255,255,.04);
+      font-size:12px;
+      color:var(--muted);
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    .h1{
+      margin:18px 0 0 0;
+      font-size:clamp(44px, 6vw, 82px);
+      font-weight:900;
+      letter-spacing:.01em;
+      line-height:0.95;
+    }
+    .lead{
+      margin:18px 0 0 0;
+      max-width:760px;
+      color:var(--muted);
+      font-size:18px;
+      line-height:1.5;
+    }
+    .heroActions{
+      margin-top:28px;
+      display:flex; gap:12px; flex-wrap:wrap;
+    }
+    .heroMini{
+      margin-top:26px;
+      display:flex; gap:14px; flex-wrap:wrap;
+      color:rgba(255,255,255,.78);
+      font-size:13px;
+    }
+    .pill{
+      border:1px solid var(--dim);
+      background:rgba(255,255,255,.03);
+      border-radius:999px;
+      padding:10px 12px;
+    }
+
+    /* Sections */
+    section{padding:86px 0}
+    .sectionTitle{
+      font-size:46px;
+      font-weight:900;
+      letter-spacing:.01em;
+      margin:0;
+    }
+    .sectionSub{
+      margin:12px 0 0 0;
+      color:var(--muted);
+      max-width:760px;
+      line-height:1.55;
+    }
+
+    /* Logo strip */
+    .strip{
+      margin-top:28px;
+      border-top:1px solid var(--dim);
+      border-bottom:1px solid var(--dim);
+      padding:22px 0;
+      overflow:hidden;
+      opacity:.95;
+    }
+    .stripRow{
+      display:flex; gap:46px; align-items:center;
+      white-space:nowrap;
+      animation:scroll 26s linear infinite;
+    }
+    .logoChip{
+      display:inline-flex; align-items:center; justify-content:center;
+      height:38px; min-width:120px;
+      padding:0 16px;
+      border-radius:999px;
+      border:1px solid var(--dim);
+      background:rgba(255,255,255,.03);
+      color:rgba(255,255,255,.80);
+      font-size:12px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    @keyframes scroll{
+      from{transform:translateX(0)}
+      to{transform:translateX(-50%)}
+    }
+
+    /* Cards / grids */
+    .grid{
+      margin-top:30px;
+      display:grid;
+      gap:16px;
+    }
+    .grid.cols3{grid-template-columns:repeat(3, minmax(0,1fr))}
+    .grid.cols2{grid-template-columns:repeat(2, minmax(0,1fr))}
+    @media (max-width:980px){ .grid.cols3{grid-template-columns:1fr} .grid.cols2{grid-template-columns:1fr} .brandTitle{font-size:34px} }
+    .card{
+      border:1px solid var(--dim);
+      background:var(--card);
+      border-radius:22px;
+      padding:22px;
+      position:relative;
+      overflow:hidden;
+    }
+    .card::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:radial-gradient(380px 120px at 20% 0%, rgba(255,255,255,.10), transparent 60%);
+      pointer-events:none;
+    }
+    .card h4{
+      margin:0;
+      font-size:18px;
+      font-weight:900;
+      letter-spacing:.01em;
+    }
+    .card p{
+      margin:10px 0 0 0;
+      color:var(--muted);
+      line-height:1.55;
+      font-size:14px;
+    }
+    .tagRow{margin-top:14px; display:flex; gap:10px; flex-wrap:wrap}
+    .tag{
+      font-size:11px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid var(--dim);
+      background:rgba(0,0,0,.18);
+      color:rgba(255,255,255,.78);
+    }
+
+    /* Portfolio */
+    .work{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:18px;
+      margin-top:30px;
+    }
+    @media (max-width:980px){ .work{grid-template-columns:1fr} }
+    .player{
+      border-radius:22px;
+      border:1px solid var(--dim);
+      background:linear-gradient(180deg, rgba(0,90,255,.18), rgba(0,0,0,.35));
+      min-height:320px;
+      display:grid;
+      place-items:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .playBtn{
+      width:68px; height:68px;
+      border-radius:999px;
+      border:2px solid rgba(255,255,255,.65);
+      display:grid; place-items:center;
+      background:rgba(0,0,0,.25);
+    }
+    .playTri{
+      width:0; height:0;
+      border-left:14px solid #fff;
+      border-top:9px solid transparent;
+      border-bottom:9px solid transparent;
+      margin-left:4px;
+    }
+    .workList{
+      display:grid; gap:12px;
+    }
+    .workItem{
+      border-radius:18px;
+      border:1px solid var(--dim);
+      background:rgba(255,255,255,.04);
+      padding:16px;
+    }
+    .workItem strong{display:block; font-size:14px; font-weight:900}
+    .workItem span{display:block; margin-top:6px; color:var(--muted); font-size:13px; line-height:1.45}
+
+    /* Contact */
+    .contact{
+      margin-top:30px;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+      align-items:start;
+    }
+    @media (max-width:980px){ .contact{grid-template-columns:1fr} }
+    .field{
+      display:flex; flex-direction:column; gap:8px;
+    }
+    label{font-size:12px; color:rgba(255,255,255,.70); letter-spacing:.06em; text-transform:uppercase}
+    input,textarea{
+      padding:14px 14px;
+      border-radius:16px;
+      border:1px solid var(--dim);
+      background:rgba(0,0,0,.35);
+      color:#fff;
+      outline:none;
+      font-size:14px;
+    }
+    input:focus,textarea:focus{border-color:var(--dim2)}
+    textarea{min-height:130px; resize:vertical}
+    .note{color:rgba(255,255,255,.60); font-size:12px; line-height:1.5}
+
+    /* Footer */
+    .footer{
+      border-top:1px solid var(--dim);
+      padding:30px 0 44px;
+      color:rgba(255,255,255,.55);
+      font-size:12px;
+    }
+
+    /* Small helper */
+    .split{
+      display:flex; gap:12px; flex-wrap:wrap;
+      margin-top:18px;
+      color:rgba(255,255,255,.70);
+      font-size:13px;
     }
   </style>
 </head>
 
-<body class="text-white font-sans">
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="wrap">
+      <div class="headerRow">
+        <a class="brand" href="https://studio-bastide-production.fr/">
+          <div>
+            <div class="brandTitle">Studio Bastide<sup style="font-size:14px; opacity:.9;">®</sup></div>
+            <div class="brandSub">Prestations vidéo entreprises</div>
+          </div>
+        </a>
 
-<!-- HEADER -->
-<header class="border-b border-white/10">
-  <div class="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
-    <div>
-      <h1 class="font-semibold text-lg">Studio Bastide Production</h1>
-      <p class="text-xs text-zinc-400">Page dédiée aux professionnels</p>
+        <button class="burger" id="openMenu" aria-label="Ouvrir le menu">
+          <span></span>
+        </button>
+      </div>
     </div>
-    <a href="#contact" class="bg-white text-black px-5 py-2 rounded-xl text-sm font-semibold hover:bg-zinc-200">
-      Demander un devis
-    </a>
+  </header>
+
+  <!-- Overlay menu -->
+  <div class="overlay" id="overlay" aria-hidden="true">
+    <div class="overlayInner wrap">
+      <div class="overlayTop">
+        <div style="font-weight:900; letter-spacing:.02em; font-size:18px;">Menu</div>
+        <button class="overlayClose" id="closeMenu" aria-label="Fermer le menu">×</button>
+      </div>
+
+      <div class="overlayCols">
+        <div class="overlayBlock">
+          <h3>Prestations vidéo</h3>
+          <a class="overlayLink" href="#services"><span class="arrow">→</span> Services</a>
+          <a class="overlayLink" href="#realisations"><span class="arrow">→</span> Réalisations</a>
+          <a class="overlayLink" href="#process"><span class="arrow">→</span> Process</a>
+          <a class="overlayLink" href="#contact"><span class="arrow">→</span> Contact</a>
+        </div>
+
+        <div class="overlayBlock">
+          <h3>Retour site</h3>
+          <a class="overlayLink" href="https://studio-bastide-production.fr/"><span class="arrow">→</span> Accueil</a>
+          <a class="overlayLink" href="https://studio-bastide-production.fr/#tarifs"><span class="arrow">→</span> Tarifs</a>
+          <a class="overlayLink" href="https://studio-bastide-production.fr/#contact"><span class="arrow">→</span> Nous contacter</a>
+        </div>
+      </div>
+
+      <div class="overlayCta">
+        <a class="btn primary" href="#contact">Demander un devis</a>
+        <a class="btn" href="#realisations">Voir des exemples</a>
+      </div>
+    </div>
   </div>
-</header>
 
-<!-- HERO -->
-<section class="max-w-6xl mx-auto px-6 py-20">
-  <div class="grid md:grid-cols-2 gap-12 items-center">
+  <!-- Hero -->
+  <main class="hero" id="top">
+    <div class="heroBg" aria-hidden="true"></div>
+    <!-- Optionnel : si tu mets une image hero dans assets -->
+    <div class="heroMedia" aria-hidden="true"></div>
 
-    <div>
-      <h2 class="text-4xl md:text-5xl font-semibold leading-tight">
-        Des vidéos qui valorisent votre activité.
-      </h2>
-      <p class="mt-6 text-zinc-300">
-        Immobilier, domaines viticoles, artisans, commerces.
-        Nous produisons des vidéos professionnelles pensées pour convertir et rassurer.
+    <div class="wrap heroContent">
+      <div class="kicker">Immobilier • Viticole • Artisans • Commerces</div>
+      <h1 class="h1">Vidéo entreprise.<br>Simple. Premium. Efficace.</h1>
+      <p class="lead">
+        On produit des vidéos claires et crédibles pour présenter votre activité, rassurer vos clients et améliorer vos conversions
+        (site web, réseaux sociaux, publicité).
       </p>
 
-      <div class="mt-8 flex gap-4">
-        <a href="#contact" class="bg-white text-black px-6 py-3 rounded-xl font-semibold hover:bg-zinc-200">
-          Obtenir un devis
-        </a>
-        <a href="#offres" class="border border-white/20 px-6 py-3 rounded-xl hover:bg-white/10">
-          Voir les prestations
-        </a>
+      <div class="heroActions">
+        <a class="btn primary" href="#contact">Demander un devis</a>
+        <a class="btn" href="#realisations">Voir des réalisations</a>
+      </div>
+
+      <div class="heroMini">
+        <div class="pill">Tournage + montage</div>
+        <div class="pill">Délais clairs</div>
+        <div class="pill">Livraison web & réseaux</div>
       </div>
     </div>
+  </main>
 
-    <div class="card p-8">
-      <ul class="space-y-4 text-sm text-zinc-300">
-        <li>• Vidéo immobilière (présentation de biens)</li>
-        <li>• Domaine viticole (image premium & savoir-faire)</li>
-        <li>• Artisan / commerce (storytelling & preuve qualité)</li>
-        <li>• Reels & contenus réseaux</li>
-        <li>• Drone (selon autorisations)</li>
-      </ul>
+  <!-- Logos / confiance -->
+  <section style="padding-top:40px;">
+    <div class="wrap">
+      <p style="margin:0; color:rgba(255,255,255,.55); letter-spacing:.18em; text-transform:uppercase; font-size:11px;">
+        Ils nous ont fait confiance
+      </p>
     </div>
 
-  </div>
-</section>
+    <div class="strip">
+      <div class="wrap">
+        <div class="stripRow" aria-hidden="true">
+          <span class="logoChip">MJC</span>
+          <span class="logoChip">LINAGORA</span>
+          <span class="logoChip">ALTO</span>
+          <span class="logoChip">ISCPA</span>
+          <span class="logoChip">48HFP</span>
+          <span class="logoChip">Collectifs</span>
 
-<!-- OFFRES -->
-<section id="offres" class="border-t border-white/10 py-20">
-  <div class="max-w-6xl mx-auto px-6">
-    <h3 class="text-3xl font-semibold">Nos prestations</h3>
-    <p class="text-zinc-400 mt-3 text-sm">
-      Tarifs indicatifs HT — devis personnalisé selon votre projet.
-    </p>
-
-    <div class="grid md:grid-cols-3 gap-6 mt-12">
-
-      <div class="card p-8">
-        <h4 class="font-semibold text-lg">Essentiel</h4>
-        <p class="text-sm text-zinc-400 mt-2">Vidéo simple et efficace</p>
-        <ul class="mt-6 space-y-2 text-sm text-zinc-300">
-          <li>• 1 tournage</li>
-          <li>• 1 vidéo principale</li>
-          <li>• Montage professionnel</li>
-        </ul>
-        <p class="mt-6 text-xl font-semibold">Sur devis</p>
+          <!-- duplication pour le scroll -->
+          <span class="logoChip">MJC</span>
+          <span class="logoChip">LINAGORA</span>
+          <span class="logoChip">ALTO</span>
+          <span class="logoChip">ISCPA</span>
+          <span class="logoChip">48HFP</span>
+          <span class="logoChip">Collectifs</span>
+        </div>
       </div>
-
-      <div class="card p-8">
-        <h4 class="font-semibold text-lg">Business</h4>
-        <p class="text-sm text-zinc-400 mt-2">Vidéo + déclinaisons réseaux</p>
-        <ul class="mt-6 space-y-2 text-sm text-zinc-300">
-          <li>• Vidéo principale</li>
-          <li>• Formats courts réseaux</li>
-          <li>• 2 allers-retours</li>
-        </ul>
-        <p class="mt-6 text-xl font-semibold">Sur devis</p>
-      </div>
-
-      <div class="card p-8">
-        <h4 class="font-semibold text-lg">Mensuel</h4>
-        <p class="text-sm text-zinc-400 mt-2">Contenu régulier</p>
-        <ul class="mt-6 space-y-2 text-sm text-zinc-300">
-          <li>• Session mensuelle</li>
-          <li>• Pack reels</li>
-          <li>• Cohérence de marque</li>
-        </ul>
-        <p class="mt-6 text-xl font-semibold">Sur devis</p>
-      </div>
-
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- CONTACT -->
-<section id="contact" class="border-t border-white/10 py-20">
-  <div class="max-w-4xl mx-auto px-6">
+  <!-- Services -->
+  <section id="services">
+    <div class="wrap">
+      <h2 class="sectionTitle">Services</h2>
+      <p class="sectionSub">
+        Une page dédiée aux clients pros : agences immobilières, domaines viticoles, artisans et commerces.
+        Le but : du contenu régulier, propre, et orienté résultats.
+      </p>
 
-    <h3 class="text-3xl font-semibold">Contact professionnel</h3>
-    <p class="text-zinc-400 mt-3 text-sm">
-      Réponse sous 24–48h.
-    </p>
+      <div class="grid cols3">
+        <div class="card">
+          <h4>Immobilier</h4>
+          <p>Présentation de biens / agences : plans propres, détails, rythme commercial, livraison prête à publier.</p>
+          <div class="tagRow">
+            <span class="tag">visite</span><span class="tag">vertical & horizontal</span><span class="tag">site + réseaux</span>
+          </div>
+        </div>
 
-    <form id="leadForm" class="mt-10 space-y-6">
+        <div class="card">
+          <h4>Viticole</h4>
+          <p>Image premium : savoir-faire, domaine, accueil, événement. Un rendu cinéma mais corporate.</p>
+          <div class="tagRow">
+            <span class="tag">storytelling</span><span class="tag">marque</span><span class="tag">premium</span>
+          </div>
+        </div>
 
-      <div>
-        <input name="name" required placeholder="Nom"
-          class="w-full p-4 rounded-xl bg-zinc-900 border border-white/10 focus:border-white/30 outline-none">
+        <div class="card">
+          <h4>Artisans / commerces</h4>
+          <p>Mettre en avant la qualité : gestes, matière, avant/après, témoignages, ambiance.</p>
+          <div class="tagRow">
+            <span class="tag">preuve</span><span class="tag">proximité</span><span class="tag">conversion</span>
+          </div>
+        </div>
       </div>
 
-      <div>
-        <input name="company" placeholder="Entreprise"
-          class="w-full p-4 rounded-xl bg-zinc-900 border border-white/10 focus:border-white/30 outline-none">
+      <div class="grid cols2">
+        <div class="card">
+          <h4>Reels & contenus réseaux</h4>
+          <p>Packs mensuels : formats courts, cohérence visuelle, contenu régulier pour ne plus “post au hasard”.</p>
+          <div class="tagRow"><span class="tag">packs</span><span class="tag">tiktok / insta</span><span class="tag">régularité</span></div>
+        </div>
+        <div class="card">
+          <h4>Drone</h4>
+          <p>Plans aériens selon besoin + autorisations. Idéal immobilier / domaine / extérieur / chantier.</p>
+          <div class="tagRow"><span class="tag">dji</span><span class="tag">repérage</span><span class="tag">sécurité</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Réalisations -->
+  <section id="realisations" style="padding-top:40px;">
+    <div class="wrap">
+      <h2 class="sectionTitle">Réalisations</h2>
+      <p class="sectionSub">
+        Ici, on met uniquement du pro (pas les clips). Tu peux remplacer chaque bloc par un lien YouTube/Vimeo/Drive quand tu veux.
+      </p>
+
+      <div class="work">
+        <div class="player" title="Zone vidéo (à remplacer par un embed si tu veux)">
+          <div class="playBtn" aria-hidden="true"><div class="playTri"></div></div>
+        </div>
+
+        <div class="workList">
+          <div class="workItem">
+            <strong>Vidéo Immobilier — Présentation de bien</strong>
+            <span>Version 30s / 60s + horizontal pour site.</span>
+          </div>
+          <div class="workItem">
+            <strong>Vidéo Domaine — Image & savoir-faire</strong>
+            <span>Storytelling + plans d’ambiance + format réseaux.</span>
+          </div>
+          <div class="workItem">
+            <strong>Artisan — Mise en valeur métier</strong>
+            <span>Focus matière, gestes, preuve qualité, témoignage.</span>
+          </div>
+          <div class="workItem">
+            <strong>Pack Reels — 4 à 8 contenus / mois</strong>
+            <span>Régularité + cohérence + livrables prêts à publier.</span>
+          </div>
+        </div>
       </div>
 
-      <div>
-        <input name="email" type="email" required placeholder="Email"
-          class="w-full p-4 rounded-xl bg-zinc-900 border border-white/10 focus:border-white/30 outline-none">
+      <div class="split">
+        <span class="pill">Astuce : vidéos “non répertoriées” sur YouTube pour partager aux clients</span>
+        <span class="pill">Ou Vimeo si tu veux un rendu plus premium</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section id="process">
+    <div class="wrap">
+      <h2 class="sectionTitle">Process</h2>
+      <p class="sectionSub">Simple et carré. Tu sais où tu vas, et tu sais quand tu reçois les livrables.</p>
+
+      <div class="grid cols4" style="grid-template-columns:repeat(4,minmax(0,1fr));">
+        <div class="card"><h4>01 — Brief</h4><p>Objectif, cible, supports, contraintes, références.</p></div>
+        <div class="card"><h4>02 — Devis</h4><p>Proposition claire + planning + livrables.</p></div>
+        <div class="card"><h4>03 — Tournage</h4><p>Sur site. Option drone selon contexte.</p></div>
+        <div class="card"><h4>04 — Livraison</h4><p>Fichiers web + réseaux. Retours inclus selon formule.</p></div>
       </div>
 
-      <div>
-        <textarea name="message" required rows="4" placeholder="Votre besoin"
-          class="w-full p-4 rounded-xl bg-zinc-900 border border-white/10 focus:border-white/30 outline-none"></textarea>
+      <style>
+        @media (max-width:980px){
+          .grid.cols4{grid-template-columns:1fr !important}
+        }
+      </style>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" style="padding-bottom:70px;">
+    <div class="wrap">
+      <h2 class="sectionTitle">Contact pro</h2>
+      <p class="sectionSub">Tu laisses tes infos. Ça ouvre ton mail avec un message pré-rempli (simple, fiable, pas besoin de backend).</p>
+
+      <div class="contact">
+        <div class="card">
+          <h4>Coordonnées</h4>
+          <p>
+            Email : <strong>contact@studio-bastide-production.fr</strong><br>
+            Zone : Toulouse / Tarn / Occitanie
+          </p>
+          <p class="note" style="margin-top:14px;">
+            Si tu veux un vrai formulaire qui envoie (sans ouvrir le mail), on peut le brancher à Formspree / Netlify Forms.
+          </p>
+          <div style="margin-top:16px;">
+            <a class="btn primary" href="https://studio-bastide-production.fr/" target="_blank" rel="noopener">Voir le site principal</a>
+          </div>
+        </div>
+
+        <form class="card" id="leadForm">
+          <div class="field">
+            <label>Nom</label>
+            <input name="name" required placeholder="Ton nom" />
+          </div>
+          <div class="field" style="margin-top:12px;">
+            <label>Entreprise</label>
+            <input name="company" placeholder="Nom de l'entreprise" />
+          </div>
+          <div class="field" style="margin-top:12px;">
+            <label>Email</label>
+            <input name="email" type="email" required placeholder="email@entreprise.com" />
+          </div>
+          <div class="field" style="margin-top:12px;">
+            <label>Besoin</label>
+            <textarea name="message" required placeholder="Ex : vidéo immobilier 60s + 4 reels / mois..."></textarea>
+          </div>
+
+          <div style="margin-top:16px; display:flex; gap:12px; flex-wrap:wrap;">
+            <button class="btn primary" type="submit">Envoyer</button>
+            <a class="btn" href="#top">Retour en haut</a>
+          </div>
+
+          <p class="note" style="margin-top:12px;">
+            Prix affichés sur le site principal = HT. TVA (20%) appliquée à la facturation.
+          </p>
+        </form>
       </div>
+    </div>
+  </section>
 
-      <button type="submit"
-        class="bg-white text-black px-6 py-3 rounded-xl font-semibold hover:bg-zinc-200">
-        Envoyer
-      </button>
+  <footer class="footer">
+    <div class="wrap">
+      © <span id="year"></span> Studio Bastide Production — Prestations vidéo entreprises
+    </div>
+  </footer>
 
-    </form>
+  <script>
+    // Year
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-  </div>
-</section>
+    // Menu overlay
+    const overlay = document.getElementById("overlay");
+    const openMenu = document.getElementById("openMenu");
+    const closeMenu = document.getElementById("closeMenu");
 
-<footer class="border-t border-white/10 py-8 text-center text-xs text-zinc-500">
-  © <span id="year"></span> Studio Bastide Production
-</footer>
+    function setOpen(v){
+      overlay.classList.toggle("open", v);
+      overlay.setAttribute("aria-hidden", String(!v));
+      document.body.style.overflow = v ? "hidden" : "";
+    }
 
-<script>
-document.getElementById("year").textContent = new Date().getFullYear();
+    openMenu.addEventListener("click", () => setOpen(true));
+    closeMenu.addEventListener("click", () => setOpen(false));
+    overlay.addEventListener("click", (e) => {
+      if(e.target === overlay) setOpen(false);
+    });
 
-document.getElementById("leadForm").addEventListener("submit", function(e){
-  e.preventDefault();
-  const data = new FormData(this);
-  const subject = encodeURIComponent("Demande vidéo professionnelle");
-  const body = encodeURIComponent(
-    "Nom: " + data.get("name") + "\n" +
-    "Entreprise: " + data.get("company") + "\n" +
-    "Email: " + data.get("email") + "\n\n" +
-    "Message:\n" + data.get("message")
-  );
-  window.location.href = "mailto:contact@studio-bastide-production.fr?subject=" + subject + "&body=" + body;
-});
-</script>
+    // Close overlay when clicking a link
+    overlay.querySelectorAll("a").forEach(a => {
+      a.addEventListener("click", () => setOpen(false));
+    });
 
+    // Contact -> mailto
+    document.getElementById("leadForm").addEventListener("submit", function(e){
+      e.preventDefault();
+      const fd = new FormData(this);
+      const name = (fd.get("name") || "").toString().trim();
+      const company = (fd.get("company") || "").toString().trim();
+      const email = (fd.get("email") || "").toString().trim();
+      const message = (fd.get("message") || "").toString().trim();
+
+      const subject = encodeURIComponent("Demande vidéo entreprise — " + (company || name || "Studio Bastide"));
+      const body = encodeURIComponent(
+`Nom: ${name}
+Entreprise: ${company}
+Email: ${email}
+
+Besoin:
+${message}`
+      );
+
+      window.location.href = `mailto:contact@studio-bastide-production.fr?subject=${subject}&body=${body}`;
+    });
+  </script>
 </body>
 </html>
