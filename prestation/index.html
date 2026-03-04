@@ -40,7 +40,7 @@
     .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;font-size:13px;font-weight:600;letter-spacing:.05em;border-radius:2px;border:none;transition:all .22s ease;white-space:nowrap;}
     .btn-primary{background:var(--orange);color:#fff;}
     .btn-primary:hover{background:#c72f08;transform:translateY(-1px);}
-    .btn-outline{background:transparent;color:var(--white);border:1px solid var(--border-med);}
+    .btn-outline{background:transparent;color:#0A0A0A;border:1.5px solid rgba(0,0,0,.3);}
     .btn-outline:hover{border-color:rgba(0,0,0,.4);background:rgba(0,0,0,.04);}
 
     /* NAV */
@@ -88,19 +88,19 @@
     .pitch-txt p{color:rgba(0,0,0,.60);font-size:15px;margin-bottom:14px;}
     .avantage{display:flex;align-items:flex-start;gap:14px;margin-top:28px;padding:18px 20px;background:rgba(232,57,12,.06);border:1px solid rgba(232,57,12,.18);border-radius:2px;}
     .avantage-txt{font-size:13px;color:rgba(0,0,0,.65);line-height:1.7;}
-    .avantage-txt strong{color:var(--white);}
+    .avantage-txt strong{color:#111;}
 
     /* TARIFS */
     #tarifs{background:var(--black);}
     .tarifs-hd{margin-bottom:60px;}
-    .tarifs-hd p{color:var(--grey-l);font-size:15px;max-width:560px;margin-top:14px;}
+    .tarifs-hd p{color:rgba(0,0,0,.60);font-size:15px;max-width:560px;margin-top:14px;}
     .ht-note{display:inline-flex;align-items:center;gap:8px;margin-top:18px;padding:10px 16px;background:var(--card);border:1px solid var(--border);border-radius:2px;font-size:12px;color:var(--grey);}
-    .ht-note strong{color:rgba(255,255,255,.75);}
+    .ht-note strong{color:#111;}
 
     /* Blocs catégorie */
     .cat-block{margin-bottom:56px;}
     .cat-title{display:flex;align-items:center;gap:14px;margin-bottom:24px;padding-bottom:14px;border-bottom:1px solid var(--border);}
-    .cat-title h3{font-family:var(--ft);font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.35);}
+    .cat-title h3{font-family:var(--ft);font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.45);}
     .cat-title::before{content:'';display:block;width:4px;height:18px;background:var(--orange);border-radius:1px;}
 
     .tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
@@ -124,7 +124,7 @@
     .tc-feats li{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:rgba(0,0,0,.55);line-height:1.5;}
     .tc-feats li::before{content:'→';color:var(--orange);font-size:10px;flex-shrink:0;margin-top:3px;}
     .tarifs-cta{text-align:center;padding:18px;background:var(--card);border:1px solid var(--border);border-radius:2px;font-size:13px;color:var(--grey);}
-    .tarifs-cta strong{color:rgba(255,255,255,.8);}
+    .tarifs-cta strong{color:#111;}
     .tarifs-cta a{color:var(--orange);margin-left:6px;}
 
     /* POUR QUI */
@@ -135,7 +135,7 @@
     .cible-icon{font-size:26px;margin-bottom:12px;}
     .cible-name{font-family:var(--ft);font-size:13px;font-weight:600;margin-bottom:10px;}
     .cible-list{list-style:none;display:flex;flex-direction:column;gap:5px;}
-    .cible-list li{font-size:12px;color:var(--grey);}
+    .cible-list li{font-size:12px;color:#555;}
     .cible-list li::before{content:'· ';}
 
     /* PROCESS */
@@ -153,7 +153,7 @@
     .dep-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--orange);}
     .dep-left h2{margin-bottom:18px;font-size:clamp(20px,2.8vw,36px);}
     .dep-zones{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px;}
-    .ztag{display:inline-block;padding:5px 13px;font-size:11.5px;font-weight:600;letter-spacing:.04em;border:1px solid var(--border);border-radius:1px;color:rgba(255,255,255,.75);}
+    .ztag{display:inline-block;padding:5px 13px;font-size:11.5px;font-weight:600;letter-spacing:.04em;border:1px solid var(--border);border-radius:1px;color:rgba(0,0,0,.65);}
     .ztag.main{background:var(--odim);border-color:rgba(232,57,12,.28);color:var(--orange);}
     .dep-left p{font-size:14px;color:rgba(0,0,0,.60);line-height:1.8;}
     .dep-left p+p{margin-top:10px;}
@@ -164,8 +164,8 @@
     /* CLIENTS */
     #clients{background:var(--black);}
     .logos{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:36px 52px;margin-bottom:36px;}
-    .logos img{height:38px;width:auto;max-width:120px;object-fit:contain;opacity:.5;transition:opacity .22s;}
-    .logos img:hover{opacity:1;}
+    .logos img{height:38px;width:auto;max-width:120px;object-fit:contain;opacity:1;transition:opacity .22s;}
+    .logos img:hover{opacity:.8;}
     .alpine-ref{display:flex;flex-direction:column;align-items:center;gap:10px;}
     .alpine-ref-inner{display:inline-flex;align-items:center;gap:12px;padding:12px 20px;background:var(--card);border:1px solid var(--border-med);border-radius:2px;font-size:12.5px;color:rgba(0,0,0,.60);max-width:100%;}
     .alpine-ref-inner img{height:20px;opacity:1;filter:none;}
@@ -180,12 +180,12 @@
     .c-link:hover{color:var(--orange);}
     .c-icon{width:36px;height:36px;border:1px solid rgba(0,0,0,.15);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;transition:border-color .2s;}
     .c-link:hover .c-icon{border-color:var(--orange);}
-    .c-timing{font-size:12px;color:#555;padding:12px 14px;background:#F0F0F0;border:1px solid rgba(0,0,0,.12);border-radius:2px;margin-top:8px;}
-    .c-timing strong{color:rgba(255,255,255,.7);}
+    .c-timing{font-size:12px;color:#444;padding:12px 14px;background:#F0F0F0;border:1px solid rgba(0,0,0,.12);border-radius:2px;margin-top:8px;}
+    .c-timing strong{color:#111;font-weight:600;}
     .cform{background:var(--card);border:1px solid var(--border);border-radius:2px;padding:38px 36px;}
     .fg{margin-bottom:15px;}
     .fg label{display:block;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#666;margin-bottom:7px;}
-    .fg input,.fg textarea,.fg select{width:100%;background:rgba(0,0,0,.04);border:1px solid var(--border);border-radius:2px;padding:10px 13px;color:var(--white);font-family:var(--fb);font-size:14px;outline:none;transition:border-color .2s,background .2s;-webkit-appearance:none;}
+    .fg input,.fg textarea,.fg select{width:100%;background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.15);border-radius:2px;padding:10px 13px;color:#0A0A0A;font-family:var(--fb);font-size:14px;outline:none;transition:border-color .2s,background .2s;-webkit-appearance:none;}
     .fg input:focus,.fg textarea:focus,.fg select:focus{border-color:rgba(232,57,12,.45);background:rgba(0,0,0,.06);}
     .fg textarea{resize:vertical;min-height:96px;}
     .fg select option{background:#fff;}
@@ -203,10 +203,10 @@
     .foot-links a:hover{color:var(--orange);}
     .foot-bot{display:flex;align-items:center;justify-content:space-between;padding-top:26px;border-top:1px solid var(--border);gap:14px;flex-wrap:wrap;}
     .foot-copy{font-size:12px;color:var(--grey);}
-    .foot-sub{font-size:12px;color:rgba(255,255,255,.2);}
+    .foot-sub{font-size:12px;color:rgba(0,0,0,.4);}
 
     /* SCROLL TOP */
-    #stb{position:fixed;bottom:30px;right:30px;z-index:90;width:42px;height:42px;background:var(--card);border:1px solid var(--border-med);border-radius:2px;color:#0A0A0A;font-size:17px;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s,background .2s;pointer-events:none;}
+    #stb{position:fixed;bottom:30px;right:30px;z-index:90;width:42px;height:42px;background:var(--card);border:1px solid rgba(0,0,0,.2);border-radius:2px;color:#0A0A0A;font-size:17px;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s,background .2s;pointer-events:none;}
     #stb.on{opacity:1;transform:translateY(0);pointer-events:all;}
     #stb:hover{background:var(--orange);border-color:var(--orange);}
 
@@ -224,7 +224,7 @@
     .ch-info span{font-size:11px;color:#777;display:flex;align-items:center;gap:5px;}
     .ch-info span::before{content:'';width:6px;height:6px;border-radius:50%;background:#22c55e;display:inline-block;}
     .ch-x{background:none;border:none;color:#666;font-size:22px;line-height:1;padding:2px 6px;transition:color .2s;}
-    .ch-x:hover{color:#fff;}
+    .ch-x:hover{color:#111;}
     .ch-msgs{flex:1;overflow-y:auto;padding:18px 14px;display:flex;flex-direction:column;gap:12px;scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.15) transparent;}
     .ch-msgs::-webkit-scrollbar{width:4px;}
     .ch-msgs::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:2px;}
@@ -237,7 +237,7 @@
     .msg.user .msg-bub{background:var(--orange);color:#fff;border-bottom-right-radius:2px;}
     .msg-bub a{color:inherit;text-decoration:underline;opacity:.85;}
     .ch-chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px 10px;flex-shrink:0;}
-    .chip{padding:6px 12px;font-size:12px;font-weight:500;border:1px solid var(--border-med);border-radius:20px;background:transparent;color:rgba(0,0,0,.70);cursor:pointer;transition:all .18s;white-space:nowrap;}
+    .chip{padding:6px 12px;font-size:12px;font-weight:500;border:1px solid rgba(0,0,0,.2);border-radius:20px;background:transparent;color:rgba(0,0,0,.70);cursor:pointer;transition:all .18s;white-space:nowrap;}
     .chip:hover{border-color:var(--orange);color:var(--orange);background:var(--odim);}
     .ch-bar{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--border);flex-shrink:0;}
     #ch-input{flex:1;background:rgba(0,0,0,.04);border:1px solid var(--border);border-radius:6px;padding:9px 12px;color:#0A0A0A;font-family:var(--fb);font-size:13px;outline:none;transition:border-color .2s;}
@@ -678,6 +678,7 @@
         <div><strong>Pub concept car Alpine</strong> <span style="color:var(--grey)">·</span> <span>marque automobile premium française</span></div>
       </div>
       <div class="alpine-ref-inner">
+        <img src="../assets/logos/alto.png" alt="Alto Watches">
         <div><strong>Making-of Alto Watches</strong> <span style="color:var(--grey)">·</span> <span>marque horlogère de luxe française</span></div>
       </div>
     </div>
