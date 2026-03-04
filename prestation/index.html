@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Prestations Photo & Vidéo : Studio Bastide</title>
-  <link rel="icon" type="image/png" href="/vitrine/assets/img/LOGO%201%20NOIR%20.png">
-  <link rel="apple-touch-icon" href="/vitrine/assets/img/LOGO%201%20NOIR%20.png">
+  <link rel="icon" type="image/png" href="/vitrine/assets/img/logo_square.jpg">
+  <link rel="apple-touch-icon" href="/vitrine/assets/img/logo_square.jpg">
   <meta name="description" content="Photo, vidéo, drone, clips, live sessions, contenu réseaux sociaux. Studio Bastide Production, 10 place de l'Église, Saint-Sulpice-la-Pointe (81370), Occitanie." />
   <style>
     @font-face{font-family:'Panchang';src:url('/vitrine/assets/fonts/Panchang-Regular.otf') format('opentype');font-weight:400;font-display:swap;}
@@ -47,16 +47,16 @@
     #nav{position:fixed;top:0;left:0;right:0;z-index:200;height:70px;display:flex;align-items:center;background:rgba(255,255,255,.90);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--border);transition:background .3s;}
     #nav.scrolled{background:rgba(255,255,255,.99);}
     .nav-in{max-width:var(--w);margin:0 auto;padding:0 var(--px);width:100%;display:flex;align-items:center;justify-content:space-between;gap:24px;}
-    .nav-logo img{height:30px;}
+    .nav-logo img{height:34px;width:auto;display:block;}
     .nav-links{display:flex;align-items:center;gap:20px;list-style:none;}
     .nav-links a{font-size:12px;font-weight:500;color:rgba(0,0,0,.60);letter-spacing:.01em;transition:color .2s;white-space:nowrap;}
-    .nav-links a:hover{color:#fff;}
+    .nav-links a:hover{color:var(--orange);}
     .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:4px;}
     .burger span{display:block;width:22px;height:2px;background:#0A0A0A;border-radius:1px;transition:all .28s ease;}
     .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
     .burger.open span:nth-child(2){opacity:0;}
     .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-    #mob{position:fixed;inset:0;z-index:199;background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:36px;opacity:0;pointer-events:none;transition:opacity .3s;}
+    #mob{position:fixed;inset:0;z-index:199;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:36px;opacity:0;pointer-events:none;transition:opacity .3s;}
     #mob.open{opacity:1;pointer-events:all;}
     #mob a{font-family:var(--ft);font-size:24px;font-weight:600;color:#0A0A0A;transition:color .2s;}
     #mob a:hover{color:var(--orange);}
@@ -74,7 +74,7 @@
     .pill{display:inline-flex;align-items:center;gap:7px;padding:6px 14px;font-size:11.5px;font-weight:500;border:1px solid var(--border);border-radius:20px;color:rgba(0,0,0,.55);word-break:keep-all;}
     .pill::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--orange);flex-shrink:0;}
     .hero-btns{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
-    .scroll-hint{position:absolute;bottom:44px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,0,0,.25);z-index:1;}
+    .scroll-hint{position:absolute;bottom:44px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,0,0,.3);z-index:1;}
     .scroll-hint::after{content:'';width:1px;height:44px;background:linear-gradient(to bottom,rgba(0,0,0,.25),transparent);animation:hint 2s ease-in-out infinite;}
     @keyframes hint{0%,100%{opacity:.3}50%{opacity:1}}
 
@@ -100,7 +100,7 @@
     /* Blocs catégorie */
     .cat-block{margin-bottom:56px;}
     .cat-title{display:flex;align-items:center;gap:14px;margin-bottom:24px;padding-bottom:14px;border-bottom:1px solid var(--border);}
-    .cat-title h3{font-family:var(--ft);font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);}
+    .cat-title h3{font-family:var(--ft);font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(0,0,0,.35);}
     .cat-title::before{content:'';display:block;width:4px;height:18px;background:var(--orange);border-radius:1px;}
 
     .tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
@@ -113,7 +113,7 @@
     .tc:hover::before{background:var(--orange);}
     .tc.hot{border-color:var(--orange);background:linear-gradient(140deg,#fde8e0 0%,var(--card) 55%);}
     .tc.hot::before{background:var(--orange);}
-    .tc-badge{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--orange);background:var(--odim);padding:3px 9px;border-radius:1px;margin-bottom:14px;align-self:flex-start;}
+    .tc-badge{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--orange);background:rgba(232,57,12,.08);padding:3px 9px;border-radius:1px;margin-bottom:14px;align-self:flex-start;}
     .tc-icon{font-size:24px;margin-bottom:12px;}
     .tc-name{font-family:var(--ft);font-size:15px;font-weight:600;margin-bottom:6px;line-height:1.2;}
     .tc-desc{font-size:12.5px;color:#555;line-height:1.65;flex:1;margin-bottom:18px;}
@@ -131,7 +131,7 @@
     #pourqui{background:var(--dark);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
     .cibles{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
     .cible{background:var(--card);border:1px solid var(--border);border-radius:2px;padding:26px 22px;transition:border-color .2s;}
-    .cible:hover{border-color:rgba(232,57,12,.3);}
+    .cible:hover{border-color:var(--orange);}
     .cible-icon{font-size:26px;margin-bottom:12px;}
     .cible-name{font-family:var(--ft);font-size:13px;font-weight:600;margin-bottom:10px;}
     .cible-list{list-style:none;display:flex;flex-direction:column;gap:5px;}
@@ -149,7 +149,7 @@
 
     /* DÉPLACEMENTS */
     #deplacements{background:var(--dark);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
-    .dep-card{background:var(--card);border:1px solid var(--border);border-radius:2px;padding:52px 56px;display:grid;grid-template-columns:1fr auto;gap:56px;align-items:center;position:relative;overflow:hidden;}
+    .dep-card{background:#EBEBEB;border:1px solid var(--border);border-radius:2px;padding:52px 56px;display:grid;grid-template-columns:1fr auto;gap:56px;align-items:center;position:relative;overflow:hidden;}
     .dep-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--orange);}
     .dep-left h2{margin-bottom:18px;font-size:clamp(20px,2.8vw,36px);}
     .dep-zones{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px;}
@@ -169,18 +169,18 @@
     .alpine-ref{display:flex;flex-direction:column;align-items:center;gap:10px;}
     .alpine-ref-inner{display:inline-flex;align-items:center;gap:12px;padding:12px 20px;background:var(--card);border:1px solid var(--border-med);border-radius:2px;font-size:12.5px;color:rgba(0,0,0,.60);max-width:100%;}
     .alpine-ref-inner img{height:20px;opacity:1;filter:none;}
-    .alpine-ref-inner strong{color:#fff;}
+    .alpine-ref-inner strong{color:#0A0A0A;}
     .alpine-ref-inner span{color:var(--orange);}
 
     /* CONTACT */
     #contact{background:var(--dark);border-top:1px solid var(--border);}
     .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:88px;align-items:flex-start;}
     .contact-l p{color:rgba(0,0,0,.60);font-size:15px;line-height:1.8;margin-bottom:24px;}
-    .c-link{display:flex;align-items:center;gap:12px;font-size:13.5px;color:rgba(255,255,255,.65);transition:color .2s;margin-bottom:12px;}
+    .c-link{display:flex;align-items:center;gap:12px;font-size:13.5px;color:rgba(0,0,0,.65);transition:color .2s;margin-bottom:12px;}
     .c-link:hover{color:var(--orange);}
-    .c-icon{width:36px;height:36px;border:1px solid var(--border);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;transition:border-color .2s;}
+    .c-icon{width:36px;height:36px;border:1px solid rgba(0,0,0,.15);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;transition:border-color .2s;}
     .c-link:hover .c-icon{border-color:var(--orange);}
-    .c-timing{font-size:12px;color:#666;padding:12px 14px;background:var(--card);border:1px solid var(--border);border-radius:2px;margin-top:8px;}
+    .c-timing{font-size:12px;color:#555;padding:12px 14px;background:#F0F0F0;border:1px solid rgba(0,0,0,.12);border-radius:2px;margin-top:8px;}
     .c-timing strong{color:rgba(255,255,255,.7);}
     .cform{background:var(--card);border:1px solid var(--border);border-radius:2px;padding:38px 36px;}
     .fg{margin-bottom:15px;}
@@ -200,7 +200,7 @@
     .foot-top img{height:26px;}
     .foot-links{display:flex;gap:26px;list-style:none;}
     .foot-links a{font-size:13px;color:#666;transition:color .2s;}
-    .foot-links a:hover{color:#fff;}
+    .foot-links a:hover{color:var(--orange);}
     .foot-bot{display:flex;align-items:center;justify-content:space-between;padding-top:26px;border-top:1px solid var(--border);gap:14px;flex-wrap:wrap;}
     .foot-copy{font-size:12px;color:var(--grey);}
     .foot-sub{font-size:12px;color:rgba(255,255,255,.2);}
@@ -384,7 +384,7 @@
     <div class="tarifs-hd">
       <div class="label">Tarifs</div>
       <h2>Des prix clairs,<br>sans surprise.</h2>
-      <p>Tous les tarifs sont indiqués <strong style="color:rgba(255,255,255,.85)">hors taxes (HT)</strong>. TVA 20% applicable à la facturation.</p>
+      <p>Tous les tarifs sont indiqués <strong style="color:#0A0A0A">hors taxes (HT)</strong>. TVA 20% applicable à la facturation.</p>
       <div class="ht-note"><strong>Note :</strong> devis personnalisé envoyé sous 48h pour tout projet spécifique.</div>
     </div>
 
@@ -691,10 +691,6 @@
         <div class="label">Contact</div>
         <h2>Parlons de<br>votre projet.</h2>
         <p>Un devis, une question, une idée à creuser : on vous répond sous 48h, sans engagement.</p>
-        <a href="/cdn-cgi/l/email-protection#c2b1b6b7a6abada0a3b1b6aba6a7eca1adacb6a3a1b682a5afa3abaeeca1adaf" class="c-link">
-          <span class="c-icon">✉</span>
-          <span class="__cf_email__" data-cfemail="592a2d2c3d30363b382a2d303d3c773a36372d383a2d193e34383035773a3634">[email&#160;protected]</span>
-        </a>
         <a href="https://maps.google.com/?q=10+place+de+l+Eglise+Saint-Sulpice-la-Pointe+81370" target="_blank" rel="noopener noreferrer" class="c-link">
           <span class="c-icon">📍</span>
           10 place de l'Église, Saint-Sulpice-la-Pointe (81370)
@@ -754,7 +750,7 @@
           ✅ <strong>Message envoyé !</strong> On vous répond sous 48h ouvrées.
         </div>
         <div id="form-error" style="display:none;margin-top:16px;padding:14px 16px;background:rgba(232,57,12,0.08);border:1px solid rgba(232,57,12,0.25);border-radius:2px;font-size:13px;color:#f87171;line-height:1.6;">
-          ❌ Une erreur est survenue. Réessayez ou écrivez directement à <a href="/cdn-cgi/l/email-protection#33404746575a5c515240475a57561d505c5d4752504773545e525a5f1d505c5e" style="color:inherit"><span class="__cf_email__" data-cfemail="56252223323f39343725223f3233783539382237352216313b373f3a7835393b">[email&#160;protected]</span></a>
+          ❌ Une erreur est survenue. Réessayez ou écrivez directement à <strong>studiobastide.contact@gmail.com</strong>
         </div>
         <p class="fnote">Déplacements au-delà de 15 km : frais précisés au devis. Tous les prix sont HT, TVA 20% applicable à la facturation.</p>
       </div>
