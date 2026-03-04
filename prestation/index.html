@@ -1,784 +1,1405 @@
-<!DOCTYPE html>
-<html lang="fr">
+# PATCH — /prestation/index.html
+# Copier-coller chaque bloc à l'endroit indiqué en commentaire.
+
+---
+
+## A) BLOC HEAD — remplacer tout le contenu du <head> existant
+
+```html
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Studio Bastide — Prestations Vidéo</title>
-  <style>
-    /* ── POLICES CUSTOM ── */
-    @font-face { font-family: 'Panchang'; src: url('assets/fonts/Panchang-Extralight.otf'); font-weight: 200; }
-    @font-face { font-family: 'Panchang'; src: url('assets/fonts/Panchang-Light.otf');      font-weight: 300; }
-    @font-face { font-family: 'Panchang'; src: url('assets/fonts/Panchang-Regular.otf');    font-weight: 400; }
-    @font-face { font-family: 'Panchang'; src: url('assets/fonts/Panchang-Medium.otf');     font-weight: 500; }
-    @font-face { font-family: 'Panchang'; src: url('assets/fonts/Panchang-Semibold.otf');   font-weight: 600; }
-    @font-face { font-family: 'Panchang'; src: url('assets/fonts/Panchang-Bold.otf');       font-weight: 700; }
-    @font-face { font-family: 'Panchang'; src: url('assets/fonts/Panchang-Extrabold.otf');  font-weight: 800; }
+  <title>Prestations Vidéo — Studio Bastide</title>
+  <meta name="description" content="Tournage, montage, motion design, captation live : découvrez nos prestations vidéo professionnelles. Studio Bastide, Tarn, Occitanie, France." />
 
-    @font-face { font-family: 'Switzer'; src: url('assets/fonts/Switzer-Extralight.otf');        font-weight: 200; font-style: normal; }
-    @font-face { font-family: 'Switzer'; src: url('assets/fonts/Switzer-ExtralightItalic.otf');  font-weight: 200; font-style: italic; }
-    @font-face { font-family: 'Switzer'; src: url('assets/fonts/Switzer-Light.otf');             font-weight: 300; font-style: normal; }
-    @font-face { font-family: 'Switzer'; src: url('assets/fonts/Switzer-LightItalic.otf');       font-weight: 300; font-style: italic; }
-    @font-face { font-family: 'Switzer'; src: url('assets/fonts/Switzer-Italic.otf');            font-weight: 400; font-style: italic; }
-    @font-face { font-family: 'Switzer'; src: url('assets/fonts/Switzer-Medium.otf');            font-weight: 500; font-style: normal; }
-    @font-face { font-family: 'Switzer'; src: url('assets/fonts/Switzer-MediumItalic.otf');      font-weight: 500; font-style: italic; }
-    @font-face { font-family: 'Switzer'; src: url('assets/fonts/Switzer-Bold.otf');              font-weight: 700; font-style: normal; }
-    @font-face { font-family: 'Switzer'; src: url('assets/fonts/Switzer-BoldItalic.otf');        font-weight: 700; font-style: italic; }
-    @font-face { font-family: 'Switzer'; src: url('assets/fonts/Switzer-Extrabold.otf');         font-weight: 800; font-style: normal; }
-    @font-face { font-family: 'Switzer'; src: url('assets/fonts/Switzer-ExtraboldItalic.otf');   font-weight: 800; font-style: italic; }
-    @font-face { font-family: 'Switzer'; src: url('assets/fonts/Switzer-Black.otf');             font-weight: 900; font-style: normal; }
-    @font-face { font-family: 'Switzer'; src: url('assets/fonts/Switzer-BlackItalic.otf');       font-weight: 900; font-style: italic; }
+  <!-- FONTS -->
+  <style>
+    /* Panchang */
+    @font-face {
+      font-family: 'Panchang';
+      src: url('../assets/fonts/Panchang-Regular.otf') format('opentype');
+      font-weight: 400; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Panchang';
+      src: url('../assets/fonts/Panchang-Medium.otf') format('opentype');
+      font-weight: 500; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Panchang';
+      src: url('../assets/fonts/Panchang-Semibold.otf') format('opentype');
+      font-weight: 600; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Panchang';
+      src: url('../assets/fonts/Panchang-Bold.otf') format('opentype');
+      font-weight: 700; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Panchang';
+      src: url('../assets/fonts/Panchang-Extrabold.otf') format('opentype');
+      font-weight: 800; font-style: normal; font-display: swap;
+    }
+    /* Switzer */
+    @font-face {
+      font-family: 'Switzer';
+      src: url('../assets/fonts/Switzer-Regular.otf') format('opentype');
+      font-weight: 400; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Switzer';
+      src: url('../assets/fonts/Switzer-Medium.otf') format('opentype');
+      font-weight: 500; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Switzer';
+      src: url('../assets/fonts/Switzer-Semibold.otf') format('opentype');
+      font-weight: 600; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Switzer';
+      src: url('../assets/fonts/Switzer-Light.otf') format('opentype');
+      font-weight: 300; font-style: normal; font-display: swap;
+    }
+  </style>
+
+  <style>
+    /* =============================================
+       DESIGN SYSTEM — STUDIO BASTIDE
+       ============================================= */
+    :root {
+      --c-black:   #0A0A0A;
+      --c-dark:    #111111;
+      --c-card:    #161616;
+      --c-border:  rgba(255,255,255,0.08);
+      --c-white:   #FFFFFF;
+      --c-grey:    #8A8A8A;
+      --c-orange:  #E8390C;
+      --c-orange-dim: rgba(232,57,12,0.12);
+
+      --font-title: 'Panchang', sans-serif;
+      --font-body:  'Switzer', sans-serif;
+
+      --container: 1140px;
+      --px-desktop: 52px;
+      --px-mobile:  24px;
+
+      --section-v: 110px;
+      --section-v-mob: 72px;
+    }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --rouge:      #E8390C;
-      --rouge-dark: #c42e08;
-      --noir:       #0d0d0d;
-      --noir-2:     #141414;
-      --noir-3:     #1e1e1e;
-      --blanc:      #ffffff;
-      --gris:       #7a7a7a;
-      --gris-clair: #c8c8c8;
-    }
 
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--noir);
-      color: var(--blanc);
-      font-family: 'Switzer', sans-serif;
+      background: var(--c-black);
+      color: var(--c-white);
+      font-family: var(--font-body);
       font-weight: 400;
-      overflow-x: hidden;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 0 52px; height: 70px;
-      background: var(--noir);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* CONTAINER */
+    .container {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 var(--px-desktop);
     }
 
-    .nav-logo { display: flex; align-items: center; text-decoration: none; }
-    .nav-logo img { height: 34px; width: auto; }
-
-    .nav-links { display: flex; gap: 36px; list-style: none; }
-    .nav-links a {
-      font-family: 'Switzer', sans-serif; font-size: 0.75rem; font-weight: 600;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--gris-clair); text-decoration: none; transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--rouge); }
-
-    .nav-cta {
-      font-family: 'Switzer', sans-serif; font-size: 0.75rem; font-weight: 700;
-      letter-spacing: 0.07em; text-transform: uppercase;
-      color: var(--blanc); background: var(--rouge);
-      padding: 11px 26px; border-radius: 5px; text-decoration: none; transition: background 0.2s;
-    }
-    .nav-cta:hover { background: var(--rouge-dark); }
-
-    /* ── HERO ── */
-    .hero {
-      min-height: 100vh; display: flex; align-items: flex-end;
-      padding: 0 52px 90px; position: relative; overflow: hidden;
+    /* SECTION */
+    section {
+      padding: var(--section-v) 0;
     }
 
-    .hero-bg {
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, #0d0d0d 55%, #1a0a06 100%);
+    /* LABEL SURTITRE */
+    .label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-orange);
+      margin-bottom: 20px;
+    }
+    .label::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--c-orange);
+      flex-shrink: 0;
     }
 
-    /* Grand B en filigrane */
-    .hero-b {
-      position: absolute; right: -40px; top: 50%; transform: translateY(-50%);
-      height: 90vh; opacity: 0.035; pointer-events: none; user-select: none;
+    /* TITRES */
+    h1, h2, h3, h4 {
+      font-family: var(--font-title);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
     }
+    h1 { font-size: clamp(40px, 6vw, 80px); }
+    h2 { font-size: clamp(28px, 4vw, 52px); }
+    h3 { font-size: clamp(18px, 2.5vw, 26px); }
 
-    /* Trait rouge vertical déco */
-    .hero-line {
-      position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
-      background: var(--rouge);
+    /* BOUTON */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.22s ease;
+      border: none;
     }
-
-    .hero-content { position: relative; z-index: 2; max-width: 760px; }
-
-    .hero-label {
-      font-family: 'Switzer', sans-serif; font-size: 0.7rem; font-weight: 700;
-      letter-spacing: 0.22em; text-transform: uppercase; color: var(--rouge);
-      display: flex; align-items: center; gap: 12px; margin-bottom: 30px;
-      opacity: 0; animation: fadeUp 0.6s 0.1s forwards;
-    }
-    .hero-label::before { content: ''; width: 32px; height: 2px; background: var(--rouge); flex-shrink: 0; }
-
-    .hero h1 {
-      font-family: 'Panchang', sans-serif; font-weight: 800;
-      font-size: clamp(3.2rem, 8vw, 6.2rem);
-      line-height: 1.0; letter-spacing: -0.02em;
-      margin-bottom: 30px;
-      opacity: 0; animation: fadeUp 0.7s 0.22s forwards;
-    }
-    .hero h1 .accent { color: var(--rouge); }
-
-    .hero-sub {
-      font-family: 'Switzer', sans-serif; font-size: 1.05rem; font-weight: 400;
-      color: var(--gris-clair); line-height: 1.75; max-width: 540px;
-      margin-bottom: 44px;
-      opacity: 0; animation: fadeUp 0.7s 0.36s forwards;
-    }
-
-    .hero-badges {
-      display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 44px;
-      opacity: 0; animation: fadeUp 0.7s 0.46s forwards;
-    }
-    .badge {
-      font-family: 'Switzer', sans-serif; font-size: 0.72rem; font-weight: 600;
-      padding: 8px 18px; border-radius: 3px;
-      border: 1px solid rgba(255,255,255,0.13); color: var(--gris-clair);
-    }
-
-    .hero-actions {
-      display: flex; gap: 14px; flex-wrap: wrap;
-      opacity: 0; animation: fadeUp 0.7s 0.56s forwards;
-    }
-
     .btn-primary {
-      font-family: 'Switzer', sans-serif; font-size: 0.82rem; font-weight: 700;
-      letter-spacing: 0.07em; text-transform: uppercase;
-      color: var(--blanc); background: var(--rouge);
-      padding: 15px 36px; border-radius: 5px; text-decoration: none;
-      transition: all 0.2s; display: inline-block;
+      background: var(--c-orange);
+      color: var(--c-white);
     }
-    .btn-primary:hover { background: var(--rouge-dark); transform: translateY(-2px); }
-
+    .btn-primary:hover {
+      background: #c72f08;
+      transform: translateY(-1px);
+    }
     .btn-outline {
-      font-family: 'Switzer', sans-serif; font-size: 0.82rem; font-weight: 600;
-      letter-spacing: 0.07em; text-transform: uppercase;
-      color: var(--blanc); border: 1.5px solid rgba(255,255,255,0.2);
-      padding: 14px 32px; border-radius: 5px; text-decoration: none;
-      transition: all 0.2s; display: inline-block;
+      background: transparent;
+      color: var(--c-white);
+      border: 1px solid var(--c-border);
     }
-    .btn-outline:hover { border-color: var(--rouge); color: var(--rouge); }
-
-    /* ── SECTIONS ── */
-    section { padding: 100px 52px; }
-
-    .section-eyebrow {
-      font-family: 'Switzer', sans-serif; font-size: 0.67rem; font-weight: 700;
-      letter-spacing: 0.22em; text-transform: uppercase; color: var(--rouge);
-      display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
-    }
-    .section-eyebrow::before { content: ''; width: 20px; height: 2px; background: var(--rouge); }
-
-    .section-title {
-      font-family: 'Panchang', sans-serif; font-weight: 700;
-      font-size: clamp(1.9rem, 3.5vw, 2.8rem);
-      line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 10px;
-    }
-    .section-desc {
-      font-family: 'Switzer', sans-serif; font-size: 0.92rem; font-weight: 400;
-      color: var(--gris-clair); line-height: 1.72; max-width: 500px;
+    .btn-outline:hover {
+      border-color: rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.04);
     }
 
-    .section-header {
-      display: flex; justify-content: space-between; align-items: flex-end;
-      gap: 40px; margin-bottom: 64px; flex-wrap: wrap;
+    /* SÉPARATEUR */
+    .sep {
+      width: 100%;
+      height: 1px;
+      background: var(--c-border);
+      margin: 0;
     }
 
-    hr.divider { border: none; border-top: 1px solid rgba(255,255,255,0.07); margin: 0 52px; }
+    /* =============================================
+       NAVBAR
+       ============================================= */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      background: rgba(10,10,10,0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--c-border);
+      transition: background 0.3s;
+    }
+    #navbar .nav-inner {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 var(--px-desktop);
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    #navbar .nav-logo img {
+      height: 32px;
+      width: auto;
+    }
+    #navbar .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+    #navbar .nav-links a {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    #navbar .nav-links a:hover { color: var(--c-white); }
+    #navbar .nav-cta { margin-left: 24px; }
 
-    /* ── CATEGORY TAGS ── */
-    .cat-tag {
-      display: inline-block; font-family: 'Switzer', sans-serif;
-      font-size: 0.64rem; font-weight: 700; letter-spacing: 0.16em;
-      text-transform: uppercase; padding: 5px 15px; border-radius: 3px;
-      margin-bottom: 10px; margin-top: 56px;
+    /* Burger */
+    .burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
     }
-    .cat-tag-rouge { background: rgba(232,57,12,0.14); color: var(--rouge); }
-    .cat-tag-vert  { background: rgba(34,190,100,0.11); color: #28d46e; }
-    .cat-tag-bleu  { background: rgba(80,155,240,0.11); color: #70b8f8; }
+    .burger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--c-white);
+      transition: all 0.3s;
+      border-radius: 1px;
+    }
+    .burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .burger.open span:nth-child(2) { opacity: 0; }
+    .burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-    .cat-title {
-      font-family: 'Panchang', sans-serif; font-weight: 600;
-      font-size: 1.35rem; margin-bottom: 4px;
+    /* Mobile overlay */
+    #mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: var(--c-black);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
     }
-    .cat-desc {
-      font-family: 'Switzer', sans-serif; font-size: 0.8rem;
-      font-weight: 400; color: var(--gris); margin-bottom: 28px;
+    #mobile-menu.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    #mobile-menu a {
+      font-family: var(--font-title);
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--c-white);
+      letter-spacing: -0.01em;
+      transition: color 0.2s;
+    }
+    #mobile-menu a:hover { color: var(--c-orange); }
+    #mobile-menu .mobile-cta { margin-top: 16px; }
+
+    /* =============================================
+       HERO
+       ============================================= */
+    #hero {
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background: var(--c-black);
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 70% 50%, rgba(232,57,12,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 10% 80%, rgba(232,57,12,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 140px var(--px-desktop) 100px;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--c-orange);
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--c-orange);
+    }
+    #hero h1 {
+      max-width: 780px;
+      margin-bottom: 28px;
+    }
+    #hero h1 em {
+      font-style: normal;
+      color: var(--c-orange);
+    }
+    .hero-sub {
+      font-size: 17px;
+      color: rgba(255,255,255,0.6);
+      max-width: 520px;
+      line-height: 1.75;
+      margin-bottom: 48px;
+    }
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+    .hero-scroll::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
+      animation: scrollLine 1.8s ease-in-out infinite;
+    }
+    @keyframes scrollLine {
+      0%,100% { opacity: 0.3; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(0.6); }
     }
 
-    /* ── TABLEAU TARIFS ── */
-    .tarif-table { width: 100%; border-collapse: collapse; }
-
-    .tarif-table thead th {
-      font-family: 'Switzer', sans-serif; font-size: 0.6rem; font-weight: 700;
-      letter-spacing: 0.18em; text-transform: uppercase; color: var(--gris);
-      padding: 0 0 14px; text-align: left;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+    /* =============================================
+       SECTION INTRO / PITCH
+       ============================================= */
+    #pitch {
+      background: var(--c-dark);
+      border-top: 1px solid var(--c-border);
+      border-bottom: 1px solid var(--c-border);
     }
-    .tarif-table thead th.right { text-align: right; }
-
-    .tarif-table tbody tr {
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      transition: background 0.15s;
+    .pitch-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
     }
-    .tarif-table tbody tr:hover { background: rgba(232,57,12,0.04); }
-
-    .tarif-table tbody td { padding: 20px 0; vertical-align: middle; }
-
-    .tarif-table tbody td.name {
-      font-family: 'Panchang', sans-serif; font-weight: 600;
-      font-size: 0.88rem; padding-right: 24px; width: 28%;
-    }
-    .tarif-table tbody td.price {
-      font-family: 'Panchang', sans-serif; font-weight: 700;
-      font-size: 1.15rem; color: var(--rouge);
-      text-align: right; padding-right: 52px;
-      white-space: nowrap; width: 220px;
-    }
-    .tarif-table tbody td.detail {
-      font-family: 'Switzer', sans-serif; font-size: 0.78rem;
-      font-weight: 400; color: var(--gris-clair); line-height: 1.62;
-    }
-
-    .chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
-    .chip {
-      font-family: 'Switzer', sans-serif; font-size: 0.58rem; font-weight: 600;
-      padding: 3px 9px; border-radius: 2px;
-      border: 1px solid rgba(255,255,255,0.1); color: var(--gris);
-    }
-
-    /* ── PACKS CARDS ── */
-    .packs-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 12px; margin-top: 28px;
-    }
-
-    .pack-card {
-      background: var(--noir-3); border-radius: 8px; padding: 28px 24px;
-      border: 1px solid rgba(255,255,255,0.06);
-      position: relative; overflow: hidden;
-      transition: transform 0.22s, border-color 0.22s;
-    }
-    .pack-card:hover { transform: translateY(-4px); border-color: rgba(232,57,12,0.5); }
-    .pack-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0;
-      height: 2px; background: var(--rouge);
-    }
-
-    .pack-label {
-      font-family: 'Switzer', sans-serif; font-size: 0.6rem; font-weight: 700;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--rouge); background: rgba(232,57,12,0.1);
-      padding: 4px 11px; border-radius: 2px;
-      display: inline-block; margin-bottom: 16px;
-    }
-    .pack-name {
-      font-family: 'Panchang', sans-serif; font-weight: 600;
-      font-size: 1.1rem; margin-bottom: 8px; line-height: 1.2;
-    }
-    .pack-desc {
-      font-family: 'Switzer', sans-serif; font-size: 0.78rem;
-      font-weight: 400; color: var(--gris-clair); line-height: 1.6; margin-bottom: 20px;
-    }
-    .pack-price-block { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-    .pack-price {
-      font-family: 'Panchang', sans-serif; font-weight: 700;
-      font-size: 1.9rem; line-height: 1;
-    }
-    .pack-original {
-      font-family: 'Switzer', sans-serif; font-size: 0.78rem;
-      color: var(--gris); text-decoration: line-through;
-    }
-    .pack-remise {
-      font-family: 'Switzer', sans-serif; font-size: 0.62rem; font-weight: 700;
-      color: #28d46e; background: rgba(34,190,100,0.11);
-      padding: 3px 9px; border-radius: 2px;
-    }
-    .pack-note {
-      font-family: 'Switzer', sans-serif; font-size: 0.68rem;
-      color: var(--gris); margin-top: 5px;
-    }
-
-    /* ── PROCESS ── */
-    .process-section { background: var(--noir-2); }
-    .process-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      gap: 2px; margin-top: 56px;
-    }
-    .process-step {
-      background: var(--noir-3); padding: 40px 32px;
+    .pitch-img {
+      border-radius: 2px;
+      overflow: hidden;
       position: relative;
     }
-    .process-step:first-child { border-radius: 8px 0 0 8px; }
-    .process-step:last-child  { border-radius: 0 8px 8px 0; }
-    .process-step::after {
-      content: ''; position: absolute;
-      top: 40px; right: 0; width: 1px; height: 40px;
-      background: rgba(255,255,255,0.08);
+    .pitch-img img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
     }
-    .process-step:last-child::after { display: none; }
+    .pitch-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid var(--c-border);
+      border-radius: 2px;
+      pointer-events: none;
+    }
+    .pitch-text .label { margin-bottom: 20px; }
+    .pitch-text h2 { margin-bottom: 24px; }
+    .pitch-text p {
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 16px;
+      font-size: 15px;
+    }
 
-    .step-num {
-      font-family: 'Panchang', sans-serif; font-weight: 800;
-      font-size: 3rem; color: rgba(232,57,12,0.13);
-      line-height: 1; margin-bottom: 20px;
+    /* =============================================
+       TARIFS
+       ============================================= */
+    #tarifs { background: var(--c-black); }
+    .tarifs-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 64px;
+      gap: 24px;
+      flex-wrap: wrap;
     }
-    .step-name {
-      font-family: 'Panchang', sans-serif; font-weight: 600;
-      font-size: 0.9rem; letter-spacing: 0.04em;
-      text-transform: uppercase; margin-bottom: 10px;
+    .tarifs-header .note {
+      font-size: 12px;
+      color: var(--c-grey);
+      text-align: right;
+      line-height: 1.6;
+    }
+    .tarifs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+    .tarif-card {
+      background: var(--c-card);
+      border: 1px solid var(--c-border);
+      border-radius: 2px;
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      transition: border-color 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .tarif-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: transparent;
+      transition: background 0.2s;
+    }
+    .tarif-card:hover { border-color: rgba(255,255,255,0.18); }
+    .tarif-card:hover::before { background: var(--c-orange); }
+    .tarif-card.featured {
+      border-color: var(--c-orange);
+      background: linear-gradient(135deg, #1a1008 0%, var(--c-card) 100%);
+    }
+    .tarif-card.featured::before { background: var(--c-orange); }
+    .tarif-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--c-orange);
+      background: var(--c-orange-dim);
+      padding: 4px 10px;
+      border-radius: 1px;
+      margin-bottom: 20px;
+      align-self: flex-start;
+    }
+    .tarif-name {
+      font-family: var(--font-title);
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .tarif-desc {
+      font-size: 13px;
+      color: var(--c-grey);
+      margin-bottom: 28px;
+      line-height: 1.6;
+      flex: 1;
+    }
+    .tarif-price {
+      font-family: var(--font-title);
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--c-white);
+      margin-bottom: 4px;
+    }
+    .tarif-price span {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--c-grey);
+    }
+    .tarif-unit {
+      font-size: 12px;
+      color: var(--c-grey);
+      margin-bottom: 28px;
+    }
+    .tarif-sep {
+      width: 100%;
+      height: 1px;
+      background: var(--c-border);
+      margin-bottom: 24px;
+    }
+    .tarif-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .tarif-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.5;
+    }
+    .tarif-features li::before {
+      content: '→';
+      color: var(--c-orange);
+      flex-shrink: 0;
+      font-size: 12px;
+      margin-top: 1px;
+    }
+    .tarifs-note {
+      text-align: center;
+      font-size: 13px;
+      color: var(--c-grey);
+      padding: 20px;
+      border: 1px solid var(--c-border);
+      border-radius: 2px;
+      background: var(--c-card);
+    }
+    .tarifs-note strong { color: rgba(255,255,255,0.8); }
+
+    /* Grille 2 colonnes pour les cartes larges */
+    .tarifs-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    /* =============================================
+       PROCESS
+       ============================================= */
+    #process {
+      background: var(--c-dark);
+      border-top: 1px solid var(--c-border);
+      border-bottom: 1px solid var(--c-border);
+    }
+    .process-header { margin-bottom: 72px; }
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      position: relative;
+    }
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 22px;
+      left: calc(100% / 8);
+      right: calc(100% / 8);
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--c-border) 20%, var(--c-border) 80%, transparent);
+      pointer-events: none;
+    }
+    .process-step {
+      padding: 0 24px 0 0;
+      position: relative;
+    }
+    .step-num {
+      font-family: var(--font-title);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--c-orange);
+      letter-spacing: 0.1em;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .step-num::before {
+      content: '';
+      display: block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--c-orange);
+      flex-shrink: 0;
+      box-shadow: 0 0 0 3px var(--c-dark), 0 0 0 4px rgba(232,57,12,0.3);
+    }
+    .step-title {
+      font-family: var(--font-title);
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 12px;
     }
     .step-desc {
-      font-family: 'Switzer', sans-serif; font-size: 0.78rem;
-      font-weight: 400; color: var(--gris-clair); line-height: 1.65;
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.7;
     }
 
-    /* ── TVA ── */
-    .tva-note {
-      font-family: 'Switzer', sans-serif; font-size: 0.75rem;
-      font-weight: 400; color: var(--gris); line-height: 1.7;
-      background: var(--noir-3);
-      border-left: 3px solid var(--rouge);
-      padding: 14px 22px; border-radius: 0 6px 6px 0; margin-top: 52px;
+    /* =============================================
+       DÉPLACEMENTS
+       ============================================= */
+    #deplacements {
+      background: var(--c-black);
+    }
+    .deplacement-card {
+      background: var(--c-card);
+      border: 1px solid var(--c-border);
+      border-radius: 2px;
+      padding: 52px 60px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .deplacement-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px;
+      height: 100%;
+      background: var(--c-orange);
+    }
+    .deplacement-card::after {
+      content: '';
+      position: absolute;
+      bottom: -40px;
+      right: -40px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,57,12,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .deplacement-left .label { margin-bottom: 16px; }
+    .deplacement-left h2 { margin-bottom: 20px; font-size: clamp(22px, 3vw, 36px); }
+    .deplacement-zone {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .zone-tag {
+      display: inline-block;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      border-radius: 1px;
+      border: 1px solid var(--c-border);
+      color: rgba(255,255,255,0.8);
+      font-family: var(--font-body);
+    }
+    .zone-tag.primary {
+      background: var(--c-orange-dim);
+      border-color: rgba(232,57,12,0.3);
+      color: var(--c-orange);
+    }
+    .deplacement-left p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.75;
+      max-width: 560px;
+    }
+    .deplacement-left p + p { margin-top: 12px; }
+    .deplacement-right {
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .deplacement-km {
+      font-family: var(--font-title);
+      font-size: 64px;
+      font-weight: 800;
+      color: var(--c-orange);
+      line-height: 1;
+    }
+    .deplacement-km-label {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--c-grey);
+      margin-top: 8px;
     }
 
-    /* ── CONTACT ── */
-    .contact-section { background: var(--noir-2); }
+    /* =============================================
+       CLIENTS
+       ============================================= */
+    #clients {
+      background: var(--c-dark);
+      border-top: 1px solid var(--c-border);
+    }
+    .clients-header { text-align: center; margin-bottom: 56px; }
+    .clients-logos {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 40px 56px;
+    }
+    .clients-logos img {
+      height: 36px;
+      width: auto;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      opacity: 0.45;
+      transition: opacity 0.2s;
+    }
+    .clients-logos img:hover { opacity: 0.9; }
+
+    /* =============================================
+       CONTACT
+       ============================================= */
+    #contact {
+      background: var(--c-black);
+      border-top: 1px solid var(--c-border);
+    }
     .contact-grid {
-      display: grid; grid-template-columns: 1fr 1.2fr;
-      gap: 80px; align-items: start;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: flex-start;
     }
-    .contact-detail { margin-bottom: 28px; }
-    .contact-detail-label {
-      font-family: 'Switzer', sans-serif; font-size: 0.62rem; font-weight: 700;
-      letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--rouge); margin-bottom: 5px;
+    .contact-left .label { margin-bottom: 20px; }
+    .contact-left h2 { margin-bottom: 20px; }
+    .contact-left p {
+      color: rgba(255,255,255,0.55);
+      font-size: 15px;
+      line-height: 1.75;
+      margin-bottom: 32px;
     }
-    .contact-detail-value {
-      font-family: 'Switzer', sans-serif; font-size: 0.93rem; font-weight: 500;
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
-    .social-links { display: flex; gap: 10px; margin-top: 6px; }
-    .social-link {
-      font-family: 'Switzer', sans-serif; font-size: 0.72rem; font-weight: 600;
-      color: var(--gris-clair); text-decoration: none;
-      padding: 7px 16px; border-radius: 3px;
-      border: 1px solid rgba(255,255,255,0.12); transition: all 0.2s;
+    .contact-info a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.7);
+      transition: color 0.2s;
     }
-    .social-link:hover { border-color: var(--rouge); color: var(--rouge); }
-
-    .contact-form { display: flex; flex-direction: column; gap: 14px; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .form-group { display: flex; flex-direction: column; gap: 7px; }
+    .contact-info a:hover { color: var(--c-orange); }
+    .contact-info .info-icon {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--c-border);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .contact-form {
+      background: var(--c-card);
+      border: 1px solid var(--c-border);
+      border-radius: 2px;
+      padding: 44px 40px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
     .form-group label {
-      font-family: 'Switzer', sans-serif; font-size: 0.6rem; font-weight: 700;
-      letter-spacing: 0.14em; text-transform: uppercase; color: var(--gris);
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--c-grey);
+      margin-bottom: 8px;
     }
-    .form-group input, .form-group select, .form-group textarea {
-      background: #1a1a1a; border: 1px solid rgba(255,255,255,0.09);
-      border-radius: 6px; color: var(--blanc);
-      font-family: 'Switzer', sans-serif; font-size: 0.87rem; font-weight: 400;
-      padding: 13px 16px; outline: none; transition: border-color 0.2s; width: 100%;
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--c-border);
+      border-radius: 2px;
+      padding: 12px 16px;
+      color: var(--c-white);
+      font-family: var(--font-body);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
     }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-      border-color: var(--rouge);
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: rgba(232,57,12,0.5);
+      background: rgba(255,255,255,0.06);
     }
-    .form-group select option { background: #1a1a1a; }
-    .form-group textarea { resize: vertical; min-height: 110px; }
-    .btn-submit {
-      font-family: 'Switzer', sans-serif; font-size: 0.82rem; font-weight: 700;
-      letter-spacing: 0.07em; text-transform: uppercase;
-      color: var(--blanc); background: var(--rouge);
-      border: none; padding: 15px 40px; border-radius: 5px;
-      cursor: pointer; transition: all 0.2s; align-self: flex-start;
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-group select option { background: var(--c-card); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-submit { margin-top: 8px; width: 100%; justify-content: center; }
+    .form-note {
+      margin-top: 16px;
+      font-size: 11px;
+      color: var(--c-grey);
+      line-height: 1.6;
+      text-align: center;
     }
-    .btn-submit:hover { background: var(--rouge-dark); transform: translateY(-2px); }
 
-    /* ── FOOTER ── */
+    /* =============================================
+       FOOTER
+       ============================================= */
     footer {
-      padding: 36px 52px; display: flex;
-      justify-content: space-between; align-items: center;
-      border-top: 1px solid rgba(255,255,255,0.06); flex-wrap: wrap; gap: 18px;
+      background: var(--c-dark);
+      border-top: 1px solid var(--c-border);
+      padding: 56px 0 40px;
     }
-    .footer-logo { display: flex; align-items: center; text-decoration: none; }
-    .footer-logo img { height: 26px; }
-    .footer-links { display: flex; gap: 28px; }
+    .footer-inner {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 var(--px-desktop);
+    }
+    .footer-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 48px;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .footer-top img { height: 28px; }
+    .footer-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
     .footer-links a {
-      font-family: 'Switzer', sans-serif; font-size: 0.7rem; font-weight: 600;
-      letter-spacing: 0.07em; text-transform: uppercase;
-      color: var(--gris); text-decoration: none; transition: color 0.2s;
+      font-size: 13px;
+      color: var(--c-grey);
+      transition: color 0.2s;
     }
-    .footer-links a:hover { color: var(--rouge); }
+    .footer-links a:hover { color: var(--c-white); }
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 32px;
+      border-top: 1px solid var(--c-border);
+      gap: 16px;
+      flex-wrap: wrap;
+    }
     .footer-copy {
-      font-family: 'Switzer', sans-serif; font-size: 0.65rem;
-      font-weight: 400; color: var(--gris);
+      font-size: 12px;
+      color: var(--c-grey);
+    }
+    .footer-mention {
+      font-size: 12px;
+      color: rgba(255,255,255,0.25);
     }
 
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(22px); }
-      to   { opacity: 1; transform: translateY(0); }
+    /* =============================================
+       SCROLL-TO-TOP
+       ============================================= */
+    #scroll-top {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 900;
+      width: 44px;
+      height: 44px;
+      background: var(--c-card);
+      border: 1px solid var(--c-border);
+      border-radius: 2px;
+      color: var(--c-white);
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.3s, transform 0.3s, background 0.2s;
+      pointer-events: none;
     }
-    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    .reveal.visible { opacity: 1; transform: none; }
+    #scroll-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: all;
+    }
+    #scroll-top:hover { background: var(--c-orange); border-color: var(--c-orange); }
 
-    /* ── RESPONSIVE ── */
+    /* =============================================
+       REVEAL ANIMATION
+       ============================================= */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(.22,1,.36,1), transform 0.7s cubic-bezier(.22,1,.36,1);
+    }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* =============================================
+       RESPONSIVE
+       ============================================= */
     @media (max-width: 960px) {
-      nav { padding: 0 24px; }
-      .nav-links { display: none; }
-      section { padding: 72px 24px; }
-      .hero { padding: 0 24px 72px; }
-      hr.divider { margin: 0 24px; }
-      .section-header { flex-direction: column; align-items: flex-start; }
-      .process-grid { grid-template-columns: 1fr 1fr; }
-      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
-      .form-row { grid-template-columns: 1fr; }
-      footer { flex-direction: column; align-items: flex-start; padding: 28px 24px; }
+      :root {
+        --px-desktop: 32px;
+      }
+      .tarifs-grid { grid-template-columns: 1fr 1fr; }
+      .tarifs-grid-2 { grid-template-columns: 1fr; }
+      .pitch-grid { grid-template-columns: 1fr; gap: 48px; }
+      .process-steps { grid-template-columns: 1fr 1fr; gap: 48px; }
+      .process-steps::before { display: none; }
+      .contact-grid { grid-template-columns: 1fr; gap: 56px; }
+      .deplacement-card {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 40px 32px;
+      }
+      .deplacement-right { text-align: left; }
     }
-    @media (max-width: 580px) {
-      .process-grid { grid-template-columns: 1fr; }
-      .packs-grid { grid-template-columns: 1fr; }
-      .process-step:first-child, .process-step:last-child { border-radius: 8px; }
-      .tarif-table tbody td.price { padding-right: 12px; }
+
+    @media (max-width: 720px) {
+      :root {
+        --px-desktop: var(--px-mobile);
+        --section-v: var(--section-v-mob);
+      }
+      #navbar .nav-links,
+      #navbar .nav-cta { display: none; }
+      .burger { display: flex; }
+      #mobile-menu { display: flex; }
+      .tarifs-grid { grid-template-columns: 1fr; }
+      .tarifs-grid-2 { grid-template-columns: 1fr; }
+      .tarifs-header { flex-direction: column; align-items: flex-start; }
+      .tarifs-header .note { text-align: left; }
+      .process-steps { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-top { flex-direction: column; align-items: flex-start; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
-<body>
+```
 
-<!-- NAV -->
-<nav>
-  <a href="https://studio-bastide-production.fr/" class="nav-logo">
-    <img src="assets/img/logo_blanc.png" alt="Studio Bastide" />
-  </a>
-  <ul class="nav-links">
-    <li><a href="#tarifs">Tarifs</a></li>
-    <li><a href="#process">Process</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="https://studio-bastide-production.fr/">← Accueil</a></li>
-  </ul>
-  <a href="#contact" class="nav-cta">Demander un devis</a>
-</nav>
+---
 
-<!-- HERO -->
-<section class="hero" id="top">
-  <div class="hero-bg"></div>
-  <div class="hero-line"></div>
-  <img src="assets/img/B_blanc.png" class="hero-b" alt="" aria-hidden="true" />
+## B) BLOC BODY — Remplacer tout le contenu du <body>
 
-  <div class="hero-content">
-    <div class="hero-label">Prestations vidéo — Entreprises & Associations</div>
-    <h1>Du contenu<br>vidéo qui<br><span class="accent">convertit.</span></h1>
-    <p class="hero-sub">
-      Tournage, montage, livraison web & réseaux sociaux.
-      Du clip associatif au spot commercial — on s'adapte à votre besoin et votre budget.
-      Toulouse · Tarn · Occitanie.
-    </p>
-    <div class="hero-badges">
-      <span class="badge">Tournage + montage</span>
-      <span class="badge">Délais tenus</span>
-      <span class="badge">Web & réseaux</span>
-      <span class="badge">Option drone</span>
+```html
+<body id="top">
+
+  <!-- ===== NAVBAR ===== -->
+  <nav id="navbar" role="navigation" aria-label="Navigation principale">
+    <div class="nav-inner">
+      <a href="../" class="nav-logo" aria-label="Studio Bastide — accueil">
+        <img src="../assets/img/logo_blanc.png" alt="Studio Bastide" />
+      </a>
+      <ul class="nav-links">
+        <li><a href="#tarifs">Tarifs</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#deplacements">Déplacements</a></li>
+        <li><a href="#clients">Clients</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="../">← Site principal</a></li>
+      </ul>
+      <a href="#contact" class="btn btn-primary nav-cta">Demander un devis</a>
+      <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-    <div class="hero-actions">
-      <a href="#tarifs" class="btn-primary">Voir les tarifs</a>
-      <a href="#contact" class="btn-outline">Nous contacter</a>
-    </div>
-  </div>
-</section>
+  </nav>
 
-<hr class="divider" />
-
-<!-- TARIFS -->
-<section id="tarifs">
-  <div class="section-header reveal">
-    <div>
-      <div class="section-eyebrow">Tarifs 2025</div>
-      <h2 class="section-title">Nos formules vidéo</h2>
-    </div>
-    <p class="section-desc">
-      Trois univers tarifaires : pros, associations & collectifs, ateliers.
-      Tous les prix sont en HT — TVA 20% applicable à la facturation.
-    </p>
+  <!-- ===== MOBILE MENU ===== -->
+  <div id="mobile-menu" role="dialog" aria-label="Menu mobile" aria-modal="true">
+    <a href="#tarifs" class="nav-mobile-link">Tarifs</a>
+    <a href="#process" class="nav-mobile-link">Process</a>
+    <a href="#deplacements" class="nav-mobile-link">Déplacements</a>
+    <a href="#clients" class="nav-mobile-link">Clients</a>
+    <a href="#contact" class="nav-mobile-link">Contact</a>
+    <a href="#contact" class="btn btn-primary mobile-cta">Demander un devis</a>
   </div>
 
-  <!-- PRO -->
-  <div class="reveal">
-    <div class="cat-tag cat-tag-rouge">Prestations Pro</div>
-    <div class="cat-title">Entreprises, Marques & Commerces</div>
-    <div class="cat-desc">Tournages professionnels avec livrables optimisés pour vos canaux.</div>
-    <table class="tarif-table">
-      <thead><tr>
-        <th>Service</th>
-        <th class="right" style="padding-right:52px;">Tarif HT</th>
-        <th>Ce qui est inclus</th>
-      </tr></thead>
-      <tbody>
-        <tr>
-          <td class="name">Live Session Vidéo<div class="chips"><span class="chip">Captation live</span><span class="chip">Multi-cam</span></div></td>
-          <td class="price">450 €</td>
-          <td class="detail">1 caméra, éclairage LED, captation live, montage simple</td>
-        </tr>
-        <tr>
-          <td class="name">Clip Basique<div class="chips"><span class="chip">1 lieu</span><span class="chip">Montage dynamique</span></div></td>
-          <td class="price">750 €</td>
-          <td class="detail">Tournage encadré sur 1 lieu, montage dynamique livré web + réseaux</td>
-        </tr>
-        <tr>
-          <td class="name">Clip Pro<div class="chips"><span class="chip">Sur devis</span><span class="chip">Multi-lieux</span></div></td>
-          <td class="price">À partir de 1 200 €</td>
-          <td class="detail">Multi-lieux, narration visuelle poussée, réalisation personnalisée</td>
-        </tr>
-        <tr>
-          <td class="name">Reel Réseaux Sociaux<div class="chips"><span class="chip">Vertical</span><span class="chip">30–40 s</span></div></td>
-          <td class="price">80 € / reel</td>
-          <td class="detail">Vidéo verticale 30–40 s optimisée Instagram, TikTok, LinkedIn</td>
-        </tr>
-        <tr>
-          <td class="name">Vidéo Promotionnelle<div class="chips"><span class="chip">Corporate</span></div></td>
-          <td class="price">À partir de 900 €</td>
-          <td class="detail">Présentation d'activité, projet ou événement — format corporate soigné</td>
-        </tr>
-        <tr>
-          <td class="name">Reel Institutionnel<div class="chips"><span class="chip">Communication</span></div></td>
-          <td class="price">80 € / reel</td>
-          <td class="detail">Contenu court pour communication réseaux — marque employeur, comm' interne</td>
-        </tr>
-        <tr>
-          <td class="name">Podcast Vidéo<div class="chips"><span class="chip">Sur devis</span></div></td>
-          <td class="price">Sur devis</td>
-          <td class="detail">Captation vidéo + montage d'un épisode complet, découpe clips incluse</td>
-        </tr>
-        <tr>
-          <td class="name">Shooting Photo<div class="chips"><span class="chip">Photo pro</span></div></td>
-          <td class="price">À partir de 300 €</td>
-          <td class="detail">Photo industrielle, publicitaire ou corporate pour vos supports</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- ASSO -->
-  <div class="reveal">
-    <div class="cat-tag cat-tag-vert">Associations & Collectifs</div>
-    <div class="cat-title">Tarifs solidaires, qualité identique</div>
-    <div class="cat-desc">Des offres pensées pour les structures associatives.</div>
-    <table class="tarif-table">
-      <thead><tr>
-        <th>Service</th>
-        <th class="right" style="padding-right:52px;">Tarif HT</th>
-        <th>Ce qui est inclus</th>
-      </tr></thead>
-      <tbody>
-        <tr>
-          <td class="name">Clip Associatif<div class="chips"><span class="chip">Association</span><span class="chip">Collectif</span></div></td>
-          <td class="price">275 €</td>
-          <td class="detail">Clip simple tourné avec une association ou un collectif — livraison web + réseaux</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- PACKS ASSO -->
-  <div class="reveal">
-    <div class="cat-tag cat-tag-vert">Packs Ateliers — Associations</div>
-    <div class="cat-title">Formules packagées — 30% de remise</div>
-    <div class="cat-desc">Des packs construits pour se lancer avec un accompagnement complet.</div>
-    <div class="packs-grid">
-      <div class="pack-card">
-        <div class="pack-label">Pack Studio</div>
-        <div class="pack-name">Ateliers Studio</div>
-        <p class="pack-desc">2h d'atelier encadré incluant enregistrement et mix — idéal pour découvrir le studio.</p>
-        <div class="pack-price-block">
-          <span class="pack-price">100 €</span>
-          <span class="pack-original">142,85 €</span>
-          <span class="pack-remise">−30 %</span>
-        </div>
-      </div>
-      <div class="pack-card">
-        <div class="pack-label">Pack Clip</div>
-        <div class="pack-name">Création Clip Associatif</div>
-        <p class="pack-desc">Clip simple tourné avec un groupe ou une association, de A à Z.</p>
-        <div class="pack-price-block">
-          <span class="pack-price">175 €</span>
-          <span class="pack-original">250 €</span>
-          <span class="pack-remise">−30 %</span>
-        </div>
-      </div>
-      <div class="pack-card">
-        <div class="pack-label">Podcast</div>
-        <div class="pack-name">Podcast Local Associatif</div>
-        <p class="pack-desc">Enregistrement + montage d'un épisode de podcast — offre locale dédiée associations.</p>
-        <div class="pack-price-block"><span class="pack-price">Sur demande</span></div>
-        <p class="pack-note">Tarif adapté selon le projet</p>
-      </div>
-      <div class="pack-card">
-        <div class="pack-label">Formation</div>
-        <div class="pack-name">Pack Initiation MAO</div>
-        <p class="pack-desc">2 séances de 3h — workflow, enregistrement, mix. Formation encadrée par Blum.</p>
-        <div class="pack-price-block"><span class="pack-price">Sur devis</span></div>
-        <p class="pack-note">Tarif association −30 % appliqué</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- ATELIERS -->
-  <div class="reveal">
-    <div class="cat-tag cat-tag-bleu">Ateliers & Formation</div>
-    <div class="cat-title">Apprendre en faisant</div>
-    <div class="cat-desc">Des ateliers pratiques pour acquérir les bons réflexes dès le départ.</div>
-    <table class="tarif-table">
-      <thead><tr>
-        <th>Atelier</th>
-        <th class="right" style="padding-right:52px;">Tarif HT</th>
-        <th>Format</th>
-      </tr></thead>
-      <tbody>
-        <tr>
-          <td class="name">Atelier Création Vidéo<div class="chips"><span class="chip">Pratique</span></div></td>
-          <td class="price">100 €</td>
-          <td class="detail">Atelier encadré tournage + montage simplifié — idéal pour débuter</td>
-        </tr>
-        <tr>
-          <td class="name">Atelier Réseaux Sociaux Vidéo<div class="chips"><span class="chip">Sur devis</span></div></td>
-          <td class="price">Sur devis</td>
-          <td class="detail">Création de contenus courts adaptés aux plateformes — TikTok, Instagram, YouTube Shorts</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="tva-note reveal">
-    * Tous les tarifs sont exprimés hors taxes (HT). TVA 20% applicable à la facturation.
-    Pour tout projet hors grille, contactez-nous pour un devis personnalisé.
-  </div>
-</section>
-
-<hr class="divider" />
-
-<!-- PROCESS -->
-<section class="process-section" id="process">
-  <div class="section-eyebrow reveal">Comment ça marche</div>
-  <h2 class="section-title reveal">Process simple & carré</h2>
-  <div class="process-grid reveal">
-    <div class="process-step">
-      <div class="step-num">01</div>
-      <div class="step-name">Brief</div>
-      <p class="step-desc">Objectif, cible, supports, contraintes, références. On cadre ensemble avant de tourner.</p>
-    </div>
-    <div class="process-step">
-      <div class="step-num">02</div>
-      <div class="step-name">Devis</div>
-      <p class="step-desc">Proposition claire avec planning et liste de livrables. Validation avant démarrage.</p>
-    </div>
-    <div class="process-step">
-      <div class="step-num">03</div>
-      <div class="step-name">Tournage</div>
-      <p class="step-desc">Sur site. Option drone selon contexte. Éclairage LED, captation multi-cam disponibles.</p>
-    </div>
-    <div class="process-step">
-      <div class="step-num">04</div>
-      <div class="step-name">Livraison</div>
-      <p class="step-desc">Fichiers web + réseaux. Retours inclus selon formule. Délais tenus, sans surprise.</p>
-    </div>
-  </div>
-</section>
-
-<hr class="divider" />
-
-<!-- CONTACT -->
-<section class="contact-section" id="contact">
-  <div class="contact-grid">
-    <div class="reveal">
-      <div class="section-eyebrow">Parlons de votre projet</div>
-      <h2 class="section-title">Obtenir un devis</h2>
-      <p class="section-desc" style="margin-bottom:44px;">
-        Un message, un échange. On revient vers vous sous 48h avec une proposition sur mesure.
+  <!-- ===== HERO ===== -->
+  <section id="hero" aria-label="Introduction">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Studio Bastide · Prestations vidéo</div>
+      <h1>La vidéo qui<br /><em>raconte vraiment</em><br />votre histoire.</h1>
+      <p class="hero-sub">
+        Tournage, montage, motion design, captation live.<br />
+        Un studio basé dans le Tarn, partout en France.
       </p>
-      <div class="contact-detail">
-        <div class="contact-detail-label">Email</div>
-        <div class="contact-detail-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b1d2dedfc5d0d2c5f1c2c5c4d5d8de9cd3d0c2c5d8d5d49cc1c3ded5c4d2c5d8dedf9fd7c3">[email&#160;protected]</a></div>
+      <div class="hero-actions">
+        <a href="#tarifs" class="btn btn-primary">Voir les tarifs</a>
+        <a href="#contact" class="btn btn-outline">Demander un devis</a>
       </div>
-      <div class="contact-detail">
-        <div class="contact-detail-label">Zone d'intervention</div>
-        <div class="contact-detail-value">Toulouse · Tarn · Occitanie</div>
-      </div>
-      <div class="contact-detail">
-        <div class="contact-detail-label">Réseaux</div>
-        <div class="social-links">
-          <a href="https://www.instagram.com/stud_bastide/" class="social-link">Instagram</a>
-          <a href="https://www.youtube.com/@studiobastide" class="social-link">YouTube</a>
-          <a href="https://www.tiktok.com/@stud_bastide" class="social-link">TikTok</a>
+    </div>
+    <div class="hero-scroll" aria-hidden="true">Scroll</div>
+  </section>
+
+  <!-- ===== PITCH ===== -->
+  <section id="pitch">
+    <div class="container">
+      <div class="pitch-grid reveal">
+        <div class="pitch-img">
+          <img src="../assets/img/le_studio.png" alt="Le studio vidéo Studio Bastide" loading="lazy" />
+        </div>
+        <div class="pitch-text">
+          <div class="label">Notre approche</div>
+          <h2>Vidéo professionnelle,<br />résultats concrets.</h2>
+          <p>Nous accompagnons associations, entreprises et institutions dans la création de contenus vidéo qui marquent. De la prise en main du brief à la livraison des fichiers, nous gérons tout.</p>
+          <p>Chaque projet est traité avec la même exigence : cadrage, lumière, son, montage. Aucun compromis sur la qualité.</p>
+          <a href="#contact" class="btn btn-outline" style="margin-top: 12px;">Parlons de votre projet</a>
         </div>
       </div>
     </div>
-    <div class="reveal">
-      <form class="contact-form" onsubmit="handleSubmit(event)">
-        <div class="form-row">
-          <div class="form-group">
-            <label>Nom / Structure</label>
-            <input type="text" placeholder="Votre nom ou entreprise" required />
-          </div>
-          <div class="form-group">
-            <label>Email</label>
-            <input type="email" placeholder="vous@email.com" required />
-          </div>
+  </section>
+
+  <!-- ===== TARIFS ===== -->
+  <section id="tarifs">
+    <div class="container">
+      <div class="tarifs-header reveal">
+        <div>
+          <div class="label">Tarifs</div>
+          <h2>Des formules claires,<br />sans surprise.</h2>
         </div>
-        <div class="form-group">
-          <label>Type de prestation</label>
-          <select>
-            <option value="">Sélectionner une prestation…</option>
-            <option>Live Session Vidéo — 450 €</option>
-            <option>Clip Basique — 750 €</option>
-            <option>Clip Pro — à partir de 1 200 €</option>
-            <option>Reel Réseaux Sociaux — 80 €/reel</option>
-            <option>Vidéo Promotionnelle — à partir de 900 €</option>
-            <option>Podcast Vidéo — sur devis</option>
-            <option>Shooting Photo — à partir de 300 €</option>
-            <option>Clip Associatif — 275 €</option>
-            <option>Pack Ateliers Studio — 100 €</option>
-            <option>Pack Création Clip Associatif — 175 €</option>
-            <option>Pack Initiation MAO — sur devis</option>
-            <option>Atelier Création Vidéo — 100 €</option>
-            <option>Autre / Sur devis</option>
-          </select>
+        <div class="note">
+          Tous les prix sont indiqués <strong>hors taxes (HT)</strong>.<br />
+          TVA 20 % applicable à la facturation.<br />
+          Devis personnalisé sur demande.
         </div>
-        <div class="form-group">
-          <label>Votre projet</label>
-          <textarea placeholder="Quelques lignes sur votre projet, vos objectifs, votre calendrier…"></textarea>
+      </div>
+
+      <!-- Grille 3 colonnes : forfaits journée -->
+      <div class="tarifs-grid reveal">
+        <div class="tarif-card">
+          <div class="tarif-name">Demi-journée</div>
+          <div class="tarif-desc">Tournage jusqu'à 4h sur site, 1 opérateur, matériel inclus.</div>
+          <div class="tarif-price">450 <span>€ HT</span></div>
+          <div class="tarif-unit">/ demi-journée</div>
+          <div class="tarif-sep"></div>
+          <ul class="tarif-features">
+            <li>1 opérateur caméra</li>
+            <li>Matériel de tournage inclus</li>
+            <li>Fichiers bruts livrés</li>
+            <li>Déplacement ≤ 15 km inclus</li>
+          </ul>
         </div>
-        <button type="submit" class="btn-submit">Envoyer →</button>
-      </form>
+
+        <div class="tarif-card featured">
+          <div class="tarif-badge">Populaire</div>
+          <div class="tarif-name">Journée complète</div>
+          <div class="tarif-desc">Tournage jusqu'à 8h sur site, 1 opérateur, matériel inclus.</div>
+          <div class="tarif-price">750 <span>€ HT</span></div>
+          <div class="tarif-unit">/ journée</div>
+          <div class="tarif-sep"></div>
+          <ul class="tarif-features">
+            <li>1 opérateur caméra</li>
+            <li>Matériel de tournage inclus</li>
+            <li>Fichiers bruts livrés</li>
+            <li>Déplacement ≤ 15 km inclus</li>
+          </ul>
+        </div>
+
+        <div class="tarif-card">
+          <div class="tarif-name">Forfait montage</div>
+          <div class="tarif-desc">Montage, étalonnage, sous-titres, export multi-formats.</div>
+          <div class="tarif-price">Sur devis</div>
+          <div class="tarif-unit">selon durée & complexité</div>
+          <div class="tarif-sep"></div>
+          <ul class="tarif-features">
+            <li>Étalonnage couleur</li>
+            <li>Sous-titres (option)</li>
+            <li>Export multi-formats</li>
+            <li>1 révision incluse</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Grille 2 colonnes : prestations spéciales -->
+      <div class="tarifs-grid-2 reveal">
+        <div class="tarif-card">
+          <div class="tarif-name">Captation live / événement</div>
+          <div class="tarif-desc">Tournage de concert, conférence, spectacle, remise de prix — multi-caméras disponible.</div>
+          <div class="tarif-price">Sur devis</div>
+          <div class="tarif-unit">selon durée & configuration</div>
+          <div class="tarif-sep"></div>
+          <ul class="tarif-features">
+            <li>Multi-caméras possible</li>
+            <li>Prise de son dédiée</li>
+            <li>Livraison rush disponible</li>
+          </ul>
+        </div>
+
+        <div class="tarif-card">
+          <div class="tarif-name">Motion design & habillage</div>
+          <div class="tarif-desc">Génériques, titres animés, logo animé, infographies — intégration possible dans le montage.</div>
+          <div class="tarif-price">Sur devis</div>
+          <div class="tarif-unit">selon projet</div>
+          <div class="tarif-sep"></div>
+          <ul class="tarif-features">
+            <li>Logo animé</li>
+            <li>Titres & génériques</li>
+            <li>Infographies animées</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tarifs-note reveal">
+        <strong>Besoin d'un devis sur-mesure ?</strong> Chaque projet est unique. Contactez-nous pour un échange sans engagement. →
+        <a href="#contact" style="color: var(--c-orange); margin-left: 8px;">Demander un devis</a>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- FOOTER -->
-<footer>
-  <a href="https://studio-bastide-production.fr/" class="footer-logo">
-    <img src="assets/img/logo_blanc.png" alt="Studio Bastide" />
-  </a>
-  <div class="footer-links">
-    <a href="https://studio-bastide-production.fr/">Accueil</a>
-    <a href="https://studio-bastide-production.fr/#tarifs">Tarifs son</a>
-    <a href="https://studio-bastide-production.fr/#contact">Contact</a>
-    <a href="https://www.instagram.com/stud_bastide/">Instagram</a>
-  </div>
-  <span class="footer-copy">© Studio Bastide Production — Prestations vidéo</span>
-</footer>
+  <!-- ===== PROCESS ===== -->
+  <section id="process">
+    <div class="container">
+      <div class="process-header reveal">
+        <div class="label">Comment ça marche</div>
+        <h2>Notre process,<br />étape par étape.</h2>
+      </div>
+      <div class="process-steps reveal">
+        <div class="process-step">
+          <div class="step-num">01</div>
+          <div class="step-title">Brief & cadrage</div>
+          <p class="step-desc">On échange sur vos objectifs, votre cible, le format souhaité. Un appel suffit souvent pour clarifier l'essentiel.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-num">02</div>
+          <div class="step-title">Devis & validation</div>
+          <p class="step-desc">Vous recevez un devis détaillé sous 48h. Une fois validé, on planifie ensemble les dates de tournage.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-num">03</div>
+          <div class="step-title">Tournage</div>
+          <p class="step-desc">Nous venons sur site avec tout le matériel nécessaire. Direction, cadrage, lumière, son : on gère.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-num">04</div>
+          <div class="step-title">Livraison</div>
+          <p class="step-desc">Montage, étalonnage, une révision incluse. Livraison des fichiers finaux dans les délais convenus.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  <!-- ===== DÉPLACEMENTS ===== -->
+  <section id="deplacements">
+    <div class="container">
+      <div class="deplacement-card reveal">
+        <div class="deplacement-left">
+          <div class="label">Zone d'intervention</div>
+          <h2>On vient à vous,<br />où que vous soyez.</h2>
+          <div class="deplacement-zone">
+            <span class="zone-tag primary">Tarn · Base</span>
+            <span class="zone-tag">Occitanie</span>
+            <span class="zone-tag">France entière</span>
+          </div>
+          <p>Nous sommes basés dans le Tarn et nous pouvons nous déplacer partout en France selon le projet.</p>
+          <p>Tout déplacement au-delà de <strong>15 km (inclus)</strong> entraîne des frais de déplacement (trajet) facturés en supplément, précisés au devis avant validation.</p>
+        </div>
+        <div class="deplacement-right">
+          <div class="deplacement-km">15</div>
+          <div class="deplacement-km-label">km offerts<br />à partir de notre base</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    const f = e.target;
-    const nom   = f.querySelector('input[type="text"]').value;
-    const email = f.querySelector('input[type="email"]').value;
-    const type  = f.querySelector('select').value;
-    const msg   = f.querySelector('textarea').value;
-    const sub   = encodeURIComponent(`Demande devis — ${type || 'Prestation vidéo'}`);
-    const body  = encodeURIComponent(`Bonjour,\n\
+  <!-- ===== CLIENTS ===== -->
+  <section id="clients">
+    <div class="container">
+      <div class="clients-header reveal">
+        <div class="label">Références</div>
+        <h2>Ils nous ont fait confiance.</h2>
+      </div>
+      <div class="clients-logos reveal">
+        <img src="../assets/logos/48HFP.png" alt="48 Heures Film Project" loading="lazy" />
+        <img src="../assets/logos/alto.png" alt="Alto" loading="lazy" />
+        <img src="../assets/logos/bandito.png" alt="Bandito" loading="lazy" />
+        <img src="../assets/logos/ispra.png" alt="ISPRA" loading="lazy" />
+        <img src="../assets/logos/jp.png" alt="JP" loading="lazy" />
+        <img src="../assets/logos/linagora.png" alt="Linagora" loading="lazy" />
+        <img src="../assets/logos/mjc_st_sulpice.png" alt="MJC Saint-Sulpice" loading="lazy" />
+        <img src="../assets/logos/origine.jpg" alt="Origine" loading="lazy" />
+        <img src="../assets/logos/resistium.png" alt="Resistium" loading="lazy" />
+        <img src="../assets/logos/st-sulpice.png" alt="Saint-Sulpice" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-left reveal">
+          <div class="label">Contact</div>
+          <h2>Parlons de<br />votre projet.</h2>
+          <p>Que ce soit pour un devis, une question sur nos prestations ou simplement pour en savoir plus — on vous répond rapidement.</p>
+          <div class="contact-info">
+            <a href="mailto:studiobastide.contact@gmail.com">
+              <span class="info-icon">✉</span>
+              studiobastide.contact@gmail.com
+            </a>
+          </div>
+        </div>
+        <div class="contact-form reveal">
+          <!-- Formulaire mailto — pas de backend -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="f-nom">Nom</label>
+              <input type="text" id="f-nom" name="nom" placeholder="Votre nom" />
+            </div>
+            <div class="form-group">
+              <label for="f-email">Email</label>
+              <input type="email" id="f-email" name="email" placeholder="votre@email.com" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="f-orga">Organisation (optionnel)</label>
+            <input type="text" id="f-orga" name="orga" placeholder="Entreprise, association…" />
+          </div>
+          <div class="form-group">
+            <label for="f-prestation">Type de prestation</label>
+            <select id="f-prestation" name="prestation">
+              <option value="">— Sélectionner —</option>
+              <option value="tournage">Tournage (demi-journée / journée)</option>
+              <option value="montage">Montage / post-production</option>
+              <option value="live">Captation live / événement</option>
+              <option value="motion">Motion design & habillage</option>
+              <option value="complet">Pack complet (tournage + montage)</option>
+              <option value="autre">Autre / à préciser</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="f-message">Votre projet</label>
+            <textarea id="f-message" name="message" placeholder="Décrivez votre projet, vos dates souhaitées, votre localisation…"></textarea>
+          </div>
+          <button type="button" class="btn btn-primary form-submit" id="btn-contact">
+            Envoyer le message
+          </button>
+          <p class="form-note">
+            Déplacements : au-delà de 15 km (inclus), frais de trajet en supplément (précisés au devis).<br />
+            Tous les prix sont HT. TVA 20 % à la facturation.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <img src="../assets/img/logo_blanc.png" alt="Studio Bastide" />
+        <ul class="footer-links">
+          <li><a href="#tarifs">Tarifs</a></li>
+          <li><a href="#process">Process</a></li>
+          <li><a href="#deplacements">Déplacements</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="../">Site principal</a></li>
+        </ul>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2025 Studio Bastide · Tous droits réservés</span>
+        <span class="footer-mention">Tarn · Occitanie · France · Vidéo professionnelle</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== BOUTON REMONTER EN HAUT ===== -->
+  <button id="scroll-top" aria-label="Remonter en haut de la page" title="Haut de page">↑</button>
+
+</body>
+```
+
+---
+
+## C) BLOC JS — Coller juste avant </body>
+
+```html
+<script>
+  /* ===== BURGER / MENU MOBILE ===== */
+  const burger = document.getElementById('burger');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  function toggleMenu(open) {
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open);
+    mobileMenu.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  burger.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.contains('open');
+    toggleMenu(!isOpen);
+  });
+
+  document.querySelectorAll('#mobile-menu a').forEach(link => {
+    link.addEventListener('click', () => toggleMenu(false));
+  });
+
+  /* ===== SCROLL-TO-TOP ===== */
+  const scrollBtn = document.getElementById('scroll-top');
+
+  window.addEventListener('scroll', () => {
+    scrollBtn.classList.toggle('visible', window.scrollY > 500);
+  }, { passive: true });
+
+  scrollBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  /* ===== REVEAL AU SCROLL ===== */
+  const reveals = document.querySelectorAll('.reveal');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  reveals.forEach(el => observer.observe(el));
+
+  /* ===== FORMULAIRE MAILTO ===== */
+  document.getElementById('btn-contact').addEventListener('click', () => {
+    const nom      = document.getElementById('f-nom').value.trim();
+    const email    = document.getElementById('f-email').value.trim();
+    const orga     = document.getElementById('f-orga').value.trim();
+    const presta   = document.getElementById('f-prestation').value;
+    const message  = document.getElementById('f-message').value.trim();
+
+    if (!nom || !email || !message) {
+      alert('Merci de renseigner au moins votre nom, votre email et votre message.');
+      return;
+    }
+
+    const sujet = encodeURIComponent(
+      `Demande de devis — ${presta || 'prestation vidéo'} — ${nom}`
+    );
+    const corps = encodeURIComponent(
+      `Nom : ${nom}\n` +
+      `Email : ${email}\n` +
+      (orga ? `Organisation : ${orga}\n` : '') +
+      (presta ? `Prestation souhaitée : ${presta}\n` : '') +
+      `\nMessage :\n${message}\n\n---\nEnvoyé depuis le formulaire Studio Bastide Prestations`
+    );
+
+    window.location.href = `mailto:studiobastide.contact@gmail.com?subject=${sujet}&body=${corps}`;
+  });
+
+  /* ===== NAVBAR : fond renforcé au scroll ===== */
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.style.background = window.scrollY > 60
+      ? 'rgba(10,10,10,0.97)'
+      : 'rgba(10,10,10,0.88)';
+  }, { passive: true });
+</script>
+```
+
+---
+
+## NOTES D'INTÉGRATION
+
+1. **Structure du fichier final** : `<!DOCTYPE html>` → `<html lang="fr">` → `<head>` (bloc A) → `<body>` (bloc B + bloc C avant `</body>`).
+2. **Fonts** : si certains fichiers OTF ont un nom différent (ex. `Panchang-SemiBold.otf` au lieu de `Panchang-Semibold.otf`), adaptez la casse dans les `@font-face`.
+3. **Contenu des tarifs** : les prix sont des exemples — remplacez les montants réels selon votre grille tarifaire.
+4. **Images** : `le_studio.png` est utilisé dans la section pitch ; si vous n'avez pas d'image adaptée, remplacez par `team.png` ou retirez le bloc `.pitch-img`.
+5. **Aucun JS externe** requis. Tout est vanilla.
