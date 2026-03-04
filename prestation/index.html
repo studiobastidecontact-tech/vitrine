@@ -288,11 +288,14 @@
     #stb.on { opacity:1; transform:translateY(0); pointer-events:all; }
     #stb:hover { background:var(--orange); border-color:var(--orange); }
 
-    /* REVEAL */
-    .rv { opacity:0; transform:translateY(26px); transition:opacity 0.75s cubic-bezier(.22,1,.36,1),transform 0.75s cubic-bezier(.22,1,.36,1); }
-    .rv.in { opacity:1; transform:translateY(0); }
-    .rv[data-d="1"]{transition-delay:0.08s} .rv[data-d="2"]{transition-delay:0.16s}
-    .rv[data-d="3"]{transition-delay:0.24s} .rv[data-d="4"]{transition-delay:0.32s}
+    /* REVEAL — non-bloquant */
+    .rv { opacity:1; transform:none; }
+    @media (prefers-reduced-motion: no-preference) {
+      .rv.anim { opacity:0; transform:translateY(26px); transition:opacity 0.75s cubic-bezier(.22,1,.36,1),transform 0.75s cubic-bezier(.22,1,.36,1); }
+      .rv.anim.in { opacity:1; transform:translateY(0); }
+      .rv.anim[data-d="1"]{transition-delay:0.08s} .rv.anim[data-d="2"]{transition-delay:0.16s}
+      .rv.anim[data-d="3"]{transition-delay:0.24s} .rv.anim[data-d="4"]{transition-delay:0.32s}
+    }
 
     /* ════════════════════════════════
        CHATBOT
@@ -751,10 +754,18 @@
   window.addEventListener('scroll',()=>stb.classList.toggle('on',scrollY>500),{passive:true});
   stb.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 
-  // Reveal
-  document.querySelectorAll('.rv').forEach(el=>
-    new IntersectionObserver(([e],o)=>{if(e.isIntersecting){el.classList.add('in');o.unobserve(el);}},{threshold:0.1,rootMargin:'0px 0px -36px 0px'}).observe(el)
-  );
+  // Reveal — on ajoute .anim seulement aux éléments hors écran au chargement
+  const rvEls = document.querySelectorAll('.rv');
+  rvEls.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top > window.innerHeight) el.classList.add('anim');
+  });
+  const revealObs = new IntersectionObserver((entries, obs) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.05 });
+  document.querySelectorAll('.rv.anim').forEach(el => revealObs.observe(el));
 
   // Vidéo pitch — autoplay loop muted, force via JS
   const pitchVid = document.querySelector('.pitch-video video');
