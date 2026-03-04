@@ -3,23 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Prestations Photo & Vidéo — Studio Bastide</title>
-  <link rel="icon" type="image/png" href="../assets/img/logo_square.jpg">
-  <link rel="apple-touch-icon" href="../assets/img/logo_square.jpg">
+  <title>Prestations Photo & Vidéo : Studio Bastide</title>
+  <link rel="icon" type="image/png" href="/vitrine/assets/img/LOGO%201%20NOIR%20.png">
+  <link rel="apple-touch-icon" href="/vitrine/assets/img/LOGO%201%20NOIR%20.png">
   <meta name="description" content="Photo, vidéo, drone, clips, live sessions, contenu réseaux sociaux. Studio Bastide Production, 10 place de l'Église, Saint-Sulpice-la-Pointe (81370), Occitanie." />
   <style>
-    @font-face{font-family:'Panchang';src:url('../assets/fonts/Panchang-Regular.otf') format('opentype');font-weight:400;font-display:swap;}
-    @font-face{font-family:'Panchang';src:url('../assets/fonts/Panchang-Semibold.otf') format('opentype');font-weight:600;font-display:swap;}
-    @font-face{font-family:'Panchang';src:url('../assets/fonts/Panchang-Bold.otf') format('opentype');font-weight:700;font-display:swap;}
-    @font-face{font-family:'Panchang';src:url('../assets/fonts/Panchang-Extrabold.otf') format('opentype');font-weight:800;font-display:swap;}
-    @font-face{font-family:'Switzer';src:url('../assets/fonts/Switzer-Light.otf') format('opentype');font-weight:300;font-display:swap;}
-    @font-face{font-family:'Switzer';src:url('../assets/fonts/Switzer-Regular.otf') format('opentype');font-weight:400;font-display:swap;}
-    @font-face{font-family:'Switzer';src:url('../assets/fonts/Switzer-Medium.otf') format('opentype');font-weight:500;font-display:swap;}
-    @font-face{font-family:'Switzer';src:url('../assets/fonts/Switzer-Semibold.otf') format('opentype');font-weight:600;font-display:swap;}
+    @font-face{font-family:'Panchang';src:url('/vitrine/assets/fonts/Panchang-Regular.otf') format('opentype');font-weight:400;font-display:swap;}
+    @font-face{font-family:'Panchang';src:url('/vitrine/assets/fonts/Panchang-Semibold.otf') format('opentype');font-weight:600;font-display:swap;}
+    @font-face{font-family:'Panchang';src:url('/vitrine/assets/fonts/Panchang-Bold.otf') format('opentype');font-weight:700;font-display:swap;}
+    @font-face{font-family:'Panchang';src:url('/vitrine/assets/fonts/Panchang-Extrabold.otf') format('opentype');font-weight:800;font-display:swap;}
+    @font-face{font-family:'Switzer';src:url('/vitrine/assets/fonts/Switzer-Light.otf') format('opentype');font-weight:300;font-display:swap;}
+    @font-face{font-family:'Switzer';src:url('/vitrine/assets/fonts/Switzer-Regular.otf') format('opentype');font-weight:400;font-display:swap;}
+    @font-face{font-family:'Switzer';src:url('/vitrine/assets/fonts/Switzer-Medium.otf') format('opentype');font-weight:500;font-display:swap;}
+    @font-face{font-family:'Switzer';src:url('/vitrine/assets/fonts/Switzer-Semibold.otf') format('opentype');font-weight:600;font-display:swap;}
     :root{
-      --black:#0A0A0A;--dark:#111111;--card:#161616;
-      --border:rgba(255,255,255,0.08);--border-med:rgba(255,255,255,0.14);
-      --white:#FFFFFF;--grey:#7A7A7A;--grey-l:rgba(255,255,255,0.55);
+      --black:#FFFFFF;--dark:#F4F4F4;--card:#ECECEC;
+      --border:rgba(0,0,0,0.10);--border-med:rgba(0,0,0,0.18);
+      --white:#0A0A0A;--grey:#6B6B6B;--grey-l:rgba(0,0,0,0.55);
       --orange:#E8390C;--odim:rgba(232,57,12,0.10);--oglow:rgba(232,57,12,0.06);
       --ft:'Panchang',sans-serif;--fb:'Switzer',sans-serif;
       --w:1140px;--px:52px;--sv:112px;
@@ -41,41 +41,41 @@
     .btn-primary{background:var(--orange);color:#fff;}
     .btn-primary:hover{background:#c72f08;transform:translateY(-1px);}
     .btn-outline{background:transparent;color:var(--white);border:1px solid var(--border-med);}
-    .btn-outline:hover{border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.04);}
+    .btn-outline:hover{border-color:rgba(0,0,0,.4);background:rgba(0,0,0,.04);}
 
     /* NAV */
-    #nav{position:fixed;top:0;left:0;right:0;z-index:200;height:70px;display:flex;align-items:center;background:rgba(10,10,10,.85);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--border);transition:background .3s;}
-    #nav.scrolled{background:rgba(10,10,10,.97);}
+    #nav{position:fixed;top:0;left:0;right:0;z-index:200;height:70px;display:flex;align-items:center;background:rgba(255,255,255,.90);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--border);transition:background .3s;}
+    #nav.scrolled{background:rgba(255,255,255,.99);}
     .nav-in{max-width:var(--w);margin:0 auto;padding:0 var(--px);width:100%;display:flex;align-items:center;justify-content:space-between;gap:24px;}
     .nav-logo img{height:30px;}
     .nav-links{display:flex;align-items:center;gap:20px;list-style:none;}
-    .nav-links a{font-size:12px;font-weight:500;color:rgba(255,255,255,.65);letter-spacing:.01em;transition:color .2s;white-space:nowrap;}
+    .nav-links a{font-size:12px;font-weight:500;color:rgba(0,0,0,.60);letter-spacing:.01em;transition:color .2s;white-space:nowrap;}
     .nav-links a:hover{color:#fff;}
     .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:4px;}
-    .burger span{display:block;width:22px;height:2px;background:#fff;border-radius:1px;transition:all .28s ease;}
+    .burger span{display:block;width:22px;height:2px;background:#0A0A0A;border-radius:1px;transition:all .28s ease;}
     .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
     .burger.open span:nth-child(2){opacity:0;}
     .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
     #mob{position:fixed;inset:0;z-index:199;background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:36px;opacity:0;pointer-events:none;transition:opacity .3s;}
     #mob.open{opacity:1;pointer-events:all;}
-    #mob a{font-family:var(--ft);font-size:24px;font-weight:600;color:#fff;transition:color .2s;}
+    #mob a{font-family:var(--ft);font-size:24px;font-weight:600;color:#0A0A0A;transition:color .2s;}
     #mob a:hover{color:var(--orange);}
 
     /* HERO */
     #hero{padding:0;min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;}
-    #hero::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 55% 50% at 72% 45%,rgba(232,57,12,.07) 0%,transparent 65%),radial-gradient(ellipse 35% 55% at 8% 85%,rgba(232,57,12,.04) 0%,transparent 55%);}
+    #hero::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 55% 50% at 72% 45%,rgba(232,57,12,.05) 0%,transparent 65%),radial-gradient(ellipse 35% 55% at 8% 85%,rgba(232,57,12,.03) 0%,transparent 55%);}
     .hero-in{max-width:var(--w);margin:0 auto;padding:148px var(--px) 100px;width:100%;position:relative;z-index:1;}
     .hero-eye{display:flex;align-items:center;gap:12px;font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);margin-bottom:30px;}
     .hero-eye::before{content:'';display:block;width:36px;height:1px;background:var(--orange);}
     #hero h1{max-width:820px;margin-bottom:30px;}
     #hero h1 em{font-style:normal;color:var(--orange);}
-    .hero-sub{font-size:16px;color:var(--grey-l);max-width:540px;line-height:1.8;margin-bottom:44px;}
+    .hero-sub{font-size:16px;color:rgba(0,0,0,.60);max-width:540px;line-height:1.8;margin-bottom:44px;}
     .hero-pills{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:52px;}
-    .pill{display:inline-flex;align-items:center;gap:7px;padding:6px 14px;font-size:11.5px;font-weight:500;border:1px solid var(--border);border-radius:20px;color:rgba(255,255,255,.6);word-break:keep-all;}
+    .pill{display:inline-flex;align-items:center;gap:7px;padding:6px 14px;font-size:11.5px;font-weight:500;border:1px solid var(--border);border-radius:20px;color:rgba(0,0,0,.55);word-break:keep-all;}
     .pill::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--orange);flex-shrink:0;}
     .hero-btns{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
-    .scroll-hint{position:absolute;bottom:44px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.25);z-index:1;}
-    .scroll-hint::after{content:'';width:1px;height:44px;background:linear-gradient(to bottom,rgba(255,255,255,.25),transparent);animation:hint 2s ease-in-out infinite;}
+    .scroll-hint{position:absolute;bottom:44px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,0,0,.25);z-index:1;}
+    .scroll-hint::after{content:'';width:1px;height:44px;background:linear-gradient(to bottom,rgba(0,0,0,.25),transparent);animation:hint 2s ease-in-out infinite;}
     @keyframes hint{0%,100%{opacity:.3}50%{opacity:1}}
 
     /* PITCH */
@@ -85,9 +85,9 @@
     .pitch-video video{width:100%;height:100%;object-fit:cover;display:block;}
     .pitch-video::after{content:'';position:absolute;inset:0;border:1px solid var(--border);pointer-events:none;}
     .pitch-txt h2{margin-bottom:20px;}
-    .pitch-txt p{color:var(--grey-l);font-size:15px;margin-bottom:14px;}
-    .avantage{display:flex;align-items:flex-start;gap:14px;margin-top:28px;padding:18px 20px;background:var(--oglow);border:1px solid rgba(232,57,12,.15);border-radius:2px;}
-    .avantage-txt{font-size:13px;color:rgba(255,255,255,.75);line-height:1.7;}
+    .pitch-txt p{color:rgba(0,0,0,.60);font-size:15px;margin-bottom:14px;}
+    .avantage{display:flex;align-items:flex-start;gap:14px;margin-top:28px;padding:18px 20px;background:rgba(232,57,12,.06);border:1px solid rgba(232,57,12,.18);border-radius:2px;}
+    .avantage-txt{font-size:13px;color:rgba(0,0,0,.65);line-height:1.7;}
     .avantage-txt strong{color:var(--white);}
 
     /* TARIFS */
@@ -111,17 +111,17 @@
     .tc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:transparent;transition:background .22s;}
     .tc:hover{border-color:var(--border-med);transform:translateY(-2px);}
     .tc:hover::before{background:var(--orange);}
-    .tc.hot{border-color:var(--orange);background:linear-gradient(140deg,#180e04 0%,var(--card) 55%);}
+    .tc.hot{border-color:var(--orange);background:linear-gradient(140deg,#fde8e0 0%,var(--card) 55%);}
     .tc.hot::before{background:var(--orange);}
     .tc-badge{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--orange);background:var(--odim);padding:3px 9px;border-radius:1px;margin-bottom:14px;align-self:flex-start;}
     .tc-icon{font-size:24px;margin-bottom:12px;}
     .tc-name{font-family:var(--ft);font-size:15px;font-weight:600;margin-bottom:6px;line-height:1.2;}
-    .tc-desc{font-size:12.5px;color:var(--grey);line-height:1.65;flex:1;margin-bottom:18px;}
+    .tc-desc{font-size:12.5px;color:#555;line-height:1.65;flex:1;margin-bottom:18px;}
     .tc-price{font-family:var(--ft);font-size:21px;font-weight:700;}
     .tc-price sub{font-family:var(--fb);font-size:11px;font-weight:400;color:var(--grey);vertical-align:baseline;}
     .tc-line{width:100%;height:1px;background:var(--border);margin:14px 0;}
     .tc-feats{list-style:none;display:flex;flex-direction:column;gap:6px;}
-    .tc-feats li{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:rgba(255,255,255,.62);line-height:1.5;}
+    .tc-feats li{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:rgba(0,0,0,.55);line-height:1.5;}
     .tc-feats li::before{content:'→';color:var(--orange);font-size:10px;flex-shrink:0;margin-top:3px;}
     .tarifs-cta{text-align:center;padding:18px;background:var(--card);border:1px solid var(--border);border-radius:2px;font-size:13px;color:var(--grey);}
     .tarifs-cta strong{color:rgba(255,255,255,.8);}
@@ -145,7 +145,7 @@
     .step-n{font-family:var(--ft);font-size:10.5px;font-weight:700;color:var(--orange);letter-spacing:.08em;margin-bottom:28px;display:flex;align-items:center;gap:10px;}
     .step-n::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--orange);flex-shrink:0;box-shadow:0 0 0 3px var(--black),0 0 0 4.5px rgba(232,57,12,.28);}
     .step-t{font-family:var(--ft);font-size:15px;font-weight:600;margin-bottom:8px;}
-    .step-d{font-size:12.5px;color:rgba(255,255,255,.5);line-height:1.75;}
+    .step-d{font-size:12.5px;color:rgba(0,0,0,.50);line-height:1.75;}
 
     /* DÉPLACEMENTS */
     #deplacements{background:var(--dark);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
@@ -155,19 +155,19 @@
     .dep-zones{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px;}
     .ztag{display:inline-block;padding:5px 13px;font-size:11.5px;font-weight:600;letter-spacing:.04em;border:1px solid var(--border);border-radius:1px;color:rgba(255,255,255,.75);}
     .ztag.main{background:var(--odim);border-color:rgba(232,57,12,.28);color:var(--orange);}
-    .dep-left p{font-size:14px;color:var(--grey-l);line-height:1.8;}
+    .dep-left p{font-size:14px;color:rgba(0,0,0,.60);line-height:1.8;}
     .dep-left p+p{margin-top:10px;}
     .dep-right{text-align:center;flex-shrink:0;}
     .dep-km{font-family:var(--ft);font-size:72px;font-weight:800;color:var(--orange);line-height:1;letter-spacing:-.03em;}
-    .dep-km-lbl{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--grey);margin-top:8px;line-height:1.6;}
+    .dep-km-lbl{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:#666;margin-top:8px;line-height:1.6;}
 
     /* CLIENTS */
     #clients{background:var(--black);}
     .logos{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:36px 52px;margin-bottom:36px;}
-    .logos img{height:38px;width:auto;max-width:120px;object-fit:contain;opacity:.6;transition:opacity .22s;}
+    .logos img{height:38px;width:auto;max-width:120px;object-fit:contain;opacity:.5;transition:opacity .22s;}
     .logos img:hover{opacity:1;}
     .alpine-ref{display:flex;flex-direction:column;align-items:center;gap:10px;}
-    .alpine-ref-inner{display:inline-flex;align-items:center;gap:12px;padding:12px 20px;background:var(--card);border:1px solid var(--border-med);border-radius:2px;font-size:12.5px;color:var(--grey-l);max-width:100%;}
+    .alpine-ref-inner{display:inline-flex;align-items:center;gap:12px;padding:12px 20px;background:var(--card);border:1px solid var(--border-med);border-radius:2px;font-size:12.5px;color:rgba(0,0,0,.60);max-width:100%;}
     .alpine-ref-inner img{height:20px;opacity:1;filter:none;}
     .alpine-ref-inner strong{color:#fff;}
     .alpine-ref-inner span{color:var(--orange);}
@@ -175,23 +175,23 @@
     /* CONTACT */
     #contact{background:var(--dark);border-top:1px solid var(--border);}
     .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:88px;align-items:flex-start;}
-    .contact-l p{color:var(--grey-l);font-size:15px;line-height:1.8;margin-bottom:24px;}
+    .contact-l p{color:rgba(0,0,0,.60);font-size:15px;line-height:1.8;margin-bottom:24px;}
     .c-link{display:flex;align-items:center;gap:12px;font-size:13.5px;color:rgba(255,255,255,.65);transition:color .2s;margin-bottom:12px;}
     .c-link:hover{color:var(--orange);}
     .c-icon{width:36px;height:36px;border:1px solid var(--border);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;transition:border-color .2s;}
     .c-link:hover .c-icon{border-color:var(--orange);}
-    .c-timing{font-size:12px;color:var(--grey);padding:12px 14px;background:var(--card);border:1px solid var(--border);border-radius:2px;margin-top:8px;}
+    .c-timing{font-size:12px;color:#666;padding:12px 14px;background:var(--card);border:1px solid var(--border);border-radius:2px;margin-top:8px;}
     .c-timing strong{color:rgba(255,255,255,.7);}
     .cform{background:var(--card);border:1px solid var(--border);border-radius:2px;padding:38px 36px;}
     .fg{margin-bottom:15px;}
-    .fg label{display:block;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);margin-bottom:7px;}
-    .fg input,.fg textarea,.fg select{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:2px;padding:10px 13px;color:var(--white);font-family:var(--fb);font-size:14px;outline:none;transition:border-color .2s,background .2s;-webkit-appearance:none;}
-    .fg input:focus,.fg textarea:focus,.fg select:focus{border-color:rgba(232,57,12,.45);background:rgba(255,255,255,.06);}
+    .fg label{display:block;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#666;margin-bottom:7px;}
+    .fg input,.fg textarea,.fg select{width:100%;background:rgba(0,0,0,.04);border:1px solid var(--border);border-radius:2px;padding:10px 13px;color:var(--white);font-family:var(--fb);font-size:14px;outline:none;transition:border-color .2s,background .2s;-webkit-appearance:none;}
+    .fg input:focus,.fg textarea:focus,.fg select:focus{border-color:rgba(232,57,12,.45);background:rgba(0,0,0,.06);}
     .fg textarea{resize:vertical;min-height:96px;}
-    .fg select option{background:var(--card);}
+    .fg select option{background:#fff;}
     .frow{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
     .fsub{width:100%;justify-content:center;margin-top:6px;}
-    .fnote{margin-top:11px;font-size:11px;color:var(--grey);line-height:1.65;text-align:center;}
+    .fnote{margin-top:11px;font-size:11px;color:#888;line-height:1.65;text-align:center;}
 
     /* FOOTER */
     footer{background:var(--black);border-top:1px solid var(--border);padding:52px 0 36px;}
@@ -199,58 +199,58 @@
     .foot-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:40px;gap:24px;flex-wrap:wrap;}
     .foot-top img{height:26px;}
     .foot-links{display:flex;gap:26px;list-style:none;}
-    .foot-links a{font-size:13px;color:var(--grey);transition:color .2s;}
+    .foot-links a{font-size:13px;color:#666;transition:color .2s;}
     .foot-links a:hover{color:#fff;}
     .foot-bot{display:flex;align-items:center;justify-content:space-between;padding-top:26px;border-top:1px solid var(--border);gap:14px;flex-wrap:wrap;}
     .foot-copy{font-size:12px;color:var(--grey);}
     .foot-sub{font-size:12px;color:rgba(255,255,255,.2);}
 
     /* SCROLL TOP */
-    #stb{position:fixed;bottom:30px;right:30px;z-index:90;width:42px;height:42px;background:var(--card);border:1px solid var(--border-med);border-radius:2px;color:#fff;font-size:17px;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s,background .2s;pointer-events:none;}
+    #stb{position:fixed;bottom:30px;right:30px;z-index:90;width:42px;height:42px;background:var(--card);border:1px solid var(--border-med);border-radius:2px;color:#0A0A0A;font-size:17px;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s,background .2s;pointer-events:none;}
     #stb.on{opacity:1;transform:translateY(0);pointer-events:all;}
     #stb:hover{background:var(--orange);border-color:var(--orange);}
 
     /* CHATBOT */
-    #chat-bubble{position:fixed;bottom:30px;left:30px;z-index:300;width:54px;height:54px;border-radius:50%;background:var(--orange);border:none;color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(232,57,12,.4);transition:transform .2s,box-shadow .2s;}
-    #chat-bubble:hover{transform:scale(1.08);box-shadow:0 6px 32px rgba(232,57,12,.55);}
+    #chat-bubble{position:fixed;bottom:30px;left:30px;z-index:300;width:54px;height:54px;border-radius:50%;background:var(--orange);border:none;color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(232,57,12,.3);transition:transform .2s,box-shadow .2s;}
+    #chat-bubble:hover{transform:scale(1.08);box-shadow:0 6px 32px rgba(232,57,12,.4);}
     .chat-notif{position:absolute;top:-2px;right:-2px;width:14px;height:14px;border-radius:50%;background:#fff;border:2px solid var(--orange);animation:pulse 2s ease-in-out infinite;}
     @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.25)}}
-    #chat-win{position:fixed;bottom:96px;left:30px;z-index:300;width:380px;max-height:580px;background:var(--dark);border:1px solid var(--border-med);border-radius:10px;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.65);opacity:0;transform:translateY(14px) scale(.96);pointer-events:none;transition:opacity .25s,transform .25s;overflow:hidden;}
+    #chat-win{position:fixed;bottom:96px;left:30px;z-index:300;width:380px;max-height:580px;background:var(--dark);border:1px solid var(--border-med);border-radius:10px;display:flex;flex-direction:column;box-shadow:0 8px 40px rgba(0,0,0,.15);opacity:0;transform:translateY(14px) scale(.96);pointer-events:none;transition:opacity .25s,transform .25s;overflow:hidden;}
     #chat-win.open{opacity:1;transform:translateY(0) scale(1);pointer-events:all;}
     .ch-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--border);background:var(--card);flex-shrink:0;}
     .ch-head-l{display:flex;align-items:center;gap:10px;}
     .ch-av{width:36px;height:36px;border-radius:50%;background:var(--odim);border:1px solid rgba(232,57,12,.3);display:flex;align-items:center;justify-content:center;font-size:17px;}
     .ch-info strong{display:block;font-size:13px;font-weight:600;}
-    .ch-info span{font-size:11px;color:var(--grey);display:flex;align-items:center;gap:5px;}
+    .ch-info span{font-size:11px;color:#777;display:flex;align-items:center;gap:5px;}
     .ch-info span::before{content:'';width:6px;height:6px;border-radius:50%;background:#22c55e;display:inline-block;}
-    .ch-x{background:none;border:none;color:var(--grey);font-size:22px;line-height:1;padding:2px 6px;transition:color .2s;}
+    .ch-x{background:none;border:none;color:#666;font-size:22px;line-height:1;padding:2px 6px;transition:color .2s;}
     .ch-x:hover{color:#fff;}
-    .ch-msgs{flex:1;overflow-y:auto;padding:18px 14px;display:flex;flex-direction:column;gap:12px;scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
+    .ch-msgs{flex:1;overflow-y:auto;padding:18px 14px;display:flex;flex-direction:column;gap:12px;scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.15) transparent;}
     .ch-msgs::-webkit-scrollbar{width:4px;}
-    .ch-msgs::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+    .ch-msgs::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:2px;}
     .msg{display:flex;gap:8px;align-items:flex-end;}
     .msg.bot{align-self:flex-start;max-width:92%;}
     .msg.user{align-self:flex-end;max-width:92%;flex-direction:row-reverse;}
     .msg-av{width:26px;height:26px;border-radius:50%;flex-shrink:0;background:var(--odim);border:1px solid rgba(232,57,12,.25);display:flex;align-items:center;justify-content:center;font-size:12px;}
     .msg-bub{padding:10px 14px;border-radius:8px;font-size:13.5px;line-height:1.65;}
-    .msg.bot .msg-bub{background:var(--card);border:1px solid var(--border);color:#fff;border-bottom-left-radius:2px;}
+    .msg.bot .msg-bub{background:var(--card);border:1px solid var(--border);color:#0A0A0A;border-bottom-left-radius:2px;}
     .msg.user .msg-bub{background:var(--orange);color:#fff;border-bottom-right-radius:2px;}
     .msg-bub a{color:inherit;text-decoration:underline;opacity:.85;}
     .ch-chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px 10px;flex-shrink:0;}
-    .chip{padding:6px 12px;font-size:12px;font-weight:500;border:1px solid var(--border-med);border-radius:20px;background:transparent;color:rgba(255,255,255,.75);cursor:pointer;transition:all .18s;white-space:nowrap;}
+    .chip{padding:6px 12px;font-size:12px;font-weight:500;border:1px solid var(--border-med);border-radius:20px;background:transparent;color:rgba(0,0,0,.70);cursor:pointer;transition:all .18s;white-space:nowrap;}
     .chip:hover{border-color:var(--orange);color:var(--orange);background:var(--odim);}
     .ch-bar{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--border);flex-shrink:0;}
-    #ch-input{flex:1;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:6px;padding:9px 12px;color:#fff;font-family:var(--fb);font-size:13px;outline:none;transition:border-color .2s;}
+    #ch-input{flex:1;background:rgba(0,0,0,.04);border:1px solid var(--border);border-radius:6px;padding:9px 12px;color:#0A0A0A;font-family:var(--fb);font-size:13px;outline:none;transition:border-color .2s;}
     #ch-input:focus{border-color:rgba(232,57,12,.4);}
     #ch-input::placeholder{color:var(--grey);}
     #ch-send{width:36px;height:36px;background:var(--orange);border:none;border-radius:6px;color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0;}
     #ch-send:hover{background:#c72f08;}
     .typing{display:flex;gap:4px;padding:2px 0;}
-    .typing span{width:6px;height:6px;border-radius:50%;background:var(--grey);animation:blink 1.2s ease-in-out infinite;}
+    .typing span{width:6px;height:6px;border-radius:50%;background:#999;animation:blink 1.2s ease-in-out infinite;}
     .typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
     @keyframes blink{0%,80%,100%{opacity:.3}40%{opacity:1}}
     .dopts{display:flex;flex-direction:column;gap:7px;margin-top:4px;}
-    .dopt{padding:8px 12px;font-size:12.5px;border:1px solid var(--border-med);border-radius:4px;background:transparent;color:#fff;cursor:pointer;text-align:left;transition:all .18s;}
+    .dopt{padding:8px 12px;font-size:12.5px;border:1px solid var(--border-med);border-radius:4px;background:transparent;color:#0A0A0A;cursor:pointer;text-align:left;transition:all .18s;}
     .dopt:hover{border-color:var(--orange);background:var(--odim);color:var(--orange);}
     .dopt:disabled{opacity:.5;pointer-events:none;}
 
@@ -314,14 +314,15 @@
 
 <nav id="nav">
   <div class="nav-in">
-    <a href="../" class="nav-logo"><img src="../assets/img/logo_blanc.png" alt="Studio Bastide"></a>
+    <a href="/vitrine/" class="nav-logo"><img src="/vitrine/assets/img/LOGO%201%20NOIR%20.png" alt="Studio Bastide"></a>
     <ul class="nav-links">
       <li><a href="#tarifs">Tarifs</a></li>
       <li><a href="#pourqui">Pour qui</a></li>
       <li><a href="#process">Process</a></li>
+      <li><a href="#deplacements">Zone</a></li>
       <li><a href="#clients">Clients</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li><a href="../">← Site principal</a></li>
+      <li><a href="/vitrine/">← Site principal</a></li>
     </ul>
     <a href="#contact" class="btn btn-primary nav-cta">Demander un devis</a>
     <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
@@ -341,7 +342,7 @@
   <div class="hero-in">
     <div class="hero-eye">Studio Bastide Production · 10 place de l'Église, Saint-Sulpice-la-Pointe (81370)</div>
     <h1>L'image qui<br><em>fait vraiment</em><br>la différence.</h1>
-    <p class="hero-sub">Photo, vidéo, drone, clips musicaux, live sessions, contenu réseaux sociaux. Un studio basé dans le Tarn, partout en France.</p>
+    <p class="hero-sub">Photo, vidéo, drone, clips musicaux, live sessions et contenu réseaux sociaux. Un studio basé dans le Tarn, présent partout en France.</p>
     <div class="hero-pills">
       <span class="pill">Shooting photo</span>
       <span class="pill">Vidéo corporate & promo</span>
@@ -363,13 +364,13 @@
   <div class="wrap">
     <div class="pitch-grid">
       <div class="pitch-video">
-        <video src="../assets/videos/presentation.mp4" autoplay loop muted playsinline preload="auto"></video>
+        <video src="/vitrine/assets/videos/presentation.mp4" autoplay loop muted playsinline preload="auto"></video>
       </div>
       <div class="pitch-txt">
         <div class="label">Notre approche</div>
         <h2>Son + image,<br>sous un même toit.</h2>
         <p>On ne fait pas que filmer. On comprend ce que vous voulez raconter, et on trouve comment le montrer. Du brief à la livraison, on gère chaque étape.</p>
-        <p>Cadrage, lumière, son, montage, étalonnage — aucun compromis sur la qualité, quelle que soit la taille du projet.</p>
+        <p>Cadrage, lumière, son, montage, étalonnage : aucun compromis sur la qualité, quelle que soit la taille du projet.</p>
         <div class="avantage">
           <div class="avantage-txt"><strong>⚡ Avantage unique dans le Tarn :</strong> photo, vidéo, son et live sessions sous le même toit, au <strong>10 place de l'Église, Saint-Sulpice-la-Pointe</strong>. Aucun concurrent local ne propose cette combinaison complète.</div>
         </div>
@@ -383,7 +384,7 @@
     <div class="tarifs-hd">
       <div class="label">Tarifs</div>
       <h2>Des prix clairs,<br>sans surprise.</h2>
-      <p>Tous les tarifs sont indiqués <strong style="color:rgba(255,255,255,.85)">hors taxes (HT)</strong>. TVA 20% à la facturation.</p>
+      <p>Tous les tarifs sont indiqués <strong style="color:rgba(255,255,255,.85)">hors taxes (HT)</strong>. TVA 20% applicable à la facturation.</p>
       <div class="ht-note"><strong>Note :</strong> devis personnalisé envoyé sous 48h pour tout projet spécifique.</div>
     </div>
 
@@ -618,7 +619,7 @@
       <div>
         <div class="step-n">03</div>
         <div class="step-t">Tournage / Shooting</div>
-        <p class="step-d">On se déplace chez vous avec tout le matériel. Direction, cadrage, lumière, son — on gère tout.</p>
+        <p class="step-d">On se déplace chez vous avec tout le matériel. Direction, cadrage, lumière, son : on gère tout.</p>
       </div>
       <div>
         <div class="step-n">04</div>
@@ -641,7 +642,7 @@
           <span class="ztag">France entière</span>
         </div>
         <p>Basés au <strong>10 place de l'Église, Saint-Sulpice-la-Pointe (81370)</strong>, nous intervenons dans tout le Tarn, en Occitanie et partout en France.</p>
-        <p>Les déplacements dans un rayon de <strong>15 km (inclus)</strong> sont offerts. Au-delà, les frais sont précisés au devis avant validation — aucune surprise.</p>
+        <p>Les déplacements dans un rayon de <strong>15 km (inclus)</strong> sont offerts. Au-delà, les frais sont précisés au devis avant validation. Aucune surprise.</p>
       </div>
       <div class="dep-right">
         <div class="dep-km">15</div>
@@ -657,27 +658,27 @@
       <div class="label" style="justify-content:center;">Références</div>
       <h2>Ils nous ont fait confiance.</h2>
     </div>
-    <p style="text-align:center;font-size:13px;color:var(--grey);margin-bottom:48px;">Des commerces locaux aux marques nationales.</p>
+    <p style="text-align:center;font-size:13px;color:#666;margin-bottom:48px;">Des commerces locaux aux marques nationales.</p>
     <div class="logos">
       <img src="https://upload.wikimedia.org/wikipedia/commons/3/32/Alpine_logo.png" alt="Alpine">
-      <img src="../assets/logos/linagora.png" alt="Linagora">
-      <img src="../assets/logos/ispra.png" alt="ISPRA">
-      <img src="../assets/logos/mjc_st_sulpice.png" alt="MJC St Sulpice">
-      <img src="../assets/logos/jp.png" alt="Juris Power">
-      <img src="../assets/logos/alto.png" alt="Alto">
-      <img src="../assets/logos/48HFP.png" alt="48HFP">
-      <img src="../assets/logos/origine.jpg" alt="Origine">
-      <img src="../assets/logos/bandito.png" alt="Bandito">
-      <img src="../assets/logos/resistium.png" alt="Resistium">
-      <img src="../assets/logos/st-sulpice.png" alt="Saint-Sulpice">
+      <img src="/vitrine/assets/logos/linagora.png" alt="Linagora">
+      <img src="/vitrine/assets/logos/ispra.png" alt="ISPRA">
+      <img src="/vitrine/assets/logos/mjc_st_sulpice.png" alt="MJC St Sulpice">
+      <img src="/vitrine/assets/logos/jp.png" alt="Juris Power">
+      <img src="/vitrine/assets/logos/alto.png" alt="Alto">
+      <img src="/vitrine/assets/logos/48HFP.png" alt="48HFP">
+      <img src="/vitrine/assets/logos/origine.jpg" alt="Origine">
+      <img src="/vitrine/assets/logos/bandito.png" alt="Bandito">
+      <img src="/vitrine/assets/logos/resistium.png" alt="Resistium">
+      <img src="/vitrine/assets/logos/st-sulpice.png" alt="Saint-Sulpice">
     </div>
     <div class="alpine-ref">
       <div class="alpine-ref-inner">
         <img src="https://upload.wikimedia.org/wikipedia/commons/3/32/Alpine_logo.png" alt="Alpine">
-        <div><strong>Pub concept car Alpine</strong> — <span>marque automobile premium française</span></div>
+        <div><strong>Pub concept car Alpine</strong> <span style="color:var(--grey)">·</span> <span>marque automobile premium française</span></div>
       </div>
       <div class="alpine-ref-inner">
-        <div><strong>Making-of Alto Watches</strong> — <span>marque horlogère de luxe française</span></div>
+        <div><strong>Making-of Alto Watches</strong> <span style="color:var(--grey)">·</span> <span>marque horlogère de luxe française</span></div>
       </div>
     </div>
   </div>
@@ -689,12 +690,12 @@
       <div class="contact-l">
         <div class="label">Contact</div>
         <h2>Parlons de<br>votre projet.</h2>
-        <p>Un devis, une question, une idée à creuser — on vous répond sous 48h, sans engagement.</p>
+        <p>Un devis, une question, une idée à creuser : on vous répond sous 48h, sans engagement.</p>
         <a href="/cdn-cgi/l/email-protection#c2b1b6b7a6abada0a3b1b6aba6a7eca1adacb6a3a1b682a5afa3abaeeca1adaf" class="c-link">
           <span class="c-icon">✉</span>
-          <span class="__cf_email__" data-cfemail="3b484f4e5f5254595a484f525f5e155854554f5a584f7b5c565a525715585456">[email&#160;protected]</span>
+          <span class="__cf_email__" data-cfemail="592a2d2c3d30363b382a2d303d3c773a36372d383a2d193e34383035773a3634">[email&#160;protected]</span>
         </a>
-        <a href="https://maps.google.com/?q=10+place+de+l+Eglise+Saint-Sulpice-la-Pointe+81370" target="_blank" class="c-link">
+        <a href="https://maps.google.com/?q=10+place+de+l+Eglise+Saint-Sulpice-la-Pointe+81370" target="_blank" rel="noopener noreferrer" class="c-link">
           <span class="c-icon">📍</span>
           10 place de l'Église, Saint-Sulpice-la-Pointe (81370)
         </a>
@@ -753,9 +754,9 @@
           ✅ <strong>Message envoyé !</strong> On vous répond sous 48h ouvrées.
         </div>
         <div id="form-error" style="display:none;margin-top:16px;padding:14px 16px;background:rgba(232,57,12,0.08);border:1px solid rgba(232,57,12,0.25);border-radius:2px;font-size:13px;color:#f87171;line-height:1.6;">
-          ❌ Une erreur est survenue. Réessayez ou écrivez directement à <a href="/cdn-cgi/l/email-protection#33404746575a5c515240475a57561d505c5d4752504773545e525a5f1d505c5e" style="color:inherit"><span class="__cf_email__" data-cfemail="a6d5d2d3c2cfc9c4c7d5d2cfc2c388c5c9c8d2c7c5d2e6c1cbc7cfca88c5c9cb">[email&#160;protected]</span></a>
+          ❌ Une erreur est survenue. Réessayez ou écrivez directement à <a href="/cdn-cgi/l/email-protection#33404746575a5c515240475a57561d505c5d4752504773545e525a5f1d505c5e" style="color:inherit"><span class="__cf_email__" data-cfemail="56252223323f39343725223f3233783539382237352216313b373f3a7835393b">[email&#160;protected]</span></a>
         </div>
-        <p class="fnote">Déplacements > 15 km : frais précisés au devis. Tous les prix HT — TVA 20% à la facturation.</p>
+        <p class="fnote">Déplacements au-delà de 15 km : frais précisés au devis. Tous les prix sont HT, TVA 20% applicable à la facturation.</p>
       </div>
     </div>
   </div>
@@ -764,18 +765,18 @@
 <footer>
   <div class="foot-in">
     <div class="foot-top">
-      <img src="../assets/img/logo_blanc.png" alt="Studio Bastide">
+      <img src="/vitrine/assets/img/LOGO%201%20NOIR%20.png" alt="Studio Bastide">
       <ul class="foot-links">
         <li><a href="#tarifs">Tarifs</a></li>
         <li><a href="#pourqui">Pour qui</a></li>
         <li><a href="#process">Process</a></li>
         <li><a href="#clients">Clients</a></li>
         <li><a href="#contact">Contact</a></li>
-        <li><a href="../">Site principal</a></li>
+        <li><a href="/vitrine/">Site principal</a></li>
       </ul>
     </div>
     <div class="foot-bot">
-      <span class="foot-copy">© 2026 Studio Bastide Production · Tous droits réservés</span>
+      <span class="foot-copy">© 2026 Studio Bastide Production · Tous droits réservés · Tous prix HT, TVA 20%</span>
       <span class="foot-sub">10 place de l'Église · Saint-Sulpice-la-Pointe (81370) · Tarn · Occitanie</span>
     </div>
   </div>
@@ -803,7 +804,7 @@
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false">
 // ─── NAV & BURGER ───
 const burger=document.getElementById('burger'),mob=document.getElementById('mob');
 function togMob(o){burger.classList.toggle('open',o);burger.setAttribute('aria-expanded',o);mob.classList.toggle('open',o);document.body.style.overflow=o?'hidden':'';}
@@ -869,7 +870,7 @@ document.getElementById('btn-send').addEventListener('click', async () => {
         prestation: p || 'Non précisée',
         budget: b || 'Non défini',
         projet: t,
-        _subject: 'Demande de devis' + (p ? ' — ' + p : '') + ' — ' + n
+        _subject: 'Demande de devis' + (p ? ' : ' + p : '') + ' : ' + n
       })
     });
 
@@ -921,67 +922,67 @@ const KB = [
 
   // TARIFS GÉNÉRAUX
   { k:['tarif','prix','coût','cout','combien','coute','coûte','grille'],
-    r:'Voici nos tarifs <strong>(HT — TVA 20% à la facturation)</strong> :<br><br><strong>🎬 Vidéo</strong><br>• Live session vidéo : <strong>à partir de 450 € HT</strong><br>• Clip : <strong>à partir de 750 € HT</strong><br>• Clip pro : <strong>à partir de 1 200 € HT</strong><br>• Reel réseaux sociaux : <strong>à partir de 80 € HT / reel</strong><br>• Vidéo promotionnelle : <strong>à partir de 900 € HT</strong><br>• Podcast vidéo : sur devis<br><br><strong>📸 Photo & Drone</strong><br>• Shooting photo : <strong>à partir de 300 € HT</strong><br>• Drone : <strong>à partir de 295 € HT</strong><br><br><strong>🎓 Ateliers</strong><br>• Atelier création vidéo : <strong>à partir de 100 € HT</strong><br>• Atelier RS vidéo : sur devis',
+    r:'Voici nos tarifs <strong>(HT : TVA 20% à la facturation)</strong> :<br><br><strong>🎬 Vidéo</strong><br>• Live session vidéo : <strong>à partir de 450 € HT</strong><br>• Clip : <strong>à partir de 750 € HT</strong><br>• Clip pro : <strong>à partir de 1 200 € HT</strong><br>• Reel réseaux sociaux : <strong>à partir de 80 € HT / reel</strong><br>• Vidéo promotionnelle : <strong>à partir de 900 € HT</strong><br>• Podcast vidéo : sur devis<br><br><strong>📸 Photo & Drone</strong><br>• Shooting photo : <strong>à partir de 300 € HT</strong><br>• Drone : <strong>à partir de 295 € HT</strong><br><br><strong>🎓 Ateliers</strong><br>• Atelier création vidéo : <strong>à partir de 100 € HT</strong><br>• Atelier RS vidéo : sur devis',
     c:['Estimer un devis 📋','Zone déplacements 📍','Contacter le studio ✉️'] },
 
   // LIVE SESSION
   { k:['live session','session','live vid','450'],
-    r:'🎙️ <strong>Live session vidéo — 450 € HT</strong><br><br>Format idéal pour les artistes qui veulent du contenu YouTube / Instagram de qualité pro.<br><br>Inclus : 1 caméra, éclairage LED, captation du live, montage simple.<br><br>C\'est notre "océan bleu" dans le Tarn : <strong>aucun concurrent local ne propose ce format</strong> à ce niveau de qualité.',
+    r:'🎙️ <strong>Live session vidéo : 450 € HT</strong><br><br>Format idéal pour les artistes qui veulent du contenu YouTube / Instagram de qualité pro.<br><br>Inclus : 1 caméra, éclairage LED, captation du live, montage simple.<br><br>C\'est notre "océan bleu" dans le Tarn : <strong>aucun concurrent local ne propose ce format</strong> à ce niveau de qualité.',
     c:['Clip basique 🎵','Clip pro 🎬','Estimer un devis 📋'] },
 
   // CLIP BASIQUE
   { k:['clip basique','clip simple','750','basique'],
-    r:'🎵 <strong>Clip — à partir de 750 € HT</strong><br><br>Pour un clip soigné et efficace. Le tarif final dépend du lieu, de la durée et de la complexité.<br><br>Inclus : 1 lieu de tournage, direction artistique, montage dynamique, étalonnage couleur. Export YouTube + réseaux sociaux.',
+    r:'🎵 <strong>Clip : à partir de 750 € HT</strong><br><br>Pour un clip soigné et efficace. Le tarif final dépend du lieu, de la durée et de la complexité.<br><br>Inclus : 1 lieu de tournage, direction artistique, montage dynamique, étalonnage couleur. Export YouTube + réseaux sociaux.',
     c:['Clip pro 🎬','Live session 🎙️','Estimer un devis 📋'] },
 
   // CLIP PRO
   { k:['clip pro','clip premium','multi-lieu','multi lieux','1200','1 200','narration'],
-    r:'🎬 <strong>Clip pro — à partir de 1 200 € HT</strong><br><br>Pour un rendu premium, cinématographique.<br><br>Multi-lieux, narration visuelle élaborée, réalisation entièrement personnalisée. Le tarif final dépend de l\'ampleur du projet — un échange suffit pour chiffrer précisément.',
+    r:'🎬 <strong>Clip pro : à partir de 1 200 € HT</strong><br><br>Pour un rendu premium, cinématographique.<br><br>Multi-lieux, narration visuelle élaborée, réalisation entièrement personnalisée. Le tarif final dépend de l\'ampleur du projet : un échange suffit pour chiffrer précisément.',
     c:['Clip basique 🎵','Estimer un devis 📋','Contacter le studio ✉️'] },
 
   // REEL / TIKTOK
   { k:['reel','reels','tiktok','short','shorts','80','vertical','rs','réseau','reseaux','réseaux','contenu','story','stories'],
-    r:'📱 <strong>Reel réseaux sociaux — 80 € HT / reel</strong><br><br>Vidéo verticale 30–40 secondes, optimisée pour Instagram Reels, TikTok et YouTube Shorts.<br><br>Format 9:16, montage dynamique, sous-titres possibles. Idéal en série : plus vous en commandez, plus le contenu est cohérent.',
+    r:'📱 <strong>Reel réseaux sociaux : 80 € HT / reel</strong><br><br>Vidéo verticale 30–40 secondes, optimisée pour Instagram Reels, TikTok et YouTube Shorts.<br><br>Format 9:16, montage dynamique, sous-titres possibles. Idéal en série : plus vous en commandez, plus le contenu est cohérent.',
     c:['Atelier RS vidéo 📲','Vidéo promo 🏢','Estimer un devis 📋'] },
 
   // VIDÉO PROMO
   { k:['promo','promotionnelle','corporate','entreprise','présentation','presentation','spot','commercial','900'],
-    r:'🏢 <strong>Vidéo promotionnelle — à partir de 900 € HT</strong><br><br>Présentation d\'activité, de projet ou d\'événement. Format adapté pour votre site web, LinkedIn, et les réseaux sociaux.<br><br>Inclus : tournage + montage + export multi-formats. Le tarif varie selon la durée et la complexité.',
+    r:'🏢 <strong>Vidéo promotionnelle : à partir de 900 € HT</strong><br><br>Présentation d\'activité, de projet ou d\'événement. Format adapté pour votre site web, LinkedIn, et les réseaux sociaux.<br><br>Inclus : tournage + montage + export multi-formats. Le tarif varie selon la durée et la complexité.',
     c:['Shooting photo 📸','Clip pro 🎬','Estimer un devis 📋'] },
 
   // PODCAST VIDÉO
   { k:['podcast','episode','épisode'],
-    r:'🎙 <strong>Podcast vidéo — sur devis</strong><br><br>Captation vidéo multi-caméras d\'un épisode de podcast, avec montage clé en main.<br><br>Son dédié, plusieurs angles caméra. Tarif selon durée de l\'épisode et configuration. Contactez-nous pour un chiffrage précis.',
+    r:'🎙 <strong>Podcast vidéo : sur devis</strong><br><br>Captation vidéo multi-caméras d\'un épisode de podcast, avec montage clé en main.<br><br>Son dédié, plusieurs angles caméra. Tarif selon durée de l\'épisode et configuration. Contactez-nous pour un chiffrage précis.',
     c:['Captation live 🎤','Contacter le studio ✉️','Estimer un devis 📋'] },
 
   // SHOOTING PHOTO
   { k:['photo','shoot','shooting','portrait','produit','boutique','artisan','vigneron','restaurant','300','immo','immobilier'],
-    r:'📸 <strong>Shooting photo — à partir de 300 € HT</strong><br><br>Pour les commerces, artisans, entreprises, vignerons, restaurants, agences immobilières…<br><br>Inclus : photos produits & boutique, portraits équipe, retouche pro, livraison sous 5 jours. Optimisées pour Google My Business, votre site, vos réseaux.<br><br>Tarif selon volume et type de shooting.',
+    r:'📸 <strong>Shooting photo : à partir de 300 € HT</strong><br><br>Pour les commerces, artisans, entreprises, vignerons, restaurants, agences immobilières…<br><br>Inclus : photos produits & boutique, portraits équipe, retouche pro, livraison sous 5 jours. Optimisées pour Google My Business, votre site, vos réseaux.<br><br>Tarif selon volume et type de shooting.',
     c:['Drone 🚁','Vidéo promotionnelle 🏢','Estimer un devis 📋'] },
 
   // DRONE
   { k:['drone','aérien','aerien','295','vue du ciel','aerial','4k drone'],
-    r:'🚁 <strong>Drone — à partir de 295 € HT</strong><br><br>Prises de vues aériennes 4K pour immobilier, événements, domaines viticoles, sites touristiques, chantiers…<br><br>Photos + vidéo aérienne possible. Pilote certifié. Tarif selon durée et localisation.',
+    r:'🚁 <strong>Drone : à partir de 295 € HT</strong><br><br>Prises de vues aériennes 4K pour immobilier, événements, domaines viticoles, sites touristiques, chantiers…<br><br>Photos + vidéo aérienne possible. Pilote certifié. Tarif selon durée et localisation.',
     c:['Shooting photo 📸','Vidéo promotionnelle 🏢','Estimer un devis 📋'] },
 
   // ATELIER CRÉATION VIDÉO
   { k:['atelier','formation','100','initiation','decouverte','découverte'],
-    r:'🎓 <strong>Atelier création vidéo — 100 € HT</strong><br><br>Atelier encadré pour découvrir le tournage et le montage simplifié. Idéal pour les personnes qui veulent apprendre à créer leur propre contenu.<br><br><strong>Atelier RS vidéo</strong> (sur devis) : création de contenus courts adaptés aux plateformes sociales.',
+    r:'🎓 <strong>Atelier création vidéo : 100 € HT</strong><br><br>Atelier encadré pour découvrir le tournage et le montage simplifié. Idéal pour les personnes qui veulent apprendre à créer leur propre contenu.<br><br><strong>Atelier RS vidéo</strong> (sur devis) : création de contenus courts adaptés aux plateformes sociales.',
     c:['Reel réseaux sociaux 📱','Contacter le studio ✉️','Estimer un devis 📋'] },
 
   // MOTION DESIGN
   { k:['motion','design','logo animé','animé','anime','générique','generique','titre animé','infographie'],
-    r:'✨ <strong>Motion design — sur devis</strong><br><br>Logo animé, titres & génériques, infographies animées. Intégrable directement dans le montage vidéo.<br><br>Tarif selon la complexité du projet. Contactez-nous pour un chiffrage.',
+    r:'✨ <strong>Motion design : sur devis</strong><br><br>Logo animé, titres & génériques, infographies animées. Intégrable directement dans le montage vidéo.<br><br>Tarif selon la complexité du projet. Contactez-nous pour un chiffrage.',
     c:['Vidéo promotionnelle 🏢','Contacter le studio ✉️','Estimer un devis 📋'] },
 
   // CAPTATION LIVE / ÉVÉNEMENT
   { k:['captation','evenement','événement','concert','conference','conférence','spectacle','festival','aftermovie','multi-cam','multicam'],
-    r:'🎤 <strong>Captation live & événement — sur devis</strong><br><br>Concerts, conférences, spectacles, festivals, remises de prix…<br><br>Configuration multi-caméras disponible, prise de son dédiée, aftermovie possible, livraison rush disponible. Tarif selon durée et configuration.',
+    r:'🎤 <strong>Captation live & événement : sur devis</strong><br><br>Concerts, conférences, spectacles, festivals, remises de prix…<br><br>Configuration multi-caméras disponible, prise de son dédiée, aftermovie possible, livraison rush disponible. Tarif selon durée et configuration.',
     c:['Podcast vidéo 🎙','Estimer un devis 📋','Contacter le studio ✉️'] },
 
   // DÉPLACEMENTS / ZONE
   { k:['deplacement','déplacement','km','kilometre','kilomètre','zone','tarn','occitanie','france','distance','trajet','frais deplacement'],
-    r:'📍 <strong>Zone d\'intervention :</strong><br><br>Studio basé au <strong>10 place de l\'Église, Saint-Sulpice-la-Pointe (81370)</strong>, à 30 min de Toulouse.<br><br>• <strong>Tarn</strong> : base, interventions régulières<br>• <strong>Occitanie</strong> : Toulouse, Albi, Gaillac, Lavaur et tout le territoire<br>• <strong>France entière</strong> : selon les projets<br><br>Les déplacements dans un rayon de <strong>15 km (inclus)</strong> depuis notre base sont offerts. Au-delà, frais de trajet précisés au devis avant validation — aucune surprise.',
+    r:'📍 <strong>Zone d\'intervention :</strong><br><br>Studio basé au <strong>10 place de l\'Église, Saint-Sulpice-la-Pointe (81370)</strong>, à 30 min de Toulouse.<br><br>• <strong>Tarn</strong> : base, interventions régulières<br>• <strong>Occitanie</strong> : Toulouse, Albi, Gaillac, Lavaur et tout le territoire<br>• <strong>France entière</strong> : selon les projets<br><br>Les déplacements dans un rayon de <strong>15 km (inclus)</strong> depuis notre base sont offerts. Au-delà, frais de trajet précisés au devis avant validation : aucune surprise.',
     c:['Tarifs vidéo 🎬','Estimer un devis 📋','Contacter le studio ✉️'] },
 
   // POUR QUI / CIBLES
@@ -991,7 +992,7 @@ const KB = [
 
   // PROCESS
   { k:['process','fonctionne','comment','etape','étape','deroulement','déroulement','workflow'],
-    r:'⚙️ <strong>Notre process en 4 étapes :</strong><br><br><strong>1. Brief (15 min)</strong> — On échange sur vos objectifs, votre cible, le format souhaité.<br><strong>2. Devis sous 48h</strong> — Détaillé et transparent. On valide ensemble avant de se lancer.<br><strong>3. Tournage / Shooting</strong> — On se déplace chez vous avec tout le matériel.<br><strong>4. Livraison</strong> — Montage, étalonnage, 1 révision incluse. Fichiers HD dans les délais convenus.',
+    r:'⚙️ <strong>Notre process en 4 étapes :</strong><br><br><strong>1. Brief (15 min)</strong> : On échange sur vos objectifs, votre cible, le format souhaité.<br><strong>2. Devis sous 48h</strong> : Détaillé et transparent. On valide ensemble avant de se lancer.<br><strong>3. Tournage / Shooting</strong> : On se déplace chez vous avec tout le matériel.<br><strong>4. Livraison</strong> : Montage, étalonnage, 1 révision incluse. Fichiers HD dans les délais convenus.',
     c:['Estimer un devis 📋','Tarifs vidéo 🎬','Contacter le studio ✉️'] },
 
   // RÉVISION / LIVRAISON
@@ -1006,12 +1007,12 @@ const KB = [
 
   // ALPINE / RÉFÉRENCES
   { k:['alpine','reference','référence','marque','connu','portfolio','realisation','réalisation','client connu'],
-    r:'🏁 Parmi nos références :<br><br>• <strong>Alpine</strong> — pub d\'un concept car (marque automobile premium française)<br>• <strong>Alto Watches</strong> — making-of de la marque horlogère de luxe française (altowatches.com)<br>• <strong>Linagora</strong>, <strong>ISPRA</strong> — entreprises tech<br>• <strong>48HFP</strong>, <strong>Bandito</strong>, <strong>Resistium</strong>, <strong>Origine</strong> — artistes & culture<br>• <strong>MJC Saint-Sulpice</strong>, <strong>Saint-Sulpice</strong> — institutionnel local<br><br>Ces références témoignent de notre niveau d\'exigence.',
+    r:'🏁 Parmi nos références :<br><br>• <strong>Alpine</strong> : pub d\'un concept car (marque automobile premium française)<br>• <strong>Alto Watches</strong> : making-of de la marque horlogère de luxe française (altowatches.com)<br>• <strong>Linagora</strong>, <strong>ISPRA</strong> : entreprises tech<br>• <strong>48HFP</strong>, <strong>Bandito</strong>, <strong>Resistium</strong>, <strong>Origine</strong> : artistes & culture<br>• <strong>MJC Saint-Sulpice</strong>, <strong>Saint-Sulpice</strong> : institutionnel local<br><br>Ces références témoignent de notre niveau d\'exigence.',
     c:['Tarifs vidéo 🎬','Estimer un devis 📋','Contacter le studio ✉️'] },
 
   // CONTACT
   { k:['contact','email','mail','joindre','contacter','ecrire','écrire','telephone','téléphone','réseaux','instagram','youtube','tiktok'],
-    r:'✉️ <strong>Nous contacter :</strong><br><br>📧 <a href="mailto:studiobastide.contact@gmail.com">studiobastide.contact@gmail.com</a><br>📍 10 place de l&#39;Église, Saint-Sulpice-la-Pointe (81370)<br><br>📱 Réseaux sociaux :<br>• <a href="https://www.instagram.com/stud_bastide/" target="_blank">Instagram : @stud_bastide</a><br>• <a href="https://www.youtube.com/@studiobastide" target="_blank">YouTube : @studiobastide</a><br>• <a href="https://www.tiktok.com/@stud_bastide" target="_blank">TikTok : @stud_bastide</a><br><br>Ou via le <a href="#contact">formulaire de contact</a> sur cette page. Réponse sous <strong>48h ouvrées</strong>.',
+    r:'✉️ <strong>Nous contacter :</strong><br><br>📧 <a href="mailto:studiobastide.contact@gmail.com">studiobastide.contact@gmail.com</a><br>📍 10 place de l&#39;Église, Saint-Sulpice-la-Pointe (81370)<br><br>📱 Réseaux sociaux :<br>• <a href="https://www.instagram.com/stud_bastide/" target="_blank" rel="noopener noreferrer">Instagram : @stud_bastide</a><br>• <a href="https://www.youtube.com/@studiobastide" target="_blank" rel="noopener noreferrer">YouTube : @studiobastide</a><br>• <a href="https://www.tiktok.com/@stud_bastide" target="_blank" rel="noopener noreferrer">TikTok : @stud_bastide</a><br><br>Ou via le <a href="#contact">formulaire de contact</a> sur cette page. Réponse sous <strong>48h ouvrées</strong>.',
     c:['Estimer un devis 📋','Tarifs vidéo 🎬'] },
 
   // DEVIS
@@ -1035,7 +1036,7 @@ const DSTEPS=[
   {k:'type', q:'Quel type de prestation vous intéresse ?',
    opts:['Live session vidéo (450€ HT)','Clip basique (750€ HT)','Clip pro (dès 1 200€ HT)','Reel réseaux sociaux (80€ HT)','Vidéo promotionnelle (dès 900€ HT)','Podcast vidéo','Shooting photo (dès 300€ HT)','Drone (dès 295€ HT)','Atelier création vidéo (100€ HT)','Motion design','Captation live / événement','Pack complet (plusieurs prestations)']},
   {k:'lieu', q:'Où se déroulera le projet ?',
-   opts:['Tarn (≤15 km de Saint-Sulpice — déplacement offert)','Tarn (> 15 km)','Occitanie hors Tarn','Autre région de France','Non défini']},
+   opts:['Tarn (≤15 km de Saint-Sulpice : déplacement offert)','Tarn (> 15 km)','Occitanie hors Tarn','Autre région de France','Non défini']},
   {k:'budget', q:'Quel est votre budget indicatif (HT) ?',
    opts:['Moins de 500€','500€ – 1 000€','1 000€ – 2 500€','2 500€ – 5 000€','Plus de 5 000€','Non défini']}
 ];
@@ -1091,7 +1092,7 @@ function renderOpts(){
 function finishDevis(){
   dStep=-1;
   const ml='mailto:studiobastide.contact@gmail.com?subject='+
-    encodeURIComponent('Demande de devis — '+dData.type)+'&body='+
+    encodeURIComponent('Demande de devis : '+dData.type)+'&body='+
     encodeURIComponent('Bonjour,\n\nJe souhaite un devis pour :\n\nPrestation : '+dData.type+'\nLieu : '+dData.lieu+'\nBudget : '+dData.budget+'\n\nCordialement,');
   typing(()=>{
     pushBot('📋 <strong>Récapitulatif :</strong><br>• Prestation : '+esc(dData.type)+'<br>• Lieu : '+esc(dData.lieu)+'<br>• Budget : '+esc(dData.budget)+'<br><br><a href="'+ml+'"><strong>👉 Envoyer votre demande par email</strong></a><br><br>Ou remplissez le <a href="#contact">formulaire de contact</a>. Réponse sous <strong>48h ouvrées</strong> 🎬');
@@ -1151,7 +1152,7 @@ function handle(txt){
   }
   // Réponse par défaut honnête
   typing(()=>{
-    pushBot('Je ne suis pas sûr de pouvoir répondre précisément à ça 🤔<br><br>Pour toute question spécifique, le plus simple est de nous contacter directement : <a href="mailto:studiobastide.contact@gmail.com">studiobastide.contact@gmail.com</a> — on répond sous 48h.<br><br>Ou voici ce que je peux vous dire :');
+    pushBot('Je ne suis pas sûr de pouvoir répondre précisément à ça 🤔<br><br>Pour toute question spécifique, le plus simple est de nous contacter directement : <a href="mailto:studiobastide.contact@gmail.com">studiobastide.contact@gmail.com</a> : on répond sous 48h.<br><br>Ou voici ce que je peux vous dire :');
     setChips(C0);
   });
 }
@@ -1162,4 +1163,15 @@ cbtn.addEventListener('click',()=>{
   if(cOpen){
     const n=cbtn.querySelector('.chat-notif');if(n)n.remove();
     if(!cmsgs.children.length){
-      pushBot('Bonjour 👋 Je suis l\'assistant de <strong>Studio Bastide Production</strong>.<br><br>Je connais tous nos tarifs et
+      pushBot('Bonjour 👋 Je suis l\'assistant de <strong>Studio Bastide Production</strong>.<br><br>Je connais tous nos tarifs et prestations. Comment puis-je vous aider ?');
+      setChips(C0);
+    }
+    setTimeout(()=>cinput.focus(),300);
+  }
+});
+cclose.addEventListener('click',()=>{cOpen=false;cwin.classList.remove('open');});
+csend.addEventListener('click',()=>handle(cinput.value.trim()));
+cinput.addEventListener('keydown',e=>{if(e.key==='Enter')handle(cinput.value.trim());});
+</script>
+</body>
+</html>
