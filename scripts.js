@@ -448,106 +448,155 @@ document.addEventListener("DOMContentLoaded", function () {
     );
   });
 
+  const dynamicVideosEnabled =
+    document.body && document.body.dataset.dynamicVideos === "true";
+
   // ===== VIDÉOS - Gestion des miniatures et progression =====
-  const mainVideo = document.getElementById("main-video");
-  // videosContent est déjà déclaré plus haut, ne pas le redéclarer
-  let videoThumbnails = document.querySelectorAll(".video-thumbnail");
-  let currentVideoIndex = 0;
+  if (!dynamicVideosEnabled) {
+    const mainVideo = document.getElementById("main-video");
+    // videosContent est déjà déclaré plus haut, ne pas le redéclarer
+    let videoThumbnails = document.querySelectorAll(".video-thumbnail");
+    let currentVideoIndex = 0;
 
-  // Chemins des vidéos MP4 (à mettre dans assets/videos/)
-  const videoSources = [
-    "assets/videos/video5.mp4", // alpine (maintenant première)
-    "assets/videos/video1.mp4", // Mon nom est Alexandre Cavalier (maintenant deuxième)
-    "assets/videos/video3.mp4", // MAKING-OF ALTO WATCH
-    "assets/videos/video2.mp4", // LEO Walk - ALTO WATCH
-    "assets/videos/video4.mp4", // alto WQTCH PUB
-    "assets/videos/video6.mp4", // EP 1
-    "assets/videos/video7.mp4", // EP 2
-    "assets/videos/video8.mp4", // EP3
-    "assets/videos/video9.mp4", // EP4
-    "assets/videos/video10.mp4", // EP5
-    "assets/videos/video11.mp4", // EP6
-    "assets/videos/video12.mp4", // EP7
-    "assets/videos/video13.mp4", // EP 8
-    "assets/videos/video14.mp4", // EP 9
-  ];
+    // Chemins des vidéos MP4 (à mettre dans assets/videos/)
+    const videoSources = [
+      "assets/videos/video5.mp4", // alpine (maintenant première)
+      "assets/videos/video1.mp4", // Mon nom est Alexandre Cavalier (maintenant deuxième)
+      "assets/videos/video3.mp4", // MAKING-OF ALTO WATCH
+      "assets/videos/video2.mp4", // LEO Walk - ALTO WATCH
+      "assets/videos/video4.mp4", // alto WQTCH PUB
+      "assets/videos/video6.mp4", // EP 1
+      "assets/videos/video7.mp4", // EP 2
+      "assets/videos/video8.mp4", // EP3
+      "assets/videos/video9.mp4", // EP4
+      "assets/videos/video10.mp4", // EP5
+      "assets/videos/video11.mp4", // EP6
+      "assets/videos/video12.mp4", // EP7
+      "assets/videos/video13.mp4", // EP 8
+      "assets/videos/video14.mp4", // EP 9
+    ];
 
-  // IDs YouTube pour les miniatures (temporaire, en attendant les MP4)
-  const youtubeIds = [
-    "fbyIUvPFW8A", // alpine (maintenant première)
-    "SL4TNhToFns", // Mon nom est Alexandre Cavalier (maintenant deuxième)
-    "eRZfwzOD0U0", // MAKING-OF ALTO WATCH[
-    "lkLfYOta3bU", // LEO Walk - ALTO WATCH
-    "cmt147mwLu4", // alto WQTCH PUB
-    "ySfBBxVpcDE", // EP 1
-    "m5NYm08dves", // EP 2
-    "V2iMFDCzlA4", // EP3
-    "naAyDnpjTHw", // EP4
-    "8Y4awGvoRJ8", // EP5
-    "rrDkzc4YCeg", // EP6
-    "yKfVMG7LjHw", // EP7
-    "nJRTe0PZP2A", // EP 8
-    "n2ozk2Tcpps", // EP 9
-  ];
+    // IDs YouTube pour les miniatures (temporaire, en attendant les MP4)
+    const youtubeIds = [
+      "fbyIUvPFW8A", // alpine (maintenant première)
+      "SL4TNhToFns", // Mon nom est Alexandre Cavalier (maintenant deuxième)
+      "eRZfwzOD0U0", // MAKING-OF ALTO WATCH[
+      "lkLfYOta3bU", // LEO Walk - ALTO WATCH
+      "cmt147mwLu4", // alto WQTCH PUB
+      "ySfBBxVpcDE", // EP 1
+      "m5NYm08dves", // EP 2
+      "V2iMFDCzlA4", // EP3
+      "naAyDnpjTHw", // EP4
+      "8Y4awGvoRJ8", // EP5
+      "rrDkzc4YCeg", // EP6
+      "yKfVMG7LjHw", // EP7
+      "nJRTe0PZP2A", // EP 8
+      "n2ozk2Tcpps", // EP 9
+    ];
 
-  // Fonction pour générer les miniatures
-  function generateThumbnails() {
-    const desktopContainer = document.querySelector(
-      ".hidden.md\\:block .flex.overflow-x-auto"
-    );
-    const mobileContainer = document.querySelector(
-      ".md\\:hidden .flex.overflow-x-auto"
-    );
+    // Fonction pour générer les miniatures
+    function generateThumbnails() {
+      const desktopContainer = document.querySelector(
+        ".hidden.md\\:block .flex.overflow-x-auto"
+      );
+      const mobileContainer = document.querySelector(
+        ".md\\:hidden .flex.overflow-x-auto"
+      );
 
-    // Nettoyer les conteneurs existants
-    if (desktopContainer) desktopContainer.innerHTML = "";
-    if (mobileContainer) mobileContainer.innerHTML = "";
+      // Nettoyer les conteneurs existants
+      if (desktopContainer) desktopContainer.innerHTML = "";
+      if (mobileContainer) mobileContainer.innerHTML = "";
 
-    videoSources.forEach((source, index) => {
-      const videoId = youtubeIds[index] || "";
-      const thumbnailUrl = videoId
-        ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`
-        : "https://picsum.photos/300/200?random=" + (index + 1);
-      const isActive = index === 0;
+      videoSources.forEach((source, index) => {
+        const videoId = youtubeIds[index] || "";
+        const thumbnailUrl = videoId
+          ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`
+          : "https://picsum.photos/300/200?random=" + (index + 1);
+        const isActive = index === 0;
 
-      const thumbnailHTML = `
-        <div
-          class="video-thumbnail flex-shrink-0 w-32 md:w-40 cursor-pointer relative group"
-          data-video-index="${index}"
-        >
-          <div class="relative">
-            <img
-              src="${thumbnailUrl}"
-              alt="Vidéo ${index + 1}"
-              class="w-full h-auto rounded border-2 ${
-                isActive ? "border-white" : "border-transparent"
-              } group-hover:border-white transition-colors"
-              onerror="this.src='https://img.youtube.com/vi/${videoId}/hqdefault.jpg'"
-            />
-            <div
-              class="video-progress-overlay absolute inset-0 bg-white opacity-0 rounded"
-              style="clip-path: polygon(0 0, 0% 0, 0% 100%, 0 100%)"
-            ></div>
+        const thumbnailHTML = `
+          <div
+            class="video-thumbnail flex-shrink-0 w-32 md:w-40 cursor-pointer relative group"
+            data-video-index="${index}"
+          >
+            <div class="relative">
+              <img
+                src="${thumbnailUrl}"
+                alt="Vidéo ${index + 1}"
+                class="w-full h-auto rounded border-2 ${
+                  isActive ? "border-white" : "border-transparent"
+                } group-hover:border-white transition-colors"
+                onerror="this.src='https://img.youtube.com/vi/${videoId}/hqdefault.jpg'"
+              />
+              <div
+                class="video-progress-overlay absolute inset-0 bg-white opacity-0 rounded"
+                style="clip-path: polygon(0 0, 0% 0, 0% 100%, 0 100%)"
+              ></div>
+            </div>
           </div>
-        </div>
-      `;
+        `;
 
-      if (desktopContainer) {
-        desktopContainer.insertAdjacentHTML("beforeend", thumbnailHTML);
-      }
-      if (mobileContainer) {
-        const mobileThumbnailHTML = thumbnailHTML.replace(
-          "w-32 md:w-40",
-          "w-32"
-        );
-        mobileContainer.insertAdjacentHTML("beforeend", mobileThumbnailHTML);
-      }
-    });
+        if (desktopContainer) {
+          desktopContainer.insertAdjacentHTML("beforeend", thumbnailHTML);
+        }
+        if (mobileContainer) {
+          const mobileThumbnailHTML = thumbnailHTML.replace(
+            "w-32 md:w-40",
+            "w-32"
+          );
+          mobileContainer.insertAdjacentHTML("beforeend", mobileThumbnailHTML);
+        }
+      });
 
-    // Réattacher les event listeners après génération
-    const newThumbnails = document.querySelectorAll(".video-thumbnail");
-    newThumbnails.forEach((thumbnail) => {
+      // Réattacher les event listeners après génération
+      const newThumbnails = document.querySelectorAll(".video-thumbnail");
+      newThumbnails.forEach((thumbnail) => {
+        thumbnail.addEventListener("click", function () {
+          const videoIndex = parseInt(
+            thumbnail.getAttribute("data-video-index")
+          );
+          if (!isNaN(videoIndex) && videoIndex < videoSources.length) {
+            loadAndPlayVideo(videoIndex);
+          }
+        });
+      });
+
+      // Mettre à jour la référence globale
+      videoThumbnails = newThumbnails;
+    }
+
+    // Générer les miniatures au chargement
+    generateThumbnails();
+
+    // Fonction pour mettre à jour la vidéo active
+    function updateActiveVideo(index) {
+      // Retirer la classe active de toutes les miniatures
+      videoThumbnails.forEach((thumb) => {
+        thumb.classList.remove("active");
+        const img = thumb.querySelector("img");
+        if (img) {
+          img.classList.remove("border-white");
+          img.classList.add("border-transparent");
+        }
+      });
+
+      // Ajouter la classe active à la miniature sélectionnée
+      if (videoThumbnails[index]) {
+        videoThumbnails[index].classList.add("active");
+        const img = videoThumbnails[index].querySelector("img");
+        if (img) {
+          img.classList.remove("border-transparent");
+          img.classList.add("border-white");
+        }
+      }
+
+      currentVideoIndex = index;
+    }
+
+    // Clic sur les miniatures
+    videoThumbnails.forEach((thumbnail) => {
       thumbnail.addEventListener("click", function () {
+        // Utiliser data-video-index au lieu de l'index de la boucle pour gérer desktop + mobile
         const videoIndex = parseInt(thumbnail.getAttribute("data-video-index"));
         if (!isNaN(videoIndex) && videoIndex < videoSources.length) {
           loadAndPlayVideo(videoIndex);
@@ -555,191 +604,158 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
 
-    // Mettre à jour la référence globale
-    videoThumbnails = newThumbnails;
-  }
-
-  // Générer les miniatures au chargement
-  generateThumbnails();
-
-  // Fonction pour mettre à jour la vidéo active
-  function updateActiveVideo(index) {
-    // Retirer la classe active de toutes les miniatures
-    videoThumbnails.forEach((thumb) => {
-      thumb.classList.remove("active");
-      const img = thumb.querySelector("img");
-      if (img) {
-        img.classList.remove("border-white");
-        img.classList.add("border-transparent");
-      }
-    });
-
-    // Ajouter la classe active à la miniature sélectionnée
-    if (videoThumbnails[index]) {
-      videoThumbnails[index].classList.add("active");
-      const img = videoThumbnails[index].querySelector("img");
-      if (img) {
-        img.classList.remove("border-transparent");
-        img.classList.add("border-white");
-      }
-    }
-
-    currentVideoIndex = index;
-  }
-
-  // Clic sur les miniatures
-  videoThumbnails.forEach((thumbnail) => {
-    thumbnail.addEventListener("click", function () {
-      // Utiliser data-video-index au lieu de l'index de la boucle pour gérer desktop + mobile
-      const videoIndex = parseInt(thumbnail.getAttribute("data-video-index"));
-      if (!isNaN(videoIndex) && videoIndex < videoSources.length) {
-        loadAndPlayVideo(videoIndex);
-      }
-    });
-  });
-
-  // Fonction pour charger et lancer une vidéo
-  function loadAndPlayVideo(index) {
-    if (mainVideo && videoSources[index]) {
-      const sourceElement = mainVideo.querySelector("source");
-      if (sourceElement) {
-        // Changer la source de la vidéo principale
-        sourceElement.src = videoSources[index];
-        mainVideo.load();
-      }
-
-      // Mettre à jour la miniature active
-      if (videoThumbnails && videoThumbnails.length > index) {
-        updateActiveVideo(index);
-      }
-
-      // Scroll automatique vers la vidéo
-      setTimeout(() => {
-        if (mainVideo) {
-          mainVideo.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-          });
+    // Fonction pour charger et lancer une vidéo
+    function loadAndPlayVideo(index) {
+      if (mainVideo && videoSources[index]) {
+        const sourceElement = mainVideo.querySelector("source");
+        if (sourceElement) {
+          // Changer la source de la vidéo principale
+          sourceElement.src = videoSources[index];
+          mainVideo.load();
         }
-      }, 100);
 
-      // Attendre que la vidéo soit prête avant de jouer
-      const playWhenReady = function playVideo() {
+        // Mettre à jour la miniature active
+        if (videoThumbnails && videoThumbnails.length > index) {
+          updateActiveVideo(index);
+        }
+
+        // Scroll automatique vers la vidéo
+        setTimeout(() => {
+          if (mainVideo) {
+            mainVideo.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        }, 100);
+
+        // Attendre que la vidéo soit prête avant de jouer
+        const playWhenReady = function playVideo() {
+          if (mainVideo.readyState >= 2) {
+            // HAVE_CURRENT_DATA ou plus
+            mainVideo.play().catch((error) => {
+              // Autoplay bloqué par le navigateur
+            });
+            mainVideo.removeEventListener("loadeddata", playWhenReady);
+            mainVideo.removeEventListener("canplay", playWhenReady);
+          }
+        };
+
+        // Essayer de jouer immédiatement si la vidéo est déjà prête
         if (mainVideo.readyState >= 2) {
-          // HAVE_CURRENT_DATA ou plus
           mainVideo.play().catch((error) => {
             // Autoplay bloqué par le navigateur
           });
-          mainVideo.removeEventListener("loadeddata", playWhenReady);
-          mainVideo.removeEventListener("canplay", playWhenReady);
+        } else {
+          // Sinon attendre que la vidéo soit chargée
+          mainVideo.addEventListener("loadeddata", playWhenReady, {
+            once: true,
+          });
+          mainVideo.addEventListener("canplay", playWhenReady, { once: true });
         }
-      };
-
-      // Essayer de jouer immédiatement si la vidéo est déjà prête
-      if (mainVideo.readyState >= 2) {
-        mainVideo.play().catch((error) => {
-          // Autoplay bloqué par le navigateur
-        });
-      } else {
-        // Sinon attendre que la vidéo soit chargée
-        mainVideo.addEventListener("loadeddata", playWhenReady, { once: true });
-        mainVideo.addEventListener("canplay", playWhenReady, { once: true });
       }
     }
   }
 
-  // ===== BOUTON PLAY OVERLAY =====
-  // iOS gère nativement la lecture, le bouton custom est inutile et conflictuel
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  // ===== BOUTON PLAY OVERLAY (MODE NON DYNAMIQUE SEULEMENT) =====
+  if (!dynamicVideosEnabled) {
+    // iOS gère nativement la lecture, le bouton custom est inutile et conflictuel
+    const isIOS =
+      /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+      (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 
-  const videoPlayOverlay = document.getElementById("video-play-overlay");
-  const videoPlayBtn = document.getElementById("video-play-btn");
+    const videoPlayOverlay = document.getElementById("video-play-overlay");
+    const videoPlayBtn = document.getElementById("video-play-btn");
 
-  if (isIOS && videoPlayOverlay) {
-    // Masquer définitivement le bouton sur iOS
-    videoPlayOverlay.style.display = "none";
-  } else {
-    function updatePlayOverlay() {
-      if (!videoPlayOverlay) return;
-      if (mainVideo && mainVideo.paused) {
-        videoPlayOverlay.style.display = "flex";
-      } else {
-        videoPlayOverlay.style.display = "none";
-      }
-    }
-
-    if (mainVideo && videoPlayBtn) {
-      videoPlayBtn.addEventListener("click", function () {
-        mainVideo.play();
-      });
-
-      mainVideo.addEventListener("play", updatePlayOverlay);
-      mainVideo.addEventListener("playing", updatePlayOverlay);
-      mainVideo.addEventListener("pause", updatePlayOverlay);
-      mainVideo.addEventListener("ended", updatePlayOverlay);
-      mainVideo.addEventListener("loadeddata", updatePlayOverlay);
-      mainVideo.addEventListener("timeupdate", function () {
-        if (!mainVideo.paused && videoPlayOverlay && videoPlayOverlay.style.display !== "none") {
+    if (isIOS && videoPlayOverlay) {
+      // Masquer définitivement le bouton sur iOS
+      videoPlayOverlay.style.display = "none";
+    } else {
+      function updatePlayOverlay() {
+        if (!videoPlayOverlay) return;
+        if (mainVideo && mainVideo.paused) {
+          videoPlayOverlay.style.display = "flex";
+        } else {
           videoPlayOverlay.style.display = "none";
         }
+      }
+
+      if (mainVideo && videoPlayBtn) {
+        videoPlayBtn.addEventListener("click", function () {
+          mainVideo.play();
+        });
+
+        mainVideo.addEventListener("play", updatePlayOverlay);
+        mainVideo.addEventListener("playing", updatePlayOverlay);
+        mainVideo.addEventListener("pause", updatePlayOverlay);
+        mainVideo.addEventListener("ended", updatePlayOverlay);
+        mainVideo.addEventListener("loadeddata", updatePlayOverlay);
+        mainVideo.addEventListener("timeupdate", function () {
+          if (
+            !mainVideo.paused &&
+            videoPlayOverlay &&
+            videoPlayOverlay.style.display !== "none"
+          ) {
+            videoPlayOverlay.style.display = "none";
+          }
+        });
+
+        // État initial
+        updatePlayOverlay();
+      }
+    }
+
+    // Mettre à jour la progression de la vidéo sur la miniature active
+    if (mainVideo) {
+      mainVideo.addEventListener("timeupdate", function () {
+        const progress = (mainVideo.currentTime / mainVideo.duration) * 100;
+        const activeThumbnail = videoThumbnails[currentVideoIndex];
+
+        if (activeThumbnail) {
+          const progressOverlay = activeThumbnail.querySelector(
+            ".video-progress-overlay"
+          );
+          if (progressOverlay) {
+            progressOverlay.style.clipPath = `polygon(0 0, ${progress}% 0, ${progress}% 100%, 0 100%)`;
+          }
+        }
       });
 
-      // État initial
-      updatePlayOverlay();
+      // Réinitialiser la progression quand la vidéo change
+      mainVideo.addEventListener("loadstart", function () {
+        const activeThumbnail = videoThumbnails[currentVideoIndex];
+        if (activeThumbnail) {
+          const progressOverlay = activeThumbnail.querySelector(
+            ".video-progress-overlay"
+          );
+          if (progressOverlay) {
+            progressOverlay.style.clipPath =
+              "polygon(0 0, 0% 0, 0% 100%, 0 100%)";
+          }
+        }
+      });
+
+      // Lecture automatique en chaîne : passer à la vidéo suivante quand une vidéo se termine
+      mainVideo.addEventListener("ended", function () {
+        // Vérifier que l'onglet vidéo est actif
+        if (videosContent) {
+          // Passer à la vidéo suivante
+          const nextIndex = (currentVideoIndex + 1) % videoSources.length;
+          loadAndPlayVideo(nextIndex);
+        }
+      });
     }
-  }
 
-  // Mettre à jour la progression de la vidéo sur la miniature active
-  if (mainVideo) {
-    mainVideo.addEventListener("timeupdate", function () {
-      const progress = (mainVideo.currentTime / mainVideo.duration) * 100;
-      const activeThumbnail = videoThumbnails[currentVideoIndex];
+    // Initialiser la première vidéo comme active
+    updateActiveVideo(0);
 
-      if (activeThumbnail) {
-        const progressOverlay = activeThumbnail.querySelector(
-          ".video-progress-overlay"
-        );
-        if (progressOverlay) {
-          progressOverlay.style.clipPath = `polygon(0 0, ${progress}% 0, ${progress}% 100%, 0 100%)`;
-        }
+    // Charger la première vidéo au chargement (les deux sections sont maintenant toujours visibles)
+    if (mainVideo && videoSources.length > 0) {
+      const sourceElement = mainVideo.querySelector("source");
+      if (sourceElement) {
+        sourceElement.src = videoSources[0];
+        mainVideo.load();
       }
-    });
-
-    // Réinitialiser la progression quand la vidéo change
-    mainVideo.addEventListener("loadstart", function () {
-      const activeThumbnail = videoThumbnails[currentVideoIndex];
-      if (activeThumbnail) {
-        const progressOverlay = activeThumbnail.querySelector(
-          ".video-progress-overlay"
-        );
-        if (progressOverlay) {
-          progressOverlay.style.clipPath =
-            "polygon(0 0, 0% 0, 0% 100%, 0 100%)";
-        }
-      }
-    });
-
-    // Lecture automatique en chaîne : passer à la vidéo suivante quand une vidéo se termine
-    mainVideo.addEventListener("ended", function () {
-      // Vérifier que l'onglet vidéo est actif
-      if (videosContent) {
-        // Passer à la vidéo suivante
-        const nextIndex = (currentVideoIndex + 1) % videoSources.length;
-        loadAndPlayVideo(nextIndex);
-      }
-    });
-  }
-
-  // Initialiser la première vidéo comme active
-  updateActiveVideo(0);
-
-  // Charger la première vidéo au chargement (les deux sections sont maintenant toujours visibles)
-  if (mainVideo && videoSources.length > 0) {
-    const sourceElement = mainVideo.querySelector("source");
-    if (sourceElement) {
-      sourceElement.src = videoSources[0];
-      mainVideo.load();
     }
   }
 

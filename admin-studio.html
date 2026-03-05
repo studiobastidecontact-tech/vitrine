@@ -1,0 +1,1174 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Studio Bastide</title>
+
+    <!-- Init thème AVANT le rendu pour éviter tout flash -->
+    <script>
+      (function () {
+        var saved = localStorage.getItem("admin-theme");
+        var prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        if (saved === "dark" || (!saved && prefersDark)) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = { darkMode: "class" };
+    </script>
+
+    <style>
+      /* ── Fond ── */
+      body {
+        background: radial-gradient(circle at top, #e2e8f0, #f1f5f9);
+        transition: background 0.3s;
+      }
+      .dark body {
+        background: radial-gradient(circle at top, #1f2937, #020617);
+      }
+
+      /* ── Cards ── */
+      .admin-card {
+        backdrop-filter: blur(14px);
+        background: rgba(255, 255, 255, 0.85);
+        border-color: rgba(148, 163, 184, 0.45);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.07);
+      }
+      .dark .admin-card {
+        background: rgba(15, 23, 42, 0.88);
+        border-color: rgba(30, 41, 59, 0.8);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      }
+
+      /* ── Inputs ── */
+      .admin-input {
+        width: 100%;
+        padding: 0.5rem 0.75rem;
+        border-radius: 0.375rem;
+        background: rgba(241, 245, 249, 0.9);
+        border: 1px solid #cbd5e1;
+        font-size: 0.875rem;
+        color: #1e293b;
+      }
+      .dark .admin-input {
+        background: rgba(15, 23, 42, 0.8);
+        border-color: #4b5563;
+        color: #e5e7eb;
+      }
+      .admin-input::placeholder {
+        color: #94a3b8;
+      }
+      .dark .admin-input::placeholder {
+        color: #6b7280;
+      }
+      .admin-input:focus {
+        outline: none;
+        border-color: #f97316;
+        box-shadow: 0 0 0 1px #f97316;
+      }
+
+      /* ── Labels ── */
+      .admin-label {
+        display: block;
+        font-size: 0.7rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: #64748b;
+        margin-bottom: 0.25rem;
+      }
+      .dark .admin-label {
+        color: #9ca3af;
+      }
+
+      /* ── Titres de section ── */
+      .admin-section-title {
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.25em;
+        color: #1e293b;
+      }
+      .dark .admin-section-title {
+        color: #e5e7eb;
+      }
+
+      /* ── Badges ── */
+      .admin-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.125rem 0.5rem;
+        border-radius: 9999px;
+        font-size: 0.625rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+      }
+
+      /* ── Éléments de liste (utilisés dans loadAudio/loadVideos/loadLogos) ── */
+      .admin-list-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.5rem;
+        border-radius: 0.375rem;
+        border: 1px solid rgba(148, 163, 184, 0.5);
+        background: rgba(241, 245, 249, 0.8);
+        padding: 0.5rem 0.625rem;
+      }
+      .dark .admin-list-item {
+        border-color: rgba(51, 65, 85, 0.8);
+        background: rgba(15, 23, 42, 0.7);
+      }
+      .admin-order-badge {
+        font-size: 10px;
+        padding: 0.125rem 0.375rem;
+        border-radius: 0.25rem;
+        background: #e2e8f0;
+        color: #475569;
+        font-family: monospace;
+      }
+      .dark .admin-order-badge {
+        background: rgba(30, 41, 59, 0.8);
+        color: #cbd5e1;
+      }
+      .admin-item-title {
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: #1e293b;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .dark .admin-item-title {
+        color: #f8fafc;
+      }
+      .admin-item-sub {
+        font-size: 11px;
+        color: #64748b;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        margin-top: 2px;
+      }
+      .dark .admin-item-sub {
+        color: #94a3b8;
+      }
+      .admin-item-sub2 {
+        font-size: 11px;
+        color: #94a3b8;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        margin-top: 2px;
+      }
+      .dark .admin-item-sub2 {
+        color: #64748b;
+      }
+      .admin-edit-btn {
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.375rem;
+        background: #e2e8f0;
+        font-size: 10px;
+        color: #1e293b;
+        transition: background 0.15s;
+        white-space: nowrap;
+      }
+      .admin-edit-btn:hover {
+        background: #cbd5e1;
+      }
+      .dark .admin-edit-btn {
+        background: #1e293b;
+        color: #f1f5f9;
+      }
+      .dark .admin-edit-btn:hover {
+        background: #334155;
+      }
+      .admin-delete-btn {
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.375rem;
+        background: rgba(239, 68, 68, 0.12);
+        border: 1px solid rgba(239, 68, 68, 0.25);
+        font-size: 10px;
+        color: #dc2626;
+        transition: background 0.15s;
+        white-space: nowrap;
+      }
+      .admin-delete-btn:hover {
+        background: rgba(239, 68, 68, 0.25);
+      }
+      .dark .admin-delete-btn {
+        background: rgba(185, 28, 28, 0.4);
+        border-color: rgba(239, 68, 68, 0.3);
+        color: #fecaca;
+      }
+      .dark .admin-delete-btn:hover {
+        background: rgba(185, 28, 28, 0.6);
+      }
+
+      /* ── Toggle thème ── */
+      .theme-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 9999px;
+        border: 1px solid #cbd5e1;
+        background: rgba(241, 245, 249, 0.8);
+        color: #475569;
+        transition:
+          background 0.2s,
+          border-color 0.2s;
+        cursor: pointer;
+      }
+      .theme-toggle:hover {
+        background: #e2e8f0;
+      }
+      .dark .theme-toggle {
+        border-color: #334155;
+        background: rgba(30, 41, 59, 0.8);
+        color: #cbd5e1;
+      }
+      .dark .theme-toggle:hover {
+        background: #1e293b;
+      }
+
+      /* ── Séparateur dans les cartes ── */
+      .admin-divider {
+        border-color: #e2e8f0;
+      }
+      .dark .admin-divider {
+        border-color: rgba(51, 65, 85, 0.7);
+      }
+
+      /* ── Texte secondaire dans les cartes ── */
+      .admin-card-subtitle {
+        font-size: 0.75rem;
+        color: #64748b;
+        margin-top: 0.25rem;
+      }
+      .dark .admin-card-subtitle {
+        color: #94a3b8;
+      }
+      .admin-card-form-label {
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: #1e293b;
+        margin-bottom: 0.5rem;
+      }
+      .dark .admin-card-form-label {
+        color: #e2e8f0;
+      }
+    </style>
+  </head>
+
+  <body class="min-h-full text-slate-800 dark:text-slate-100">
+    <div class="min-h-screen flex flex-col">
+      <!-- Header -->
+      <header
+        class="border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-black/60 backdrop-blur sticky top-0 z-30 transition-colors duration-300"
+      >
+        <div
+          class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4"
+        >
+          <div class="flex items-center gap-3">
+            <!-- Logo B à la place de "SB" -->
+            <div
+              class="h-9 w-9 rounded-full bg-black flex items-center justify-center overflow-hidden shrink-0"
+            >
+              <img
+                src="assets/img/B_blanc.png"
+                alt="Studio Bastide"
+                class="h-7 w-7 object-contain"
+              />
+            </div>
+            <div>
+              <p
+                class="text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400"
+              >
+                Studio Bastide
+              </p>
+              <p class="text-sm font-medium text-slate-800 dark:text-slate-50">
+                Panneau d'administration
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <!-- Toggle dark/light -->
+            <button
+              id="theme-toggle"
+              class="theme-toggle"
+              aria-label="Basculer le thème"
+            >
+              <!-- Icône soleil (visible en dark) -->
+              <svg
+                id="icon-sun"
+                class="hidden w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <circle cx="12" cy="12" r="5" />
+                <path
+                  d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+                />
+              </svg>
+              <!-- Icône lune (visible en light) -->
+              <svg
+                id="icon-moon"
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+              </svg>
+            </button>
+
+            <div id="user-info" class="hidden items-center gap-2 text-xs">
+              <span
+                id="user-email"
+                class="max-w-[180px] truncate text-slate-700 dark:text-slate-200"
+              ></span>
+              <span
+                id="user-role-badge"
+                class="admin-badge bg-emerald-500/15 text-emerald-600 dark:text-emerald-300 border border-emerald-500/40"
+              >
+                Admin
+              </span>
+            </div>
+            <button
+              id="login-btn"
+              class="px-3 py-1.5 rounded-md text-xs font-semibold tracking-[0.16em] uppercase bg-slate-900 text-white dark:bg-white dark:text-slate-900 hover:opacity-80 transition-opacity"
+            >
+              Se connecter
+            </button>
+            <button
+              id="logout-btn"
+              class="hidden px-3 py-1.5 rounded-md text-xs font-semibold tracking-[0.16em] uppercase border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            >
+              Se déconnecter
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Contenu principal -->
+      <main class="flex-1">
+        <div class="max-w-6xl mx-auto px-4 py-8 space-y-8">
+          <!-- Bannière info -->
+          <section class="admin-card rounded-2xl border p-5 md:p-6">
+            <div
+              class="flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+            >
+              <!-- Partie gauche : masquée une fois connecté -->
+              <div id="auth-info-pre-login">
+                <p class="admin-section-title mb-1">Accès restreint</p>
+                <p class="admin-card-subtitle">
+                  Connecte-toi avec l'un des comptes Google autorisés pour gérer
+                  les sons, les vidéos et les logos de la vitrine.
+                </p>
+              </div>
+
+              <!-- Partie droite : toujours visible -->
+              <div class="text-xs text-slate-500 dark:text-slate-400 space-y-1">
+                <p>
+                  Les modifications sont appliquées
+                  <span class="font-semibold text-slate-800 dark:text-slate-100"
+                    >en direct</span
+                  >
+                  sur le site (une fois la vitrine branchée à Firebase).
+                </p>
+                <p
+                  id="auth-warning"
+                  class="hidden text-amber-500 dark:text-amber-300"
+                >
+                  Cet utilisateur n'est pas autorisé à modifier les données.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Panneaux admin -->
+          <section
+            id="admin-panels"
+            class="grid grid-cols-1 md:grid-cols-3 gap-6 opacity-0 pointer-events-none transition-opacity duration-200"
+          >
+            <!-- AUDIO -->
+            <div
+              class="admin-card rounded-2xl border p-4 md:p-5 flex flex-col gap-4"
+            >
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="admin-section-title">Réalisations son</p>
+                  <p class="admin-card-subtitle">
+                    Titre + chemin du fichier audio + ordre.
+                  </p>
+                </div>
+                <span
+                  class="admin-badge bg-sky-500/15 text-sky-600 dark:text-sky-300 border border-sky-500/30"
+                >
+                  Audio
+                </span>
+              </div>
+
+              <div
+                class="space-y-2 max-h-72 overflow-y-auto pr-1"
+                id="audio-list"
+              ></div>
+
+              <div class="border-t admin-divider pt-3 mt-2">
+                <p class="admin-card-form-label">
+                  Ajouter / modifier un élément
+                </p>
+                <form id="audio-form" class="space-y-2">
+                  <input type="hidden" id="audio-id" />
+                  <div>
+                    <label for="audio-title" class="admin-label">Titre</label>
+                    <input
+                      id="audio-title"
+                      type="text"
+                      class="admin-input"
+                      placeholder="BO La dame et son enfant"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label for="audio-fileUrl" class="admin-label"
+                      >Fichier audio (nom seul)</label
+                    >
+                    <input
+                      id="audio-fileUrl"
+                      type="text"
+                      class="admin-input"
+                      placeholder="BO_La_femme_et_l'Enfant.wav"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label for="audio-order" class="admin-label">Ordre</label>
+                    <input
+                      id="audio-order"
+                      type="number"
+                      min="1"
+                      class="admin-input"
+                      placeholder="1"
+                      required
+                    />
+                  </div>
+                  <div class="flex items-center justify-between gap-3 pt-2">
+                    <button
+                      type="submit"
+                      class="flex-1 px-3 py-2 rounded-md bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs font-semibold tracking-[0.18em] uppercase hover:opacity-80 transition-opacity"
+                    >
+                      Ajouter l'élément
+                    </button>
+                    <button
+                      type="button"
+                      id="audio-reset-btn"
+                      class="px-3 py-2 rounded-md border border-slate-300 dark:border-slate-600 text-xs font-medium text-slate-600 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                    >
+                      RESET
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- VIDEOS -->
+            <div
+              class="admin-card rounded-2xl border p-4 md:p-5 flex flex-col gap-4"
+            >
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="admin-section-title">Réalisations vidéo</p>
+                  <p class="admin-card-subtitle">
+                    Titre interne, alt et chemin du MP4.
+                  </p>
+                </div>
+                <span
+                  class="admin-badge bg-purple-500/15 text-purple-600 dark:text-purple-300 border border-purple-500/30"
+                >
+                  Vidéo
+                </span>
+              </div>
+
+              <div
+                class="space-y-2 max-h-72 overflow-y-auto pr-1"
+                id="video-list"
+              ></div>
+
+              <div class="border-t admin-divider pt-3 mt-2">
+                <p class="admin-card-form-label">
+                  Ajouter / modifier une vidéo
+                </p>
+                <form id="video-form" class="space-y-2">
+                  <input type="hidden" id="video-id" />
+                  <div>
+                    <label for="video-title" class="admin-label"
+                      >Titre interne</label
+                    >
+                    <input
+                      id="video-title"
+                      type="text"
+                      class="admin-input"
+                      placeholder="Clip Alpine"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label for="video-alt" class="admin-label">Alt</label>
+                    <input
+                      id="video-alt"
+                      type="text"
+                      class="admin-input"
+                      placeholder="Texte alternatif de la vidéo"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label for="video-fileUrl" class="admin-label"
+                      >Fichier MP4 (nom seul)</label
+                    >
+                    <input
+                      id="video-fileUrl"
+                      type="text"
+                      class="admin-input"
+                      placeholder="video1.mp4"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label for="video-youtubeId" class="admin-label"
+                      >ID YouTube (pour la miniature)</label
+                    >
+                    <input
+                      id="video-youtubeId"
+                      type="text"
+                      class="admin-input"
+                      placeholder="dQw4w9WgXcQ"
+                    />
+                    <p class="admin-card-subtitle mt-1">
+                      L'ID se trouve dans l'URL YouTube :
+                      youtube.com/watch?v=<strong>dQw4w9WgXcQ</strong>
+                    </p>
+                  </div>
+                  <div>
+                    <label for="video-order" class="admin-label">Ordre</label>
+                    <input
+                      id="video-order"
+                      type="number"
+                      min="1"
+                      class="admin-input"
+                      placeholder="1"
+                      required
+                    />
+                  </div>
+                  <div class="flex items-center justify-between gap-3 pt-2">
+                    <button
+                      type="submit"
+                      class="flex-1 px-3 py-2 rounded-md bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs font-semibold tracking-[0.18em] uppercase hover:opacity-80 transition-opacity"
+                    >
+                      Ajouter l'élément
+                    </button>
+                    <button
+                      type="button"
+                      id="video-reset-btn"
+                      class="px-3 py-2 rounded-md border border-slate-300 dark:border-slate-600 text-xs font-medium text-slate-600 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                    >
+                      RESET
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- LOGOS -->
+            <div
+              class="admin-card rounded-2xl border p-4 md:p-5 flex flex-col gap-4"
+            >
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="admin-section-title">Ils nous ont fait confiance</p>
+                  <p class="admin-card-subtitle">
+                    Nom / alt + chemin du logo. La duplication pour le carrousel
+                    se fera côté vitrine.
+                  </p>
+                </div>
+                <span
+                  class="admin-badge bg-amber-500/15 text-amber-600 dark:text-amber-300 border border-amber-500/30"
+                >
+                  Logos
+                </span>
+              </div>
+
+              <div
+                class="space-y-2 max-h-72 overflow-y-auto pr-1"
+                id="logo-list"
+              ></div>
+
+              <div class="border-t admin-divider pt-3 mt-2">
+                <p class="admin-card-form-label">Ajouter / modifier un logo</p>
+                <form id="logo-form" class="space-y-2">
+                  <input type="hidden" id="logo-id" />
+                  <div>
+                    <label for="logo-alt" class="admin-label">Nom / alt</label>
+                    <input
+                      id="logo-alt"
+                      type="text"
+                      class="admin-input"
+                      placeholder="Alpine, ISPRA, etc."
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label for="logo-fileUrl" class="admin-label"
+                      >Fichier logo (nom seul)</label
+                    >
+                    <input
+                      id="logo-fileUrl"
+                      type="text"
+                      class="admin-input"
+                      placeholder="alto.png"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label for="logo-order" class="admin-label">Ordre</label>
+                    <input
+                      id="logo-order"
+                      type="number"
+                      min="1"
+                      class="admin-input"
+                      placeholder="1"
+                      required
+                    />
+                  </div>
+                  <div class="flex items-center justify-between gap-3 pt-2">
+                    <button
+                      type="submit"
+                      class="flex-1 px-3 py-2 rounded-md bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs font-semibold tracking-[0.18em] uppercase hover:opacity-80 transition-opacity"
+                    >
+                      Ajouter l'élément
+                    </button>
+                    <button
+                      type="button"
+                      id="logo-reset-btn"
+                      class="px-3 py-2 rounded-md border border-slate-300 dark:border-slate-600 text-xs font-medium text-slate-600 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                    >
+                      RESET
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <!-- Firebase + logique admin -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+      import {
+        getAuth,
+        GoogleAuthProvider,
+        signInWithPopup,
+        onAuthStateChanged,
+        signOut,
+      } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
+      import {
+        getFirestore,
+        collection,
+        getDocs,
+        addDoc,
+        updateDoc,
+        deleteDoc,
+        doc,
+        query,
+        orderBy,
+      } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
+
+      const ALLOWED_EMAILS = [
+        "ilan.chekroun1@gmail.com",
+        "studiobastideform@gmail.com",
+      ];
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyCvL0nNQf2eJIUTpExDj7GHv4c9gPHEl8M",
+        authDomain: "studio-bastide-admin.firebaseapp.com",
+        projectId: "studio-bastide-admin",
+        storageBucket: "studio-bastide-admin.firebasestorage.app",
+        messagingSenderId: "982414411603",
+        appId: "1:982414411603:web:0fdd1d537b6781687803a6",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+
+      // ── Refs DOM ──────────────────────────────────────────────────────────
+
+      const loginBtn = document.getElementById("login-btn");
+      const logoutBtn = document.getElementById("logout-btn");
+      const userInfo = document.getElementById("user-info");
+      const userEmailSpan = document.getElementById("user-email");
+      const adminPanels = document.getElementById("admin-panels");
+      const authWarning = document.getElementById("auth-warning");
+      const authInfoPreLogin = document.getElementById("auth-info-pre-login");
+
+      const audioListEl = document.getElementById("audio-list");
+      const videoListEl = document.getElementById("video-list");
+      const logoListEl = document.getElementById("logo-list");
+
+      const audioForm = document.getElementById("audio-form");
+      const audioIdInput = document.getElementById("audio-id");
+      const audioTitleInput = document.getElementById("audio-title");
+      const audioFileUrlInput = document.getElementById("audio-fileUrl");
+      const audioOrderInput = document.getElementById("audio-order");
+      const audioResetBtn = document.getElementById("audio-reset-btn");
+      const audioSubmitBtn = audioForm.querySelector('button[type="submit"]');
+
+      const videoForm = document.getElementById("video-form");
+      const videoIdInput = document.getElementById("video-id");
+      const videoTitleInput = document.getElementById("video-title");
+      const videoAltInput = document.getElementById("video-alt");
+      const videoFileUrlInput = document.getElementById("video-fileUrl");
+      const videoYoutubeIdInput = document.getElementById("video-youtubeId");
+      const videoOrderInput = document.getElementById("video-order");
+      const videoResetBtn = document.getElementById("video-reset-btn");
+      const videoSubmitBtn = videoForm.querySelector('button[type="submit"]');
+
+      const logoForm = document.getElementById("logo-form");
+      const logoIdInput = document.getElementById("logo-id");
+      const logoAltInput = document.getElementById("logo-alt");
+      const logoFileUrlInput = document.getElementById("logo-fileUrl");
+      const logoOrderInput = document.getElementById("logo-order");
+      const logoResetBtn = document.getElementById("logo-reset-btn");
+      const logoSubmitBtn = logoForm.querySelector('button[type="submit"]');
+
+      // ── Toggle dark/light ─────────────────────────────────────────────────
+
+      const themeToggleBtn = document.getElementById("theme-toggle");
+      const iconSun = document.getElementById("icon-sun");
+      const iconMoon = document.getElementById("icon-moon");
+
+      function applyThemeIcons() {
+        const isDark = document.documentElement.classList.contains("dark");
+        iconSun.classList.toggle("hidden", !isDark);
+        iconMoon.classList.toggle("hidden", isDark);
+      }
+
+      applyThemeIcons();
+
+      themeToggleBtn.addEventListener("click", () => {
+        const isDark = document.documentElement.classList.toggle("dark");
+        localStorage.setItem("admin-theme", isDark ? "dark" : "light");
+        applyThemeIcons();
+      });
+
+      // ── Auth ───────────────────────────────────────────────────────────────
+
+      function setAdminVisible(visible) {
+        if (visible) {
+          adminPanels.classList.remove("pointer-events-none", "opacity-0");
+          adminPanels.classList.add("opacity-100");
+        } else {
+          adminPanels.classList.add("pointer-events-none", "opacity-0");
+          adminPanels.classList.remove("opacity-100");
+        }
+      }
+
+      function resetAudioForm() {
+        audioIdInput.value = "";
+        audioForm.reset();
+        if (audioSubmitBtn) audioSubmitBtn.textContent = "Ajouter l'élément";
+      }
+
+      function resetVideoForm() {
+        videoIdInput.value = "";
+        videoForm.reset();
+        if (videoSubmitBtn) videoSubmitBtn.textContent = "Ajouter l'élément";
+      }
+
+      function resetLogoForm() {
+        logoIdInput.value = "";
+        logoForm.reset();
+        if (logoSubmitBtn) logoSubmitBtn.textContent = "Ajouter l'élément";
+      }
+
+      loginBtn.addEventListener("click", async () => {
+        const provider = new GoogleAuthProvider();
+        try {
+          await signInWithPopup(auth, provider);
+        } catch (error) {
+          console.error("Erreur de connexion:", error);
+          alert("Connexion Google impossible. Réessaie plus tard.");
+        }
+      });
+
+      logoutBtn.addEventListener("click", async () => {
+        try {
+          await signOut(auth);
+        } catch (error) {
+          console.error("Erreur de déconnexion:", error);
+        }
+      });
+
+      onAuthStateChanged(auth, async (user) => {
+        if (!user) {
+          userInfo.classList.add("hidden");
+          logoutBtn.classList.add("hidden");
+          loginBtn.classList.remove("hidden");
+          authWarning.classList.add("hidden");
+          authInfoPreLogin.classList.remove("hidden");
+          setAdminVisible(false);
+          return;
+        }
+
+        userEmailSpan.textContent = user.email || "";
+        userInfo.classList.remove("hidden");
+        userInfo.style.display = "flex";
+        logoutBtn.classList.remove("hidden");
+        loginBtn.classList.add("hidden");
+
+        const isAllowed =
+          user.email &&
+          ALLOWED_EMAILS.map((e) => e.toLowerCase()).includes(
+            user.email.toLowerCase(),
+          );
+
+        if (!isAllowed) {
+          authWarning.classList.remove("hidden");
+          setAdminVisible(false);
+          return;
+        }
+
+        authWarning.classList.add("hidden");
+        // Masquer le bloc "Accès restreint" une fois connecté et autorisé
+        authInfoPreLogin.classList.add("hidden");
+        setAdminVisible(true);
+
+        await Promise.all([loadAudioTracks(), loadVideos(), loadLogos()]);
+      });
+
+      // ── Chargement des données ─────────────────────────────────────────────
+
+      function makeListItem(content) {
+        const div = document.createElement("div");
+        div.className = "admin-list-item";
+        div.innerHTML = content;
+        return div;
+      }
+
+      async function loadAudioTracks() {
+        audioListEl.innerHTML =
+          '<p class="admin-item-sub">Chargement des pistes...</p>';
+        try {
+          const q = query(
+            collection(db, "audioTracks"),
+            orderBy("order", "asc"),
+          );
+          const snapshot = await getDocs(q);
+          if (snapshot.empty) {
+            audioListEl.innerHTML =
+              '<p class="admin-item-sub" style="font-style:italic">Aucune piste pour l\'instant.</p>';
+            return;
+          }
+          audioListEl.innerHTML = "";
+          snapshot.forEach((docSnap) => {
+            const data = docSnap.data();
+            const item = makeListItem(`
+              <div style="flex:1;min-width:0">
+                <div style="display:flex;align-items:center;gap:6px">
+                  <span class="admin-order-badge">${data.order ?? "-"}</span>
+                  <p class="admin-item-title">${data.title || "(sans titre)"}</p>
+                </div>
+                <p class="admin-item-sub">${data.fileUrl || ""}</p>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:4px;margin-left:8px">
+                <button type="button" class="admin-edit-btn" data-action="edit" data-id="${docSnap.id}">Modifier</button>
+                <button type="button" class="admin-delete-btn" data-action="delete" data-id="${docSnap.id}">Supprimer</button>
+              </div>
+            `);
+            audioListEl.appendChild(item);
+          });
+        } catch (error) {
+          console.error("Erreur chargement audioTracks:", error);
+          audioListEl.innerHTML =
+            '<p style="font-size:0.75rem;color:#ef4444">Erreur lors du chargement des pistes.</p>';
+        }
+      }
+
+      async function loadVideos() {
+        videoListEl.innerHTML =
+          '<p class="admin-item-sub">Chargement des vidéos...</p>';
+        try {
+          const q = query(collection(db, "videos"), orderBy("order", "asc"));
+          const snapshot = await getDocs(q);
+          if (snapshot.empty) {
+            videoListEl.innerHTML =
+              '<p class="admin-item-sub" style="font-style:italic">Aucune vidéo pour l\'instant.</p>';
+            return;
+          }
+          videoListEl.innerHTML = "";
+          snapshot.forEach((docSnap) => {
+            const data = docSnap.data();
+            const ytWarning = data.youtubeId
+              ? `<p class="admin-item-sub2">YT: ${data.youtubeId}</p>`
+              : `<p style="font-size:11px;color:#f59e0b;margin-top:2px">⚠ Pas d'ID YouTube</p>`;
+            const item = makeListItem(`
+              <div style="flex:1;min-width:0">
+                <div style="display:flex;align-items:center;gap:6px">
+                  <span class="admin-order-badge">${data.order ?? "-"}</span>
+                  <p class="admin-item-title">${data.title || "(sans titre)"}</p>
+                </div>
+                <p class="admin-item-sub">${data.alt || ""}</p>
+                <p class="admin-item-sub2">${data.fileUrl || ""}</p>
+                ${ytWarning}
+              </div>
+              <div style="display:flex;flex-direction:column;gap:4px;margin-left:8px">
+                <button type="button" class="admin-edit-btn" data-action="edit" data-id="${docSnap.id}">Modifier</button>
+                <button type="button" class="admin-delete-btn" data-action="delete" data-id="${docSnap.id}">Supprimer</button>
+              </div>
+            `);
+            videoListEl.appendChild(item);
+          });
+        } catch (error) {
+          console.error("Erreur chargement vidéos:", error);
+          videoListEl.innerHTML =
+            '<p style="font-size:0.75rem;color:#ef4444">Erreur lors du chargement des vidéos.</p>';
+        }
+      }
+
+      async function loadLogos() {
+        logoListEl.innerHTML =
+          '<p class="admin-item-sub">Chargement des logos...</p>';
+        try {
+          const q = query(
+            collection(db, "trustedLogos"),
+            orderBy("order", "asc"),
+          );
+          const snapshot = await getDocs(q);
+          if (snapshot.empty) {
+            logoListEl.innerHTML =
+              '<p class="admin-item-sub" style="font-style:italic">Aucun logo pour l\'instant.</p>';
+            return;
+          }
+          logoListEl.innerHTML = "";
+          snapshot.forEach((docSnap) => {
+            const data = docSnap.data();
+            const item = makeListItem(`
+              <div style="flex:1;min-width:0">
+                <div style="display:flex;align-items:center;gap:6px">
+                  <span class="admin-order-badge">${data.order ?? "-"}</span>
+                  <p class="admin-item-title">${data.alt || "(sans nom)"}</p>
+                </div>
+                <p class="admin-item-sub">${data.fileUrl || ""}</p>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:4px;margin-left:8px">
+                <button type="button" class="admin-edit-btn" data-action="edit" data-id="${docSnap.id}">Modifier</button>
+                <button type="button" class="admin-delete-btn" data-action="delete" data-id="${docSnap.id}">Supprimer</button>
+              </div>
+            `);
+            logoListEl.appendChild(item);
+          });
+        } catch (error) {
+          console.error("Erreur chargement logos:", error);
+          logoListEl.innerHTML =
+            '<p style="font-size:0.75rem;color:#ef4444">Erreur lors du chargement des logos.</p>';
+        }
+      }
+
+      // ── Listeners édition / suppression ───────────────────────────────────
+
+      audioListEl.addEventListener("click", async (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLElement)) return;
+        const action = target.dataset.action;
+        const id = target.dataset.id;
+        if (!action || !id) return;
+
+        if (action === "edit") {
+          try {
+            const snapshot = await getDocs(collection(db, "audioTracks"));
+            const docSnap = snapshot.docs.find((d) => d.id === id);
+            if (!docSnap) return;
+            const data = docSnap.data();
+            audioIdInput.value = docSnap.id;
+            audioTitleInput.value = data.title || "";
+            audioFileUrlInput.value = data.fileUrl || "";
+            audioOrderInput.value = data.order ?? "";
+            if (audioSubmitBtn) audioSubmitBtn.textContent = "Mettre à jour";
+          } catch (error) {
+            console.error("Erreur chargement piste:", error);
+          }
+        } else if (action === "delete") {
+          if (!confirm("Supprimer définitivement cette piste ?")) return;
+          try {
+            await deleteDoc(doc(db, "audioTracks", id));
+            await loadAudioTracks();
+            resetAudioForm();
+          } catch (error) {
+            console.error("Erreur suppression piste:", error);
+            alert("Impossible de supprimer cette piste.");
+          }
+        }
+      });
+
+      videoListEl.addEventListener("click", async (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLElement)) return;
+        const action = target.dataset.action;
+        const id = target.dataset.id;
+        if (!action || !id) return;
+
+        if (action === "edit") {
+          try {
+            const snapshot = await getDocs(collection(db, "videos"));
+            const docSnap = snapshot.docs.find((d) => d.id === id);
+            if (!docSnap) return;
+            const data = docSnap.data();
+            videoIdInput.value = docSnap.id;
+            videoTitleInput.value = data.title || "";
+            videoAltInput.value = data.alt || "";
+            videoFileUrlInput.value = data.fileUrl || "";
+            videoYoutubeIdInput.value = data.youtubeId || "";
+            videoOrderInput.value = data.order ?? "";
+            if (videoSubmitBtn) videoSubmitBtn.textContent = "Mettre à jour";
+          } catch (error) {
+            console.error("Erreur chargement vidéo:", error);
+          }
+        } else if (action === "delete") {
+          if (!confirm("Supprimer définitivement cette vidéo ?")) return;
+          try {
+            await deleteDoc(doc(db, "videos", id));
+            await loadVideos();
+            resetVideoForm();
+          } catch (error) {
+            console.error("Erreur suppression vidéo:", error);
+            alert("Impossible de supprimer cette vidéo.");
+          }
+        }
+      });
+
+      logoListEl.addEventListener("click", async (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLElement)) return;
+        const action = target.dataset.action;
+        const id = target.dataset.id;
+        if (!action || !id) return;
+
+        if (action === "edit") {
+          try {
+            const snapshot = await getDocs(collection(db, "trustedLogos"));
+            const docSnap = snapshot.docs.find((d) => d.id === id);
+            if (!docSnap) return;
+            const data = docSnap.data();
+            logoIdInput.value = docSnap.id;
+            logoAltInput.value = data.alt || "";
+            logoFileUrlInput.value = data.fileUrl || "";
+            logoOrderInput.value = data.order ?? "";
+            if (logoSubmitBtn) logoSubmitBtn.textContent = "Mettre à jour";
+          } catch (error) {
+            console.error("Erreur chargement logo:", error);
+          }
+        } else if (action === "delete") {
+          if (!confirm("Supprimer définitivement ce logo ?")) return;
+          try {
+            await deleteDoc(doc(db, "trustedLogos", id));
+            await loadLogos();
+            resetLogoForm();
+          } catch (error) {
+            console.error("Erreur suppression logo:", error);
+            alert("Impossible de supprimer ce logo.");
+          }
+        }
+      });
+
+      // ── Soumission des formulaires ─────────────────────────────────────────
+
+      audioForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const id = audioIdInput.value.trim();
+        const payload = {
+          title: audioTitleInput.value.trim(),
+          fileUrl: audioFileUrlInput.value.trim(),
+          order: Number(audioOrderInput.value) || 0,
+        };
+        try {
+          if (id) {
+            await updateDoc(doc(db, "audioTracks", id), payload);
+          } else {
+            await addDoc(collection(db, "audioTracks"), payload);
+          }
+          resetAudioForm();
+          await loadAudioTracks();
+        } catch (error) {
+          console.error("Erreur enregistrement piste:", error);
+          alert("Impossible d'enregistrer cette piste.");
+        }
+      });
+
+      videoForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const id = videoIdInput.value.trim();
+        const payload = {
+          title: videoTitleInput.value.trim(),
+          alt: videoAltInput.value.trim(),
+          fileUrl: videoFileUrlInput.value.trim(),
+          youtubeId: videoYoutubeIdInput.value.trim(),
+          order: Number(videoOrderInput.value) || 0,
+        };
+        try {
+          if (id) {
+            await updateDoc(doc(db, "videos", id), payload);
+          } else {
+            await addDoc(collection(db, "videos"), payload);
+          }
+          resetVideoForm();
+          await loadVideos();
+        } catch (error) {
+          console.error("Erreur enregistrement vidéo:", error);
+          alert("Impossible d'enregistrer cette vidéo.");
+        }
+      });
+
+      logoForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const id = logoIdInput.value.trim();
+        const payload = {
+          alt: logoAltInput.value.trim(),
+          fileUrl: logoFileUrlInput.value.trim(),
+          order: Number(logoOrderInput.value) || 0,
+        };
+        try {
+          if (id) {
+            await updateDoc(doc(db, "trustedLogos", id), payload);
+          } else {
+            await addDoc(collection(db, "trustedLogos"), payload);
+          }
+          resetLogoForm();
+          await loadLogos();
+        } catch (error) {
+          console.error("Erreur enregistrement logo:", error);
+          alert("Impossible d'enregistrer ce logo.");
+        }
+      });
+
+      audioResetBtn.addEventListener("click", resetAudioForm);
+      videoResetBtn.addEventListener("click", resetVideoForm);
+      logoResetBtn.addEventListener("click", resetLogoForm);
+    </script>
+  </body>
+</html>
