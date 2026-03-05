@@ -321,6 +321,7 @@
       <li><a href="#process">Process</a></li>
       <li><a href="#deplacements">Zone</a></li>
       <li><a href="#clients">Clients</a></li>
+      <li><a href="#faq">FAQ</a></li>
       <li><a href="#contact">Contact</a></li>
       <li><a href="/">← Site principal</a></li>
     </ul>
@@ -334,6 +335,7 @@
   <a href="#pourqui">Pour qui</a>
   <a href="#process">Process</a>
   <a href="#clients">Clients</a>
+  <a href="#faq">FAQ</a>
   <a href="#contact">Contact</a>
   <a href="#contact" class="btn btn-primary">Demander un devis</a>
 </div>
@@ -685,6 +687,82 @@
   </div>
 </section>
 
+<section id="faq" style="padding:80px 0;background:#F7F7F7;">
+  <div class="wrap" style="max-width:780px;">
+    <div class="label" style="margin-bottom:18px;">FAQ</div>
+    <h2 style="margin-bottom:48px;">Questions fréquentes.</h2>
+    <div id="faq-list"></div>
+  </div>
+</section>
+
+<script>
+(function(){
+  const faqs = [
+    {
+      q: "Quels sont vos horaires ?",
+      a: "Le studio est ouvert du lundi au vendredi, de 9h30 à 18h. Une ouverture le week-end est possible sur réservation, contactez-nous pour en discuter."
+    },
+    {
+      q: "Vous avez un studio physique ?",
+      a: "Oui, nous disposons d'un espace de tournage au 10 place de l'Église, Saint-Sulpice-la-Pointe (81370). Nous nous déplaçons également chez vous, partout dans le Tarn et en France."
+    },
+    {
+      q: "Quel est le délai de livraison après le tournage ?",
+      a: "Les fichiers sont livrés en général sous 48h pour les formats simples. Pour les projets plus complexes (effets spéciaux, motion design, clip pro), le délai est précisé au devis. On ne livre jamais quelque chose de bâclé."
+    },
+    {
+      q: "Combien de révisions sont incluses ?",
+      a: "1 révision est incluse dans chaque prestation. Des révisions supplémentaires peuvent être ajoutées selon vos besoins, on en discute au moment du devis."
+    },
+    {
+      q: "Comment se passe le premier contact ?",
+      a: "Un appel de 15 minutes suffit pour cadrer votre projet. Ensuite, vous recevez un devis détaillé sous 48h. Aucun engagement avant validation."
+    },
+    {
+      q: "Vous travaillez avec quel type de clients ?",
+      a: "Artistes, commerces locaux, entreprises, institutions, organisateurs d'événements : on s'adapte à tous les budgets et tous les projets, du reel Instagram à la publicité nationale."
+    }
+  ];
+
+  const list = document.getElementById('faq-list');
+  faqs.forEach((item, i) => {
+    const el = document.createElement('div');
+    el.style.cssText = 'border-top:1px solid rgba(0,0,0,.1);';
+    el.innerHTML = `
+      <button onclick="toggleFaq(this)" aria-expanded="false" style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:20px 0;background:none;border:none;text-align:left;cursor:pointer;gap:16px;">
+        <span style="font-family:var(--ft);font-size:16px;font-weight:600;color:#0A0A0A;">${item.q}</span>
+        <span class="faq-icon" style="font-size:20px;color:var(--orange);flex-shrink:0;transition:transform .25s;">+</span>
+      </button>
+      <div class="faq-body" style="display:none;padding-bottom:20px;font-size:14px;color:rgba(0,0,0,.65);line-height:1.75;">${item.a}</div>
+    `;
+    list.appendChild(el);
+  });
+  // Last border
+  const last = document.createElement('div');
+  last.style.borderTop = '1px solid rgba(0,0,0,.1)';
+  list.appendChild(last);
+})();
+
+function toggleFaq(btn) {
+  const body = btn.nextElementSibling;
+  const icon = btn.querySelector('.faq-icon');
+  const open = btn.getAttribute('aria-expanded') === 'true';
+  // Close all
+  document.querySelectorAll('#faq-list .faq-body').forEach(b => b.style.display = 'none');
+  document.querySelectorAll('#faq-list button').forEach(b => {
+    b.setAttribute('aria-expanded','false');
+    b.querySelector('.faq-icon').textContent = '+';
+    b.querySelector('.faq-icon').style.transform = 'rotate(0deg)';
+  });
+  if (!open) {
+    body.style.display = 'block';
+    btn.setAttribute('aria-expanded','true');
+    icon.textContent = '+';
+    icon.style.transform = 'rotate(45deg)';
+  }
+}
+</script>
+
 <section id="contact">
   <div class="wrap">
     <div class="contact-grid">
@@ -714,7 +792,7 @@
           <div class="fg">
             <label for="f-presta">Type de prestation</label>
             <select id="f-presta">
-              <option value="">— Sélectionner —</option>
+              <option value="">Sélectionner une prestation</option>
               <option>Live session vidéo (à partir de 450€ HT)</option>
               <option>Clip (à partir de 750€ HT)</option>
               <option>Clip pro (à partir de 1 200€ HT)</option>
@@ -732,7 +810,7 @@
           <div class="fg">
             <label for="f-budget">Budget indicatif</label>
             <select id="f-budget">
-              <option value="">— Fourchette —</option>
+              <option value="">Budget indicatif</option>
               <option>Moins de 500€</option>
               <option>500€ – 1 000€</option>
               <option>1 000€ – 2 500€</option>
@@ -801,7 +879,7 @@
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false">
+<script data-cfasync="false">
 // ─── NAV & BURGER ───
 const burger=document.getElementById('burger'),mob=document.getElementById('mob');
 function togMob(o){burger.classList.toggle('open',o);burger.setAttribute('aria-expanded',o);mob.classList.toggle('open',o);document.body.style.overflow=o?'hidden':'';}
@@ -1008,6 +1086,8 @@ const KB = [
     c:['Tarifs vidéo 🎬','Estimer un devis 📋','Contacter le studio ✉️'] },
 
   // CONTACT
+  { k:['faq','questions','horaires','ouvert','week-end','studio','révision','livraison','délai'],
+    r:'📋 <strong>Questions fréquentes :</strong><br><br>🕐 <strong>Horaires :</strong> Lundi-vendredi 9h30-18h. Week-end possible sur réservation.<br><br>🏢 <strong>Studio :</strong> Oui, au 10 place de l\'Église, Saint-Sulpice-la-Pointe. On se déplace aussi chez vous.<br><br>📦 <strong>Livraison :</strong> 48h pour les formats simples, plus pour les projets complexes (effets, clip pro).<br><br>✏️ <strong>Révisions :</strong> 1 incluse par prestation. Supplémentaires sur devis.'},
   { k:['contact','email','mail','joindre','contacter','ecrire','écrire','telephone','téléphone','réseaux','instagram','youtube','tiktok'],
     r:'✉️ <strong>Nous contacter :</strong><br><br>📧 <a href="mailto:studiobastide.contact@gmail.com">studiobastide.contact@gmail.com</a><br>📍 10 place de l&#39;Église, Saint-Sulpice-la-Pointe (81370)<br><br>📱 Réseaux sociaux :<br>• <a href="https://www.instagram.com/stud_bastide/" target="_blank" rel="noopener noreferrer">Instagram : @stud_bastide</a><br>• <a href="https://www.youtube.com/@studiobastide" target="_blank" rel="noopener noreferrer">YouTube : @studiobastide</a><br>• <a href="https://www.tiktok.com/@stud_bastide" target="_blank" rel="noopener noreferrer">TikTok : @stud_bastide</a><br><br>Ou via le <a href="#contact">formulaire de contact</a> sur cette page. Réponse sous <strong>48h ouvrées</strong>.',
     c:['Estimer un devis 📋','Tarifs vidéo 🎬'] },
@@ -1166,4 +1246,9 @@ cbtn.addEventListener('click',()=>{
     setTimeout(()=>cinput.focus(),300);
   }
 });
-cclose.addEventListe
+cclose.addEventListener('click',()=>{cOpen=false;cwin.classList.remove('open');});
+csend.addEventListener('click',()=>handle(cinput.value.trim()));
+cinput.addEventListener('keydown',e=>{if(e.key==='Enter')handle(cinput.value.trim());});
+</script>
+</body>
+</html>
