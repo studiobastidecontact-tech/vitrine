@@ -1,1 +1,179 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mentions légales : Studio Bastide Production</title>
+  <link rel="icon" type="image/png" href="../assets/img/logo_square.jpg">
+  <style>
+    @font-face{font-family:'Panchang';src:url('../assets/fonts/Panchang-Regular.otf') format('opentype');font-weight:400;font-display:swap;}
+    @font-face{font-family:'Panchang';src:url('../assets/fonts/Panchang-Bold.otf') format('opentype');font-weight:700;font-display:swap;}
+    @font-face{font-family:'Switzer';src:url('../assets/fonts/Switzer-Light.otf') format('opentype');font-weight:300;font-display:swap;}
+    @font-face{font-family:'Switzer';src:url('../assets/fonts/Switzer-Regular.otf') format('opentype');font-weight:400;font-display:swap;}
+    @font-face{font-family:'Switzer';src:url('../assets/fonts/Switzer-Medium.otf') format('opentype');font-weight:500;font-display:swap;}
+    :root{
+      --orange:#E8390C;
+      --ft:'Panchang',sans-serif;
+      --fb:'Switzer',sans-serif;
+      --black:#FFFFFF;
+      --white:#0A0A0A;
+      --grey:#6B6B6B;
+      --border:rgba(0,0,0,0.10);
+      --card:#ECECEC;
+      --px:52px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--black);color:var(--white);font-family:var(--fb);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+    a{color:inherit;text-decoration:none;}
+    h1,h2,h3{font-family:var(--ft);font-weight:700;line-height:1.1;}
 
+    /* ── NAV ── */
+    #nav{position:fixed;top:0;left:0;right:0;z-index:200;height:70px;display:flex;align-items:center;background:rgba(255,255,255,.90);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+    .nav-in{max-width:1140px;margin:0 auto;padding:0 var(--px);width:100%;display:flex;align-items:center;justify-content:space-between;gap:32px;}
+    .nav-logo img{height:34px;width:auto;display:block;}
+    .nav-back{font-family:var(--fb);font-size:13px;font-weight:500;color:rgba(0,0,0,.60);display:flex;align-items:center;gap:6px;transition:color .2s;}
+    .nav-back:hover{color:var(--orange);}
+
+    /* ── CONTENT ── */
+    .wrap{max-width:760px;margin:0 auto;padding:0 var(--px);}
+    .page-hero{padding:120px 0 64px;}
+    .page-hero .label{display:inline-flex;align-items:center;gap:10px;font-size:10.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);margin-bottom:20px;}
+    .page-hero .label::before{content:'';display:block;width:28px;height:1.5px;background:var(--orange);}
+    .page-hero h1{font-size:clamp(32px,5vw,52px);margin-bottom:16px;}
+    .page-hero .updated{font-size:13px;color:var(--grey);margin-top:8px;}
+
+    /* ── SECTIONS ── */
+    .ml-body{padding-bottom:80px;}
+    .ml-section{margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid var(--border);}
+    .ml-section:last-child{border-bottom:none;}
+    .ml-section h2{font-family:var(--ft);font-size:18px;font-weight:700;margin-bottom:16px;color:var(--white);}
+    .ml-section p{font-size:14px;color:rgba(0,0,0,.65);line-height:1.8;margin-bottom:10px;}
+    .ml-section p:last-child{margin-bottom:0;}
+    .ml-section strong{color:#0A0A0A;font-weight:600;}
+    .ml-section a{color:var(--orange);text-decoration:underline;text-underline-offset:3px;}
+    .ml-section a:hover{opacity:.8;}
+    .ml-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px;}
+    .ml-table th{text-align:left;padding:10px 12px;background:var(--card);font-weight:600;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(0,0,0,.5);border-bottom:1px solid var(--border);}
+    .ml-table td{padding:10px 12px;border-bottom:1px solid var(--border);color:rgba(0,0,0,.65);}
+    .ml-table tr:last-child td{border-bottom:none;}
+
+    /* ── FOOTER ── */
+    footer{background:var(--card);border-top:1px solid var(--border);padding:24px 0;text-align:center;}
+    footer p{font-size:12px;color:var(--grey);}
+    footer a{color:var(--orange);}
+
+    @media(max-width:680px){
+      :root{--px:20px;}
+      .page-hero{padding:100px 0 48px;}
+    }
+  </style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-in">
+    <a href="/" class="nav-logo"><img src="../assets/img/LOGO%201%20NOIR%20.png" alt="Studio Bastide"></a>
+    <a href="/prestation/" class="nav-back">← Retour aux prestations</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="wrap">
+    <div class="label">Légal</div>
+    <h1>Mentions légales</h1>
+    <p class="updated">Dernière mise à jour : mars 2026</p>
+  </div>
+</div>
+
+<div class="ml-body">
+  <div class="wrap">
+
+    <div class="ml-section">
+      <h2>1. Éditeur du site</h2>
+      <p>Le site <strong>studio-bastide-production.fr</strong> est édité par :</p>
+      <p>
+        <strong>Studio Bastide Production</strong><br>
+        10 place de l'Église<br>
+        81370 Saint-Sulpice-la-Pointe<br>
+        Tarn, Occitanie, France
+      </p>
+      <p>
+        Email : <a href="mailto:studiobastide.contact@gmail.com">studiobastide.contact@gmail.com</a>
+      </p>
+      <p><strong>SIREN :</strong> 998 973 267<br><strong>SIRET (siège social) :</strong> 998 973 267 00011<br><strong>Forme juridique :</strong> Société à responsabilité limitée (SARL)<br><strong>Numéro de TVA intracommunautaire :</strong> FR53998973267</p>
+    </div>
+
+    <div class="ml-section">
+      <h2>2. Directeur de la publication</h2>
+      <p>Le directeur de la publication est le représentant légal de Studio Bastide Production.</p>
+    </div>
+
+    <div class="ml-section">
+      <h2>3. Hébergement</h2>
+      <p>Ce site est hébergé par :</p>
+      <p>
+        <strong>GitHub Pages</strong> — GitHub, Inc.<br>
+        88 Colin P Kelly Jr St, San Francisco, CA 94107, États-Unis<br>
+        <a href="https://pages.github.com" target="_blank" rel="noopener noreferrer">pages.github.com</a>
+      </p>
+    </div>
+
+    <div class="ml-section">
+      <h2>4. Propriété intellectuelle</h2>
+      <p>L'ensemble des contenus présents sur ce site (textes, photographies, vidéos, logos, graphismes) sont la propriété exclusive de Studio Bastide Production, sauf mention contraire.</p>
+      <p>Toute reproduction, représentation, modification ou exploitation de ces contenus, même partielle, est strictement interdite sans autorisation écrite préalable.</p>
+    </div>
+
+    <div class="ml-section">
+      <h2>5. Données personnelles (RGPD)</h2>
+      <p>Les données collectées via le formulaire de contact (nom, email, téléphone, organisation, description du projet) sont utilisées <strong>uniquement</strong> pour répondre à vos demandes de devis et de contact.</p>
+      <p>Elles ne sont ni vendues, ni transmises à des tiers. Elles sont conservées le temps nécessaire au traitement de votre demande.</p>
+      <p>Conformément au <strong>Règlement Général sur la Protection des Données (RGPD)</strong> et à la loi Informatique et Libertés, vous disposez des droits suivants :</p>
+      <table class="ml-table">
+        <thead>
+          <tr><th>Droit</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Accès</strong></td><td>Obtenir une copie de vos données personnelles</td></tr>
+          <tr><td><strong>Rectification</strong></td><td>Corriger des données inexactes</td></tr>
+          <tr><td><strong>Effacement</strong></td><td>Demander la suppression de vos données</td></tr>
+          <tr><td><strong>Opposition</strong></td><td>Vous opposer au traitement de vos données</td></tr>
+          <tr><td><strong>Portabilité</strong></td><td>Recevoir vos données dans un format structuré</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:14px;">Pour exercer ces droits, contactez-nous à : <a href="mailto:studiobastide.contact@gmail.com">studiobastide.contact@gmail.com</a></p>
+      <p>Le traitement du formulaire de contact est assuré par <strong>Formspree</strong> (formspree.io). Leurs conditions de confidentialité sont disponibles sur <a href="https://formspree.io/legal/privacy-policy" target="_blank" rel="noopener noreferrer">formspree.io/legal/privacy-policy</a>.</p>
+    </div>
+
+    <div class="ml-section">
+      <h2>6. Cookies</h2>
+      <p>Ce site n'utilise <strong>aucun cookie de traçage ou publicitaire</strong>. Aucun outil d'analyse (Google Analytics, etc.) n'est installé.</p>
+      <p>Des cookies techniques strictement nécessaires au fonctionnement du site peuvent être utilisés par les services tiers (hébergement GitHub Pages, Formspree).</p>
+    </div>
+
+    <div class="ml-section">
+      <h2>7. Liens hypertextes</h2>
+      <p>Ce site peut contenir des liens vers des sites tiers (réseaux sociaux, partenaires). Studio Bastide Production ne peut être tenu responsable du contenu de ces sites externes.</p>
+    </div>
+
+    <div class="ml-section">
+      <h2>8. Limitation de responsabilité</h2>
+      <p>Studio Bastide Production s'efforce de fournir des informations exactes et à jour sur ce site. Toutefois, nous ne garantissons pas l'exactitude, l'exhaustivité ou l'actualité des informations diffusées.</p>
+      <p>Studio Bastide Production ne saurait être tenu responsable des dommages directs ou indirects résultant de l'accès ou de l'utilisation de ce site.</p>
+    </div>
+
+    <div class="ml-section">
+      <h2>9. Droit applicable</h2>
+      <p>Les présentes mentions légales sont soumises au droit français. En cas de litige, les tribunaux français seront seuls compétents.</p>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Studio Bastide Production · <a href="/prestation/">Retour aux prestations</a> · <a href="/">Site principal</a></p>
+</footer>
+
+</body>
+</html>
