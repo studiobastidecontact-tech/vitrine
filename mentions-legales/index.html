@@ -1,173 +1,297 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mentions légales : Studio Bastide Production</title>
-  <link rel="icon" type="image/png" href="../assets/img/logo_square.jpg">
-  <style>
-    @font-face{font-family:'Panchang';src:url('../assets/fonts/Panchang-Regular.otf') format('opentype');font-weight:400;font-display:swap;}
-    @font-face{font-family:'Panchang';src:url('../assets/fonts/Panchang-Bold.otf') format('opentype');font-weight:700;font-display:swap;}
-    @font-face{font-family:'Switzer';src:url('../assets/fonts/Switzer-Light.otf') format('opentype');font-weight:300;font-display:swap;}
-    @font-face{font-family:'Switzer';src:url('../assets/fonts/Switzer-Regular.otf') format('opentype');font-weight:400;font-display:swap;}
-    @font-face{font-family:'Switzer';src:url('../assets/fonts/Switzer-Medium.otf') format('opentype');font-weight:500;font-display:swap;}
-    :root{
-      --orange:#E8390C;
-      --ft:'Panchang',sans-serif;
-      --fb:'Switzer',sans-serif;
-      --black:#FFFFFF;
-      --white:#0A0A0A;
-      --grey:#6B6B6B;
-      --border:rgba(0,0,0,0.10);
-      --card:#ECECEC;
-      --px:52px;
-    }
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    html{scroll-behavior:smooth;}
-    body{background:var(--black);color:var(--white);font-family:var(--fb);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;}
-    a{color:inherit;text-decoration:none;}
-    h1,h2,h3{font-family:var(--ft);font-weight:700;line-height:1.1;}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mentions légales — Studio Bastide Production</title>
+<meta name="description" content="Mentions légales de Studio Bastide Production, studio photo et vidéo à Saint-Sulpice-la-Pointe, Tarn.">
+<link rel="icon" type="image/jpeg" href="../assets/img/logo_square.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#000;--surface:#0a0a0a;--card:#0e0e0e;
+  --border:#161616;--border-h:#222;
+  --orange:#E8390C;--orange-d:#c52e08;
+  --tx:#fff;--tx2:#aaa;--tx3:#555;
+  --head:'Syne',sans-serif;
+  --body:'DM Sans',sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --max:760px;
+}
+html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:#1a1a1a #000}
+body{background:var(--bg);color:var(--tx);font-family:var(--body);font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--orange);color:#fff}
 
-    /* ── NAV ── */
-    #nav{position:fixed;top:0;left:0;right:0;z-index:200;height:70px;display:flex;align-items:center;background:rgba(255,255,255,.90);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
-    .nav-in{max-width:1140px;margin:0 auto;padding:0 var(--px);width:100%;display:flex;align-items:center;justify-content:space-between;gap:32px;}
-    .nav-logo img{height:34px;width:auto;display:block;}
-    .nav-back{font-family:var(--fb);font-size:13px;font-weight:500;color:rgba(0,0,0,.60);display:flex;align-items:center;gap:6px;transition:color .2s;}
-    .nav-back:hover{color:var(--orange);}
+/* ── TOPBAR ── */
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 32px;background:var(--bg);
+}
+.topbar-logo{font-family:var(--head);font-weight:800;font-size:1.15rem;letter-spacing:-.5px;color:#fff;transition:transform .3s var(--ease);transform-origin:left center;will-change:transform}
+.topbar-logo sup{font-size:.55em;vertical-align:super;margin-left:2px;font-weight:700}
 
-    /* ── CONTENT ── */
-    .wrap{max-width:760px;margin:0 auto;padding:0 var(--px);}
-    .page-hero{padding:120px 0 64px;}
-    .page-hero .label{display:inline-flex;align-items:center;gap:10px;font-size:10.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);margin-bottom:20px;}
-    .page-hero .label::before{content:'';display:block;width:28px;height:1.5px;background:var(--orange);}
-    .page-hero h1{font-size:clamp(32px,5vw,52px);margin-bottom:16px;}
-    .page-hero .updated{font-size:13px;color:var(--grey);margin-top:8px;}
+/* ── HERO ── */
+.page-hero{
+  padding:120px 0 60px;max-width:var(--max);margin:0 auto;padding-left:32px;padding-right:32px;
+}
+.label{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:.65rem;letter-spacing:3px;text-transform:uppercase;
+  color:var(--tx3);margin-bottom:16px;font-weight:500;
+}
+.label::before{content:'';width:20px;height:1.5px;background:var(--orange)}
+.page-hero h1{
+  font-family:var(--head);font-weight:800;
+  font-size:clamp(2rem,4vw,3rem);line-height:1.08;
+  margin-bottom:12px;letter-spacing:-.5px;
+}
+.page-hero .updated{font-size:.8rem;color:var(--tx3)}
 
-    /* ── SECTIONS ── */
-    .ml-body{padding-bottom:80px;}
-    .ml-section{margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid var(--border);}
-    .ml-section:last-child{border-bottom:none;}
-    .ml-section h2{font-family:var(--ft);font-size:18px;font-weight:700;margin-bottom:16px;color:var(--white);}
-    .ml-section p{font-size:14px;color:rgba(0,0,0,.65);line-height:1.8;margin-bottom:10px;}
-    .ml-section p:last-child{margin-bottom:0;}
-    .ml-section strong{color:#0A0A0A;font-weight:600;}
-    .ml-section a{color:var(--orange);text-decoration:underline;text-underline-offset:3px;}
-    .ml-section a:hover{opacity:.8;}
-    .ml-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px;}
-    .ml-table th{text-align:left;padding:10px 12px;background:var(--card);font-weight:600;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(0,0,0,.5);border-bottom:1px solid var(--border);}
-    .ml-table td{padding:10px 12px;border-bottom:1px solid var(--border);color:rgba(0,0,0,.65);}
-    .ml-table tr:last-child td{border-bottom:none;}
+/* ── CONTENT ── */
+.ml-body{max-width:var(--max);margin:0 auto;padding:0 32px 80px}
+.ml-section{
+  margin-bottom:40px;padding-bottom:40px;
+  border-bottom:1px solid var(--border);
+}
+.ml-section:last-child{border-bottom:none}
+.ml-section h2{
+  font-family:var(--head);font-weight:700;
+  font-size:1.05rem;margin-bottom:14px;color:var(--tx);
+}
+.ml-section p{
+  font-size:.88rem;color:var(--tx2);line-height:1.85;margin-bottom:10px;
+}
+.ml-section p:last-child{margin-bottom:0}
+.ml-section strong{color:var(--tx);font-weight:600}
+.ml-section a{color:var(--orange);text-decoration:underline;text-underline-offset:3px}
+.ml-section a:hover{opacity:.8}
 
-    /* ── FOOTER ── */
-    footer{background:var(--card);border-top:1px solid var(--border);padding:24px 0;text-align:center;}
-    footer p{font-size:12px;color:var(--grey);}
-    footer a{color:var(--orange);}
+/* Table */
+.ml-table{width:100%;border-collapse:collapse;font-size:.8rem;margin-top:16px}
+.ml-table th{
+  text-align:left;padding:10px 14px;background:var(--surface);
+  font-weight:600;font-size:.65rem;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--tx3);
+  border-bottom:1px solid var(--border);
+}
+.ml-table td{
+  padding:10px 14px;border-bottom:1px solid var(--border);
+  color:var(--tx2);
+}
+.ml-table td strong{color:var(--tx)}
+.ml-table tr:last-child td{border-bottom:none}
 
-    @media(max-width:680px){
-      :root{--px:20px;}
-      .page-hero{padding:100px 0 48px;}
-    }
-  </style>
+/* ── FOOTER ── */
+footer{background:var(--orange);padding:32px;width:100%}
+.footer-in{
+  max-width:var(--max);margin:0 auto;
+  display:flex;justify-content:space-between;align-items:center;
+  gap:20px;flex-wrap:wrap;
+}
+.footer-brand{font-family:var(--head);font-weight:800;font-size:.85rem;color:#fff}
+.footer-brand sup{font-size:.5em;vertical-align:super}
+.footer-links{display:flex;gap:16px}
+.footer-links a{font-size:.75rem;color:rgba(255,255,255,.7);transition:color .3s}
+.footer-links a:hover{color:#fff}
+.footer-copy{
+  width:100%;text-align:center;margin-top:16px;padding-top:16px;
+  border-top:1px solid rgba(255,255,255,.15);
+  font-size:.6rem;color:rgba(255,255,255,.5);
+}
+.footer-copy a{color:rgba(255,255,255,.65)}
+.footer-copy a:hover{color:#fff}
+
+/* Scroll top */
+.to-top{
+  position:fixed;bottom:24px;right:24px;z-index:90;
+  width:40px;height:40px;background:var(--surface);
+  border:1px solid var(--border);display:flex;
+  align-items:center;justify-content:center;
+  font-size:14px;color:var(--tx3);opacity:0;
+  pointer-events:none;transition:all .3s var(--ease);
+  cursor:pointer;font-family:inherit;
+}
+.to-top.show{opacity:1;pointer-events:all}
+.to-top:hover{border-color:var(--orange);color:var(--tx)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px){
+  .topbar{padding:16px 20px}
+  .page-hero{padding:100px 20px 40px}
+  .ml-body{padding:0 20px 60px}
+  footer{padding:24px 20px}
+  .footer-in{flex-direction:column;text-align:center}
+  .footer-links{justify-content:center}
+}
+</style>
 </head>
 <body>
 
-<nav id="nav">
-  <div class="nav-in">
-    <a href="/" class="nav-logo"><img src="../assets/img/LOGO%201%20NOIR%20.png" alt="Studio Bastide"></a>
-    <a href="/prestation/" class="nav-back">← Retour aux prestations</a>
-  </div>
-</nav>
-
-<div class="page-hero">
-  <div class="wrap">
-    <div class="label">Légal</div>
-    <h1>Mentions légales</h1>
-    <p class="updated">Dernière mise à jour : mars 2026</p>
-  </div>
+<!-- ── TOPBAR ── -->
+<div class="topbar">
+  <a href="../" class="topbar-logo">Studio Bastide<sup>®</sup></a>
 </div>
 
+<!-- ── HERO ── -->
+<div class="page-hero">
+  <div class="label">Légal</div>
+  <h1>Mentions légales</h1>
+  <p class="updated">Dernière mise à jour : mars 2026</p>
+</div>
+
+<!-- ── CONTENT ── -->
 <div class="ml-body">
-  <div class="wrap">
 
-    <div class="ml-section">
-      <h2>1. Éditeur du site</h2>
-      <p>Le site <strong>studio-bastide-production.fr</strong> est édité par :</p>
-      <p>
-        <strong>Studio Bastide Production</strong><br>
-        10 place de l'Église<br>
-        81370 Saint-Sulpice-la-Pointe<br>
-        Tarn, Occitanie, France
-      </p>
-      <p>Email : <a href="mailto:studiobastide.contact@gmail.com">studiobastide.contact@gmail.com</a></p>
-      <p>
-        <strong>Forme juridique :</strong> Société à responsabilité limitée (SARL)<br>
-        <strong>Capital social :</strong> 1 000 €<br>
-        <strong>SIREN :</strong> 998 973 267<br>
-        <strong>SIRET (siège social) :</strong> 998 973 267 00011<br>
-        <strong>Numéro de TVA intracommunautaire :</strong> FR53998973267
-      </p>
+  <div class="ml-section">
+    <h2>1. Éditeur du site</h2>
+    <p>Le site <strong>studio-bastide-production.fr</strong> est édité par :</p>
+    <p>
+      <strong>Studio Bastide Production</strong><br>
+      10 place de l'Église<br>
+      81370 Saint-Sulpice-la-Pointe<br>
+      Tarn, Occitanie, France
+    </p>
+    <p>Email : <a href="mailto:studiobastide.contact@gmail.com">studiobastide.contact@gmail.com</a><br>
+    Téléphone : <a href="tel:0955519746">09 55 51 97 46</a></p>
+    <p>
+      <strong>Forme juridique :</strong> Société à responsabilité limitée (SARL)<br>
+      <strong>Capital social :</strong> 1 000 €<br>
+      <strong>RCS :</strong> Castres 998 973 267<br>
+      <strong>SIREN :</strong> 998 973 267<br>
+      <strong>SIRET (siège social) :</strong> 998 973 267 00011<br>
+      <strong>Numéro de TVA intracommunautaire :</strong> FR53998973267
+    </p>
+  </div>
+
+  <div class="ml-section">
+    <h2>2. Directeur de la publication</h2>
+    <p>Le directeur de la publication est <strong>Solal Fournier</strong>, gérant et représentant légal de Studio Bastide Production.</p>
+  </div>
+
+  <div class="ml-section">
+    <h2>3. Hébergement</h2>
+    <p>Ce site est hébergé par :</p>
+    <p>
+      <strong>GitHub Pages</strong> — GitHub, Inc.<br>
+      88 Colin P Kelly Jr St, San Francisco, CA 94107, États-Unis<br>
+      <a href="https://pages.github.com" target="_blank" rel="noopener noreferrer">pages.github.com</a>
+    </p>
+  </div>
+
+  <div class="ml-section">
+    <h2>4. Propriété intellectuelle</h2>
+    <p>L'ensemble des contenus présents sur ce site (textes, photographies, vidéos, logos, graphismes) sont la propriété exclusive de Studio Bastide Production, sauf mention contraire.</p>
+    <p>Les logos des clients et partenaires affichés dans la section « Ils nous font confiance » restent la <strong>propriété exclusive de leurs détenteurs respectifs</strong>. Leur présence sur ce site ne vaut en aucun cas cession de droits et est utilisée uniquement à titre de référence commerciale.</p>
+    <p>Toute reproduction, représentation, modification ou exploitation des contenus appartenant à Studio Bastide Production, même partielle, est strictement interdite sans autorisation écrite préalable.</p>
+  </div>
+
+  <div class="ml-section">
+    <h2>5. Données personnelles (RGPD)</h2>
+    <p>Les données collectées via le formulaire de contact (nom, email, téléphone, organisation, description du projet) sont utilisées <strong>uniquement</strong> pour répondre à vos demandes de devis et de contact.</p>
+    <p><strong>Base légale du traitement :</strong> le traitement de vos données repose sur votre <strong>consentement</strong> (article 6.1.a du RGPD), exprimé lors de l'envoi du formulaire de contact, ainsi que sur l'<strong>intérêt légitime</strong> de Studio Bastide Production (article 6.1.f du RGPD) pour le suivi de la relation commerciale.</p>
+    <p>Elles ne sont ni vendues, ni transmises à des tiers. Elles sont conservées pendant une durée maximale de <strong>3 ans</strong> à compter du dernier contact.</p>
+    <p>Le responsable du traitement des données est <strong>Solal Fournier</strong>, gérant de Studio Bastide Production — <a href="mailto:studiobastide.contact@gmail.com">studiobastide.contact@gmail.com</a>.</p>
+    <p>Conformément au <strong>Règlement Général sur la Protection des Données (RGPD)</strong> et à la loi Informatique et Libertés, vous disposez des droits suivants :</p>
+    <table class="ml-table">
+      <thead>
+        <tr><th>Droit</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Accès</strong></td><td>Obtenir une copie de vos données personnelles</td></tr>
+        <tr><td><strong>Rectification</strong></td><td>Corriger des données inexactes ou incomplètes</td></tr>
+        <tr><td><strong>Effacement</strong></td><td>Demander la suppression de vos données</td></tr>
+        <tr><td><strong>Limitation</strong></td><td>Demander la limitation du traitement de vos données</td></tr>
+        <tr><td><strong>Opposition</strong></td><td>Vous opposer au traitement de vos données</td></tr>
+        <tr><td><strong>Portabilité</strong></td><td>Recevoir vos données dans un format structuré et lisible</td></tr>
+        <tr><td><strong>Retrait du consentement</strong></td><td>Retirer votre consentement à tout moment, sans remettre en cause la licéité du traitement effectué avant le retrait</td></tr>
+        <tr><td><strong>Directives post-mortem</strong></td><td>Définir des directives relatives au sort de vos données après votre décès (article 85 de la loi Informatique et Libertés)</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:14px">Pour exercer ces droits, contactez-nous à : <a href="mailto:studiobastide.contact@gmail.com">studiobastide.contact@gmail.com</a>. Nous nous engageons à répondre dans un délai maximum d'<strong>un mois</strong> à compter de la réception de votre demande, conformément au RGPD.</p>
+    <p>Le traitement du formulaire de contact est assuré par <strong>Formspree</strong> (formspree.io), dont les serveurs sont situés aux États-Unis. Ce transfert de données hors UE est encadré par les clauses contractuelles types conformément au RGPD. Leurs conditions de confidentialité sont disponibles sur <a href="https://formspree.io/legal/privacy-policy" target="_blank" rel="noopener noreferrer">formspree.io/legal/privacy-policy</a>.</p>
+    <p>Si vous estimez que vos droits ne sont pas respectés, vous pouvez introduire une réclamation auprès de la <strong>CNIL</strong> (Commission Nationale de l'Informatique et des Libertés) — <a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer">www.cnil.fr</a>.</p>
+  </div>
+
+  <div class="ml-section">
+    <h2>6. Cookies</h2>
+    <p>Ce site n'utilise <strong>aucun cookie de traçage ou publicitaire</strong>. Aucun outil d'analyse (Google Analytics, etc.) n'est installé.</p>
+    <p>Des cookies techniques strictement nécessaires au fonctionnement du site peuvent être utilisés par les services tiers (hébergement GitHub Pages, Formspree).</p>
+  </div>
+
+  <div class="ml-section">
+    <h2>7. Liens hypertextes</h2>
+    <p>Ce site peut contenir des liens vers des sites tiers (réseaux sociaux, partenaires). Studio Bastide Production ne peut être tenu responsable du contenu de ces sites externes.</p>
+  </div>
+
+  <div class="ml-section">
+    <h2>8. Limitation de responsabilité</h2>
+    <p>Studio Bastide Production s'efforce de fournir des informations exactes et à jour sur ce site. Toutefois, nous ne garantissons pas l'exactitude, l'exhaustivité ou l'actualité des informations diffusées.</p>
+    <p>Studio Bastide Production ne saurait être tenu responsable des dommages directs ou indirects résultant de l'accès ou de l'utilisation de ce site.</p>
+  </div>
+
+  <div class="ml-section">
+    <h2>9. Médiation des litiges</h2>
+    <p>Conformément aux articles L.616-1 et R.616-1 du Code de la consommation, Studio Bastide Production propose un dispositif de médiation de la consommation. En cas de litige non résolu directement avec notre service, vous pouvez recourir gratuitement au médiateur de la consommation suivant :</p>
+    <p>
+      <strong>Médiation de la consommation</strong><br>
+      Le médiateur compétent sera communiqué sur simple demande à <a href="mailto:studiobastide.contact@gmail.com">studiobastide.contact@gmail.com</a>.<br>
+      Vous pouvez également déposer votre réclamation sur la plateforme européenne de résolution des litiges en ligne : <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer">ec.europa.eu/consumers/odr</a>.
+    </p>
+  </div>
+
+  <div class="ml-section">
+    <h2>10. Droit applicable</h2>
+    <p>Les présentes mentions légales sont régies par le droit français. En cas de litige, les tribunaux compétents seront ceux du ressort du Tribunal judiciaire d'Albi (81).</p>
+  </div>
+
+  <div class="ml-section">
+    <h2>11. Contact</h2>
+    <p>Pour toute question relative aux présentes mentions légales ou à l'utilisation du site :</p>
+    <p>
+      <strong>Studio Bastide Production</strong><br>
+      Email : <a href="mailto:studiobastide.contact@gmail.com">studiobastide.contact@gmail.com</a><br>
+      Téléphone : <a href="tel:0955519746">09 55 51 97 46</a><br>
+      Adresse : 10 place de l'Église, 81370 Saint-Sulpice-la-Pointe
+    </p>
+  </div>
+
+  <div class="ml-section">
+    <h2>12. Crédits</h2>
+    <p><strong>Conception et développement du site :</strong> Studio Bastide Production.</p>
+    <p><strong>Photographies et vidéos :</strong> Studio Bastide Production, sauf mention contraire.</p>
+    <p><strong>Polices :</strong> Syne (Google Fonts), DM Sans (Google Fonts).</p>
+    <p><strong>Formulaire de contact :</strong> Formspree (<a href="https://formspree.io" target="_blank" rel="noopener noreferrer">formspree.io</a>).</p>
+    <p><strong>Cartographie :</strong> Google Maps (<a href="https://www.google.com/maps" target="_blank" rel="noopener noreferrer">google.com/maps</a>).</p>
+  </div>
+
+</div>
+<footer>
+  <div class="footer-in">
+    <div class="footer-brand">Studio Bastide<sup>®</sup></div>
+    <div class="footer-links">
+      <a href="../">Accueil</a>
+      <a href="../prestation/">Prestations</a>
     </div>
+    <p class="footer-copy">© 2026 Studio Bastide Production · 10 place de l'Église · Saint-Sulpice-la-Pointe (81370)</p>
+  </div>
+</footer>
 
-    <div class="ml-section">
-      <h2>2. Directeur de la publication</h2>
-      <p>Le directeur de la publication est <strong>Solal Fournier</strong>, gérant et représentant légal de Studio Bastide Production.</p>
-    </div>
+<button class="to-top" id="toTop" aria-label="Haut de page">↑</button>
 
-    <div class="ml-section">
-      <h2>3. Hébergement</h2>
-      <p>Ce site est hébergé par :</p>
-      <p>
-        <strong>GitHub Pages</strong> — GitHub, Inc.<br>
-        88 Colin P Kelly Jr St, San Francisco, CA 94107, États-Unis<br>
-        <a href="https://pages.github.com" target="_blank" rel="noopener noreferrer">pages.github.com</a>
-      </p>
-    </div>
-
-    <div class="ml-section">
-      <h2>4. Propriété intellectuelle</h2>
-      <p>L'ensemble des contenus présents sur ce site (textes, photographies, vidéos, logos, graphismes) sont la propriété exclusive de Studio Bastide Production, sauf mention contraire.</p>
-      <p>Toute reproduction, représentation, modification ou exploitation de ces contenus, même partielle, est strictement interdite sans autorisation écrite préalable.</p>
-    </div>
-
-    <div class="ml-section">
-      <h2>5. Données personnelles (RGPD)</h2>
-      <p>Les données collectées via le formulaire de contact (nom, email, téléphone, organisation, description du projet) sont utilisées <strong>uniquement</strong> pour répondre à vos demandes de devis et de contact.</p>
-      <p>Elles ne sont ni vendues, ni transmises à des tiers. Elles sont conservées pendant une durée maximale de <strong>3 ans</strong> à compter du dernier contact.</p>
-      <p>Le responsable du traitement des données est <strong>Solal Fournier</strong>, gérant de Studio Bastide Production — <a href="mailto:studiobastide.contact@gmail.com">studiobastide.contact@gmail.com</a>.</p>
-      <p>Conformément au <strong>Règlement Général sur la Protection des Données (RGPD)</strong> et à la loi Informatique et Libertés, vous disposez des droits suivants :</p>
-      <table class="ml-table">
-        <thead>
-          <tr><th>Droit</th><th>Description</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><strong>Accès</strong></td><td>Obtenir une copie de vos données personnelles</td></tr>
-          <tr><td><strong>Rectification</strong></td><td>Corriger des données inexactes</td></tr>
-          <tr><td><strong>Effacement</strong></td><td>Demander la suppression de vos données</td></tr>
-          <tr><td><strong>Opposition</strong></td><td>Vous opposer au traitement de vos données</td></tr>
-          <tr><td><strong>Portabilité</strong></td><td>Recevoir vos données dans un format structuré</td></tr>
-        </tbody>
-      </table>
-      <p style="margin-top:14px;">Pour exercer ces droits, contactez-nous à : <a href="mailto:studiobastide.contact@gmail.com">studiobastide.contact@gmail.com</a></p>
-      <p>Le traitement du formulaire de contact est assuré par <strong>Formspree</strong> (formspree.io). Leurs conditions de confidentialité sont disponibles sur <a href="https://formspree.io/legal/privacy-policy" target="_blank" rel="noopener noreferrer">formspree.io/legal/privacy-policy</a>.</p>
-    </div>
-
-    <div class="ml-section">
-      <h2>6. Cookies</h2>
-      <p>Ce site n'utilise <strong>aucun cookie de traçage ou publicitaire</strong>. Aucun outil d'analyse (Google Analytics, etc.) n'est installé.</p>
-      <p>Des cookies techniques strictement nécessaires au fonctionnement du site peuvent être utilisés par les services tiers (hébergement GitHub Pages, Formspree).</p>
-    </div>
-
-    <div class="ml-section">
-      <h2>7. Liens hypertextes</h2>
-      <p>Ce site peut contenir des liens vers des sites tiers (réseaux sociaux, partenaires). Studio Bastide Production ne peut être tenu responsable du contenu de ces sites externes.</p>
-    </div>
-
-    <div class="ml-section">
-      <h2>8. Limitation de responsabilité</h2>
-      <p>Studio Bastide Production s'efforce de fournir des informations exactes et à jour sur ce site. Toutefois, nous ne garantissons pas l'exactitude, l'exhaustivité ou l'actualité des informations diffusées.</p>
-      <p>Studio Bastide Production ne saurait être tenu responsable des dommages directs ou indirects résultant de l'accès ou de l'utilisation de ce site.</p>
-    </div>
-
-    <div class="ml-section">
-      <h2>9. Droit applicable</h2>
-      <p>Les présentes m
+<script>
+const tt=document.getElementById('toTop');
+const logo=document.querySelector('.topbar-logo');
+window.onscroll=()=>{
+  tt.classList.toggle('show',scrollY>300);
+  const shrink=Math.min(scrollY/300,1);
+  logo.style.transform='scale('+(1.4-shrink*0.4)+')';
+};
+tt.onclick=()=>scrollTo({top:0,behavior:'smooth'});
+</script>
+</body>
+</html>
