@@ -24,7 +24,7 @@
   --ease:cubic-bezier(.22,1,.36,1);
   --max:1120px;
 }
-html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:#1a1a1a #000}
+html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:#1a1a1a #000;overflow-x:hidden}
 body{background:var(--bg);color:var(--tx);font-family:var(--body);font-weight:300;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
@@ -80,11 +80,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 }
 .sidebar .close-btn:hover{opacity:1}
 .sidebar nav{display:flex;flex-direction:column;gap:6px}
-.sidebar .nav-group{margin-bottom:22px}
-.sidebar .nav-group-title{
-  font-family:var(--head);font-size:.9rem;font-weight:800;
-  color:#fff;margin-bottom:8px;
-}
 .sidebar nav a{
   font-size:.78rem;font-weight:700;color:rgba(255,255,255,.9);
   padding:6px 0;display:flex;align-items:center;gap:6px;
@@ -501,63 +496,78 @@ footer{background:var(--orange);border-top:none}
 .to-top:hover{border-color:var(--orange);color:var(--tx)}
 
 /* ══════════════════════════════════════
-   CHATBOT
+   CHATBOT — redesigned for dark visibility
    ══════════════════════════════════════ */
 .chat-btn{
   position:fixed;bottom:24px;right:76px;z-index:91;
-  width:44px;height:44px;background:var(--orange);
+  width:48px;height:48px;background:var(--orange);
+  border-radius:50%;
   display:flex;align-items:center;justify-content:center;
-  font-size:18px;transition:all .3s var(--ease);
-  box-shadow:0 4px 20px rgba(232,57,12,.25);
+  font-size:20px;transition:all .3s var(--ease);
+  box-shadow:0 6px 24px rgba(232,57,12,.35),0 0 0 0 rgba(232,57,12,.4);
+  animation:chatPulse 3s ease-in-out infinite;
 }
-.chat-btn:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(232,57,12,.35)}
+@keyframes chatPulse{0%,100%{box-shadow:0 6px 24px rgba(232,57,12,.35),0 0 0 0 rgba(232,57,12,.3)}50%{box-shadow:0 6px 24px rgba(232,57,12,.35),0 0 0 8px rgba(232,57,12,0)}}
+.chat-btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(232,57,12,.45)}
 .chat-btn .dot{
   position:absolute;top:-3px;right:-3px;
-  width:16px;height:16px;background:#fff;color:var(--orange);
-  font-size:9px;font-weight:700;display:flex;
+  width:18px;height:18px;background:#fff;color:var(--orange);
+  font-size:10px;font-weight:700;display:flex;
   align-items:center;justify-content:center;border-radius:50%;
+  box-shadow:0 2px 6px rgba(0,0,0,.3);
 }
 .cbox{
-  position:fixed;bottom:80px;right:24px;z-index:92;
-  width:340px;max-height:460px;background:var(--surface);
-  border:1px solid var(--border);display:flex;flex-direction:column;
-  transform:translateY(8px);opacity:0;pointer-events:none;
+  position:fixed;bottom:84px;right:24px;z-index:92;
+  width:360px;max-height:480px;
+  background:#1a1a1a;
+  border:1px solid #2a2a2a;
+  border-radius:1.25rem;
+  display:flex;flex-direction:column;
+  transform:translateY(10px) scale(.96);opacity:0;pointer-events:none;
   transition:all .3s var(--ease);
+  box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.05);
+  overflow:hidden;
 }
-.cbox.on{transform:translateY(0);opacity:1;pointer-events:all}
+.cbox.on{transform:translateY(0) scale(1);opacity:1;pointer-events:all}
 .cbox-head{
-  padding:14px 18px;border-bottom:1px solid var(--border);
+  padding:16px 20px;
+  background:linear-gradient(135deg,var(--orange),var(--orange-d));
   display:flex;justify-content:space-between;align-items:center;
 }
-.cbox-head span{font-weight:600;font-size:.85rem}
-.cbox-head small{font-size:.7rem;color:var(--tx3)}
-.cbox-x{font-size:16px;color:var(--tx3);transition:color .3s}
-.cbox-x:hover{color:var(--tx)}
+.cbox-head span{font-weight:700;font-size:.88rem;color:#fff}
+.cbox-head small{font-size:.7rem;color:rgba(255,255,255,.7)}
+.cbox-x{font-size:18px;color:rgba(255,255,255,.7);transition:color .3s}
+.cbox-x:hover{color:#fff}
 .cbox-body{
-  flex:1;overflow-y:auto;padding:14px 18px;
-  display:flex;flex-direction:column;gap:8px;max-height:300px;
+  flex:1;overflow-y:auto;padding:16px 18px;
+  display:flex;flex-direction:column;gap:10px;max-height:300px;
+  scrollbar-width:thin;scrollbar-color:#333 transparent;
 }
 .cm{
-  max-width:85%;padding:9px 13px;font-size:.8rem;line-height:1.5;
+  max-width:85%;padding:10px 14px;font-size:.82rem;line-height:1.55;
+  border-radius:1rem;
   animation:fadeUp .3s var(--ease);
 }
-@keyframes fadeUp{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
-.cm.bot{background:var(--card);border:1px solid var(--border);align-self:flex-start;color:var(--tx2)}
-.cm.usr{background:var(--orange);color:#fff;align-self:flex-end}
-.cbox-chips{display:flex;flex-wrap:wrap;gap:5px;padding:0 18px 10px}
+.cm.bot{
+  background:#252525;
+  border:1px solid #333;
+  align-self:flex-start;
+  color:#ccc;
+  border-radius:1rem 1rem 1rem .25rem;
+}
+.cm.usr{
+  background:linear-gradient(135deg,var(--orange),var(--orange-d));
+  color:#fff;align-self:flex-end;
+  border-radius:1rem 1rem .25rem 1rem;
+  box-shadow:0 4px 12px rgba(232,57,12,.25);
+}
+.cbox-chips{display:flex;flex-wrap:wrap;gap:6px;padding:4px 18px 12px}
 .cbox-chip{
-  padding:4px 10px;border:1px solid var(--border-h);
-  font-size:.68rem;color:var(--tx2);transition:all .3s;
+  padding:5px 12px;border:1px solid #333;border-radius:.75rem;
+  font-size:.7rem;color:#aaa;transition:all .3s;background:transparent;
 }
-.cbox-chip:hover{border-color:var(--orange);color:var(--tx)}
-.cbox-input{display:flex;border-top:1px solid var(--border)}
-.cbox-input input{
-  flex:1;padding:13px 15px;background:transparent;
-  border:none;color:var(--tx);font-family:var(--body);
-  font-size:.82rem;outline:none;
-}
-.cbox-input button{padding:0 15px;color:var(--orange);font-size:14px;transition:opacity .3s}
-.cbox-input button:hover{opacity:.7}
+.cbox-chip:hover{border-color:var(--orange);color:#fff;background:rgba(232,57,12,.1)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 
 /* ══════════════════════════════════════
    REVEAL
@@ -573,31 +583,87 @@ footer{background:var(--orange);border-top:none}
   section{padding:70px 28px}
   .hero{padding:100px 28px 40px;height:auto;min-height:auto}
   .hero-inner{grid-template-columns:1fr;gap:32px}
-  .hero-content{padding:0}
+  .hero-content{padding:0;max-width:100%}
   .hero-scroll{display:none}
   .sidebar{width:100%}
   .pitch-layout{grid-template-columns:1fr;gap:32px}
+  .pitch-aside{padding:20px}
+  .tarifs-intro{flex-direction:column;gap:16px;align-items:flex-start}
+  .tarifs-note{max-width:100%}
   .t-grid{grid-template-columns:1fr 1fr}
+  .tarifs-bottom{flex-direction:column;text-align:center;gap:16px}
   .p-steps{grid-template-columns:1fr 1fr}
   .contact-layout{grid-template-columns:1fr;gap:32px}
+  .contact-sub{max-width:100%}
   .zone-layout{grid-template-columns:1fr;gap:28px}
+  .zone-num{align-self:flex-start;min-width:auto;padding:28px 24px}
   .footer-top{grid-template-columns:1fr;padding:32px 28px 24px}
   .footer-bottom{padding:20px 28px 32px}
+  .footer-social{flex-wrap:wrap;justify-content:center}
 }
 @media(max-width:600px){
   section{padding:50px 20px}
   .hero{padding:90px 20px 32px}
   .hero-content{padding:0}
+  .hero h1{font-size:1.8rem;letter-spacing:-.5px}
+  .hero-sub{font-size:.88rem;max-width:100%}
+  .hero-tag{font-size:.6rem;letter-spacing:2px}
+  .hero-pills span{font-size:.65rem;padding:4px 10px}
+  .hero-ctas{flex-direction:column;width:100%}
+  .hero-ctas .btn-p,.hero-ctas .btn-o{width:100%;justify-content:center;padding:13px 20px}
+  .hero-player{margin:0 -20px;width:calc(100% + 40px)}
   .topbar{padding:16px 20px}
+  .topbar-logo{font-size:1rem}
+  .s-label{font-size:.6rem;letter-spacing:2px}
+  .s-title{font-size:1.3rem}
+  .pitch-text{font-size:.88rem}
+  .pitch-aside{padding:18px}
+  .pitch-aside p{font-size:.85rem}
   .t-grid{grid-template-columns:1fr}
+  .t-card{padding:28px 20px}
+  .t-name{font-size:.95rem}
+  .t-price{font-size:1.5rem}
+  .t-desc{font-size:.78rem}
+  .t-feat li{font-size:.75rem}
+  .t-cta{padding:12px;font-size:.65rem}
+  .tarifs-bottom{padding:20px}
+  .tarifs-bottom p{font-size:.82rem}
+  .tarifs-disclaimer{font-size:.68rem}
   .p-steps{grid-template-columns:1fr}
+  .p-step{padding:28px 20px}
+  .p-step::before{font-size:2.2rem}
+  .p-step h4{font-size:.82rem}
+  .p-step p{font-size:.75rem}
+  .zone-text{font-size:.85rem}
+  .zone-tags span{font-size:.65rem;padding:4px 10px}
+  .zone-num b{font-size:2.4rem}
+  .faq-q{font-size:.85rem;padding:18px 0}
+  .faq-a-inner{font-size:.82rem}
+  .contact-sub{font-size:.85rem}
+  .contact-addr{font-size:.82rem}
+  .contact-notice{padding:16px;font-size:.78rem}
   .f-row{grid-template-columns:1fr}
-  .cbox{width:calc(100vw - 40px);right:20px}
+  .f-group label{font-size:.58rem}
+  .f-group input,.f-group select,.f-group textarea{font-size:.82rem;padding:12px 14px}
+  .f-submit{font-size:.68rem;padding:14px}
+  .f-legal{font-size:.65rem}
+  .cbox{width:calc(100vw - 40px);right:20px;bottom:80px;max-height:70vh}
+  .cbox-head span{font-size:.82rem}
+  .cbox-chips{gap:4px}
+  .cbox-chip{font-size:.65rem;padding:4px 8px}
   .footer-top{grid-template-columns:1fr;padding:28px 20px 20px}
-  .footer-body{padding:28px 20px}
+  .footer-brand{font-size:.88rem}
+  .footer-map iframe{height:160px}
+  .footer-addr{font-size:.78rem}
+  .footer-nav a{font-size:.78rem}
   .footer-bottom{padding:16px 20px 28px}
-  .footer-social{flex-wrap:wrap}
-  .footer-social a{padding:8px 18px;font-size:.7rem}
+  .footer-social{flex-wrap:wrap;justify-content:center}
+  .footer-social a{padding:8px 16px;font-size:.7rem}
+  .footer-copy{font-size:.58rem}
+  .cl-scroll img{height:36px}
+  .cl-scroll{gap:36px}
+  .chat-btn{width:42px;height:42px;font-size:16px;right:68px;bottom:20px}
+  .to-top{width:36px;height:36px;font-size:12px;right:20px;bottom:20px}
 }
 </style>
 </head>
@@ -761,17 +827,17 @@ footer{background:var(--orange);border-top:none}
       <div class="c-form">
         <form id="cForm" action="https://formspree.io/f/mvzbelnj" method="POST">
           <div class="f-row">
-            <div class="f-group"><label>Nom *</label><input type="text" name="name" required></div>
-            <div class="f-group"><label>Email *</label><input type="email" name="email" required></div>
+            <div class="f-group"><label for="f-name">Nom *</label><input type="text" id="f-name" name="name" required></div>
+            <div class="f-group"><label for="f-email">Email *</label><input type="email" id="f-email" name="email" required></div>
           </div>
           <div class="f-row">
-            <div class="f-group"><label>Téléphone</label><input type="tel" name="phone"></div>
-            <div class="f-group"><label>Organisation</label><input type="text" name="organization"></div>
+            <div class="f-group"><label for="f-phone">Téléphone</label><input type="tel" id="f-phone" name="phone"></div>
+            <div class="f-group"><label for="f-org">Organisation</label><input type="text" id="f-org" name="organization"></div>
           </div>
           <div class="f-row">
             <div class="f-group">
-              <label>Type de prestation</label>
-              <select name="service">
+              <label for="f-service">Type de prestation</label>
+              <select id="f-service" name="service">
                 <option value="">Sélectionner…</option>
                 <option>Live session vidéo</option><option>Clip</option>
                 <option>Clip pro</option><option>Reel réseaux sociaux</option>
@@ -782,8 +848,8 @@ footer{background:var(--orange);border-top:none}
               </select>
             </div>
             <div class="f-group">
-              <label>Budget indicatif</label>
-              <select name="budget">
+              <label for="f-budget">Budget indicatif</label>
+              <select id="f-budget" name="budget">
                 <option value="">Budget indicatif</option>
                 <option>Moins de 500 €</option><option>500 € – 1 000 €</option>
                 <option>1 000 € – 2 500 €</option><option>2 500 € – 5 000 €</option>
@@ -791,7 +857,7 @@ footer{background:var(--orange);border-top:none}
               </select>
             </div>
           </div>
-          <div class="f-group"><label>Votre projet *</label><textarea name="message" required></textarea></div>
+          <div class="f-group"><label for="f-msg">Votre projet *</label><textarea id="f-msg" name="message" required></textarea></div>
           <button type="submit" class="f-submit" id="fBtn">Envoyer le message</button>
           <p class="f-legal">Déplacements au-delà de 15 km : frais précisés au devis. Tous les prix sont HT, TVA 20 % applicable.</p>
         </form>
@@ -838,10 +904,6 @@ footer{background:var(--orange);border-top:none}
   </div>
   <div class="cbox-body" id="chatBody"></div>
   <div class="cbox-chips" id="chatChips"></div>
-  <div class="cbox-input">
-    <input type="text" id="chatIn" placeholder="Posez votre question…">
-    <button id="chatGo">➤</button>
-  </div>
 </div>
 
 <script>
@@ -888,18 +950,6 @@ const D={
     {n:"Origine",img:"../assets/logos/origine.jpg"},
     {n:"Resistium",img:"../assets/logos/resistium.png"},
     {n:"Saint-Sulpice",img:"../assets/logos/st-sulpice.png"}
-  ],
-  chat:[
-    {k:["tarif","prix","combien","cout","coût","budget"],r:"Nos tarifs démarrent à 150 € HT pour un reel, 250 € pour un shooting photo, 375 € pour une live session et 625 € pour un clip. Tous les détails dans la section Tarifs !",c:["Voir les tarifs","Demander un devis"]},
-    {k:["photo","shooting","portrait","produit"],r:"Shootings photo à partir de 250 € HT : portraits, produits, événements. Retouches et livraison haute résolution incluses.",c:["Tarifs photo","Demander un devis"]},
-    {k:["drone","aerien","aérien"],r:"Prestations drone à partir de 295 € HT. Pilote certifié, captation 4K stabilisée, autorisations de vol gérées.",c:["Voir les tarifs"]},
-    {k:["clip","musique","musical","artiste"],r:"Clips musicaux à partir de 625 € HT : concept, tournage, montage et étalonnage. Version pro dès 1 200 € HT.",c:["Clip standard","Clip pro"]},
-    {k:["live","session","captation","concert"],r:"Live sessions filmées à partir de 375 € HT. Captation multi-cam, montage complet et mixage audio inclus.",c:["Demander un devis"]},
-    {k:["zone","deplacement","déplacement","km","tarn","occitanie"],r:"Basés à Saint-Sulpice-la-Pointe (81370). Les 15 premiers km sont offerts, au-delà les frais sont au devis. On intervient partout en France.",c:["Voir la zone"]},
-    {k:["delai","délai","temps","livraison","quand"],r:"Les fichiers sont livrés en général sous 48h pour les formats simples. Pour les projets complexes, le délai est précisé au devis.",c:["Demander un devis"]},
-    {k:["revision","révision","modif","retouche"],r:"1 révision incluse par prestation. Des révisions supplémentaires peuvent être ajoutées, on en discute au moment du devis.",c:["Demander un devis"]},
-    {k:["contact","mail","email","telephone"],r:"Écrivez-nous via le formulaire en bas de page. Réponse sous 48 h ouvrées !",c:["Aller au formulaire"]},
-    {k:["devis","projet","demande","estimation"],r:"Remplissez le formulaire avec les détails de votre projet. Devis détaillé sous 48 h, sans engagement.",c:["Demander un devis"]}
   ]
 };
 
@@ -971,36 +1021,44 @@ form.onsubmit=async e=>{
 /* ═══ CHATBOT ═══ */
 const chatBtn=document.getElementById('chatBtn'),cbox=document.getElementById('cbox'),
 chatX=document.getElementById('chatX'),chatBody=document.getElementById('chatBody'),
-chatChips=document.getElementById('chatChips'),chatIn=document.getElementById('chatIn'),
-chatGo=document.getElementById('chatGo');
+chatChips=document.getElementById('chatChips');
 let chatOn=false;
+const mainChips=["Tarifs","Shooting photo","Drone","Clip musical","Live session","Zone & déplacements","Délais","Révisions","Contact","Autre question"];
 function toggleChat(){
   chatOn=!chatOn;cbox.classList.toggle('on',chatOn);
   if(chatOn){chatBtn.querySelector('.dot').style.display='none';
-  if(!chatBody.children.length)addBot("Bonjour ! Posez-moi une question sur nos prestations, tarifs ou fonctionnement.",["Tarifs","Shooting photo","Drone","Live session","Devis"]);
-  chatIn.focus()}
+  if(!chatBody.children.length)addBot("Bonjour ! Comment pouvons-nous vous aider ? Choisissez un sujet ci-dessous.",mainChips)}
 }
 chatBtn.onclick=toggleChat;chatX.onclick=toggleChat;
 function addBot(t,chips){
-  const d=document.createElement('div');d.className='cm bot';d.textContent=t;chatBody.appendChild(d);chatBody.scrollTop=chatBody.scrollHeight;
-  chatChips.innerHTML='';if(chips)chips.forEach(c=>{const b=document.createElement('button');b.className='cbox-chip';b.textContent=c;b.onclick=()=>handle(c);chatChips.appendChild(b)});
+  const d=document.createElement('div');d.className='cm bot';
+  d.innerHTML=t;chatBody.appendChild(d);chatBody.scrollTop=chatBody.scrollHeight;
+  chatChips.innerHTML='';
+  if(chips)chips.forEach(c=>{const b=document.createElement('button');b.className='cbox-chip';b.textContent=c;b.onclick=()=>handle(c);chatChips.appendChild(b)});
 }
-function addUsr(t){const d=document.createElement('div');d.className='cm usr';d.textContent=t;chatBody.appendChild(d);chatBody.scrollTop=chatBody.scrollHeight;chatChips.innerHTML=''}
-function norm(s){return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/['']/g,' ')}
 function handle(t){
-  addUsr(t);const n=norm(t),m=D.chat.find(e=>e.k.some(k=>n.includes(k)));
-  setTimeout(()=>{if(m)addBot(m.r,m.c);
-  else addBot("Je n'ai pas la réponse. Contactez-nous via le formulaire, nous répondons sous 48 h !",["Demander un devis","Voir les tarifs"])},350);
+  const n=t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  /* Scroll actions */
+  if(n.includes('tarif')){addBot("Nos tarifs démarrent à 150 € HT pour un reel, 250 € pour un shooting photo, 375 € pour une live session et 625 € pour un clip.",["Voir les tarifs","Demander un devis","← Menu"]);return}
+  if(n.includes('photo')||n.includes('shooting')){addBot("Shootings photo à partir de 250 € HT : portraits, produits, événements. Retouches et livraison haute résolution incluses.",["Voir les tarifs","Demander un devis","← Menu"]);return}
+  if(n.includes('drone')){addBot("Prestations drone à partir de 295 € HT. Pilote certifié, captation 4K stabilisée, autorisations de vol gérées.",["Voir les tarifs","← Menu"]);return}
+  if(n.includes('clip')){addBot("Clips musicaux à partir de 625 € HT : concept, tournage, montage et étalonnage. Version pro dès 1 200 € HT.",["Voir les tarifs","Demander un devis","← Menu"]);return}
+  if(n.includes('live')||n.includes('session')){addBot("Live sessions filmées à partir de 375 € HT. Captation multi-cam, montage complet et mixage audio inclus.",["Voir les tarifs","Demander un devis","← Menu"]);return}
+  if(n.includes('zone')||n.includes('deplacement')){addBot("Basés à Saint-Sulpice-la-Pointe (81370). Les 15 premiers km sont offerts, au-delà les frais sont au devis. On intervient partout en France.",["Voir la zone","← Menu"]);return}
+  if(n.includes('delai')){addBot("Les fichiers sont livrés en général sous 48h pour les formats simples. Pour les projets complexes, le délai est précisé au devis.",["Demander un devis","← Menu"]);return}
+  if(n.includes('revision')){addBot("1 révision incluse par prestation. Des révisions supplémentaires peuvent être ajoutées, on en discute au moment du devis.",["Demander un devis","← Menu"]);return}
+  if(n.includes('contact')||n.includes('devis')){addBot("Remplissez le formulaire de contact ou écrivez-nous directement à <a href='mailto:studiobastide.contact@gmail.com' style='color:var(--orange)'>studiobastide.contact@gmail.com</a>. Réponse sous 48 h !",["Aller au formulaire","← Menu"]);return}
+  if(n.includes('menu')){addBot("Comment pouvons-nous vous aider ?",mainChips);return}
+  /* Autre question = email fallback */
+  addBot("Pour toute autre question, écrivez-nous directement à <a href='mailto:studiobastide.contact@gmail.com' style='color:var(--orange)'>studiobastide.contact@gmail.com</a> — nous répondons sous 48 h !",["← Menu"]);
 }
-chatGo.onclick=()=>{const v=chatIn.value.trim();if(v){handle(v);chatIn.value=''}};
-chatIn.onkeydown=e=>{if(e.key==='Enter'){const v=chatIn.value.trim();if(v){handle(v);chatIn.value=''}}};
 
 /* chip → scroll actions */
 document.addEventListener('click',e=>{if(!e.target.classList.contains('cbox-chip'))return;
 const t=e.target.textContent.toLowerCase();
-if(t.includes('tarif'))setTimeout(()=>{document.getElementById('tarifs').scrollIntoView({behavior:'smooth'});toggleChat()},250);
-if(t.includes('formulaire')||t.includes('devis'))setTimeout(()=>{document.getElementById('contact').scrollIntoView({behavior:'smooth'});toggleChat()},250);
-if(t.includes('zone'))setTimeout(()=>{document.getElementById('deplacements').scrollIntoView({behavior:'smooth'});toggleChat()},250);
+if(t==='voir les tarifs')setTimeout(()=>{document.getElementById('tarifs').scrollIntoView({behavior:'smooth'});toggleChat()},250);
+if(t==='aller au formulaire'||t==='demander un devis')setTimeout(()=>{document.getElementById('contact').scrollIntoView({behavior:'smooth'});toggleChat()},250);
+if(t==='voir la zone')setTimeout(()=>{document.getElementById('deplacements').scrollIntoView({behavior:'smooth'});toggleChat()},250);
 });
 
 /* Close chatbot on scroll */
