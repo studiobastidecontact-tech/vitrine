@@ -21,6 +21,9 @@ import {
 const ALLOWED_EMAILS = [
   "ilan.chekroun1@gmail.com",
   "studiobastideform@gmail.com",
+  "fournier.solal.pro@gmail.com",
+  "maelarnaud.pro@gmail.com",
+  "studiobastide.contact@gmail.com",
 ];
 
 const firebaseConfig = {
@@ -193,10 +196,7 @@ async function loadAudioTracks() {
   audioListEl.innerHTML =
     '<p class="admin-item-sub">Chargement des pistes...</p>';
   try {
-    const q = query(
-      collection(db, "audioTracks"),
-      orderBy("order", "asc"),
-    );
+    const q = query(collection(db, "audioTracks"), orderBy("order", "asc"));
     const snapshot = await getDocs(q);
     if (snapshot.empty) {
       audioListEl.innerHTML =
@@ -273,10 +273,7 @@ async function loadLogos() {
   logoListEl.innerHTML =
     '<p class="admin-item-sub">Chargement des logos...</p>';
   try {
-    const q = query(
-      collection(db, "trustedLogos"),
-      orderBy("order", "asc"),
-    );
+    const q = query(collection(db, "trustedLogos"), orderBy("order", "asc"));
     const snapshot = await getDocs(q);
     if (snapshot.empty) {
       logoListEl.innerHTML =
@@ -487,4 +484,3 @@ logoForm.addEventListener("submit", async (event) => {
 audioResetBtn.addEventListener("click", resetAudioForm);
 videoResetBtn.addEventListener("click", resetVideoForm);
 logoResetBtn.addEventListener("click", resetLogoForm);
-
