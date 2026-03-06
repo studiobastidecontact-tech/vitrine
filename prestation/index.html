@@ -108,16 +108,16 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
    HERO — fullscreen video, content low
    ══════════════════════════════════════ */
 .hero{
-  position:relative;height:92vh;min-height:560px;
+  position:relative;height:100vh;min-height:640px;
   display:flex;align-items:center;overflow:hidden;
-  padding:120px 60px 80px;
+  padding:100px 60px 60px;
 }
 .hero-inner{
-  max-width:1240px;margin:0 auto;width:100%;
-  display:grid;grid-template-columns:1fr 1.15fr;gap:100px;
+  max-width:1340px;margin:0 auto;width:100%;
+  display:grid;grid-template-columns:1fr 1.15fr;gap:80px;
   align-items:center;
 }
-.hero-content{max-width:560px}
+.hero-content{max-width:600px}
 .hero-player{
   position:relative;aspect-ratio:16/9;overflow:hidden;
   border:1px solid var(--border);
@@ -139,12 +139,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .hero-tag::before{content:'';width:28px;height:1.5px;background:var(--orange)}
 .hero h1{
   font-family:var(--head);font-weight:800;
-  font-size:clamp(2.2rem,5vw,3.8rem);line-height:1.06;
+  font-size:clamp(2.4rem,5.5vw,4.2rem);line-height:1.06;
   margin-bottom:18px;letter-spacing:-1.5px;
 }
 .hero h1 em{font-style:italic;color:var(--orange)}
 .hero-sub{
-  font-size:clamp(.9rem,1.3vw,1.05rem);color:var(--tx2);
+  font-size:clamp(.95rem,1.4vw,1.1rem);color:var(--tx2);
   max-width:520px;margin-bottom:28px;line-height:1.75;
 }
 .hero-pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:32px}
@@ -231,8 +231,8 @@ section{padding:100px 60px}
   display:flex;justify-content:space-between;align-items:flex-end;
   gap:40px;margin-bottom:56px;flex-wrap:wrap;
 }
-.tarifs-note{color:var(--tx3);font-size:.82rem;max-width:480px;line-height:1.7}
-.tarifs-note strong{color:var(--tx2)}
+.tarifs-note{color:var(--tx2);font-size:.82rem;max-width:480px;line-height:1.7}
+.tarifs-note strong{color:var(--tx);font-weight:700}
 
 /* All tarifs grid — 3 cols */
 .t-grid{
@@ -301,7 +301,7 @@ section{padding:100px 60px}
 .tarifs-bottom p{color:var(--tx2);font-size:.88rem}
 .tarifs-bottom strong{color:var(--tx)}
 .tarifs-disclaimer{
-  color:var(--tx3);font-size:.72rem;line-height:1.6;
+  color:var(--tx2);font-size:.72rem;line-height:1.6;
   margin-top:20px;max-width:560px;
 }
 
@@ -320,7 +320,7 @@ section{padding:100px 60px}
 .p-step:hover{background:var(--surface)}
 .p-step::before{
   content:attr(data-n);font-family:var(--head);font-weight:800;
-  font-size:2.8rem;color:var(--orange);opacity:.15;
+  font-size:2.8rem;color:var(--orange);opacity:.4;
   line-height:1;margin-bottom:16px;display:block;
 }
 .p-step h4{font-family:var(--head);font-weight:700;font-size:.88rem;margin-bottom:8px}
@@ -362,27 +362,28 @@ section{padding:100px 60px}
   mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
 }
 .cl-scroll{
-  display:flex;gap:48px;align-items:center;
+  display:flex;gap:56px;align-items:center;
   width:max-content;
   animation:marquee 30s linear infinite;
 }
 .cl-scroll:hover{animation-play-state:paused}
 @keyframes marquee{
   0%{transform:translateX(0)}
-  100%{transform:translateX(-50%)}
+  100%{transform:translateX(-25%)}
 }
 .cl-scroll img{
-  height:40px;width:auto;object-fit:contain;
-  filter:grayscale(1) brightness(1.5);opacity:.5;
-  transition:all .3s var(--ease);flex-shrink:0;
+  height:52px;width:auto;object-fit:contain;
+  opacity:.8;transition:all .3s var(--ease);flex-shrink:0;
 }
-.cl-scroll img:hover{opacity:1;filter:grayscale(0) brightness(1)}
+.cl-scroll img:hover{opacity:1}
 
 /* ══════════════════════════════════════
    FAQ
    ══════════════════════════════════════ */
 .faq{border-bottom:1px solid var(--border)}
-.faq-list{margin-top:44px;max-width:720px}
+.faq .s-label{justify-content:center}
+.faq .s-title{text-align:center}
+.faq-list{margin-top:44px;max-width:720px;margin-left:auto;margin-right:auto}
 .faq-item{border-bottom:1px solid var(--border)}
 .faq-q{
   width:100%;text-align:left;padding:22px 0;
@@ -569,9 +570,10 @@ footer{background:var(--orange);border-top:none}
    ══════════════════════════════════════ */
 @media(max-width:900px){
   section{padding:70px 28px}
-  .hero{padding:100px 28px 60px}
+  .hero{padding:100px 28px 40px;height:auto;min-height:auto}
   .hero-inner{grid-template-columns:1fr;gap:32px}
   .hero-content{padding:0}
+  .hero-scroll{display:none}
   .sidebar{width:100%}
   .pitch-layout{grid-template-columns:1fr;gap:32px}
   .t-grid{grid-template-columns:1fr 1fr}
@@ -583,7 +585,7 @@ footer{background:var(--orange);border-top:none}
 }
 @media(max-width:600px){
   section{padding:50px 20px}
-  .hero{padding:90px 20px 50px}
+  .hero{padding:90px 20px 32px}
   .hero-content{padding:0}
   .topbar{padding:16px 20px}
   .t-grid{grid-template-columns:1fr}
@@ -803,7 +805,7 @@ footer{background:var(--orange);border-top:none}
     <div class="footer-left">
       <div class="footer-brand">Studio Bastide<sup>®</sup></div>
       <div class="footer-map">
-        <iframe src="https://www.google.com/maps?q=10+Place+de+l'Église,+81370+Saint-Sulpice-la-Pointe,+France&output=embed" width="100%" height="220" style="border:0;filter:grayscale(.8) contrast(1.1)" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe src="https://www.google.com/maps?q=10+Place+de+l'Église,+81370+Saint-Sulpice-la-Pointe,+France&output=embed" width="100%" height="220" style="border:0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
     </div>
     <div class="footer-right">
@@ -933,9 +935,9 @@ faqList.querySelectorAll('.faq-q').forEach(b=>{
   if(!o){it.classList.add('open');a.style.maxHeight=a.scrollHeight+'px'}};
 });
 
-/* Clients marquee — duplicate for seamless loop */
+/* Clients marquee — duplicate 4x for seamless loop */
 const clLogos=D.clients.map(c=>`<img src="${c.img}" alt="${c.n}" title="${c.n}">`).join('');
-document.getElementById('clScroll').innerHTML=clLogos+clLogos;
+document.getElementById('clScroll').innerHTML=clLogos+clLogos+clLogos+clLogos;
 
 /* ═══ SIDEBAR ═══ */
 const sb=document.getElementById('sb'),ol=document.getElementById('sbOverlay'),tg=document.getElementById('navTrigger');
