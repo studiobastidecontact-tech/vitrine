@@ -6,18 +6,23 @@
 <title>Mentions légales — Studio Bastide Production</title>
 <meta name="description" content="Mentions légales de Studio Bastide Production, studio photo et vidéo à Saint-Sulpice-la-Pointe, Tarn.">
 <link rel="icon" type="image/jpeg" href="../assets/img/logo_square.jpg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
 <style>
+
+@font-face{font-family:'Panchang';src:url('../assets/fonts/Panchang-Bold.otf') format('opentype');font-weight:700;font-display:swap}
+@font-face{font-family:'Panchang';src:url('../assets/fonts/Panchang-Extrabold.otf') format('opentype');font-weight:800;font-display:swap}
+@font-face{font-family:'Switzer';src:url('../assets/fonts/Switzer-Light.otf') format('opentype');font-weight:300;font-display:swap}
+@font-face{font-family:'Switzer';src:url('../assets/fonts/Switzer-Regular.otf') format('opentype');font-weight:400;font-display:swap}
+@font-face{font-family:'Switzer';src:url('../assets/fonts/Switzer-Medium.otf') format('opentype');font-weight:500;font-display:swap}
+
+/* ── RESET ── */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
   --bg:#000;--surface:#0a0a0a;--card:#0e0e0e;
   --border:#161616;--border-h:#222;
   --orange:#E8390C;--orange-d:#c52e08;
   --tx:#fff;--tx2:#aaa;--tx3:#555;
-  --head:'Syne',sans-serif;
-  --body:'DM Sans',sans-serif;
+  --head:'Panchang',sans-serif;
+  --body:'Switzer',sans-serif;
   --ease:cubic-bezier(.22,1,.36,1);
   --max:760px;
 }
@@ -41,7 +46,7 @@ a{color:inherit;text-decoration:none}
 }
 .label{
   display:inline-flex;align-items:center;gap:10px;
-  font-size:.65rem;letter-spacing:3px;text-transform:uppercase;
+  font-size:.7rem;letter-spacing:3px;text-transform:uppercase;
   color:var(--tx3);margin-bottom:16px;font-weight:500;
 }
 .label::before{content:'';width:20px;height:1.5px;background:var(--orange)}
@@ -87,22 +92,37 @@ a{color:inherit;text-decoration:none}
 .ml-table tr:last-child td{border-bottom:none}
 
 /* ── FOOTER ── */
-footer{background:var(--orange);padding:32px;width:100%}
-.footer-in{
-  max-width:var(--max);margin:0 auto;
-  display:flex;justify-content:space-between;align-items:center;
-  gap:20px;flex-wrap:wrap;
+footer{background:var(--orange);border-top:none;width:100%}
+.footer-top{
+  max-width:1120px;margin:0 auto;
+  padding:48px 60px 36px;
+  display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:start;
 }
-.footer-brand{font-family:var(--head);font-weight:800;font-size:.85rem;color:#fff}
+.footer-left{}
+.footer-brand{font-family:var(--head);font-weight:800;font-size:1rem;margin-bottom:14px;letter-spacing:-.3px;color:#fff}
 .footer-brand sup{font-size:.5em;vertical-align:super}
-.footer-links{display:flex;gap:16px}
-.footer-links a{font-size:.75rem;color:rgba(255,255,255,.7);transition:color .3s}
-.footer-links a:hover{color:#fff}
-.footer-copy{
-  width:100%;text-align:center;margin-top:16px;padding-top:16px;
+.footer-map{overflow:hidden;border:1px solid rgba(255,255,255,.15)}
+.footer-map iframe{display:block;width:100%;height:220px}
+.footer-right{padding-top:8px}
+.footer-addr{font-size:.82rem;color:rgba(255,255,255,.7);line-height:1.7;margin-bottom:24px}
+.footer-nav{display:flex;flex-direction:column;gap:8px}
+.footer-nav a{font-size:.82rem;color:rgba(255,255,255,.8);transition:color .3s}
+.footer-nav a:hover{color:#fff}
+.footer-bottom{
+  max-width:1120px;margin:0 auto;
+  padding:28px 60px 40px;
   border-top:1px solid rgba(255,255,255,.15);
-  font-size:.6rem;color:rgba(255,255,255,.5);
+  display:flex;flex-direction:column;align-items:center;gap:16px;
+  text-align:center;
 }
+.footer-social{display:flex;gap:14px}
+.footer-social a{
+  padding:10px 24px;border:1.5px solid rgba(255,255,255,.4);
+  font-size:.78rem;font-weight:600;color:#fff;
+  letter-spacing:1px;transition:all .3s var(--ease);
+}
+.footer-social a:hover{background:#fff;color:var(--orange);border-color:#fff}
+.footer-copy{font-size:.7rem;color:rgba(255,255,255,.5);line-height:1.6}
 .footer-copy a{color:rgba(255,255,255,.65)}
 .footer-copy a:hover{color:#fff}
 
@@ -124,9 +144,11 @@ footer{background:var(--orange);padding:32px;width:100%}
   .topbar{padding:16px 20px}
   .page-hero{padding:100px 20px 40px}
   .ml-body{padding:0 20px 60px}
-  footer{padding:24px 20px}
-  .footer-in{flex-direction:column;text-align:center}
-  .footer-links{justify-content:center}
+  footer{padding:0}
+  .footer-top{grid-template-columns:1fr;padding:32px 20px 24px}
+  .footer-bottom{padding:20px 20px 28px}
+  .footer-social{flex-wrap:wrap;justify-content:center}
+  .footer-social a{padding:8px 18px;font-size:.7rem}
 }
 </style>
 </head>
@@ -264,20 +286,39 @@ footer{background:var(--orange);padding:32px;width:100%}
     <h2>12. Crédits</h2>
     <p><strong>Conception et développement du site :</strong> Studio Bastide Production.</p>
     <p><strong>Photographies et vidéos :</strong> Studio Bastide Production, sauf mention contraire.</p>
-    <p><strong>Polices :</strong> Syne (Google Fonts), DM Sans (Google Fonts).</p>
+    <p><strong>Polices :</strong> Panchang, Switzer (polices auto-hébergées).</p>
     <p><strong>Formulaire de contact :</strong> Formspree (<a href="https://formspree.io" target="_blank" rel="noopener noreferrer">formspree.io</a>).</p>
     <p><strong>Cartographie :</strong> Google Maps (<a href="https://www.google.com/maps" target="_blank" rel="noopener noreferrer">google.com/maps</a>).</p>
   </div>
 
 </div>
 <footer>
-  <div class="footer-in">
-    <div class="footer-brand">Studio Bastide<sup>®</sup></div>
-    <div class="footer-links">
-      <a href="../">Accueil</a>
-      <a href="../prestation/">Prestations</a>
+  <div class="footer-top">
+    <div class="footer-left">
+      <div class="footer-brand">Studio Bastide<sup>®</sup></div>
+      <div class="footer-map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d349.2!2d1.6865805!3d43.7750645!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12ae83001c72278d%3A0x402974375d55af16!2sSTUDIO%20BASTIDE%20PRODUCTION!5e0!3m2!1sfr!2sfr" width="100%" height="220" style="border:0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
     </div>
-    <p class="footer-copy">© 2026 Studio Bastide Production · 10 place de l'Église · Saint-Sulpice-la-Pointe (81370)</p>
+    <div class="footer-right">
+      <p class="footer-addr">10 place de l'Église<br>81370 Saint-Sulpice-la-Pointe<br>Tarn · Occitanie</p>
+      <nav class="footer-nav">
+        <a href="../prestation/#tarifs">Tarifs</a>
+        <a href="../prestation/#process">Process</a>
+        <a href="../prestation/#clients">Clients</a>
+        <a href="../prestation/#faq">FAQ</a>
+        <a href="../prestation/#contact">Contact</a>
+        <a href="../">← Site principal</a>
+      </nav>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-social">
+      <a href="https://www.instagram.com/stud_bastide/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.youtube.com/@studiobastide" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.tiktok.com/@stud_bastide" target="_blank" rel="noopener">TikTok</a>
+    </div>
+    <p class="footer-copy">© 2026 Studio Bastide Production · <a href="../mentions-legales/">Mentions légales</a> · <a href="../cgv/">CGV</a> · Tous prix HT, TVA 20 %</p>
   </div>
 </footer>
 
