@@ -286,10 +286,7 @@
         Ils nous ont fait confiance
       </p>
       <div class="trust-track-wrapper overflow-hidden">
-        <div
-          class="trust-track flex items-center gap-28"
-          id="trust-track"
-        >
+        <div class="trust-track flex items-center gap-28" id="trust-track">
           <!-- Logos injectés dynamiquement via Firebase -->
         </div>
       </div>
@@ -966,7 +963,7 @@
           <div>
             <img src="assets/img/B_blanc.png" alt="B" class="h-16 w-auto" />
           </div>
-          <div class="text-right">
+          <div class="text-right mt-2">
             <!-- ligne blanche -->
             <div
               class="w-full h-0.5 bg-gray-500 rounded-full opacity-30 mb-2"
@@ -975,7 +972,7 @@
             <a
               href="#"
               id="footer-scroll-top"
-              class="text-white hover:opacity-70 transition-opacity text-base inline-flex items-center md:space-x-[480px]"
+              class="text-white hover:opacity-70 transition-opacity text-base inline-flex items-center md:space-x-[20px]"
             >
               <span>Remonter vers le haut</span>
               <svg
@@ -992,15 +989,19 @@
                 ></path>
               </svg>
             </a>
-            <div class="mt-2">
-              <a
-                href="mentions-legales/index.html"
-                class="text-white hover:opacity-70 transition-opacity text-sm"
-              >
-                Mentions légales
-              </a>
-            </div>
           </div>
+        </div>
+        <div class="mx-auto mt-4 text-center text-gray-400 text-sm font-thin">
+          © 2026 Studio Bastide Production •
+          <a
+            href="mentions-legales/index.html"
+            class="text-white hover:opacity-70 transition-opacity text-sm"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Mentions légales
+          </a>
+          • Tout prix HT, TVA 20%
         </div>
       </div>
     </footer>
@@ -1050,7 +1051,8 @@
           const createLogoImg = (logo) => {
             const img = document.createElement("img");
             const fileUrl = logo.fileUrl || "";
-            const isExternal = fileUrl.startsWith("http://") || fileUrl.startsWith("https://");
+            const isExternal =
+              fileUrl.startsWith("http://") || fileUrl.startsWith("https://");
             img.src = isExternal ? fileUrl : `./assets/logos/${fileUrl}`;
             img.alt = logo.alt || "";
             img.className =
@@ -1165,7 +1167,9 @@
           const currentTimeSpan = player.querySelector(".current-time");
           const totalTimeSpan = player.querySelector(".total-time");
           const progressBar = player.querySelector(".progress-bar");
-          const progressContainer = player.querySelector(".progress-bar-container");
+          const progressContainer = player.querySelector(
+            ".progress-bar-container",
+          );
           const volumeSlider = player.querySelector(".volume-slider");
 
           if (!audio) return;
@@ -1310,7 +1314,9 @@
 
       async function renderVideos() {
         const mainVideo = document.getElementById("main-video");
-        const desktopContainer = document.getElementById("video-thumbs-desktop");
+        const desktopContainer = document.getElementById(
+          "video-thumbs-desktop",
+        );
         const mobileContainer = document.getElementById("video-thumbs-mobile");
         const videoPlayOverlay = document.getElementById("video-play-overlay");
         const videoPlayBtn = document.getElementById("video-play-btn");
@@ -1380,8 +1386,7 @@
             );
           });
 
-          const allThumbnails =
-            document.querySelectorAll(".video-thumbnail");
+          const allThumbnails = document.querySelectorAll(".video-thumbnail");
 
           const updateActiveThumbnail = (index) => {
             allThumbnails.forEach((thumb) => {
@@ -1482,8 +1487,7 @@
           }
 
           mainVideo.addEventListener("timeupdate", () => {
-            const progress =
-              (mainVideo.currentTime / mainVideo.duration) * 100;
+            const progress = (mainVideo.currentTime / mainVideo.duration) * 100;
             const activeThumb = Array.from(allThumbnails).find(
               (thumb) =>
                 parseInt(thumb.getAttribute("data-video-index"), 10) ===
