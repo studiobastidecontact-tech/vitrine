@@ -315,6 +315,27 @@ h2.s-title{margin:0 0 20px}
 }
 .show-cta:hover{background:var(--orange-d);transform:translateY(-1px)}
 
+/* Reels carousel */
+.show-reels-wrap{
+  overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);
+}
+.show-reels{
+  display:flex;gap:12px;width:max-content;
+  animation:reelsScroll 40s linear infinite;
+}
+.show-reels:hover{animation-play-state:paused}
+.show-reels video{
+  width:140px;height:250px;object-fit:cover;
+  border-radius:10px;flex-shrink:0;
+  border:1px solid var(--border-h);
+}
+@keyframes reelsScroll{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
+}
+
 /* ══════════════════════════════════════
    TARIFS — pricing cards
    ══════════════════════════════════════ */
@@ -726,6 +747,8 @@ footer{background:var(--orange);border-top:none}
   .show-text h3{font-size:.95rem}
   .show-price{font-size:1.3rem}
   .show-desc{font-size:.82rem}
+  .show-reels video{width:110px;height:195px;border-radius:8px}
+  .show-reels{gap:8px}
   .t-grid{grid-template-columns:1fr}
   .t-card{padding:28px 20px}
   .t-name{font-size:.95rem}
@@ -901,15 +924,8 @@ footer{background:var(--orange);border-top:none}
 <section class="showcase">
   <div class="si">
     <div class="show-layout rv">
-      <div class="show-media">
-        <div class="show-grid">
-          <video autoplay muted loop playsinline preload="auto" style="height:220px;width:100%;object-fit:cover">
-            <source src="../assets/videos/video8.mp4" type="video/mp4">
-          </video>
-          <video autoplay muted loop playsinline preload="auto" style="height:220px;width:100%;object-fit:cover">
-            <source src="../assets/videos/video11.mp4" type="video/mp4">
-          </video>
-        </div>
+      <div class="show-media show-reels-wrap">
+        <div class="show-reels" id="showReels"></div>
       </div>
       <div class="show-text">
         <h3>Reels & TikTok</h3>
@@ -1168,6 +1184,10 @@ faqList.querySelectorAll('.faq-q').forEach(b=>{
 /* Clients marquee — duplicate 4x for seamless loop */
 const clLogos=D.clients.map(c=>`<img src="${c.img}" alt="${c.n}" title="${c.n}">`).join('');
 document.getElementById('clScroll').innerHTML=clLogos+clLogos+clLogos+clLogos;
+
+/* Reels carousel */
+const reelVids=[6,7,8,9,10,11,12,13,14].map(n=>'<video autoplay muted loop playsinline preload="auto"><source src="../assets/videos/video'+n+'.mp4" type="video/mp4"></video>').join('');
+document.getElementById('showReels').innerHTML=reelVids+reelVids;
 
 /* ═══ SIDEBAR ═══ */
 const sb=document.getElementById('sb'),ol=document.getElementById('sbOverlay'),tg=document.getElementById('navTrigger');
