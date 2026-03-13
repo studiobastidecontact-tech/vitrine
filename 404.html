@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Page introuvable — Studio Bastide Production</title>
+<link rel="icon" type="image/jpeg" href="./assets/img/logo_square.jpg">
+<style>
+@font-face{font-family:'Panchang';src:url('./assets/fonts/Panchang-Extrabold.otf') format('opentype');font-weight:800;font-display:swap}
+@font-face{font-family:'Switzer';src:url('./assets/fonts/Switzer-Regular.otf') format('opentype');font-weight:400;font-display:swap}
+@font-face{font-family:'Switzer';src:url('./assets/fonts/Switzer-Medium.otf') format('opentype');font-weight:500;font-display:swap}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--orange:#E8390C;--orange-d:#c52e08}
+body{
+  background:#000;color:#fff;
+  font-family:'Switzer',sans-serif;font-weight:400;
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:40px 24px;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--orange);color:#fff}
+.code{
+  font-family:'Panchang',sans-serif;font-weight:800;
+  font-size:clamp(6rem,20vw,12rem);line-height:1;
+  color:var(--orange);opacity:.15;
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-55%);z-index:0;
+  pointer-events:none;
+}
+.content{position:relative;z-index:1}
+h1{
+  font-family:'Panchang',sans-serif;font-weight:800;
+  font-size:clamp(1.4rem,3vw,2rem);
+  margin-bottom:12px;letter-spacing:-.5px;
+}
+p{color:#aaa;font-size:.92rem;line-height:1.7;margin-bottom:28px;max-width:400px}
+.links{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.links a{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:12px 24px;font-size:.75rem;font-weight:500;
+  letter-spacing:1.5px;text-transform:uppercase;
+  transition:all .3s cubic-bezier(.22,1,.36,1);
+  text-decoration:none;
+}
+.links .btn-p{background:var(--orange);color:#fff}
+.links .btn-p:hover{background:var(--orange-d);transform:translateY(-1px)}
+.links .btn-o{border:1px solid rgba(255,255,255,.15);color:#aaa}
+.links .btn-o:hover{border-color:#fff;color:#fff}
+.logo{
+  position:absolute;top:24px;left:32px;
+  font-family:'Panchang',sans-serif;font-weight:800;
+  font-size:1.15rem;color:#fff;text-decoration:none;
+  letter-spacing:-.5px;
+}
+.logo sup{font-size:.55em;vertical-align:super;margin-left:2px}
+</style>
+</head>
+<body>
+<a href="./" class="logo">Studio Bastide<sup>®</sup></a>
+<div class="code">404</div>
+<div class="content">
+  <h1>Page introuvable.</h1>
+  <p>La page que vous cherchez n'existe pas ou a été déplacée. Pas de panique, on vous remet sur le bon chemin.</p>
+  <div class="links">
+    <a href="./" class="btn-p">Accueil</a>
+    <a href="./prestation/" class="btn-o">Prestations</a>
+    <a href="./prestation/#contact" class="btn-o">Contact</a>
+  </div>
+</div>
+</body>
+</html>
