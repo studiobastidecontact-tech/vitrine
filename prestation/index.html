@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Prestations Photo & Vidéo — Studio Bastide</title>
+<title>Tarifs Photo, Vidéo & Drone — Studio Bastide Production | Saint-Sulpice-la-Pointe</title>
 <meta name="description" content="Tarifs et prestations photo, vidéo, drone, clips musicaux et live sessions. Studio Bastide Production, Saint-Sulpice-la-Pointe, Tarn.">
 <link rel="canonical" href="https://studio-bastide-production.fr/prestation/">
 <meta property="og:type" content="website">
@@ -326,12 +326,13 @@ h2.s-title{margin:0 0 20px}
   animation:reelsScroll 40s linear infinite;
 }
 .show-reels:hover{animation-play-state:paused}
-.show-reels video{
+.show-reels video,.show-reels .reel-ph{
   width:140px;height:250px;object-fit:cover;
   border-radius:10px;flex-shrink:0;
   border:1px solid var(--border-h);
   cursor:pointer;transition:transform .3s var(--ease),border-color .3s;
 }
+.show-reels .reel-ph{background:var(--surface)}
 .show-reels video:hover{transform:scale(1.03);border-color:var(--orange)}
 @keyframes reelsScroll{
   0%{transform:translateX(0)}
@@ -581,6 +582,15 @@ h2.s-title{margin:0 0 20px}
   line-height:1.7;
 }
 .contact-notice strong{color:var(--tx2)}
+.contact-direct{
+  display:flex;flex-direction:column;gap:6px;margin-bottom:20px;
+}
+.contact-direct a{
+  color:var(--orange);font-size:.88rem;font-weight:500;
+  text-decoration:underline;text-underline-offset:3px;
+  transition:opacity .3s;
+}
+.contact-direct a:hover{opacity:.7}
 
 /* Form */
 .c-form{}
@@ -608,6 +618,15 @@ h2.s-title{margin:0 0 20px}
 .f-submit:hover{background:var(--orange-d)}
 .f-submit:disabled{opacity:.5;cursor:not-allowed}
 .f-legal{font-size:.7rem;color:var(--tx3);margin-top:10px;line-height:1.5}
+.f-check{margin-bottom:14px}
+.f-check label{
+  display:flex;align-items:center;gap:8px;
+  font-size:.78rem;color:var(--tx2);cursor:pointer;
+  text-transform:none;letter-spacing:0;
+}
+.f-check input[type="checkbox"]{
+  width:16px;height:16px;accent-color:var(--orange);cursor:pointer;flex-shrink:0;
+}
 
 /* ══════════════════════════════════════
    FOOTER
@@ -859,6 +878,7 @@ footer{background:var(--orange);border-top:none}
   <button class="close-btn" id="sbClose" aria-label="Fermer le menu">✕</button>
   <nav>
     <a href="#tarifs" data-nav>Tarifs</a>
+    <a href="#realisations" data-nav>Réalisations</a>
     <a href="#process" data-nav>Process</a>
     <a href="#deplacements" data-nav>Zone</a>
     <a href="#clients" data-nav>Clients</a>
@@ -913,13 +933,14 @@ footer{background:var(--orange);border-top:none}
       <div class="pitch-aside">
         <div class="bolt">⚡</div>
         <p>Aucun concurrent local ne propose un <strong>studio d'enregistrement</strong> et une <strong>boîte de production audiovisuelle</strong> sous le même toit.</p>
+        <p style="margin-top:12px"><a href="../#tarifs" style="color:#fff;font-size:.78rem;font-weight:600;text-decoration:underline;text-underline-offset:3px">Voir les tarifs audio →</a></p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ═══ SHOWCASE : SHOOTING PHOTO ═══ -->
-<section class="showcase">
+<section class="showcase" id="realisations">
   <div class="si">
     <div class="s-label rv">En images</div>
     <h2 class="s-title rv rv-d1">Nos réalisations.</h2>
@@ -948,10 +969,8 @@ footer{background:var(--orange);border-top:none}
 <section class="showcase">
   <div class="si">
     <div class="show-layout flip rv">
-      <div class="show-media show-clickvid" style="cursor:pointer">
-        <video autoplay muted loop playsinline preload="auto">
-          <source src="../assets/videos/video5.mp4" type="video/mp4">
-        </video>
+      <div class="show-media show-clickvid" style="cursor:pointer" id="promoVidWrap">
+        <div class="show-promo-ph" style="width:100%;aspect-ratio:16/9;background:var(--surface)"></div>
       </div>
       <div class="show-text">
         <h3>Vidéo Promo</h3>
@@ -1064,6 +1083,10 @@ footer{background:var(--orange);border-top:none}
       <div class="contact-left">
         <p class="contact-sub">Un devis, une question, une idée à creuser : nous vous répondons sous 48 h, sans engagement.</p>
         <div class="contact-addr">10 place de l'Église, Saint-Sulpice-la-Pointe (81370)</div>
+        <div class="contact-direct">
+          <a href="mailto:studiobastide.contact@gmail.com">studiobastide.contact@gmail.com</a>
+          <a href="tel:0955519746">09 55 51 97 46</a>
+        </div>
         <div class="contact-notice">
           <p><strong>Nous vous répondons sous 48 h ouvrées.</strong><br>Devis détaillé envoyé dans les 48 h suivant notre échange.</p>
         </div>
@@ -1103,8 +1126,11 @@ footer{background:var(--orange);border-top:none}
             </div>
           </div>
           <div class="f-group"><label for="f-msg">Votre projet *</label><textarea id="f-msg" name="message" required></textarea></div>
+          <div class="f-group f-check">
+            <label><input type="checkbox" id="f-cgv" required> J'accepte les <a href="../cgv/" target="_blank" rel="noopener" style="color:var(--orange);text-decoration:underline">Conditions Générales de Vente</a> *</label>
+          </div>
           <button type="submit" class="f-submit" id="fBtn">Envoyer le message</button>
-          <p class="f-legal">En envoyant ce formulaire, vous acceptez nos <a href="../cgv/" style="color:var(--orange);text-decoration:underline">Conditions Générales de Vente</a>. Déplacements au-delà de 15 km : frais précisés au devis. Tous les prix sont HT, TVA 20 % applicable.</p>
+          <p class="f-legal">Déplacements au-delà de 15 km : frais précisés au devis. Tous les prix sont HT, TVA 20 % applicable.</p>
         </form>
       </div>
     </div>
@@ -1239,9 +1265,45 @@ faqList.querySelectorAll('.faq-q').forEach(b=>{
 const clLogos=D.clients.map(c=>`<img src="${c.img}" alt="${c.n}" title="${c.n}">`).join('');
 document.getElementById('clScroll').innerHTML=clLogos+clLogos+clLogos+clLogos;
 
-/* Reels carousel */
-const reelVids=[6,7,8,9,10,11,12,13,14].map(n=>'<video autoplay muted loop playsinline preload="auto"><source src="../assets/videos/video'+n+'.mp4" type="video/mp4"></video>').join('');
-document.getElementById('showReels').innerHTML=reelVids+reelVids;
+/* Reels carousel — lazy loaded */
+const reelNums=[6,7,8,9,10,11,12,13,14];
+const reelPosters=reelNums.map(n=>'<div class="reel-ph" data-src="../assets/videos/video'+n+'.mp4"></div>').join('');
+document.getElementById('showReels').innerHTML=reelPosters+reelPosters;
+
+const reelsObs=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){
+      var wrap=e.target;
+      wrap.querySelectorAll('.reel-ph').forEach(function(ph){
+        var v=document.createElement('video');
+        v.autoplay=true;v.muted=true;v.loop=true;v.playsInline=true;v.preload='auto';
+        v.innerHTML='<source src="'+ph.dataset.src+'" type="video/mp4">';
+        ph.replaceWith(v);
+      });
+      reelsObs.unobserve(wrap);
+    }
+  });
+},{threshold:0.1});
+var reelsEl=document.getElementById('showReels');
+if(reelsEl)reelsObs.observe(reelsEl);
+
+/* Promo video — lazy loaded */
+var promoWrap=document.getElementById('promoVidWrap');
+if(promoWrap){
+  var promoObs=new IntersectionObserver(function(entries){
+    if(entries[0].isIntersecting){
+      var ph=promoWrap.querySelector('.show-promo-ph');
+      if(ph){
+        var v=document.createElement('video');
+        v.autoplay=true;v.muted=true;v.loop=true;v.playsInline=true;v.preload='auto';
+        v.innerHTML='<source src="../assets/videos/video5.mp4" type="video/mp4">';
+        ph.replaceWith(v);
+      }
+      promoObs.unobserve(promoWrap);
+    }
+  },{threshold:0.1});
+  promoObs.observe(promoWrap);
+}
 
 /* ═══ SIDEBAR ═══ */
 const sb=document.getElementById('sb'),ol=document.getElementById('sbOverlay'),tg=document.getElementById('navTrigger');
