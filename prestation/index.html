@@ -70,7 +70,7 @@
   --bg:#000;--surface:#0a0a0a;--card:#0e0e0e;
   --border:#161616;--border-h:#222;
   --orange:#E8390C;--orange-d:#c52e08;
-  --tx:#fff;--tx2:#aaa;--tx3:#555;
+  --tx:#fff;--tx2:#bbb;--tx3:#777;
   --head:'Panchang',sans-serif;
   --body:'Switzer',sans-serif;
   --ease:cubic-bezier(.22,1,.36,1);
@@ -342,12 +342,42 @@ h2.s-title{margin:0 0 20px}
 }
 .t-card:not(.hot) .t-cta:hover{border-color:var(--tx);color:var(--tx)}
 
+/* Card images */
+.t-imgs{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:4px;
+  margin-bottom:16px;border-radius:4px;overflow:hidden;
+}
+.t-imgs img{
+  width:100%;height:70px;object-fit:cover;
+  filter:brightness(.85);transition:filter .3s var(--ease);
+}
+.t-card:hover .t-imgs img{filter:brightness(1)}
+/* Card video */
+.t-vid{
+  margin-bottom:16px;border-radius:4px;overflow:hidden;
+}
+.t-vid video{
+  width:100%;height:100px;object-fit:cover;display:block;
+  filter:brightness(.85);transition:filter .3s var(--ease);
+}
+.t-card:hover .t-vid video{filter:brightness(1)}
+/* Card multi-video */
+.t-vids{
+  display:grid;grid-template-columns:1fr 1fr;gap:4px;
+  margin-bottom:16px;border-radius:4px;overflow:hidden;
+}
+.t-vids video{
+  width:100%;height:100px;object-fit:cover;display:block;
+  filter:brightness(.85);transition:filter .3s var(--ease);
+}
+.t-card:hover .t-vids video{filter:brightness(1)}
+
 .tarifs-bottom{
   margin-top:32px;display:flex;align-items:center;
   justify-content:space-between;gap:24px;flex-wrap:wrap;
   padding:24px 28px;border:1px solid var(--border);
 }
-.tarifs-bottom p{color:var(--tx2);font-size:.88rem}
+.tarifs-bottom p{color:var(--tx);font-size:.88rem}
 .tarifs-bottom strong{color:var(--tx)}
 .tarifs-disclaimer{
   color:var(--tx2);font-size:.72rem;line-height:1.6;
@@ -373,7 +403,7 @@ h2.s-title{margin:0 0 20px}
   line-height:1;margin-bottom:16px;display:block;
 }
 .p-step h3{font-family:var(--head);font-weight:700;font-size:.88rem;margin-bottom:8px}
-.p-step p{font-size:.78rem;color:var(--tx3);line-height:1.6}
+.p-step p{font-size:.78rem;color:var(--tx2);line-height:1.6}
 
 /* ══════════════════════════════════════
    ZONE
@@ -539,6 +569,7 @@ footer{background:var(--orange);border-top:none}
 /* Scroll top */
 .to-top{
   position:fixed;bottom:24px;right:24px;z-index:90;
+  bottom:calc(24px + env(safe-area-inset-bottom,0px));
   width:40px;height:40px;background:var(--surface);
   border:1px solid var(--border);display:flex;
   align-items:center;justify-content:center;
@@ -674,6 +705,9 @@ footer{background:var(--orange);border-top:none}
   .pitch-aside p{font-size:.85rem}
   .t-grid{grid-template-columns:1fr}
   .t-card{padding:28px 20px}
+  .t-imgs img{height:56px}
+  .t-vid video{height:80px}
+  .t-vids video{height:80px}
   .t-name{font-size:.95rem}
   .t-price{font-size:1.5rem}
   .t-desc{font-size:.78rem}
@@ -715,8 +749,8 @@ footer{background:var(--orange);border-top:none}
   .footer-copy{font-size:.7rem}
   .cl-scroll img{height:36px}
   .cl-scroll{gap:36px}
-  .chat-btn{width:42px;height:42px;font-size:16px;right:68px;bottom:20px}
-  .to-top{width:36px;height:36px;font-size:12px;right:20px;bottom:20px}
+  .chat-btn{width:42px;height:42px;font-size:16px;right:68px;bottom:calc(28px + env(safe-area-inset-bottom,0px))}
+  .to-top{width:36px;height:36px;font-size:12px;right:20px;bottom:calc(28px + env(safe-area-inset-bottom,0px))}
 }
 </style>
 </head>
@@ -897,7 +931,8 @@ footer{background:var(--orange);border-top:none}
                 <option>Vidéo promotionnelle</option><option>Podcast vidéo</option>
                 <option>Shooting photo</option><option>Drone</option>
                 <option>Atelier création vidéo</option><option>Motion design</option>
-                <option>Captation live / événement</option><option>Autre / à préciser</option>
+                <option>Captation live / événement</option>
+                <option>Autre / à préciser</option>
               </select>
             </div>
             <div class="f-group">
@@ -963,18 +998,18 @@ footer{background:var(--orange);border-top:none}
 /* ═══ DATA ═══ */
 const D={
   tarifs:[
-    {icon:"🎬",name:"Live Session",price:"375 €",sub:"à partir de",desc:"Captation multi-cam d'une performance musicale en studio.",feat:["Tournage studio","Montage complet","Mixage audio inclus"],hot:1},
-    {icon:"🎵",name:"Clip Musical",price:"625 €",sub:"à partir de",desc:"Réalisation complète d'un clip : concept, tournage, montage, étalonnage.",feat:["Direction artistique","Post-production","Étalonnage couleur"],hot:1},
-    {icon:"🎞️",name:"Clip Pro",price:"1 200 €",sub:"à partir de",desc:"Version premium avec moyens renforcés, figurants, décors.",feat:["Repérages inclus","Équipe élargie","Effets spéciaux"]},
-    {icon:"📱",name:"Reel / TikTok",price:"150 €",sub:"à partir de",desc:"Contenu court et percutant pour les réseaux sociaux.",feat:["Format vertical","Montage dynamique","Sous-titres"]},
-    {icon:"📽️",name:"Vidéo Promo",price:"750 €",sub:"à partir de",desc:"Spot publicitaire ou vidéo de présentation pour votre activité.",feat:["Scénario sur mesure","Voix off possible","Multi-formats"]},
-    {icon:"🎙️",name:"Podcast Vidéo",price:"300 €",sub:"à partir de",desc:"Captation et montage d'un épisode de podcast filmé.",feat:["Multi-caméras","Montage dynamique","Export audio + vidéo"]},
-    {icon:"📸",name:"Shooting Photo",price:"250 €",sub:"à partir de",desc:"Séance photo professionnelle : portrait, produit, événement.",feat:["Retouches incluses","Haute résolution","Livraison rapide"],hot:1},
-    {icon:"🚁",name:"Drone",price:"295 €",sub:"à partir de",desc:"Prises de vue aériennes pour vos projets photo ou vidéo.",feat:["Pilote certifié","4K stabilisé","Autorisations gérées"]},
-    {icon:"🎓",name:"Atelier Vidéo",price:"Sur devis",sub:"",desc:"Formation pratique à la création de contenu vidéo.",feat:["Programme sur mesure","Matériel fourni","Groupe ou individuel"]},
-    {icon:"✨",name:"Motion Design",price:"Sur devis",sub:"",desc:"Animation graphique pour habiller vos vidéos et réseaux.",feat:["Logo animé","Titrages","Transitions sur mesure"]},
-    {icon:"🎤",name:"Captation Live",price:"Sur devis",sub:"",desc:"Captation événementielle multi-cam : concerts, conférences, spectacles.",feat:["Régie en direct","Streaming possible","Montage post-event"]},
-    {icon:"🎯",name:"Sur Mesure",price:"Sur devis",sub:"",desc:"Projet spécifique ? On s'adapte à vos besoins, votre budget, votre calendrier.",feat:["Accompagnement dédié","Devis sous 48 h","Sans engagement"]}
+    {icon:"🎬",name:"Live Session",price:"375 €",sub:"à partir de",desc:"Captation multi-cam d'une performance musicale en studio.",feat:["Tournage studio","Montage complet","Mixage audio inclus"],hot:1,cat:"video"},
+    {icon:"🎵",name:"Clip Musical",price:"625 €",sub:"à partir de",desc:"Réalisation complète d'un clip : concept, tournage, montage, étalonnage.",feat:["Direction artistique","Post-production","Étalonnage couleur"],hot:1,cat:"video"},
+    {icon:"🎞️",name:"Clip Pro",price:"1 200 €",sub:"à partir de",desc:"Version premium avec moyens renforcés, figurants, décors.",feat:["Repérages inclus","Équipe élargie","Effets spéciaux"],cat:"video"},
+    {icon:"📱",name:"Reel / TikTok",price:"150 €",sub:"à partir de",desc:"Contenu court et percutant pour les réseaux sociaux.",feat:["Format vertical","Montage dynamique","Sous-titres"],vids:["../assets/videos/video8.mp4","../assets/videos/video11.mp4"],cat:"video"},
+    {icon:"📽️",name:"Vidéo Promo",price:"750 €",sub:"à partir de",desc:"Spot publicitaire ou vidéo de présentation pour votre activité.",feat:["Scénario sur mesure","Voix off possible","Multi-formats"],vid:"../assets/videos/video5.mp4",cat:"video"},
+    {icon:"🎙️",name:"Podcast Vidéo",price:"300 €",sub:"à partir de",desc:"Captation et montage d'un épisode de podcast filmé.",feat:["Multi-caméras","Montage dynamique","Export audio + vidéo"],cat:"video"},
+    {icon:"📸",name:"Shooting Photo",price:"250 €",sub:"à partir de",desc:"Séance photo professionnelle : portrait, produit, événement.",feat:["Retouches incluses","Haute résolution","Livraison rapide"],hot:1,imgs:["../assets/img/Shooting metro 1.jpg","../assets/img/Shooting toit.jpg","../assets/img/Shooting metro 2.jpg"],cat:"video"},
+    {icon:"🚁",name:"Drone",price:"295 €",sub:"à partir de",desc:"Prises de vue aériennes pour vos projets photo ou vidéo.",feat:["Pilote certifié","4K stabilisé","Autorisations gérées"],cat:"video"},
+    {icon:"🎓",name:"Atelier Vidéo",price:"Sur devis",sub:"",desc:"Formation pratique à la création de contenu vidéo.",feat:["Programme sur mesure","Matériel fourni","Groupe ou individuel"],cat:"video"},
+    {icon:"✨",name:"Motion Design",price:"Sur devis",sub:"",desc:"Animation graphique pour habiller vos vidéos et réseaux.",feat:["Logo animé","Titrages","Transitions sur mesure"],cat:"video"},
+    {icon:"🎤",name:"Captation Live",price:"Sur devis",sub:"",desc:"Captation événementielle multi-cam : concerts, conférences, spectacles.",feat:["Régie en direct","Streaming possible","Montage post-event"],cat:"video"},
+    {icon:"🎯",name:"Sur Mesure",price:"Sur devis",sub:"",desc:"Projet spécifique ? On s'adapte à vos besoins, votre budget, votre calendrier.",feat:["Accompagnement dédié","Devis sous 48 h","Sans engagement"],cat:"video"}
   ],
   process:[
     {n:"01",t:"Échange",d:"On discute de votre projet, vos envies et vos contraintes. Devis envoyé sous 48 h."},
@@ -1007,9 +1042,16 @@ const D={
 };
 
 /* ═══ RENDER ═══ */
+function imgHtml(t){
+  if(t.vids) return '<div class="t-vids">'+t.vids.map(function(v){return '<video autoplay muted loop playsinline preload="auto"><source src="'+encodeURI(v)+'" type="video/mp4"></video>'}).join('')+'</div>';
+  if(t.vid) return '<div class="t-vid"><video autoplay muted loop playsinline preload="auto"><source src="'+encodeURI(t.vid)+'" type="video/mp4"></video></div>';
+  if(!t.imgs) return '';
+  return '<div class="t-imgs">'+t.imgs.map(function(i){return '<img src="'+encodeURI(i)+'" alt="'+t.name+'" loading="lazy">'}).join('')+'</div>';
+}
 document.getElementById('tGrid').innerHTML=D.tarifs.map(t=>`
   <div class="t-card${t.hot?' hot':''}">
     ${t.hot?'<span class="t-tag">Le plus demandé</span>':''}
+    ${imgHtml(t)}
     <div class="t-name">${t.name}</div>
     <div class="t-price">${t.sub?`<small>${t.sub}</small> `:''}${t.price}</div>
     <div class="t-desc">${t.desc}</div>
