@@ -273,6 +273,49 @@ h2.s-title{margin:0 0 20px}
 .pitch-aside strong{color:var(--tx);font-weight:600}
 
 /* ══════════════════════════════════════
+   SHOWCASE — editorial split layout
+   ══════════════════════════════════════ */
+.showcase{border-bottom:1px solid var(--border)}
+.show-layout{
+  display:grid;grid-template-columns:1fr 1fr;gap:48px;
+  margin-top:44px;align-items:center;
+}
+.show-layout.flip .show-media{order:2}
+.show-layout.flip .show-text{order:1}
+.show-media{position:relative;overflow:hidden}
+.show-media img,.show-media video{
+  width:100%;display:block;object-fit:cover;
+  filter:brightness(.9);transition:filter .4s var(--ease);
+}
+.show-media:hover img,.show-media:hover video{filter:brightness(1)}
+.show-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.show-grid img{height:220px;object-fit:cover;width:100%}
+.show-grid .show-full{grid-column:1/-1;height:200px}
+.show-text h3{
+  font-family:var(--head);font-weight:700;font-size:1.1rem;
+  margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;
+}
+.show-price{
+  font-size:1.6rem;font-weight:700;color:var(--orange);
+  margin-bottom:4px;line-height:1.2;
+}
+.show-price small{font-size:.7rem;color:var(--tx3);font-weight:400}
+.show-desc{font-size:.88rem;color:var(--tx2);line-height:1.8;margin-bottom:20px}
+.show-feats{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.show-feats span{
+  padding:5px 14px;border:1px solid var(--border-h);
+  font-size:.72rem;color:var(--tx2);
+}
+.show-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--orange);color:#fff;padding:12px 24px;
+  font-size:.72rem;font-weight:600;letter-spacing:1.5px;
+  text-transform:uppercase;transition:all .3s var(--ease);
+  text-decoration:none;
+}
+.show-cta:hover{background:var(--orange-d);transform:translateY(-1px)}
+
+/* ══════════════════════════════════════
    TARIFS — pricing cards
    ══════════════════════════════════════ */
 .tarifs{border-bottom:1px solid var(--border)}
@@ -341,36 +384,6 @@ h2.s-title{margin:0 0 20px}
   background:transparent;border:1px solid var(--border-h);color:var(--tx2);
 }
 .t-card:not(.hot) .t-cta:hover{border-color:var(--tx);color:var(--tx)}
-
-/* Card images */
-.t-imgs{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:4px;
-  margin-bottom:16px;border-radius:4px;overflow:hidden;
-}
-.t-imgs img{
-  width:100%;height:70px;object-fit:cover;
-  filter:brightness(.85);transition:filter .3s var(--ease);
-}
-.t-card:hover .t-imgs img{filter:brightness(1)}
-/* Card video */
-.t-vid{
-  margin-bottom:16px;border-radius:4px;overflow:hidden;
-}
-.t-vid video{
-  width:100%;height:100px;object-fit:cover;display:block;
-  filter:brightness(.85);transition:filter .3s var(--ease);
-}
-.t-card:hover .t-vid video{filter:brightness(1)}
-/* Card multi-video */
-.t-vids{
-  display:grid;grid-template-columns:1fr 1fr;gap:4px;
-  margin-bottom:16px;border-radius:4px;overflow:hidden;
-}
-.t-vids video{
-  width:100%;height:100px;object-fit:cover;display:block;
-  filter:brightness(.85);transition:filter .3s var(--ease);
-}
-.t-card:hover .t-vids video{filter:brightness(1)}
 
 .tarifs-bottom{
   margin-top:32px;display:flex;align-items:center;
@@ -671,6 +684,11 @@ footer{background:var(--orange);border-top:none}
   .hero-scroll{display:none}
   .sidebar{width:100%}
   .pitch-layout{grid-template-columns:1fr;gap:32px}
+  .show-layout{grid-template-columns:1fr;gap:28px}
+  .show-layout.flip .show-media{order:0}
+  .show-layout.flip .show-text{order:0}
+  .show-grid img{height:160px}
+  .show-grid .show-full{height:160px}
   .pitch-aside{padding:20px}
   .tarifs-intro{flex-direction:column;gap:16px;align-items:flex-start}
   .tarifs-note{max-width:100%}
@@ -703,11 +721,13 @@ footer{background:var(--orange);border-top:none}
   .pitch-text{font-size:.88rem}
   .pitch-aside{padding:18px}
   .pitch-aside p{font-size:.85rem}
+  .show-grid img{height:120px}
+  .show-grid .show-full{height:120px}
+  .show-text h3{font-size:.95rem}
+  .show-price{font-size:1.3rem}
+  .show-desc{font-size:.82rem}
   .t-grid{grid-template-columns:1fr}
   .t-card{padding:28px 20px}
-  .t-imgs img{height:56px}
-  .t-vid video{height:80px}
-  .t-vids video{height:80px}
   .t-name{font-size:.95rem}
   .t-price{font-size:1.5rem}
   .t-desc{font-size:.78rem}
@@ -824,6 +844,81 @@ footer{background:var(--orange);border-top:none}
       <div class="pitch-aside">
         <div class="bolt">⚡</div>
         <p>Aucun concurrent local ne propose un <strong>studio d'enregistrement</strong> et une <strong>boîte de production audiovisuelle</strong> sous le même toit.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SHOWCASE : SHOOTING PHOTO ═══ -->
+<section class="showcase">
+  <div class="si">
+    <div class="s-label rv">En images</div>
+    <h2 class="s-title rv rv-d1">Nos réalisations.</h2>
+    <div class="show-layout rv rv-d2">
+      <div class="show-media">
+        <div class="show-grid">
+          <img src="../assets/img/Shooting%20metro%201.jpg" alt="Shooting portrait métro" loading="lazy">
+          <img src="../assets/img/Shooting%20toit.jpg" alt="Shooting portrait toits" loading="lazy">
+          <img src="../assets/img/Shooting%20metro%202.jpg" alt="Shooting duo métro" loading="lazy" class="show-full">
+        </div>
+      </div>
+      <div class="show-text">
+        <h3>Shooting Photo</h3>
+        <div class="show-price"><small>à partir de</small> 250 €</div>
+        <p class="show-desc">Séances photo professionnelles en studio ou en extérieur. Portraits, mode, événements, produits — retouches incluses, livraison haute résolution.</p>
+        <div class="show-feats">
+          <span>Portrait</span><span>Mode</span><span>Événement</span><span>Produit</span>
+        </div>
+        <a href="#contact" class="show-cta">Demander un devis</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SHOWCASE : VIDÉO PROMO ═══ -->
+<section class="showcase">
+  <div class="si">
+    <div class="show-layout flip rv">
+      <div class="show-media">
+        <video autoplay muted loop playsinline preload="auto">
+          <source src="../assets/videos/video5.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="show-text">
+        <h3>Vidéo Promo</h3>
+        <div class="show-price"><small>à partir de</small> 750 €</div>
+        <p class="show-desc">Spots publicitaires, vidéos de présentation, films d'entreprise. Du scénario à la livraison, on raconte votre histoire en images.</p>
+        <div class="show-feats">
+          <span>Scénario sur mesure</span><span>Voix off</span><span>Multi-formats</span>
+        </div>
+        <a href="#contact" class="show-cta">Demander un devis</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SHOWCASE : REEL / TIKTOK ═══ -->
+<section class="showcase">
+  <div class="si">
+    <div class="show-layout rv">
+      <div class="show-media">
+        <div class="show-grid">
+          <video autoplay muted loop playsinline preload="auto" style="height:220px;width:100%;object-fit:cover">
+            <source src="../assets/videos/video8.mp4" type="video/mp4">
+          </video>
+          <video autoplay muted loop playsinline preload="auto" style="height:220px;width:100%;object-fit:cover">
+            <source src="../assets/videos/video11.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="show-text">
+        <h3>Reels & TikTok</h3>
+        <div class="show-price"><small>à partir de</small> 150 €</div>
+        <p class="show-desc">Contenu court, percutant, pensé pour les réseaux sociaux. Montage dynamique, sous-titres, format vertical — prêt à poster.</p>
+        <div class="show-feats">
+          <span>Format vertical</span><span>Montage dynamique</span><span>Sous-titres</span>
+        </div>
+        <a href="#contact" class="show-cta">Demander un devis</a>
       </div>
     </div>
   </div>
@@ -1001,10 +1096,10 @@ const D={
     {icon:"🎬",name:"Live Session",price:"375 €",sub:"à partir de",desc:"Captation multi-cam d'une performance musicale en studio.",feat:["Tournage studio","Montage complet","Mixage audio inclus"],hot:1,cat:"video"},
     {icon:"🎵",name:"Clip Musical",price:"625 €",sub:"à partir de",desc:"Réalisation complète d'un clip : concept, tournage, montage, étalonnage.",feat:["Direction artistique","Post-production","Étalonnage couleur"],hot:1,cat:"video"},
     {icon:"🎞️",name:"Clip Pro",price:"1 200 €",sub:"à partir de",desc:"Version premium avec moyens renforcés, figurants, décors.",feat:["Repérages inclus","Équipe élargie","Effets spéciaux"],cat:"video"},
-    {icon:"📱",name:"Reel / TikTok",price:"150 €",sub:"à partir de",desc:"Contenu court et percutant pour les réseaux sociaux.",feat:["Format vertical","Montage dynamique","Sous-titres"],vids:["../assets/videos/video8.mp4","../assets/videos/video11.mp4"],cat:"video"},
-    {icon:"📽️",name:"Vidéo Promo",price:"750 €",sub:"à partir de",desc:"Spot publicitaire ou vidéo de présentation pour votre activité.",feat:["Scénario sur mesure","Voix off possible","Multi-formats"],vid:"../assets/videos/video5.mp4",cat:"video"},
+    {icon:"📱",name:"Reel / TikTok",price:"150 €",sub:"à partir de",desc:"Contenu court et percutant pour les réseaux sociaux.",feat:["Format vertical","Montage dynamique","Sous-titres"],cat:"video"},
+    {icon:"📽️",name:"Vidéo Promo",price:"750 €",sub:"à partir de",desc:"Spot publicitaire ou vidéo de présentation pour votre activité.",feat:["Scénario sur mesure","Voix off possible","Multi-formats"],cat:"video"},
     {icon:"🎙️",name:"Podcast Vidéo",price:"300 €",sub:"à partir de",desc:"Captation et montage d'un épisode de podcast filmé.",feat:["Multi-caméras","Montage dynamique","Export audio + vidéo"],cat:"video"},
-    {icon:"📸",name:"Shooting Photo",price:"250 €",sub:"à partir de",desc:"Séance photo professionnelle : portrait, produit, événement.",feat:["Retouches incluses","Haute résolution","Livraison rapide"],hot:1,imgs:["../assets/img/Shooting metro 1.jpg","../assets/img/Shooting toit.jpg","../assets/img/Shooting metro 2.jpg"],cat:"video"},
+    {icon:"📸",name:"Shooting Photo",price:"250 €",sub:"à partir de",desc:"Séance photo professionnelle : portrait, produit, événement.",feat:["Retouches incluses","Haute résolution","Livraison rapide"],hot:1,cat:"video"},
     {icon:"🚁",name:"Drone",price:"295 €",sub:"à partir de",desc:"Prises de vue aériennes pour vos projets photo ou vidéo.",feat:["Pilote certifié","4K stabilisé","Autorisations gérées"],cat:"video"},
     {icon:"🎓",name:"Atelier Vidéo",price:"Sur devis",sub:"",desc:"Formation pratique à la création de contenu vidéo.",feat:["Programme sur mesure","Matériel fourni","Groupe ou individuel"],cat:"video"},
     {icon:"✨",name:"Motion Design",price:"Sur devis",sub:"",desc:"Animation graphique pour habiller vos vidéos et réseaux.",feat:["Logo animé","Titrages","Transitions sur mesure"],cat:"video"},
@@ -1042,16 +1137,9 @@ const D={
 };
 
 /* ═══ RENDER ═══ */
-function imgHtml(t){
-  if(t.vids) return '<div class="t-vids">'+t.vids.map(function(v){return '<video autoplay muted loop playsinline preload="auto"><source src="'+encodeURI(v)+'" type="video/mp4"></video>'}).join('')+'</div>';
-  if(t.vid) return '<div class="t-vid"><video autoplay muted loop playsinline preload="auto"><source src="'+encodeURI(t.vid)+'" type="video/mp4"></video></div>';
-  if(!t.imgs) return '';
-  return '<div class="t-imgs">'+t.imgs.map(function(i){return '<img src="'+encodeURI(i)+'" alt="'+t.name+'" loading="lazy">'}).join('')+'</div>';
-}
 document.getElementById('tGrid').innerHTML=D.tarifs.map(t=>`
   <div class="t-card${t.hot?' hot':''}">
     ${t.hot?'<span class="t-tag">Le plus demandé</span>':''}
-    ${imgHtml(t)}
     <div class="t-name">${t.name}</div>
     <div class="t-price">${t.sub?`<small>${t.sub}</small> `:''}${t.price}</div>
     <div class="t-desc">${t.desc}</div>
