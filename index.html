@@ -387,10 +387,10 @@
               Votre navigateur ne supporte pas la vidéo.
             </video>
 
-            <!-- Bouton Play overlay -->
+            <!-- Bouton Play overlay (desktop seulement) -->
             <div
               id="video-play-overlay"
-              class="absolute inset-0 flex items-center justify-center pointer-events-none"
+              class="hidden md:flex absolute inset-0 items-center justify-center pointer-events-none"
             >
               <button
                 id="video-play-btn"
@@ -1165,7 +1165,7 @@
                 ></div>
               </div>
               <span class="total-time text-gray-400 text-sm w-12">00:00</span>
-              <div class="volume-control flex items-center gap-2 w-24">
+              <div class="volume-control hidden md:flex items-center gap-2 w-24">
                 <svg
                   class="volume-icon w-4 h-4 text-gray-400"
                   fill="currentColor"
@@ -1253,10 +1253,11 @@
             }
           });
 
-          if (progressContainer && audio.duration) {
+          if (progressContainer) {
             progressContainer.addEventListener("click", (e) => {
+              if (!audio.duration || isNaN(audio.duration)) return;
               const rect = progressContainer.getBoundingClientRect();
-              const percent = (e.clientX - rect.left) / rect.width;
+              const percent = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
               audio.currentTime = percent * audio.duration;
             });
           }
@@ -1508,12 +1509,20 @@
             });
           });
 
+          const isDesktop = () =>
+            window.matchMedia("(min-width: 768px)").matches;
+
           if (videoPlayBtn && videoPlayOverlay) {
             videoPlayBtn.addEventListener("click", () => {
+              if (!isDesktop()) return;
               mainVideo.play().catch(() => {});
             });
 
             const updateOverlay = () => {
+              if (!isDesktop()) {
+                videoPlayOverlay.style.display = "none";
+                return;
+              }
               if (mainVideo.paused) {
                 videoPlayOverlay.style.display = "flex";
               } else {
@@ -1525,6 +1534,15 @@
             mainVideo.addEventListener("pause", updateOverlay);
             mainVideo.addEventListener("ended", updateOverlay);
             mainVideo.addEventListener("loadeddata", updateOverlay);
+
+            // S'assurer que l'overlay est bien caché si on passe en mobile
+            window.addEventListener("resize", () => {
+              if (!isDesktop()) {
+                videoPlayOverlay.style.display = "none";
+              } else {
+                updateOverlay();
+              }
+            });
           }
 
           mainVideo.addEventListener("timeupdate", () => {
