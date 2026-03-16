@@ -270,7 +270,7 @@ let SHA='';
 /* Le mot de passe n'est JAMAIS stocké dans le code.
    Seul le hash SHA-256 est présent — impossible à inverser.
    Pour changer le mdp : hasher le nouveau sur sha256online.com et remplacer PWD_HASH */
-const PWD_HASH='d06c7311448dbafd369cd430918a7eb51b7c9af1d6524a7f5eef5f7f726b27fe';
+const PWD_HASH='9a153ef6b23c9e70227a5b60376618abd65a3cb2d90af00c756a5d55919211d5';
 
 async function sha256(str){
   var buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(str));
