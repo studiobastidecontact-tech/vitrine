@@ -895,17 +895,10 @@ footer{background:var(--orange);border-top:none}
 <section class="hero" id="top">
   <div class="hero-inner">
     <div class="hero-content rv">
-      <div class="hero-tag">Studio Bastide Production</div>
-      <h1>L'image qui <em>fait vraiment</em><br>la différence.</h1>
-      <p class="hero-sub">Photo, vidéo, drone, clips musicaux, live sessions et contenu réseaux sociaux. Un studio basé dans le Tarn, présent partout en France.</p>
-      <div class="hero-pills">
-        <span>Shooting photo</span>
-        <span>Vidéo corporate</span>
-        <span>Clips musicaux</span>
-        <span>Live sessions</span>
-        <span>Drone</span>
-        <span>Reels & TikTok</span>
-      </div>
+      <div class="hero-tag" id="dHeroTag"></div>
+      <h1 id="dHeroTitle"></h1>
+      <p class="hero-sub" id="dHeroSub"></p>
+      <div class="hero-pills" id="dHeroPills"></div>
       <div class="hero-ctas">
         <a href="#tarifs" class="btn-p">Voir les tarifs</a>
         <a href="#contact" class="btn-o">Demander un devis</a>
@@ -923,87 +916,21 @@ footer{background:var(--orange);border-top:none}
 <!-- ═══ PITCH ═══ -->
 <section class="pitch" id="pitch">
   <div class="si">
-    <div class="s-label rv">Notre approche</div>
-    <h2 class="s-title rv rv-d1">Son + image, sous un même toit.</h2>
+    <div class="s-label rv" id="dPitchLabel"></div>
+    <h2 class="s-title rv rv-d1" id="dPitchTitle"></h2>
     <div class="pitch-layout rv rv-d2">
-      <div class="pitch-text">
-        <p>Nous ne faisons pas que filmer. Nous comprenons ce que vous voulez raconter, et nous trouvons comment le montrer. Du brief à la livraison, nous gérons chaque étape.</p>
-        <p>Cadrage, lumière, son, montage, étalonnage : aucun compromis sur la qualité, quelle que soit la taille du projet. Que vous soyez un <strong>professionnel</strong>, une <strong>entreprise</strong> ou un <strong>particulier</strong>, nous nous adaptons à vos besoins et à votre budget.</p>
-      </div>
+      <div class="pitch-text" id="dPitchText"></div>
       <div class="pitch-aside">
         <div class="bolt">⚡</div>
-        <p>Aucun concurrent local ne propose un <strong>studio d'enregistrement</strong> et une <strong>boîte de production audiovisuelle</strong> sous le même toit.</p>
+        <p id="dPitchAside"></p>
         <p style="margin-top:12px"><a href="../#tarifs" style="color:#fff;font-size:.78rem;font-weight:600;text-decoration:underline;text-underline-offset:3px">Voir les tarifs audio →</a></p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ SHOWCASE : SHOOTING PHOTO ═══ -->
-<section class="showcase" id="realisations">
-  <div class="si">
-    <div class="s-label rv">En images</div>
-    <h2 class="s-title rv rv-d1">Nos réalisations.</h2>
-    <div class="show-layout rv rv-d2">
-      <div class="show-media">
-        <div class="show-grid">
-          <img src="../assets/img/Shooting%20metro%201.jpg" alt="Shooting portrait métro" loading="lazy">
-          <img src="../assets/img/Shooting%20toit.jpg" alt="Shooting portrait toits" loading="lazy">
-          <img src="../assets/img/Shooting%20metro%202.jpg" alt="Shooting duo métro" loading="lazy" class="show-full">
-        </div>
-      </div>
-      <div class="show-text">
-        <h3>Shooting Photo</h3>
-        <div class="show-price"><small>à partir de</small> 250 €</div>
-        <p class="show-desc">Séances photo professionnelles en studio ou en extérieur. Portraits, mode, événements, produits — retouches incluses, livraison haute résolution.</p>
-        <div class="show-feats">
-          <span>Portrait</span><span>Mode</span><span>Événement</span><span>Produit</span>
-        </div>
-        <a href="#contact" class="show-cta">Demander un devis</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ SHOWCASE : VIDÉO PROMO ═══ -->
-<section class="showcase">
-  <div class="si">
-    <div class="show-layout flip rv">
-      <div class="show-media show-clickvid" style="cursor:pointer" id="promoVidWrap">
-        <div class="show-promo-ph" style="width:100%;aspect-ratio:16/9;background:var(--surface)"></div>
-      </div>
-      <div class="show-text">
-        <h3>Vidéo Promo</h3>
-        <div class="show-price"><small>à partir de</small> 750 €</div>
-        <p class="show-desc">Spots publicitaires, vidéos de présentation, films d'entreprise. Du scénario à la livraison, on raconte votre histoire en images.</p>
-        <div class="show-feats">
-          <span>Scénario sur mesure</span><span>Voix off</span><span>Multi-formats</span>
-        </div>
-        <a href="#contact" class="show-cta">Demander un devis</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ SHOWCASE : REEL / TIKTOK ═══ -->
-<section class="showcase">
-  <div class="si">
-    <div class="show-layout rv">
-      <div class="show-media show-reels-wrap">
-        <div class="show-reels" id="showReels"></div>
-      </div>
-      <div class="show-text">
-        <h3>Reels & TikTok</h3>
-        <div class="show-price"><small>à partir de</small> 150 €</div>
-        <p class="show-desc">Contenu court, percutant, pensé pour les réseaux sociaux. Montage dynamique, sous-titres, format vertical — prêt à poster.</p>
-        <div class="show-feats">
-          <span>Format vertical</span><span>Montage dynamique</span><span>Sous-titres</span>
-        </div>
-        <a href="#contact" class="show-cta">Demander un devis</a>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- ═══ SHOWCASES (generated from data) ═══ -->
+<div id="dShowcases"></div>
 
 <!-- ═══ TARIFS ═══ -->
 <section class="tarifs" id="tarifs">
@@ -1081,15 +1008,10 @@ footer{background:var(--orange);border-top:none}
     <h2 class="s-title rv rv-d1">Parlons de votre projet.</h2>
     <div class="contact-layout rv rv-d2">
       <div class="contact-left">
-        <p class="contact-sub">Un devis, une question, une idée à creuser : nous vous répondons sous 48 h, sans engagement.</p>
-        <div class="contact-addr">10 place de l'Église, Saint-Sulpice-la-Pointe (81370)</div>
-        <div class="contact-direct">
-          <a href="mailto:studiobastide.contact@gmail.com">studiobastide.contact@gmail.com</a>
-          <a href="tel:0955519746">09 55 51 97 46</a>
-        </div>
-        <div class="contact-notice">
-          <p><strong>Nous vous répondons sous 48 h ouvrées.</strong><br>Devis détaillé envoyé dans les 48 h suivant notre échange.</p>
-        </div>
+        <p class="contact-sub" id="dContactSub"></p>
+        <div class="contact-addr" id="dContactAddr"></div>
+        <div class="contact-direct" id="dContactDirect"></div>
+        <div class="contact-notice" id="dContactNotice"></div>
       </div>
       <div class="c-form">
         <form id="cForm" action="https://formspree.io/f/mvzbelnj" method="POST">
@@ -1186,117 +1108,126 @@ footer{background:var(--orange);border-top:none}
 </div>
 
 <script>
-/* ═══ DATA ═══ */
-const D={
-  tarifs:[
-    {icon:"🎬",name:"Live Session",price:"375 €",sub:"à partir de",desc:"Captation multi-cam d'une performance musicale en studio.",feat:["Tournage studio","Montage complet","Mixage audio inclus"],hot:1,cat:"video"},
-    {icon:"🎵",name:"Clip Musical",price:"625 €",sub:"à partir de",desc:"Réalisation complète d'un clip : concept, tournage, montage, étalonnage.",feat:["Direction artistique","Post-production","Étalonnage couleur"],hot:1,cat:"video"},
-    {icon:"🎞️",name:"Clip Pro",price:"1 200 €",sub:"à partir de",desc:"Version premium avec moyens renforcés, figurants, décors.",feat:["Repérages inclus","Équipe élargie","Effets spéciaux"],cat:"video"},
-    {icon:"📱",name:"Reel / TikTok",price:"150 €",sub:"à partir de",desc:"Contenu court et percutant pour les réseaux sociaux.",feat:["Format vertical","Montage dynamique","Sous-titres"],cat:"video"},
-    {icon:"📽️",name:"Vidéo Promo",price:"750 €",sub:"à partir de",desc:"Spot publicitaire ou vidéo de présentation pour votre activité.",feat:["Scénario sur mesure","Voix off possible","Multi-formats"],cat:"video"},
-    {icon:"🎙️",name:"Podcast Vidéo",price:"300 €",sub:"à partir de",desc:"Captation et montage d'un épisode de podcast filmé.",feat:["Multi-caméras","Montage dynamique","Export audio + vidéo"],cat:"video"},
-    {icon:"📸",name:"Shooting Photo",price:"250 €",sub:"à partir de",desc:"Séance photo professionnelle : portrait, produit, événement.",feat:["Retouches incluses","Haute résolution","Livraison rapide"],hot:1,cat:"video"},
-    {icon:"🚁",name:"Drone",price:"295 €",sub:"à partir de",desc:"Prises de vue aériennes pour vos projets photo ou vidéo.",feat:["Pilote certifié","4K stabilisé","Autorisations gérées"],cat:"video"},
-    {icon:"🎓",name:"Atelier Vidéo",price:"Sur devis",sub:"",desc:"Formation pratique à la création de contenu vidéo.",feat:["Programme sur mesure","Matériel fourni","Groupe ou individuel"],cat:"video"},
-    {icon:"✨",name:"Motion Design",price:"Sur devis",sub:"",desc:"Animation graphique pour habiller vos vidéos et réseaux.",feat:["Logo animé","Titrages","Transitions sur mesure"],cat:"video"},
-    {icon:"🎤",name:"Captation Live",price:"Sur devis",sub:"",desc:"Captation événementielle multi-cam : concerts, conférences, spectacles.",feat:["Régie en direct","Streaming possible","Montage post-event"],cat:"video"},
-    {icon:"🎯",name:"Sur Mesure",price:"Sur devis",sub:"",desc:"Projet spécifique ? On s'adapte à vos besoins, votre budget, votre calendrier.",feat:["Accompagnement dédié","Devis sous 48 h","Sans engagement"],cat:"video"}
-  ],
-  process:[
-    {n:"01",t:"Échange",d:"On discute de votre projet, vos envies et vos contraintes. Devis envoyé sous 48 h."},
-    {n:"02",t:"Préparation",d:"Repérages, brief créatif, planning de tournage. Tout est calé avant le jour J."},
-    {n:"03",t:"Tournage",d:"On tourne avec notre matériel pro. Vous validez les rushs en direct si besoin."},
-    {n:"04",t:"Livraison",d:"Montage, étalonnage, mixage. Vous recevez le rendu final + révisions incluses."}
-  ],
-  faq:[
-    {q:"Quels sont vos horaires ?",a:"Le studio est ouvert du lundi au vendredi, de 9h30 à 18h. Une ouverture le week-end est possible sur réservation, contactez-nous pour en discuter."},
-    {q:"Vous avez un studio physique ?",a:"Oui, nous disposons d'un espace de tournage au 10 place de l'Église, Saint-Sulpice-la-Pointe (81370). Nous nous déplaçons également chez vous, partout dans le Tarn et en France."},
-    {q:"Quel est le délai de livraison après le tournage ?",a:"Les fichiers sont livrés en général sous 48h pour les formats simples. Pour les projets complexes, le délai est précisé au devis."},
-    {q:"Combien de révisions sont incluses ?",a:"1 révision incluse par prestation. Des révisions supplémentaires peuvent être ajoutées, on en discute au moment du devis."},
-    {q:"Comment se passe le premier contact ?",a:"Un appel de 15 minutes suffit pour cadrer votre projet. Devis détaillé sous 48h. Aucun engagement avant validation."},
-    {q:"Vous travaillez avec quel type de clients ?",a:"Artistes, particuliers, commerces locaux, entreprises, institutions, organisateurs d'événements : on s'adapte à tous les budgets, du reel Instagram à la publicité nationale."}
-  ],
-  clients:[
-    {n:"48 Hour Film Project",img:"../assets/logos/48HFP.png"},
-    {n:"Alpine",img:"../assets/logos/alpine.png"},
-    {n:"Alto",img:"../assets/logos/alto.png"},
-    {n:"Bandito",img:"../assets/logos/bandito.png"},
-    {n:"Benjos",img:"../assets/logos/benjos.png"},
-    {n:"ISPRA",img:"../assets/logos/ispra.png"},
-    {n:"JP",img:"../assets/logos/jp.png"},
-    {n:"Linagora",img:"../assets/logos/linagora.png"},
-    {n:"MJC Saint-Sulpice",img:"../assets/logos/mjc_st_sulpice.png"},
-    {n:"Origine",img:"../assets/logos/origine.jpg"},
-    {n:"Resistium",img:"../assets/logos/resistium.png"},
-    {n:"Saint-Sulpice",img:"../assets/logos/st-sulpice.png"}
-  ]
-};
+(async function(){
+/* ═══ FETCH DATA ═══ */
+let D;
+try{const r=await fetch('./data.json?v='+Date.now());D=await r.json()}catch(e){console.error('data.json load failed',e);return}
 
-/* ═══ RENDER ═══ */
-document.getElementById('tGrid').innerHTML=D.tarifs.map(t=>`
-  <div class="t-card${t.hot?' hot':''}">
-    ${t.hot?'<span class="t-tag">Le plus demandé</span>':''}
-    <div class="t-name">${t.name}</div>
-    <div class="t-price">${t.sub?`<small>${t.sub}</small> `:''}${t.price}</div>
-    <div class="t-desc">${t.desc}</div>
-    <ul class="t-feat">${t.feat.map(f=>`<li>${f}</li>`).join('')}</ul>
-    <a href="#contact" class="t-cta">Demander un devis</a>
-  </div>
-`).join('');
+/* ═══ HERO ═══ */
+document.getElementById('dHeroTag').textContent=D.hero.tag;
+document.getElementById('dHeroTitle').innerHTML=D.hero.title;
+document.getElementById('dHeroSub').textContent=D.hero.subtitle;
+document.getElementById('dHeroPills').innerHTML=D.hero.pills.map(p=>'<span>'+p+'</span>').join('');
 
-document.getElementById('pSteps').innerHTML=D.process.map(s=>`
-  <div class="p-step" data-n="${s.n}">
-    <h3>${s.t}</h3><p>${s.d}</p>
-  </div>
-`).join('');
+/* ═══ PITCH ═══ */
+document.getElementById('dPitchLabel').textContent=D.pitch.label;
+document.getElementById('dPitchTitle').textContent=D.pitch.title;
+document.getElementById('dPitchText').innerHTML='<p>'+D.pitch.text1+'</p><p>'+D.pitch.text2+'</p>';
+document.getElementById('dPitchAside').innerHTML=D.pitch.aside;
 
-const faqList=document.getElementById('faqList');
-faqList.innerHTML=D.faq.map((f,i)=>`
-  <div class="faq-item"><button class="faq-q">${f.q}<span class="plus">+</span></button>
-  <div class="faq-a"><div class="faq-a-inner">${f.a}</div></div></div>
-`).join('');
-faqList.querySelectorAll('.faq-q').forEach(b=>{
-  b.onclick=()=>{const it=b.parentElement,a=it.querySelector('.faq-a'),o=it.classList.contains('open');
-  faqList.querySelectorAll('.faq-item').forEach(x=>{x.classList.remove('open');x.querySelector('.faq-a').style.maxHeight=null});
+/* ═══ SHOWCASE ═══ */
+var showHtml='';
+D.showcase.forEach(function(s,i){
+  var isFirst=i===0;
+  var flipClass=s.layout==='flip'?' flip':'';
+  var mediaHtml='';
+  if(s.type==='photos'){
+    var imgs=s.images.map(function(src,j){
+      var cls=j===s.images.length-1&&s.images.length>2?' class="show-full"':'';
+      return '<img src="'+encodeURI(src)+'" alt="'+s.title+'" loading="lazy"'+cls+'>';
+    }).join('');
+    mediaHtml='<div class="show-media"><div class="show-grid">'+imgs+'</div></div>';
+  }else if(s.type==='video'){
+    mediaHtml='<div class="show-media show-clickvid" style="cursor:pointer" id="promoVidWrap"><div class="show-promo-ph" data-src="'+encodeURI(s.videoSrc)+'" style="width:100%;aspect-ratio:16/9;background:var(--surface)"></div></div>';
+  }else if(s.type==='reels'){
+    mediaHtml='<div class="show-media show-reels-wrap"><div class="show-reels" id="showReels"></div></div>';
+  }
+  var feats=s.feats.map(function(f){return '<span>'+f+'</span>'}).join('');
+  showHtml+='<section class="showcase"'+(isFirst?' id="realisations"':'')+'><div class="si">';
+  if(isFirst)showHtml+='<div class="s-label rv">En images</div><h2 class="s-title rv rv-d1">Nos réalisations.</h2>';
+  showHtml+='<div class="show-layout'+flipClass+' rv'+(isFirst?' rv-d2':'')+'">';
+  showHtml+=mediaHtml;
+  showHtml+='<div class="show-text"><h3>'+s.title+'</h3>';
+  showHtml+='<div class="show-price"><small>'+s.pricePrefix+'</small> '+s.price+'</div>';
+  showHtml+='<p class="show-desc">'+s.desc+'</p>';
+  showHtml+='<div class="show-feats">'+feats+'</div>';
+  showHtml+='<a href="#contact" class="show-cta">Demander un devis</a>';
+  showHtml+='</div></div></div></section>';
+});
+document.getElementById('dShowcases').innerHTML=showHtml;
+
+/* ═══ TARIFS ═══ */
+document.getElementById('tGrid').innerHTML=D.tarifs.map(function(t){
+  return '<div class="t-card'+(t.hot?' hot':'')+'">'
+    +(t.hot?'<span class="t-tag">Le plus demandé</span>':'')
+    +'<div class="t-name">'+t.name+'</div>'
+    +'<div class="t-price">'+(t.sub?'<small>'+t.sub+'</small> ':'')+t.price+'</div>'
+    +'<div class="t-desc">'+t.desc+'</div>'
+    +'<ul class="t-feat">'+t.feat.map(function(f){return '<li>'+f+'</li>'}).join('')+'</ul>'
+    +'<a href="#contact" class="t-cta">Demander un devis</a></div>';
+}).join('');
+
+/* ═══ PROCESS ═══ */
+document.getElementById('pSteps').innerHTML=D.process.map(function(s){
+  return '<div class="p-step" data-n="'+s.n+'"><h3>'+s.t+'</h3><p>'+s.d+'</p></div>';
+}).join('');
+
+/* ═══ FAQ ═══ */
+var faqList=document.getElementById('faqList');
+faqList.innerHTML=D.faq.map(function(f){
+  return '<div class="faq-item"><button class="faq-q">'+f.q+'<span class="plus">+</span></button><div class="faq-a"><div class="faq-a-inner">'+f.a+'</div></div></div>';
+}).join('');
+faqList.querySelectorAll('.faq-q').forEach(function(b){
+  b.onclick=function(){var it=b.parentElement,a=it.querySelector('.faq-a'),o=it.classList.contains('open');
+  faqList.querySelectorAll('.faq-item').forEach(function(x){x.classList.remove('open');x.querySelector('.faq-a').style.maxHeight=null});
   if(!o){it.classList.add('open');a.style.maxHeight=a.scrollHeight+'px'}};
 });
 
-/* Clients marquee — duplicate 4x for seamless loop */
-const clLogos=D.clients.map(c=>`<img src="${c.img}" alt="${c.n}" title="${c.n}">`).join('');
+/* ═══ CLIENTS ═══ */
+var clLogos=D.clients.map(function(c){return '<img src="'+c.img+'" alt="'+c.n+'" title="'+c.n+'">'}).join('');
 document.getElementById('clScroll').innerHTML=clLogos+clLogos+clLogos+clLogos;
 
-/* Reels carousel — lazy loaded */
-const reelNums=[6,7,8,9,10,11,12,13,14];
-const reelPosters=reelNums.map(n=>'<div class="reel-ph" data-src="../assets/videos/video'+n+'.mp4"></div>').join('');
-document.getElementById('showReels').innerHTML=reelPosters+reelPosters;
+/* ═══ CONTACT ═══ */
+document.getElementById('dContactSub').textContent=D.contact.subtitle;
+document.getElementById('dContactAddr').textContent=D.contact.address;
+document.getElementById('dContactDirect').innerHTML='<a href="mailto:'+D.contact.email+'">'+D.contact.email+'</a><a href="tel:'+D.contact.phone.replace(/\s/g,'')+'">'+D.contact.phone+'</a>';
+document.getElementById('dContactNotice').innerHTML='<p>'+D.contact.notice+'</p>';
 
-const reelsObs=new IntersectionObserver(function(entries){
-  entries.forEach(function(e){
-    if(e.isIntersecting){
-      var wrap=e.target;
-      wrap.querySelectorAll('.reel-ph').forEach(function(ph){
-        var v=document.createElement('video');
-        v.autoplay=true;v.muted=true;v.loop=true;v.playsInline=true;v.preload='auto';
-        v.innerHTML='<source src="'+ph.dataset.src+'" type="video/mp4">';
-        ph.replaceWith(v);
-      });
-      reelsObs.unobserve(wrap);
-    }
-  });
-},{threshold:0.1});
+/* ═══ REELS CAROUSEL — lazy loaded ═══ */
 var reelsEl=document.getElementById('showReels');
-if(reelsEl)reelsObs.observe(reelsEl);
+if(reelsEl){
+  var reelShowcase=D.showcase.find(function(s){return s.type==='reels'});
+  var reelNums=reelShowcase?reelShowcase.videos:[6,7,8,9,10,11,12,13,14];
+  var reelPh=reelNums.map(function(n){return '<div class="reel-ph" data-src="../assets/videos/video'+n+'.mp4"></div>'}).join('');
+  reelsEl.innerHTML=reelPh+reelPh;
+  var reelsObs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.querySelectorAll('.reel-ph').forEach(function(ph){
+          var v=document.createElement('video');
+          v.autoplay=true;v.muted=true;v.loop=true;v.playsInline=true;v.preload='auto';
+          v.innerHTML='<source src="'+ph.dataset.src+'" type="video/mp4">';
+          ph.replaceWith(v);
+        });
+        reelsObs.unobserve(e.target);
+      }
+    });
+  },{threshold:0.1});
+  reelsObs.observe(reelsEl);
+}
 
-/* Promo video — lazy loaded */
+/* ═══ PROMO VIDEO — lazy loaded ═══ */
 var promoWrap=document.getElementById('promoVidWrap');
 if(promoWrap){
+  var promoPh=promoWrap.querySelector('.show-promo-ph');
+  var promoSrc=promoPh?promoPh.dataset.src:'../assets/videos/video5.mp4';
   var promoObs=new IntersectionObserver(function(entries){
     if(entries[0].isIntersecting){
       var ph=promoWrap.querySelector('.show-promo-ph');
       if(ph){
         var v=document.createElement('video');
         v.autoplay=true;v.muted=true;v.loop=true;v.playsInline=true;v.preload='auto';
-        v.innerHTML='<source src="../assets/videos/video5.mp4" type="video/mp4">';
+        v.innerHTML='<source src="'+promoSrc+'" type="video/mp4">';
         ph.replaceWith(v);
       }
       promoObs.unobserve(promoWrap);
@@ -1306,43 +1237,43 @@ if(promoWrap){
 }
 
 /* ═══ SIDEBAR ═══ */
-const sb=document.getElementById('sb'),ol=document.getElementById('sbOverlay'),tg=document.getElementById('navTrigger');
+var sb=document.getElementById('sb'),ol=document.getElementById('sbOverlay'),tg=document.getElementById('navTrigger');
 function openSb(){sb.classList.add('open');ol.classList.add('open');tg.classList.add('active');document.body.style.overflow='hidden'}
 function closeSb(){sb.classList.remove('open');ol.classList.remove('open');tg.classList.remove('active');document.body.style.overflow=''}
-tg.onclick=()=>sb.classList.contains('open')?closeSb():openSb();
+tg.onclick=function(){sb.classList.contains('open')?closeSb():openSb()};
 ol.onclick=closeSb;
 document.getElementById('sbClose').onclick=closeSb;
-document.querySelectorAll('[data-nav]').forEach(a=>a.onclick=()=>setTimeout(closeSb,120));
+document.querySelectorAll('[data-nav]').forEach(function(a){a.onclick=function(){setTimeout(closeSb,120)}});
 
 /* ═══ SCROLL TOP ═══ */
-const tt=document.getElementById('toTop');
-const logo=document.querySelector('.topbar-logo');
-window.onscroll=()=>{
+var tt=document.getElementById('toTop');
+var logo=document.querySelector('.topbar-logo');
+window.onscroll=function(){
   tt.classList.toggle('show',scrollY>400);
-  const shrink=Math.min(scrollY/300,1);
+  var shrink=Math.min(scrollY/300,1);
   logo.style.transform='scale('+(1.4-shrink*0.4)+')';
 };
-tt.onclick=()=>scrollTo({top:0,behavior:'smooth'});
+tt.onclick=function(){scrollTo({top:0,behavior:'smooth'})};
 
 /* ═══ REVEAL ═══ */
-const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target)}}),{threshold:.12});
-document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target)}})},{threshold:.12});
+document.querySelectorAll('.rv').forEach(function(el){obs.observe(el)});
 
 /* ═══ FORM ═══ */
-const form=document.getElementById('cForm'),fbtn=document.getElementById('fBtn');
-form.onsubmit=async e=>{
+var form=document.getElementById('cForm'),fbtn=document.getElementById('fBtn');
+form.onsubmit=async function(e){
   e.preventDefault();fbtn.disabled=true;fbtn.textContent='Envoi…';
-  try{const r=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}});
-  if(r.ok){fbtn.textContent='✓ Envoyé !';form.reset();setTimeout(()=>{fbtn.textContent='Envoyer le message';fbtn.disabled=false},3e3)}
-  else throw 0}catch{fbtn.textContent='Erreur — réessayez';fbtn.disabled=false;setTimeout(()=>fbtn.textContent='Envoyer le message',3e3)}
+  try{var r=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}});
+  if(r.ok){fbtn.textContent='✓ Envoyé !';form.reset();setTimeout(function(){fbtn.textContent='Envoyer le message';fbtn.disabled=false},3e3)}
+  else throw 0}catch(err){fbtn.textContent='Erreur — réessayez';fbtn.disabled=false;setTimeout(function(){fbtn.textContent='Envoyer le message'},3e3)}
 };
 
 /* ═══ CHATBOT ═══ */
-const chatBtn=document.getElementById('chatBtn'),cbox=document.getElementById('cbox'),
+var chatBtn=document.getElementById('chatBtn'),cbox=document.getElementById('cbox'),
 chatX=document.getElementById('chatX'),chatBody=document.getElementById('chatBody'),
 chatChips=document.getElementById('chatChips');
-let chatOn=false;
-const mainChips=["Tarifs","Shooting photo","Drone","Clip musical","Live session","Zone & déplacements","Délais","Révisions","Contact","Autre question"];
+var chatOn=false;
+var mainChips=["Tarifs","Shooting photo","Drone","Clip musical","Live session","Zone & déplacements","Délais","Révisions","Contact","Autre question"];
 function toggleChat(){
   chatOn=!chatOn;cbox.classList.toggle('on',chatOn);
   if(chatOn){chatBtn.querySelector('.dot').style.display='none';
@@ -1350,14 +1281,13 @@ function toggleChat(){
 }
 chatBtn.onclick=toggleChat;chatX.onclick=toggleChat;
 function addBot(t,chips){
-  const d=document.createElement('div');d.className='cm bot';
+  var d=document.createElement('div');d.className='cm bot';
   d.innerHTML=t;chatBody.appendChild(d);chatBody.scrollTop=chatBody.scrollHeight;
   chatChips.innerHTML='';
-  if(chips)chips.forEach(c=>{const b=document.createElement('button');b.className='cbox-chip';b.textContent=c;b.onclick=()=>handle(c);chatChips.appendChild(b)});
+  if(chips)chips.forEach(function(c){var b=document.createElement('button');b.className='cbox-chip';b.textContent=c;b.onclick=function(){handle(c)};chatChips.appendChild(b)});
 }
 function handle(t){
-  const n=t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-  /* Scroll actions */
+  var n=t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
   if(n.includes('tarif')){addBot("Nos tarifs démarrent à 150 € HT pour un reel, 250 € pour un shooting photo, 375 € pour une live session et 625 € pour un clip.",["Voir les tarifs","Demander un devis","← Menu"]);return}
   if(n.includes('photo')||n.includes('shooting')){addBot("Shootings photo à partir de 250 € HT : portraits, produits, événements. Retouches et livraison haute résolution incluses.",["Voir les tarifs","Demander un devis","← Menu"]);return}
   if(n.includes('drone')){addBot("Prestations drone à partir de 295 € HT. Pilote certifié, captation 4K stabilisée, autorisations de vol gérées.",["Voir les tarifs","← Menu"]);return}
@@ -1366,85 +1296,47 @@ function handle(t){
   if(n.includes('zone')||n.includes('deplacement')){addBot("Basés à Saint-Sulpice-la-Pointe (81370). Les 15 premiers km sont offerts, au-delà les frais sont au devis. On intervient partout en France.",["Voir la zone","← Menu"]);return}
   if(n.includes('delai')){addBot("Les fichiers sont livrés en général sous 48h pour les formats simples. Pour les projets complexes, le délai est précisé au devis.",["Demander un devis","← Menu"]);return}
   if(n.includes('revision')){addBot("1 révision incluse par prestation. Des révisions supplémentaires peuvent être ajoutées, on en discute au moment du devis.",["Demander un devis","← Menu"]);return}
-  if(n.includes('contact')||n.includes('devis')){addBot("Remplissez le formulaire de contact ou écrivez-nous directement à <a href='mailto:studiobastide.contact@gmail.com' style='color:var(--orange)'>studiobastide.contact@gmail.com</a>. Réponse sous 48 h !",["Aller au formulaire","← Menu"]);return}
+  if(n.includes('contact')||n.includes('devis')){addBot("Remplissez le formulaire de contact ou écrivez-nous directement à <a href='mailto:"+D.contact.email+"' style='color:var(--orange)'>"+D.contact.email+"</a>. Réponse sous 48 h !",["Aller au formulaire","← Menu"]);return}
   if(n.includes('menu')){addBot("Comment pouvons-nous vous aider ?",mainChips);return}
-  /* Autre question = email fallback */
-  addBot("Pour toute autre question, écrivez-nous directement à <a href='mailto:studiobastide.contact@gmail.com' style='color:var(--orange)'>studiobastide.contact@gmail.com</a> — nous répondons sous 48 h !",["← Menu"]);
+  addBot("Pour toute autre question, écrivez-nous directement à <a href='mailto:"+D.contact.email+"' style='color:var(--orange)'>"+D.contact.email+"</a> — nous répondons sous 48 h !",["← Menu"]);
 }
 
-/* chip → scroll actions */
-document.addEventListener('click',e=>{if(!e.target.classList.contains('cbox-chip'))return;
-const t=e.target.textContent.toLowerCase();
-if(t==='voir les tarifs')setTimeout(()=>{document.getElementById('tarifs').scrollIntoView({behavior:'smooth'});toggleChat()},250);
-if(t==='aller au formulaire'||t==='demander un devis')setTimeout(()=>{document.getElementById('contact').scrollIntoView({behavior:'smooth'});toggleChat()},250);
-if(t==='voir la zone')setTimeout(()=>{document.getElementById('deplacements').scrollIntoView({behavior:'smooth'});toggleChat()},250);
+document.addEventListener('click',function(e){if(!e.target.classList.contains('cbox-chip'))return;
+var t=e.target.textContent.toLowerCase();
+if(t==='voir les tarifs')setTimeout(function(){document.getElementById('tarifs').scrollIntoView({behavior:'smooth'});toggleChat()},250);
+if(t==='aller au formulaire'||t==='demander un devis')setTimeout(function(){document.getElementById('contact').scrollIntoView({behavior:'smooth'});toggleChat()},250);
+if(t==='voir la zone')setTimeout(function(){document.getElementById('deplacements').scrollIntoView({behavior:'smooth'});toggleChat()},250);
 });
 
-/* Close chatbot on scroll */
-window.addEventListener('scroll',()=>{
-  if(chatOn){chatOn=false;cbox.classList.remove('on')}
-},{passive:true});
+window.addEventListener('scroll',function(){if(chatOn){chatOn=false;cbox.classList.remove('on')}},{passive:true});
 
 /* ═══ LIGHTBOX ═══ */
-const lb=document.getElementById('lb'),lbC=document.getElementById('lbContent');
-const lbPrev=document.getElementById('lbPrev'),lbNext=document.getElementById('lbNext');
-let lbItems=[],lbIdx=0;
-
-function lbOpen(items,idx){
-  lbItems=items;lbIdx=idx;lbShow();
-  lb.classList.add('on');document.body.style.overflow='hidden';
-  lbPrev.style.display=items.length>1?'flex':'none';
-  lbNext.style.display=items.length>1?'flex':'none';
-}
-function lbClose(){
-  lb.classList.remove('on');document.body.style.overflow='';
-  var v=lbC.querySelector('video');if(v)v.pause();
-  lbC.innerHTML='';
-}
-function lbShow(){
-  var v=lbC.querySelector('video');if(v)v.pause();
-  var item=lbItems[lbIdx];
-  if(item.type==='img'){
-    lbC.innerHTML='<img src="'+item.src+'" alt="">';
-  }else{
-    lbC.innerHTML='<video controls autoplay playsinline><source src="'+item.src+'" type="video/mp4"></video>';
-  }
-}
+var lb=document.getElementById('lb'),lbC=document.getElementById('lbContent');
+var lbPrev=document.getElementById('lbPrev'),lbNext=document.getElementById('lbNext');
+var lbItems=[],lbIdx=0;
+function lbOpen(items,idx){lbItems=items;lbIdx=idx;lbShow();lb.classList.add('on');document.body.style.overflow='hidden';lbPrev.style.display=items.length>1?'flex':'none';lbNext.style.display=items.length>1?'flex':'none'}
+function lbClose(){lb.classList.remove('on');document.body.style.overflow='';var v=lbC.querySelector('video');if(v)v.pause();lbC.innerHTML=''}
+function lbShow(){var v=lbC.querySelector('video');if(v)v.pause();var item=lbItems[lbIdx];if(item.type==='img'){lbC.innerHTML='<img src="'+item.src+'" alt="">'}else{lbC.innerHTML='<video controls autoplay playsinline><source src="'+item.src+'" type="video/mp4"></video>'}}
 document.getElementById('lbClose').onclick=lbClose;
 lbPrev.onclick=function(){lbIdx=(lbIdx-1+lbItems.length)%lbItems.length;lbShow()};
 lbNext.onclick=function(){lbIdx=(lbIdx+1)%lbItems.length;lbShow()};
 lb.onclick=function(e){if(e.target===lb)lbClose()};
-document.addEventListener('keydown',function(e){
-  if(!lb.classList.contains('on'))return;
-  if(e.key==='Escape')lbClose();
-  if(e.key==='ArrowLeft')lbPrev.click();
-  if(e.key==='ArrowRight')lbNext.click();
-});
+document.addEventListener('keydown',function(e){if(!lb.classList.contains('on'))return;if(e.key==='Escape')lbClose();if(e.key==='ArrowLeft')lbPrev.click();if(e.key==='ArrowRight')lbNext.click()});
 
 /* Shooting photos → lightbox */
 document.querySelectorAll('.show-grid img').forEach(function(img,i,all){
-  img.onclick=function(){
-    var items=Array.from(all).map(function(el){return{type:'img',src:el.src}});
-    lbOpen(items,i);
-  };
+  img.onclick=function(){var items=Array.from(all).map(function(el){return{type:'img',src:el.src}});lbOpen(items,i)};
 });
-
 /* Reels → lightbox */
-document.querySelectorAll('.show-reels video').forEach(function(vid,i){
-  vid.onclick=function(e){
-    e.preventDefault();
-    var src=vid.querySelector('source').src;
-    lbOpen([{type:'vid',src:src}],0);
-  };
+document.querySelectorAll('.show-reels video').forEach(function(vid){
+  vid.onclick=function(e){e.preventDefault();var src=vid.querySelector('source').src;lbOpen([{type:'vid',src:src}],0)};
 });
-
 /* Promo video → lightbox */
 document.querySelectorAll('.show-clickvid').forEach(function(wrap){
-  wrap.onclick=function(){
-    var src=wrap.querySelector('source').src;
-    lbOpen([{type:'vid',src:src}],0);
-  };
+  wrap.onclick=function(){var v=wrap.querySelector('video');if(v){var src=v.querySelector('source').src;lbOpen([{type:'vid',src:src}],0)}};
 });
+
+})();
 </script>
 </body>
 </html>
