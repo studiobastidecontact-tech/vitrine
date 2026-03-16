@@ -120,10 +120,19 @@ a{color:var(--orange);text-decoration:none}
   </div>
   <div class="login-box" id="loginStep2" style="display:none">
     <h2>Token GitHub</h2>
-    <p>Entrez votre token GitHub pour gérer le contenu du site en direct.</p>
+    <p>Créez un token GitHub avec les permissions nécessaires :</p>
+    <ol style="text-align:left;color:var(--tx2);font-size:.78rem;margin:0 0 16px 20px;line-height:1.8">
+      <li>GitHub.com → clic sur ta photo → <strong>Settings</strong></li>
+      <li>Tout en bas : <strong>Developer settings</strong></li>
+      <li><strong>Personal access tokens</strong> → <strong>Tokens (classic)</strong></li>
+      <li><strong>Generate new token (classic)</strong></li>
+      <li>Note : "admin studio" — Expiration : 90 days</li>
+      <li>Coche <strong>repo</strong> (tout le bloc)</li>
+      <li><strong>Generate token</strong> → copie le token</li>
+    </ol>
     <input type="password" id="tokenInput" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" onkeydown="if(event.key==='Enter')doLogin()">
     <button class="btn btn-save" style="width:100%" onclick="doLogin()">Valider</button>
-    <p style="margin-top:12px;font-size:.7rem;color:var(--tx3)">GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens → Permissions: Contents (read & write)</p>
+    <p id="tokenError" style="margin-top:8px;font-size:.78rem;color:var(--red);display:none"></p>
   </div>
 </div>
 
@@ -150,6 +159,7 @@ a{color:var(--orange);text-decoration:none}
       <h1 id="panelTitle">Hero</h1>
       <div class="actions">
         <button class="btn btn-sec" onclick="loadData()">Recharger</button>
+        <button class="btn btn-sec" onclick="changeToken()">Changer le token</button>
         <button class="btn btn-save" id="saveBtn" onclick="saveData()">Publier les modifications</button>
       </div>
     </div>
@@ -320,6 +330,16 @@ function doLogout(){
   localStorage.removeItem('sb_token');
   location.reload();
 }
+function changeToken(){
+  localStorage.removeItem('sb_token');
+  TOKEN='';
+  document.querySelector('.app').style.display='none';
+  document.getElementById('loginOverlay').style.display='flex';
+  document.getElementById('loginStep1').style.display='none';
+  document.getElementById('loginStep2').style.display='block';
+  document.getElementById('tokenInput').value='';
+  document.getElementById('tokenInput').focus();
+}
 var titles={hero:'Hero',pitch:'Pitch',showcase:'Réalisations',tarifs:'Tarifs',process:'Process',faq:'FAQ',clients:'Clients',contact:'Contact'};
 document.querySelectorAll('#navBtns button').forEach(function(btn){
   btn.onclick=function(){
@@ -353,12 +373,16 @@ async function loadData(){
     if(!r.ok)throw new Error('HTTP '+r.status);
     var json=await r.json();
     SHA=json.sha;
-    DATA=JSON.parse(atob(json.content.replace(/\n/g,'')));
+    DATA=JSON.parse(decodeURIComponent(escape(atob(json.content.replace(/\n/g,'')))));
     fillAll();
     status('Données chargées avec succès','ok');
   }catch(e){
     console.error(e);
-    status('Erreur de chargement : '+e.message+'. Vérifiez votre token et que prestation/data.json existe.','err');
+    var msg=e.message;
+    if(msg.includes('403')||msg.includes('not accessible'))msg='Token invalide ou permissions insuffisantes. Utilisez un Token (classic) avec la permission "repo" cochée.';
+    else if(msg.includes('404'))msg='Fichier data.json introuvable dans prestation/. Vérifiez qu\'il existe sur GitHub.';
+    else if(msg.includes('401'))msg='Token expiré ou invalide. Recréez-en un.';
+    status('Erreur : '+msg,'err');
   }
 }
 
@@ -375,7 +399,7 @@ async function saveData(){
       headers:{'Authorization':'Bearer '+TOKEN,'Content-Type':'application/json','Accept':'application/vnd.github.v3+json'},
       body:JSON.stringify({message:'admin: update prestation data',content:content,sha:SHA,branch:BRANCH})
     });
-    if(!r.ok){var err=await r.json();throw new Error(err.message||'HTTP '+r.status)}
+    if(!r.ok){var err=await r.json();throw new Error(err.message||'Permissions insuffisantes. Vérifiez que votre token a la permission "repo".')}
     var res=await r.json();
     SHA=res.content.sha;
     toast('Publié avec succès !','ok');
