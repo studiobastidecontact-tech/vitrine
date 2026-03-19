@@ -201,6 +201,7 @@
     display: flex; align-items: center;
     padding: 8rem 1.5rem 5rem;
     overflow: hidden;
+    position: relative;
   }
 
   .hero-bg {
@@ -302,6 +303,7 @@
   .section-lead { color: var(--foreground-muted); max-width: 560px; }
 
   .courses-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  @media (min-width: 901px) { .courses-grid { grid-template-columns: repeat(3, 1fr); } }
 
   .course-card {
     background: var(--card);
@@ -309,6 +311,17 @@
     border-radius: 1.25rem;
     padding: 2rem;
     transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+    display: flex; flex-direction: column;
+  }
+  .course-tag {
+    display: inline-flex; align-self: flex-start;
+    font-size: 0.68rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--combat);
+    background: rgba(212,25,32,0.08);
+    border: 1px solid rgba(212,25,32,0.2);
+    padding: 0.2rem 0.6rem; border-radius: 9999px;
+    margin-bottom: 1rem;
   }
   .course-card:hover {
     transform: scale(1.02);
@@ -462,10 +475,22 @@
   .extras-box h3 { font-weight: 700; margin-bottom: 1rem; }
   .extras-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
   .extras-list li {
-    display: flex; align-items: center; gap: 0.75rem;
+    display: flex; align-items: flex-start; gap: 0.75rem;
     color: var(--foreground-muted); font-size: 0.9rem;
   }
-  .bullet { width: 6px; height: 6px; background: var(--combat); border-radius: 50%; flex-shrink: 0; }
+  .bullet {
+    width: 18px; height: 18px;
+    background: rgba(212,25,32,0.12);
+    border: 1px solid rgba(212,25,32,0.4);
+    border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 1px;
+  }
+  .bullet::after {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--combat); border-radius: 50%;
+  }
 
   .tarifs-cta { text-align: center; margin-top: 2rem; }
 
@@ -519,7 +544,7 @@
   }
   .pack-examples { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; border-top: 1px solid var(--border); padding-top: 1.25rem; }
   .pack-examples li {
-    display: flex; align-items: center; gap: 0.6rem;
+    display: flex; align-items: flex-start; gap: 0.6rem;
     color: var(--foreground-muted); font-size: 0.85rem;
   }
 
@@ -593,6 +618,48 @@
     nav.desktop-nav { display: none; }
     .pricing-grid { grid-template-columns: 1fr; }
   }
+
+  /* ---- CERTIFICATIONS ---- */
+  #certifications { padding: 5rem 1.5rem; background: var(--background-elevated); }
+
+  .certif-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+
+  .certif-item {
+    display: flex; align-items: flex-start; gap: 1rem;
+    background: var(--background);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 1.25rem 1.5rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .certif-item:hover {
+    border-color: rgba(212,25,32,0.35);
+    box-shadow: 0 4px 20px rgba(212,25,32,0.08);
+  }
+
+  .certif-icon {
+    width: 40px; height: 40px; flex-shrink: 0;
+    background: rgba(212,25,32,0.1);
+    border: 1px solid rgba(212,25,32,0.25);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--combat);
+  }
+
+  .certif-title {
+    font-size: 0.9rem; font-weight: 700;
+    line-height: 1.3; margin-bottom: 0.2rem;
+  }
+  .certif-sub {
+    font-size: 0.78rem; color: var(--foreground-subtle);
+    line-height: 1.4;
+  }
+
 </style>
 </head>
 <body>
@@ -638,7 +705,7 @@
       <span style="color:var(--foreground-muted)">Pas sérieusement sérieux.</span>
     </h1>
     <p class="hero-subtitle">
-      Je suis instructeur certifié Krav Maga à Toulouse.
+      Je suis instructeur certifié Krav Maga, self-défense et boxe à Toulouse.
       Dès les premières séances, vous comprenez ce dont vous êtes capable — et la peur disparaît.
     </p>
     <div class="hero-btns">
@@ -684,19 +751,19 @@
   <div class="container fade-in">
     <div class="stats-grid">
       <div>
-        <span class="stat-number" data-target="15" data-suffix="+">0+</span>
+        <span class="stat-number">15+</span>
         <div class="stat-label">ans d'expérience</div>
       </div>
       <div>
-        <span class="stat-number" data-target="6" data-suffix="">0</span>
+        <span class="stat-number">6</span>
         <div class="stat-label">arts martiaux maîtrisés</div>
       </div>
       <div>
-        <span class="stat-number" data-target="500" data-suffix="+">0+</span>
+        <span class="stat-number">500+</span>
         <div class="stat-label">élèves formés</div>
       </div>
       <div>
-        <span class="stat-number" data-target="100" data-suffix="%">0%</span>
+        <span class="stat-number">100%</span>
         <div class="stat-label">adapté à votre niveau</div>
       </div>
     </div>
@@ -709,30 +776,66 @@
     <div class="section-header fade-in">
       <div class="line-combat"></div>
       <h2 class="section-title">Les formules</h2>
-      <p class="section-lead">Cours particulier, duo ou groupe — à votre rythme, selon votre objectif.</p>
+      <p class="section-lead">Krav Maga, self-défense et boxe — cours particulier, duo ou groupe, à votre rythme et selon votre objectif.</p>
     </div>
     <div class="courses-grid">
+
+      <!-- Krav Maga & Self-défense -->
       <div class="course-card fade-in">
+        <div class="course-tag">Krav Maga · Self-défense</div>
         <div class="course-icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </div>
         <div class="course-title">Cours technique</div>
-        <div class="course-desc">Vous apprenez les gestes de défense qui comptent. Comment réagir face à une saisie, une agression, une situation de stress. Pas de cinéma, que du concret.</div>
+        <div class="course-desc">Les gestes qui fonctionnent vraiment — saisies, agressions, situations de stress. Pas de cinéma, que du concret. Dès la première séance vous repartez avec quelque chose d'utile.</div>
       </div>
+
       <div class="course-card fade-in">
+        <div class="course-tag">Krav Maga · Self-défense</div>
         <div class="course-icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l6-6"/><path d="M2 2l20 20"/></svg>
         </div>
         <div class="course-title">Entraînement au combat</div>
-        <div class="course-desc">Du combat souple pour développer vos réflexes, votre condition physique et votre capacité à garder votre calme sous pression. On transpire, mais tout le monde rentre entier.</div>
+        <div class="course-desc">Combat souple pour développer réflexes, condition physique et gestion du stress. On transpire, on progresse — et tout le monde rentre entier.</div>
       </div>
+
       <div class="course-card fade-in">
+        <div class="course-tag">Outdoor</div>
         <div class="course-icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
         </div>
         <div class="course-title">Urban Training</div>
-        <div class="course-desc">Entraînement en extérieur, dans un cadre urbain : escaliers, parcs, mobilier urbain. On mélange cardio, renforcement et mises en situation réalistes. Idéal en groupe.</div>
+        <div class="course-desc">En extérieur, dans la ville : escaliers, parcs, mobilier urbain. Cardio, renforcement et mises en situation réalistes. Idéal en groupe pour se dépasser ensemble.</div>
       </div>
+
+      <!-- Boxe -->
+      <div class="course-card fade-in">
+        <div class="course-tag">Boxe</div>
+        <div class="course-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+        </div>
+        <div class="course-title">Boxe Thaïlandaise</div>
+        <div class="course-desc">Muay Thai — la boxe à 8 armes. Poings, coudes, genoux, tibias. Technique, condition physique, et une efficacité redoutable. Particuliers et petits groupes.</div>
+      </div>
+
+      <div class="course-card fade-in">
+        <div class="course-tag">Boxe</div>
+        <div class="course-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+        </div>
+        <div class="course-title">Boxe Française (Savate)</div>
+        <div class="course-desc">La Savate — discipline olympique alliant pieds et poings. David est diplômé Savate d'argent avec monitorat. Travail technique, placement et puissance.</div>
+      </div>
+
+      <div class="course-card fade-in">
+        <div class="course-tag">Boxe</div>
+        <div class="course-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+        </div>
+        <div class="course-title">Boxe Anglaise</div>
+        <div class="course-desc">Le noble art — travail des poings, déplacements, esquives et gestion de la distance. Excellente base pour la self-défense et le conditionnement physique.</div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -778,6 +881,83 @@
   </div>
 </section>
 
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="line-combat"></div>
+      <h2 class="section-title">Certifications & diplômes</h2>
+      <p class="section-lead">Des qualifications sérieuses — présentées sans le costume cravate.</p>
+    </div>
+    <div class="certif-grid">
+      <div class="certif-item fade-in">
+        <div class="certif-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <div class="certif-title">Instructeur Krav Maga</div>
+          <div class="certif-sub">Mention "militaire" et "forces de l'ordre"</div>
+        </div>
+      </div>
+      <div class="certif-item fade-in">
+        <div class="certif-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <div>
+          <div class="certif-title">G5 en Krav Maga</div>
+          <div class="certif-sub">Grade le plus élevé de la discipline</div>
+        </div>
+      </div>
+      <div class="certif-item fade-in">
+        <div class="certif-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+        </div>
+        <div>
+          <div class="certif-title">Ceintures noires</div>
+          <div class="certif-sub">Karaté · Kudo · JJB (Jiu-Jitsu Brésilien)</div>
+        </div>
+      </div>
+      <div class="certif-item fade-in">
+        <div class="certif-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l6-6"/><path d="M2 2l20 20"/></svg>
+        </div>
+        <div>
+          <div class="certif-title">Savate d'argent</div>
+          <div class="certif-sub">+ Monitorat "Savate et bâton défense"</div>
+        </div>
+      </div>
+      <div class="certif-item fade-in">
+        <div class="certif-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        </div>
+        <div>
+          <div class="certif-title">Instructeur militaire C4</div>
+          <div class="certif-sub">Formation combat rapproché niveau avancé</div>
+        </div>
+      </div>
+      <div class="certif-item fade-in">
+        <div class="certif-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>
+        <div>
+          <div class="certif-title">DU Préparateur physique</div>
+          <div class="certif-sub">Diplôme universitaire spécialisé</div>
+        </div>
+      </div>
+      <div class="certif-item fade-in">
+        <div class="certif-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+        </div>
+        <div>
+          <div class="certif-title">CQP MAM</div>
+          <div class="certif-sub">Certificat de Qualification Professionnelle Métiers des Arts Martiaux</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- COACH -->
 <section id="coach">
   <div class="container">
@@ -785,15 +965,15 @@
       <div class="coach-img"></div>
       <div class="coach-text">
         <div class="line-combat"></div>
-        <h2>Derrière le sobriquet</h2>
-        <p>« KravMaga », c'est un surnom que mes élèves m'ont donné — et j'ai fini par adopter le personnage. Derrière ce sobriquet, un code de conduite clair : la violence est toujours la dernière solution, et uniquement en situation de défense.</p>
-        <p>Ce que j'enseigne, ce n'est pas à devenir un combattant. C'est à comprendre ce dont vous êtes capable. En quelques séances, vous connaissez vos réflexes, vous savez réagir, et surtout : vous n'avez plus peur.</p>
+        <h2>David Lallot,<br>instructeur Krav Maga</h2>
+        <p>Je m'appelle David. J'enseigne le Krav Maga, la self-défense et la boxe (thaïlandaise, française et anglaise) à Toulouse et dans l'agglomération depuis plus de 15 ans. Mon approche est simple : des techniques qui fonctionnent vraiment, dans une ambiance détendue et bienveillante.</p>
+        <p>Ce que j'enseigne, ce n'est pas à devenir un combattant. C'est à comprendre ce dont vous êtes capable. En quelques séances, vous connaissez vos réflexes, vous savez réagir — et la peur disparaît. Je me déplace à domicile, en extérieur ou en salle, partout à Toulouse et Saint-Sulpice-sur-Tarn.</p>
+        <p>Ma philosophie : la violence est toujours la dernière solution. Mais en situation réelle, chacun doit pouvoir se dégager rapidement d'un danger. C'est ça que j'enseigne, sans chichis et sans ego.</p>
         <div class="creds">
-          <span class="cred-badge">Instructeur Krav Maga — mention militaire</span>
           <span class="cred-badge">G5 Krav Maga</span>
-          <span class="cred-badge">Ceintures noires Karaté / Kudo / JJB</span>
-          <span class="cred-badge">Instructeur militaire C4</span>
-          <span class="cred-badge">DU préparateur physique</span>
+          <span class="cred-badge">15+ ans d'expérience</span>
+          <span class="cred-badge">500+ élèves formés</span>
+          <span class="cred-badge">Toulouse & Saint-Sulpice</span>
         </div>
         <a href="#" class="link-combat">
           En savoir plus
@@ -857,10 +1037,10 @@
     <div class="pricing-grid fade-in">
       <div class="price-card">
         <div class="price-label">Cours particulier</div>
-        <div class="price-sublabel">Attention maximale</div>
+        <div class="price-sublabel">1h30 · attention maximale</div>
         <div class="price-amount">50€</div>
         <div class="price-unit">&nbsp;</div>
-        <div class="price-participants">1 personne</div>
+        <div class="price-participants">1 personne · 1h30</div>
       </div>
       <div class="price-card">
         <div class="price-label">Duo</div>
