@@ -818,6 +818,10 @@ reelsTrackEl.addEventListener('scroll',function(){
 var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target)}})},{threshold:.12});
 document.querySelectorAll('.rv').forEach(function(el){obs.observe(el)});
 
+/* ═══ REELS NAV ═══ */
+document.getElementById('reelsPrev').onclick=function(){reelsTrackEl.scrollBy({left:-200,behavior:'smooth'})};
+document.getElementById('reelsNext').onclick=function(){reelsTrackEl.scrollBy({left:200,behavior:'smooth'})};
+
 /* ═══ PHOTO LIGHTBOX ═══ */
 document.querySelectorAll('#showPhotoGrid img').forEach(function(img,i,all){
   img.onclick=function(){var items=Array.from(all).map(function(el){return{type:'img',src:el.src}});lbOpen(items,i)};
@@ -865,10 +869,6 @@ document.addEventListener('click',function(e){
   var src=item.dataset.src;if(!src)return;
   lbOpen([{type:'vid',src:src}],0);
 });
-
-/* ═══ REELS NAV ═══ */
-document.getElementById('reelsPrev').onclick=function(){reelsTrackEl.scrollBy({left:-200,behavior:'smooth'})};
-document.getElementById('reelsNext').onclick=function(){reelsTrackEl.scrollBy({left:200,behavior:'smooth'})};
 
 /* ═══ SIDEBAR ═══ */
 var sb=document.getElementById('sb'),ol=document.getElementById('sbOverlay'),tg=document.getElementById('navTrigger');
