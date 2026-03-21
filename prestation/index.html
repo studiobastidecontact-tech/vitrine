@@ -138,9 +138,9 @@ h2.s-title{margin:0 0 20px}
 .show-media img{width:100%;display:block;object-fit:cover;cursor:pointer;transition:filter .4s var(--ease)}
 .show-media img:hover{filter:brightness(1.05)}
 /* Photo grid - big + 2 small */
-.show-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:280px 200px;gap:6px}
-.show-grid img:first-child{grid-column:1/-1;height:100%;object-fit:cover}
-.show-grid img{height:100%;object-fit:cover;width:100%;cursor:pointer}
+.show-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.show-grid img{height:200px;object-fit:cover;width:100%;cursor:pointer}
+.show-grid img:nth-child(1),.show-grid img:nth-child(4){grid-column:1/-1;height:280px}
 /* Video thumbnail */
 .show-vid{position:relative;cursor:pointer;aspect-ratio:16/9;overflow:hidden}
 .show-vid img,.show-vid .promo-poster-vid{width:100%;height:100%;object-fit:cover;pointer-events:none}
@@ -319,7 +319,8 @@ footer a:hover{opacity:.7}
   .show-layout,.show-layout.flip{grid-template-columns:1fr;gap:28px}
   .show-layout.flip .show-media{order:0}
   .show-layout.flip .show-text{order:0}
-  .show-grid{grid-template-rows:200px 160px}
+  .show-grid img{height:160px}
+  .show-grid img:nth-child(1),.show-grid img:nth-child(4){height:200px}
   .reels-info{flex-direction:column;align-items:flex-start}
   .tarifs-intro{flex-direction:column;gap:16px;align-items:flex-start}
   .tarifs-note{max-width:100%}
@@ -350,7 +351,8 @@ footer a:hover{opacity:.7}
   .pitch-text{font-size:.88rem}
   .pitch-aside{padding:18px}
   .pitch-aside p{font-size:.85rem}
-  .show-grid{grid-template-rows:180px 140px}
+  .show-grid img{height:140px}
+  .show-grid img:nth-child(1),.show-grid img:nth-child(4){height:180px}
   .reel-item{width:120px;height:213px;border-radius:8px}
   .reels-nav{width:36px;height:36px}
   .reels-nav svg{width:12px;height:12px}
@@ -405,7 +407,7 @@ footer a:hover{opacity:.7}
   <div class="hero-inner">
     <div class="hero-content rv">
       <div class="hero-tag" id="dHeroTag">Studio Bastide Production</div>
-      <h1 id="dHeroTitle">On filme ce que<br>les mots <em>ne disent pas.</em></h1>
+      <h1 id="dHeroTitle">Nous filmons ce que<br>les mots <em>ne disent pas.</em></h1>
       <p class="hero-sub" id="dHeroSub">Vidéo, photo, drone, clips musicaux, live sessions et contenu réseaux sociaux. Un studio basé dans le Tarn, présent partout en France.</p>
       <div class="hero-pills" id="dHeroPills">
         <span>Shooting photo</span><span>Vidéo corporate</span><span>Clips musicaux</span><span>Live sessions</span><span>Drone</span><span>Reels & TikTok</span>
@@ -416,7 +418,7 @@ footer a:hover{opacity:.7}
       </div>
     </div>
     <div class="hero-player rv rv-d1" id="heroPlayer">
-      <video autoplay muted loop playsinline preload="auto" id="heroVid">
+      <video autoplay muted loop playsinline preload="auto" id="heroVid" poster="../assets/img/MAX%20ALTO.JPG">
         <source src="../assets/videos/presentation.mp4" type="video/mp4">
       </video>
     </div>
@@ -452,13 +454,16 @@ footer a:hover{opacity:.7}
 <!-- ═══ SHOWCASE : SHOOTING PHOTO ═══ -->
 <section class="showcase" id="realisations">
   <div class="si">
-    <div class="s-label rv">Nos réalisations</div>
+    <div class="s-label rv">En images</div>
     <h2 class="s-title rv rv-d1">Nos réalisations.</h2>
     <div class="show-layout rv rv-d2">
       <div class="show-media">
         <div class="show-grid" id="showPhotoGrid">
-          <img src="../assets/img/Shooting%20toit.jpg" alt="Portrait toits coucher de soleil" loading="lazy">
+          <img src="../assets/img/TOIT%20PARIS.jpg" alt="Portrait toits de Paris" loading="lazy">
           <img src="../assets/img/Shooting%20metro%201.jpg" alt="Shooting métro" loading="lazy">
+          <img src="../assets/img/ALTO%20SUISSE.JPG" alt="Horlogerie Alto Watch" loading="lazy">
+          <img src="../assets/img/MAX%20ALTO.JPG" alt="Plateau de tournage" loading="lazy">
+          <img src="../assets/img/Shooting%20toit.jpg" alt="Portrait toits coucher de soleil" loading="lazy">
           <img src="../assets/img/Shooting%20metro%202.jpg" alt="Shooting duo métro" loading="lazy">
         </div>
       </div>
@@ -587,7 +592,7 @@ footer a:hover{opacity:.7}
     <h2 class="s-title rv rv-d1">Discutons de votre projet.</h2>
     <div class="contact-layout rv rv-d2">
       <div class="contact-left">
-        <p class="contact-sub" id="dContactSub">Un devis, une question, une idée à creuser. On répond sous 48 h, sans engagement.</p>
+        <p class="contact-sub" id="dContactSub">Un devis, une question, une idée à creuser. Nous répondons sous 48 h, sans engagement.</p>
         <div class="contact-addr" id="dContactAddr">10 place de l'Église, Saint-Sulpice-la-Pointe (81370)</div>
         <div class="contact-direct" id="dContactDirect">
           <a href="mailto:studiobastide.contact@gmail.com">studiobastide.contact@gmail.com</a>
@@ -733,7 +738,7 @@ var D={
     {n:"MJC Saint-Sulpice",img:"../assets/logos/mjc_st_sulpice.png"},{n:"Origine",img:"../assets/logos/origine.jpg"},
     {n:"Resistium",img:"../assets/logos/resistium.png"},{n:"Saint-Sulpice",img:"../assets/logos/st-sulpice.png"}
   ],
-  contact:{subtitle:"Un devis, une question, une idée à creuser. On répond sous 48 h, sans engagement.",address:"10 place de l'Église, Saint-Sulpice-la-Pointe (81370)",email:"studiobastide.contact@gmail.com",phone:"09 55 51 97 46",notice:"<strong>Réponse sous 48 h ouvrées.</strong><br>Devis détaillé dans les 48 h suivant notre échange."}
+  contact:{subtitle:"Un devis, une question, une idée à creuser. Nous répondons sous 48 h, sans engagement.",address:"10 place de l'Église, Saint-Sulpice-la-Pointe (81370)",email:"studiobastide.contact@gmail.com",phone:"09 55 51 97 46",notice:"<strong>Réponse sous 48 h ouvrées.</strong><br>Devis détaillé dans les 48 h suivant notre échange."}
 };
 var reelNums=[6,7,8,9,10,11];
 
