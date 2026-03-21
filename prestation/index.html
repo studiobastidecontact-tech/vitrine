@@ -107,17 +107,20 @@ h2.s-title{margin:0 0 20px}
 
 /* ── PITCH ── */
 .pitch{border-bottom:1px solid var(--border)}
-.pitch-layout{display:grid;grid-template-columns:1.4fr .6fr;gap:48px;margin-top:44px;align-items:start}
+.pitch-layout{display:grid;grid-template-columns:.55fr 1fr;gap:56px;margin-top:44px;align-items:start}
 .pitch-text{color:var(--tx2);font-size:.95rem;line-height:1.85}
 .pitch-text p+p{margin-top:16px}
-.pitch-photo{position:relative;overflow:hidden;align-self:start}
-.pitch-photo img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:70% 15%;filter:brightness(.9)}
-.pitch-caption{position:absolute;bottom:0;left:0;right:0;padding:16px 20px;background:linear-gradient(transparent,rgba(0,0,0,.7));font-size:.78rem;color:rgba(255,255,255,.8)}
-.pitch-caption strong{color:var(--orange);font-weight:600}
+.pitch-photo{position:relative;align-self:start}
+.pitch-photo img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:70% 15%;filter:brightness(.9)}
+/* Handwritten annotation */
+.pitch-anno{position:absolute;bottom:16px;left:16px;z-index:2}
+.pitch-anno span{font-family:'Switzer',sans-serif;font-style:italic;font-weight:300;font-size:.85rem;color:rgba(255,255,255,.7);background:rgba(0,0,0,.5);padding:6px 14px;backdrop-filter:blur(4px);letter-spacing:.5px}
 .pitch-aside{position:relative;padding:28px;border-left:2px solid var(--orange);background:linear-gradient(135deg,rgba(232,57,12,.04),transparent);margin-top:32px}
 .pitch-aside .bolt{position:absolute;top:-16px;left:-14px;width:28px;height:28px;background:var(--orange);display:flex;align-items:center;justify-content:center;font-size:12px}
 .pitch-aside p{color:var(--tx2);font-size:.9rem;line-height:1.8}
 .pitch-aside strong{color:var(--tx);font-weight:600}
+.pitch-name{font-family:var(--head);font-weight:700;font-size:1.2rem;margin-bottom:4px;color:var(--tx)}
+.pitch-role{font-size:.78rem;color:var(--orange);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px}
 
 /* Video play overlays (showcase) */
 .play-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.2);transition:background .3s;z-index:1}
@@ -312,6 +315,7 @@ footer a:hover{opacity:.7}
   .hero-content{padding:0;max-width:100%}
   .sidebar{width:100%}
   .pitch-layout{grid-template-columns:1fr;gap:32px}
+  .pitch-photo{max-width:280px}
   .pitch-aside{padding:20px}
   .show-layout,.show-layout.flip{grid-template-columns:1fr;gap:28px}
   .show-layout.flip .show-media{order:0}
@@ -422,23 +426,24 @@ footer a:hover{opacity:.7}
 <!-- ═══ PITCH ═══ -->
 <section class="pitch" id="pitch">
   <div class="si">
-    <div class="s-label rv" id="dPitchLabel">Votre projet vidéo</div>
-    <h2 class="s-title rv rv-d1" id="dPitchTitle">De l'idée à l'écran,<br>nous gérons tout.</h2>
-    <div class="pitch-layout rv rv-d2">
+    <div class="s-label rv">Le réalisateur</div>
+    <div class="pitch-layout rv rv-d1">
+      <div class="pitch-photo">
+        <img src="../assets/img/solal2.png.jpeg" alt="Solal Fournier" loading="lazy">
+        <div class="pitch-anno"><span>c'est Solal.</span></div>
+      </div>
       <div>
+        <div class="pitch-name">Solal Fournier</div>
+        <div class="pitch-role">Réalisation & production audiovisuelle</div>
         <div class="pitch-text" id="dPitchText">
-          <p>Solal Fournier, réalisateur et directeur de production audiovisuelle. Du clip musical à la vidéo promotionnelle, de la captation live au contenu réseaux sociaux, chaque projet est accompagné de A à Z.</p>
-          <p>Cadrage, lumière, montage, étalonnage : chaque étape est gérée en interne, du brief à la livraison. Que vous soyez artiste, entrepreneur ou particulier, l'accompagnement est adapté à votre projet et à votre budget.</p>
+          <p>Passionné d'images et de cinéma depuis toujours, j'ai réalisé mes premiers courts métrages à 8 ans. Après un Bac+3 à l'ISPRA, j'ai travaillé à Paris pour des grands noms : <strong>Alpine</strong>, <strong>Alto Watch</strong>, <strong>Mathieu César</strong>.</p>
+          <p>Puis je suis revenu dans le Sud. Parce qu'ici, le potentiel est immense et les histoires méritent d'être racontées avec la même exigence qu'à Paris. C'est pour ça que j'ai cofondé Studio Bastide : un lieu où chaque projet, du clip au film d'entreprise, bénéficie d'un accompagnement complet, du premier échange à la livraison.</p>
         </div>
         <div class="pitch-aside">
           <div class="bolt">⚡</div>
           <p id="dPitchAside">Studio Bastide propose également un <strong>studio d'enregistrement</strong> pour vos projets audio. <strong>Son et image au même endroit</strong>, une offre unique dans la région.</p>
           <p style="margin-top:12px"><a href="../#tarifs" style="color:#fff;font-size:.78rem;font-weight:600;text-decoration:underline;text-underline-offset:3px">Voir les tarifs audio →</a></p>
         </div>
-      </div>
-      <div class="pitch-photo">
-        <img src="../assets/img/solal2.png.jpeg" alt="Solal Fournier, fondateur" loading="lazy">
-        <div class="pitch-caption"><strong>Solal Fournier</strong>, réalisation &amp; production audiovisuelle</div>
       </div>
     </div>
   </div>
@@ -768,27 +773,46 @@ if(D.contact){
   document.getElementById('dContactNotice').innerHTML='<p>'+D.contact.notice+'</p>';
 }
 
-/* ═══ REELS — poster frames, no autoplay ═══ */
+/* ═══ REELS — poster frames at specific timestamps ═══ */
 var rs=document.getElementById('reelsScroll');
-rs.innerHTML=reelNums.map(function(n){return '<div class="reel-item" data-src="../assets/videos/video'+n+'.mp4"><canvas class="reel-poster"></canvas><div class="play-overlay"><svg><use href="#playIcon"/></svg></div></div>'}).join('');
+var reelTimes={6:0.01,7:0.23,8:0.20,9:0.17,10:0.14,11:0.31};
+/* Triple the items for infinite loop effect */
+var reelHtml=reelNums.map(function(n){return '<div class="reel-item" data-src="../assets/videos/video'+n+'.mp4" data-time="'+(reelTimes[n]||0.5)+'"><canvas class="reel-poster"></canvas><div class="play-overlay"><svg><use href="#playIcon"/></svg></div></div>'}).join('');
+rs.innerHTML=reelHtml+reelHtml+reelHtml;
 
-/* Generate poster from first frame of each video */
-rs.querySelectorAll('.reel-item').forEach(function(item){
+/* Generate poster from specific frame of each video */
+function genReelPoster(item){
   var canvas=item.querySelector('.reel-poster');
+  if(!canvas||canvas.dataset.done)return;
+  canvas.dataset.done='1';
   var ctx=canvas.getContext('2d');
+  var t=parseFloat(item.dataset.time)||0.5;
   var tmp=document.createElement('video');
   tmp.muted=true;tmp.playsInline=true;tmp.preload='auto';
-  tmp.crossOrigin='anonymous';
   tmp.src=item.dataset.src;
-  tmp.addEventListener('loadeddata',function(){
-    tmp.currentTime=0.5;
-  });
+  tmp.addEventListener('loadeddata',function(){tmp.currentTime=t});
   tmp.addEventListener('seeked',function(){
-    canvas.width=tmp.videoWidth;
-    canvas.height=tmp.videoHeight;
+    canvas.width=tmp.videoWidth;canvas.height=tmp.videoHeight;
     ctx.drawImage(tmp,0,0);
     tmp.src='';tmp.load();
   });
+}
+rs.querySelectorAll('.reel-item').forEach(genReelPoster);
+
+/* Center on middle set for seamless loop */
+var reelsTrackEl=document.querySelector('.reels-track');
+requestAnimationFrame(function(){
+  var oneSetWidth=reelsTrackEl.scrollWidth/3;
+  reelsTrackEl.scrollLeft=oneSetWidth;
+});
+/* When scrolled to edges, snap back to middle */
+reelsTrackEl.addEventListener('scroll',function(){
+  var oneSetWidth=reelsTrackEl.scrollWidth/3;
+  if(reelsTrackEl.scrollLeft<=0){
+    reelsTrackEl.scrollLeft=oneSetWidth;
+  }else if(reelsTrackEl.scrollLeft>=oneSetWidth*2){
+    reelsTrackEl.scrollLeft=oneSetWidth;
+  }
 });
 
 /* ═══ REVEAL ═══ */
@@ -812,14 +836,14 @@ function toggleMore(){var m=document.getElementById('tMore'),b=document.getEleme
 var hv=document.getElementById('heroVid');
 if(hv){hv.currentTime=1;hv.addEventListener('loadeddata',function(){hv.currentTime=1})}
 
-/* ═══ PROMO VIDEO POSTER — frame at 0.01s ═══ */
+/* ═══ PROMO VIDEO POSTER — frame at 0.02s ═══ */
 var promoCanvas=document.getElementById('promoPoster');
 if(promoCanvas){
   var pCtx=promoCanvas.getContext('2d');
   var pTmp=document.createElement('video');
   pTmp.muted=true;pTmp.playsInline=true;pTmp.preload='auto';
   pTmp.src='../assets/videos/video5.mp4';
-  pTmp.addEventListener('loadeddata',function(){pTmp.currentTime=0.01});
+  pTmp.addEventListener('loadeddata',function(){pTmp.currentTime=0.02});
   pTmp.addEventListener('seeked',function(){
     promoCanvas.width=pTmp.videoWidth;promoCanvas.height=pTmp.videoHeight;
     pCtx.drawImage(pTmp,0,0);
@@ -844,9 +868,8 @@ document.addEventListener('click',function(e){
 });
 
 /* ═══ REELS NAV ═══ */
-var reelsTrack=document.querySelector('.reels-track');
-document.getElementById('reelsPrev').onclick=function(){reelsTrack.scrollBy({left:-200,behavior:'smooth'})};
-document.getElementById('reelsNext').onclick=function(){reelsTrack.scrollBy({left:200,behavior:'smooth'})};
+document.getElementById('reelsPrev').onclick=function(){reelsTrackEl.scrollBy({left:-200,behavior:'smooth'})};
+document.getElementById('reelsNext').onclick=function(){reelsTrackEl.scrollBy({left:200,behavior:'smooth'})};
 
 /* ═══ SIDEBAR ═══ */
 var sb=document.getElementById('sb'),ol=document.getElementById('sbOverlay'),tg=document.getElementById('navTrigger');
