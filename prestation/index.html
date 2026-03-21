@@ -157,13 +157,12 @@ h2.s-title{margin:0 0 20px}
 /* ── REELS CAROUSEL ── */
 .reels-section{border-bottom:1px solid var(--border)}
 .reels-wrap{position:relative;margin-top:44px}
-.reels-track{overflow-x:auto;overflow-y:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);scrollbar-width:none;-ms-overflow-style:none}
+.reels-track{overflow-x:auto;overflow-y:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);scrollbar-width:none;-ms-overflow-style:none;scroll-behavior:smooth}
 .reels-track::-webkit-scrollbar{display:none}
 .reels-scroll{display:flex;gap:14px;width:max-content}
 .reel-item{width:160px;height:284px;flex-shrink:0;position:relative;border-radius:12px;overflow:hidden;border:1px solid var(--border-h);cursor:pointer;background:var(--surface);transition:transform .3s var(--ease),border-color .3s}
 .reel-item:hover{transform:scale(1.03);border-color:var(--orange)}
-.reel-item video{width:100%;height:100%;object-fit:cover;display:block}
-.reel-item .reel-poster{width:100%;height:100%;object-fit:cover;display:block}
+.reel-item video{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
 .reel-item .play-overlay svg{width:36px;height:36px}
 .reels-nav{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;background:rgba(0,0,0,.6);border:1px solid var(--border-h);border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:2;transition:all .3s var(--ease);backdrop-filter:blur(4px)}
 .reels-nav:hover{background:var(--orange);border-color:var(--orange)}
@@ -775,43 +774,42 @@ if(D.contact){
 
 /* ═══ REELS — poster frames at specific timestamps ═══ */
 var rs=document.getElementById('reelsScroll');
-var reelTimes={6:0.01,7:0.23,8:0.20,9:0.17,10:0.14,11:0.31};
+var reelTimes={6:1,7:23,8:20,9:17,10:14,11:31};
 /* Triple the items for infinite loop effect */
-var reelHtml=reelNums.map(function(n){return '<div class="reel-item" data-src="../assets/videos/video'+n+'.mp4" data-time="'+(reelTimes[n]||0.5)+'"><canvas class="reel-poster"></canvas><div class="play-overlay"><svg><use href="#playIcon"/></svg></div></div>'}).join('');
+var reelHtml=reelNums.map(function(n){return '<div class="reel-item" data-src="../assets/videos/video'+n+'.mp4" data-time="'+(reelTimes[n]||1)+'"><video muted playsinline preload="auto" src="../assets/videos/video'+n+'.mp4"></video><div class="play-overlay"><svg><use href="#playIcon"/></svg></div></div>'}).join('');
 rs.innerHTML=reelHtml+reelHtml+reelHtml;
 
-/* Generate poster from specific frame of each video */
-function genReelPoster(item){
-  var canvas=item.querySelector('.reel-poster');
-  if(!canvas||canvas.dataset.done)return;
-  canvas.dataset.done='1';
-  var ctx=canvas.getContext('2d');
-  var t=parseFloat(item.dataset.time)||0.5;
-  var tmp=document.createElement('video');
-  tmp.muted=true;tmp.playsInline=true;tmp.preload='auto';
-  tmp.src=item.dataset.src;
-  tmp.addEventListener('loadeddata',function(){tmp.currentTime=t});
-  tmp.addEventListener('seeked',function(){
-    canvas.width=tmp.videoWidth;canvas.height=tmp.videoHeight;
-    ctx.drawImage(tmp,0,0);
-    tmp.src='';tmp.load();
-  });
-}
-rs.querySelectorAll('.reel-item').forEach(genReelPoster);
+/* Seek each reel video to its poster frame and pause */
+rs.querySelectorAll('.reel-item').forEach(function(item){
+  var v=item.querySelector('video');
+  var t=parseFloat(item.dataset.time)||1;
+  v.addEventListener('loadeddata',function(){v.currentTime=t});
+  v.addEventListener('seeked',function(){v.pause()});
+});
 
 /* Center on middle set for seamless loop */
 var reelsTrackEl=document.querySelector('.reels-track');
-requestAnimationFrame(function(){
+setTimeout(function(){
   var oneSetWidth=reelsTrackEl.scrollWidth/3;
   reelsTrackEl.scrollLeft=oneSetWidth;
-});
-/* When scrolled to edges, snap back to middle */
+},200);
+/* When scrolled near edges, snap back to middle */
+var reelScrolling=false;
 reelsTrackEl.addEventListener('scroll',function(){
+  if(reelScrolling)return;
   var oneSetWidth=reelsTrackEl.scrollWidth/3;
-  if(reelsTrackEl.scrollLeft<=0){
+  if(reelsTrackEl.scrollLeft<10){
+    reelScrolling=true;
+    reelsTrackEl.style.scrollBehavior='auto';
     reelsTrackEl.scrollLeft=oneSetWidth;
-  }else if(reelsTrackEl.scrollLeft>=oneSetWidth*2){
+    reelsTrackEl.style.scrollBehavior='smooth';
+    reelScrolling=false;
+  }else if(reelsTrackEl.scrollLeft>=oneSetWidth*2-10){
+    reelScrolling=true;
+    reelsTrackEl.style.scrollBehavior='auto';
     reelsTrackEl.scrollLeft=oneSetWidth;
+    reelsTrackEl.style.scrollBehavior='smooth';
+    reelScrolling=false;
   }
 });
 
@@ -836,14 +834,14 @@ function toggleMore(){var m=document.getElementById('tMore'),b=document.getEleme
 var hv=document.getElementById('heroVid');
 if(hv){hv.currentTime=1;hv.addEventListener('loadeddata',function(){hv.currentTime=1})}
 
-/* ═══ PROMO VIDEO POSTER — frame at 0.02s ═══ */
+/* ═══ PROMO VIDEO POSTER — frame at 2s ═══ */
 var promoCanvas=document.getElementById('promoPoster');
 if(promoCanvas){
   var pCtx=promoCanvas.getContext('2d');
   var pTmp=document.createElement('video');
   pTmp.muted=true;pTmp.playsInline=true;pTmp.preload='auto';
   pTmp.src='../assets/videos/video5.mp4';
-  pTmp.addEventListener('loadeddata',function(){pTmp.currentTime=0.02});
+  pTmp.addEventListener('loadeddata',function(){pTmp.currentTime=2});
   pTmp.addEventListener('seeked',function(){
     promoCanvas.width=pTmp.videoWidth;promoCanvas.height=pTmp.videoHeight;
     pCtx.drawImage(pTmp,0,0);
