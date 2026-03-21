@@ -2,15 +2,22 @@
   "hero": {
     "tag": "Studio Bastide Production",
     "title": "On filme ce que<br>les mots <em>ne disent pas.</em>",
-    "subtitle": "Vidéo, photo, drone, clips, live sessions. Deux passionnés, un studio dans le Tarn, et des images qui racontent quelque chose de vrai.",
-    "pills": ["Shooting photo","Vidéo corporate","Clips musicaux","Live sessions","Drone","Reels & TikTok"]
+    "subtitle": "Vidéo, photo, drone, clips musicaux, live sessions et contenu réseaux sociaux. Un studio basé dans le Tarn, présent partout en France.",
+    "pills": [
+      "Shooting photo",
+      "Vidéo corporate",
+      "Clips musicaux",
+      "Live sessions",
+      "Drone",
+      "Reels & TikTok"
+    ]
   },
   "pitch": {
-    "label": "Notre approche",
-    "title": "Le son et l'image, sous le même toit.",
-    "text1": "Studio Bastide Production est né de deux amis passionnés de musique, d'image et de création. Un studio d'enregistrement et une boîte de production audiovisuelle, réunis au même endroit.",
-    "text2": "Cadrage, lumière, son, montage, étalonnage : nous gérons chaque étape, du brief à la livraison. Que vous soyez artiste, entrepreneur ou particulier, nous nous adaptons à votre projet et à votre budget.",
-    "aside": "<strong>Studio d'enregistrement</strong> + <strong>production audiovisuelle</strong> sous le même toit. Une offre unique dans la région."
+    "label": "Votre projet vidéo",
+    "title": "De l'idée à l'écran, nous gérons tout.",
+    "text1": "Solal Fournier, réalisateur et directeur de production audiovisuelle. Du clip musical à la vidéo promotionnelle, de la captation live au contenu réseaux sociaux, chaque projet est accompagné de A à Z.",
+    "text2": "Cadrage, lumière, montage, étalonnage : chaque étape est gérée en interne, du brief à la livraison. Que vous soyez artiste, entrepreneur ou particulier, l'accompagnement est adapté à votre projet et à votre budget.",
+    "aside": "Studio Bastide propose également un <strong>studio d'enregistrement</strong> pour vos projets audio. <strong>Son et image au même endroit</strong>, une offre unique dans la région."
   },
   "showcase": [
     {
@@ -19,7 +26,12 @@
       "price": "250 €",
       "pricePrefix": "à partir de",
       "desc": "Portraits, mode, événements, produits. En studio ou sur place, en extérieur ou en décor naturel. Retouches incluses, livrées en haute résolution.",
-      "feats": ["Portrait","Mode","Événement","Produit"],
+      "feats": [
+        "Portrait",
+        "Mode",
+        "Événement",
+        "Produit"
+      ],
       "images": [
         "../assets/img/Shooting toit.jpg",
         "../assets/img/Shooting metro 1.jpg",
@@ -33,7 +45,11 @@
       "price": "750 €",
       "pricePrefix": "à partir de",
       "desc": "Spots publicitaires, films d'entreprise, vidéos de présentation. Du scénario au montage, nous gérons tout. Vous récupérez un fichier prêt à diffuser.",
-      "feats": ["Scénario sur mesure","Voix off","Multi-formats"],
+      "feats": [
+        "Scénario sur mesure",
+        "Voix off",
+        "Multi-formats"
+      ],
       "videoSrc": "../assets/videos/video5.mp4",
       "layout": "flip"
     },
@@ -43,52 +59,260 @@
       "price": "150 €",
       "pricePrefix": "à partir de",
       "desc": "Contenu percutant, pensé pour les réseaux. Montage rapide, sous-titres, format vertical. Prêt à poster.",
-      "feats": ["Format vertical","Montage dynamique","Sous-titres"],
-      "videos": [6,7,8,9,10,11],
+      "feats": [
+        "Format vertical",
+        "Montage dynamique",
+        "Sous-titres"
+      ],
+      "videos": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
       "layout": "normal"
     }
   ],
   "tarifs": [
-    {"name":"Live Session","price":"375 €","sub":"à partir de","desc":"Performance musicale filmée en multi-cam. Montage complet, mixage audio inclus.","feat":["Tournage studio","Montage complet","Mixage audio inclus"],"hot":true},
-    {"name":"Clip Musical","price":"625 €","sub":"à partir de","desc":"Réalisation complète : concept, tournage, montage, étalonnage.","feat":["Direction artistique","Post-production","Étalonnage couleur"],"hot":true},
-    {"name":"Shooting Photo","price":"250 €","sub":"à partir de","desc":"Séance photo professionnelle : portrait, produit, événement. Retouches incluses.","feat":["Retouches incluses","Haute résolution","Livraison rapide"],"hot":true},
-    {"name":"Vidéo Promo","price":"750 €","sub":"à partir de","desc":"Spot publicitaire ou vidéo de présentation pour votre activité.","feat":["Scénario sur mesure","Voix off possible","Multi-formats"],"hot":true},
-    {"name":"Clip Pro","price":"1 200 €","sub":"à partir de","desc":"Version premium avec moyens renforcés, figurants et décors.","feat":["Repérages inclus","Équipe élargie","Effets spéciaux"],"hot":false},
-    {"name":"Reel / TikTok","price":"150 €","sub":"à partir de","desc":"Contenu court et percutant pour les réseaux sociaux.","feat":["Format vertical","Montage dynamique","Sous-titres"],"hot":false},
-    {"name":"Podcast Vidéo","price":"300 €","sub":"à partir de","desc":"Captation et montage d'un épisode de podcast filmé.","feat":["Multi-caméras","Export audio + vidéo"],"hot":false},
-    {"name":"Drone","price":"295 €","sub":"à partir de","desc":"Prises de vue aériennes pour vos projets photo ou vidéo.","feat":["Pilote certifié","4K stabilisé","Autorisations gérées"],"hot":false},
-    {"name":"Atelier Vidéo","price":"Sur devis","sub":"","desc":"Formation pratique à la création de contenu vidéo.","feat":["Programme sur mesure","Matériel fourni"],"hot":false},
-    {"name":"Motion Design","price":"Sur devis","sub":"","desc":"Animation graphique pour habiller vos vidéos et réseaux.","feat":["Logo animé","Titrages"],"hot":false},
-    {"name":"Captation Live","price":"Sur devis","sub":"","desc":"Captation événementielle multi-cam : concerts, conférences, spectacles.","feat":["Régie en direct","Streaming possible"],"hot":false},
-    {"name":"Sur Mesure","price":"Sur devis","sub":"","desc":"Projet spécifique ? Nous nous adaptons à vos besoins.","feat":["Devis sous 48 h","Sans engagement"],"hot":false}
+    {
+      "name": "Live Session",
+      "price": "375 €",
+      "sub": "à partir de",
+      "desc": "Performance musicale filmée en multi-cam. Montage complet, mixage audio inclus.",
+      "feat": [
+        "Tournage studio",
+        "Montage complet",
+        "Mixage audio inclus"
+      ],
+      "hot": true
+    },
+    {
+      "name": "Clip Musical",
+      "price": "625 €",
+      "sub": "à partir de",
+      "desc": "Réalisation complète : concept, tournage, montage, étalonnage.",
+      "feat": [
+        "Direction artistique",
+        "Post-production",
+        "Étalonnage couleur"
+      ],
+      "hot": true
+    },
+    {
+      "name": "Shooting Photo",
+      "price": "250 €",
+      "sub": "à partir de",
+      "desc": "Séance photo professionnelle : portrait, produit, événement. Retouches incluses.",
+      "feat": [
+        "Retouches incluses",
+        "Haute résolution",
+        "Livraison rapide"
+      ],
+      "hot": true
+    },
+    {
+      "name": "Vidéo Promo",
+      "price": "750 €",
+      "sub": "à partir de",
+      "desc": "Spot publicitaire ou vidéo de présentation pour votre activité.",
+      "feat": [
+        "Scénario sur mesure",
+        "Voix off possible",
+        "Multi-formats"
+      ],
+      "hot": true
+    },
+    {
+      "name": "Clip Pro",
+      "price": "1 200 €",
+      "sub": "à partir de",
+      "desc": "Version premium avec moyens renforcés, figurants et décors.",
+      "feat": [
+        "Repérages inclus",
+        "Équipe élargie",
+        "Effets spéciaux"
+      ],
+      "hot": false
+    },
+    {
+      "name": "Reel / TikTok",
+      "price": "150 €",
+      "sub": "à partir de",
+      "desc": "Contenu court et percutant pour les réseaux sociaux.",
+      "feat": [
+        "Format vertical",
+        "Montage dynamique",
+        "Sous-titres"
+      ],
+      "hot": false
+    },
+    {
+      "name": "Podcast Vidéo",
+      "price": "300 €",
+      "sub": "à partir de",
+      "desc": "Captation et montage d'un épisode de podcast filmé.",
+      "feat": [
+        "Multi-caméras",
+        "Export audio + vidéo"
+      ],
+      "hot": false
+    },
+    {
+      "name": "Drone",
+      "price": "295 €",
+      "sub": "à partir de",
+      "desc": "Prises de vue aériennes pour vos projets photo ou vidéo.",
+      "feat": [
+        "Pilote certifié",
+        "4K stabilisé",
+        "Autorisations gérées"
+      ],
+      "hot": false
+    },
+    {
+      "name": "Atelier Vidéo",
+      "price": "Sur devis",
+      "sub": "",
+      "desc": "Formation pratique à la création de contenu vidéo.",
+      "feat": [
+        "Programme sur mesure",
+        "Matériel fourni"
+      ],
+      "hot": false
+    },
+    {
+      "name": "Motion Design",
+      "price": "Sur devis",
+      "sub": "",
+      "desc": "Animation graphique pour habiller vos vidéos et réseaux.",
+      "feat": [
+        "Logo animé",
+        "Titrages"
+      ],
+      "hot": false
+    },
+    {
+      "name": "Captation Live",
+      "price": "Sur devis",
+      "sub": "",
+      "desc": "Captation événementielle multi-cam : concerts, conférences, spectacles.",
+      "feat": [
+        "Régie en direct",
+        "Streaming possible"
+      ],
+      "hot": false
+    },
+    {
+      "name": "Sur Mesure",
+      "price": "Sur devis",
+      "sub": "",
+      "desc": "Projet spécifique ? Nous nous adaptons à vos besoins.",
+      "feat": [
+        "Devis sous 48 h",
+        "Sans engagement"
+      ],
+      "hot": false
+    }
   ],
   "process": [
-    {"n":"01","t":"Appel","d":"Un échange de 15 minutes pour comprendre votre projet. Devis envoyé sous 48 h."},
-    {"n":"02","t":"Prépa","d":"Repérages, brief créatif, planning de tournage. Tout est organisé avant le jour J."},
-    {"n":"03","t":"Tournage","d":"Nous tournons avec notre matériel professionnel. Vous validez les rushs si besoin."},
-    {"n":"04","t":"Livraison","d":"Montage, étalonnage, mixage. Vous recevez le rendu final, avec une révision incluse."}
+    {
+      "n": "01",
+      "t": "Appel",
+      "d": "Un échange de 15 minutes pour comprendre votre projet. Devis envoyé sous 48 h."
+    },
+    {
+      "n": "02",
+      "t": "Prépa",
+      "d": "Repérages, brief créatif, planning de tournage. Tout est organisé avant le jour J."
+    },
+    {
+      "n": "03",
+      "t": "Tournage",
+      "d": "Nous tournons avec notre matériel professionnel. Vous validez les rushs si besoin."
+    },
+    {
+      "n": "04",
+      "t": "Livraison",
+      "d": "Montage, étalonnage, mixage. Vous recevez le rendu final, avec une révision incluse."
+    }
   ],
   "faq": [
-    {"q":"Quels sont vos horaires ?","a":"Du lundi au vendredi, 9h30 – 18h. Le week-end est possible sur réservation."},
-    {"q":"Disposez-vous d'un studio physique ?","a":"Oui, au 10 place de l'Église à Saint-Sulpice-la-Pointe (81370). Nous nous déplaçons également chez vous, partout dans le Tarn et en France."},
-    {"q":"Quel est le délai de livraison ?","a":"48 h pour les formats courts. 7 à 14 jours pour les clips et vidéos promo. Les projets complexes, c'est précisé au devis."},
-    {"q":"Combien de révisions sont incluses ?","a":"1 aller-retour de corrections inclus. Au-delà, nous en discutons, ce n'est jamais un problème."},
-    {"q":"Comment se passe le premier contact ?","a":"Écrivez-nous ou appelez-nous. Nous discutons 15 minutes de votre projet et vous envoyons un devis détaillé sous 48 h. Sans engagement."},
-    {"q":"Avec quel type de clients travaillez-vous ?","a":"Artistes, particuliers, commerces, entreprises, assos, institutions. Du reel Instagram à la pub nationale. On s'adapte à tous les budgets."}
+    {
+      "q": "Quels sont vos horaires ?",
+      "a": "Du lundi au vendredi, 9h30 – 18h. Le week-end est possible sur réservation."
+    },
+    {
+      "q": "Disposez-vous d'un studio physique ?",
+      "a": "Oui, au 10 place de l'Église à Saint-Sulpice-la-Pointe (81370). Nous nous déplaçons également chez vous, partout dans le Tarn et en France."
+    },
+    {
+      "q": "Quel est le délai de livraison ?",
+      "a": "48 h pour les formats courts. 7 à 14 jours pour les clips et vidéos promo. Les projets complexes, c'est précisé au devis."
+    },
+    {
+      "q": "Combien de révisions sont incluses ?",
+      "a": "1 aller-retour de corrections inclus. Au-delà, nous en discutons, ce n'est jamais un problème."
+    },
+    {
+      "q": "Comment se passe le premier contact ?",
+      "a": "Écrivez-nous ou appelez-nous. Nous discutons 15 minutes de votre projet et vous envoyons un devis détaillé sous 48 h. Sans engagement."
+    },
+    {
+      "q": "Avec quel type de clients travaillez-vous ?",
+      "a": "Artistes, particuliers, commerces, entreprises, assos, institutions. Du reel Instagram à la pub nationale. On s'adapte à tous les budgets."
+    }
   ],
   "clients": [
-    {"n":"48 Hour Film Project","img":"../assets/logos/48HFP.png"},
-    {"n":"Alpine","img":"../assets/logos/alpine.png"},
-    {"n":"Alto","img":"../assets/logos/alto.png"},
-    {"n":"Bandito","img":"../assets/logos/bandito.png"},
-    {"n":"Benjos","img":"../assets/logos/benjos.png"},
-    {"n":"ISPRA","img":"../assets/logos/ispra.png"},
-    {"n":"JP","img":"../assets/logos/jp.png"},
-    {"n":"Linagora","img":"../assets/logos/linagora.png"},
-    {"n":"MJC Saint-Sulpice","img":"../assets/logos/mjc_st_sulpice.png"},
-    {"n":"Origine","img":"../assets/logos/origine.jpg"},
-    {"n":"Resistium","img":"../assets/logos/resistium.png"},
-    {"n":"Saint-Sulpice","img":"../assets/logos/st-sulpice.png"}
+    {
+      "n": "48 Hour Film Project",
+      "img": "../assets/logos/48HFP.png"
+    },
+    {
+      "n": "Alpine",
+      "img": "../assets/logos/alpine.png"
+    },
+    {
+      "n": "Alto",
+      "img": "../assets/logos/alto.png"
+    },
+    {
+      "n": "Bandito",
+      "img": "../assets/logos/bandito.png"
+    },
+    {
+      "n": "Benjos",
+      "img": "../assets/logos/benjos.png"
+    },
+    {
+      "n": "ISPRA",
+      "img": "../assets/logos/ispra.png"
+    },
+    {
+      "n": "JP",
+      "img": "../assets/logos/jp.png"
+    },
+    {
+      "n": "Linagora",
+      "img": "../assets/logos/linagora.png"
+    },
+    {
+      "n": "MJC Saint-Sulpice",
+      "img": "../assets/logos/mjc_st_sulpice.png"
+    },
+    {
+      "n": "Origine",
+      "img": "../assets/logos/origine.jpg"
+    },
+    {
+      "n": "Resistium",
+      "img": "../assets/logos/resistium.png"
+    },
+    {
+      "n": "Saint-Sulpice",
+      "img": "../assets/logos/st-sulpice.png"
+    }
   ],
   "contact": {
     "subtitle": "Un devis, une question, une idée à creuser. On répond sous 48 h, sans engagement.",
