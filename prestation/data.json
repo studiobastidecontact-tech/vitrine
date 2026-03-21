@@ -1,7 +1,7 @@
 {
   "hero": {
     "tag": "Studio Bastide Production",
-    "title": "On filme ce que<br>les mots <em>ne disent pas.</em>",
+    "title": "Nous filmons ce que<br>les mots <em>ne disent pas.</em>",
     "subtitle": "Vidéo, photo, drone, clips musicaux, live sessions et contenu réseaux sociaux. Un studio basé dans le Tarn, présent partout en France.",
     "pills": [
       "Shooting photo",
@@ -14,9 +14,9 @@
   },
   "pitch": {
     "label": "Votre projet vidéo",
-    "title": "De l'idée à l'écran, nous gérons tout.",
-    "text1": "Solal Fournier, réalisateur et directeur de production audiovisuelle. Du clip musical à la vidéo promotionnelle, de la captation live au contenu réseaux sociaux, chaque projet est accompagné de A à Z.",
-    "text2": "Cadrage, lumière, montage, étalonnage : chaque étape est gérée en interne, du brief à la livraison. Que vous soyez artiste, entrepreneur ou particulier, l'accompagnement est adapté à votre projet et à votre budget.",
+    "title": "Solal Fournier",
+    "text1": "Passionné d'images et de cinéma depuis toujours, j'ai réalisé mes premiers courts métrages à 8 ans. Après un Bac+3 à l'ISPRA, j'ai travaillé à Paris pour des grands noms : <strong>Alpine</strong>, <strong>Alto Watch</strong>, <strong>Mathieu César</strong>.",
+    "text2": "Puis je suis revenu dans le Sud. Parce qu'ici, le potentiel est immense et les histoires méritent d'être racontées avec la même exigence qu'à Paris. C'est pour ça que j'ai cofondé Studio Bastide : un lieu où chaque projet, du clip au film d'entreprise, bénéficie d'un accompagnement complet, du premier échange à la livraison.",
     "aside": "Studio Bastide propose également un <strong>studio d'enregistrement</strong> pour vos projets audio. <strong>Son et image au même endroit</strong>, une offre unique dans la région."
   },
   "showcase": [
@@ -315,7 +315,7 @@
     }
   ],
   "contact": {
-    "subtitle": "Un devis, une question, une idée à creuser. On répond sous 48 h, sans engagement.",
+    "subtitle": "Un devis, une question, une idée à creuser. Nous répondons sous 48 h, sans engagement.",
     "address": "10 place de l'Église, Saint-Sulpice-la-Pointe (81370)",
     "email": "studiobastide.contact@gmail.com",
     "phone": "09 55 51 97 46",
