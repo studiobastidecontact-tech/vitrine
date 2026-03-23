@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Admin — Prestations — Studio Bastide</title>
 <meta name="robots" content="noindex,nofollow">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#0a0a0a;--s1:#111;--s2:#181818;--bd:#222;--orange:#E8390C;--od:#c52e08;--tx:#fff;--tx2:#aaa;--tx3:#666;--green:#22c55e;--red:#ef4444}
@@ -113,22 +114,21 @@ a{color:var(--orange);text-decoration:none}
 <div class="login-overlay" id="loginOverlay">
   <div class="login-box" id="loginStep1">
     <h2>Studio Bastide — Admin</h2>
-    <p>Accès restreint. Entrez le mot de passe administrateur.</p>
-    <input type="password" id="pwdInput" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')checkPwd()">
-    <button class="btn btn-save" style="width:100%" onclick="checkPwd()">Connexion</button>
-    <p id="pwdError" style="margin-top:8px;font-size:.78rem;color:var(--red);display:none">Mot de passe incorrect.</p>
+    <p>Connectez-vous avec votre compte Google autorisé.</p>
+    <div id="googleBtn" style="display:flex;justify-content:center;margin:20px 0"></div>
+    <p id="authError" style="margin-top:8px;font-size:.78rem;color:var(--red);display:none">Ce compte Google n'est pas autorisé.</p>
   </div>
   <div class="login-box" id="loginStep2" style="display:none">
     <h2>Token GitHub</h2>
     <p>Créez un token GitHub avec les permissions nécessaires :</p>
     <ol style="text-align:left;color:var(--tx2);font-size:.78rem;margin:0 0 16px 20px;line-height:1.8">
-      <li>GitHub.com → clic sur ta photo → <strong>Settings</strong></li>
+      <li>GitHub.com → cliquez sur votre photo → <strong>Settings</strong></li>
       <li>Tout en bas : <strong>Developer settings</strong></li>
       <li><strong>Personal access tokens</strong> → <strong>Tokens (classic)</strong></li>
       <li><strong>Generate new token (classic)</strong></li>
       <li>Note : "admin studio" — Expiration : 90 days</li>
-      <li>Coche <strong>repo</strong> (tout le bloc)</li>
-      <li><strong>Generate token</strong> → copie le token</li>
+      <li>Cochez <strong>repo</strong> (tout le bloc)</li>
+      <li><strong>Generate token</strong> → copiez le token</li>
     </ol>
     <input type="password" id="tokenInput" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" onkeydown="if(event.key==='Enter')doLogin()">
     <button class="btn btn-save" style="width:100%" onclick="doLogin()">Valider</button>
@@ -266,22 +266,16 @@ let TOKEN='';
 let DATA=null;
 let SHA='';
 
-/* ═══ SECURITY — SHA-256 password hash ═══ */
-/* Le mot de passe n'est JAMAIS stocké dans le code.
-   Seul le hash SHA-256 est présent — impossible à inverser.
-   Pour changer le mdp : hasher le nouveau sur sha256online.com et remplacer PWD_HASH */
-const PWD_HASH='9a153ef6b23c9e70227a5b60376618abd65a3cb2d90af00c756a5d55919211d5';
+/* ═══ SECURITY — Google Sign-In ═══ */
+/* Seuls les comptes Google listés dans ALLOWED_EMAILS peuvent accéder à l'admin */
+const GOOGLE_CLIENT_ID='248828696709-mq04vgrer8q15cc7uuphk9mr38umkkjo.apps.googleusercontent.com';
+const ALLOWED_EMAILS=['studiobastide.contact@gmail.com'];
 
-async function sha256(str){
-  var buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(str));
-  return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0')}).join('');
-}
-
-async function checkPwd(){
-  var pwd=document.getElementById('pwdInput').value;
-  var hash=await sha256(pwd);
-  if(hash===PWD_HASH){
-    sessionStorage.setItem('sb_auth','1');
+function onGoogleSignIn(response){
+  var payload=JSON.parse(atob(response.credential.split('.')[1]));
+  var email=payload.email;
+  if(ALLOWED_EMAILS.includes(email)){
+    sessionStorage.setItem('sb_auth',email);
     document.getElementById('loginStep1').style.display='none';
     var savedToken=localStorage.getItem('sb_token');
     if(savedToken){
@@ -293,24 +287,19 @@ async function checkPwd(){
       document.getElementById('loginStep2').style.display='block';
     }
   }else{
-    document.getElementById('pwdError').style.display='block';
-    document.getElementById('pwdInput').value='';
-    document.getElementById('pwdInput').focus();
+    document.getElementById('authError').style.display='block';
+    document.getElementById('authError').textContent='Le compte '+email+' n\'est pas autorisé.';
   }
 }
 
-function doLogin(){
-  TOKEN=document.getElementById('tokenInput').value.trim();
-  if(!TOKEN)return;
-  localStorage.setItem('sb_token',TOKEN);
-  document.getElementById('loginOverlay').style.display='none';
-  document.querySelector('.app').style.display='flex';
-  loadData();
-}
-
-/* Auto-login si session active */
-(function(){
-  if(sessionStorage.getItem('sb_auth')==='1'){
+/* Init Google Sign-In when library loads */
+window.onload=function(){
+  if(typeof google!=='undefined'&&google.accounts){
+    google.accounts.id.initialize({client_id:GOOGLE_CLIENT_ID,callback:onGoogleSignIn});
+    google.accounts.id.renderButton(document.getElementById('googleBtn'),{theme:'filled_black',size:'large',text:'signin_with',locale:'fr'});
+  }
+  /* Auto-login if session active */
+  if(sessionStorage.getItem('sb_auth')){
     var t=localStorage.getItem('sb_token');
     if(t){
       TOKEN=t;
@@ -322,12 +311,22 @@ function doLogin(){
       document.getElementById('loginStep2').style.display='block';
     }
   }
-})();
+};
+
+function doLogin(){
+  TOKEN=document.getElementById('tokenInput').value.trim();
+  if(!TOKEN)return;
+  localStorage.setItem('sb_token',TOKEN);
+  document.getElementById('loginOverlay').style.display='none';
+  document.querySelector('.app').style.display='flex';
+  loadData();
+}
 
 /* ═══ NAV ═══ */
 function doLogout(){
   sessionStorage.removeItem('sb_auth');
   localStorage.removeItem('sb_token');
+  if(typeof google!=='undefined'&&google.accounts)google.accounts.id.disableAutoSelect();
   location.reload();
 }
 function changeToken(){
