@@ -281,6 +281,23 @@ h2.s-title{margin:0 0 20px}
 .f-check label{display:flex;align-items:center;gap:8px;font-size:.78rem;color:var(--tx2);cursor:pointer;text-transform:none;letter-spacing:0}
 .f-check input[type="checkbox"]{width:16px;height:16px;accent-color:var(--orange);cursor:pointer;flex-shrink:0}
 
+/* ── NEWSLETTER ── */
+.newsletter{border-bottom:1px solid var(--border);background:var(--surface)}
+.nl-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.nl-desc{color:var(--tx2);font-size:.88rem;line-height:1.7;max-width:380px}
+.nl-form{display:flex;flex-direction:column;gap:12px}
+.nl-row{display:flex;gap:0}
+.nl-row input{flex:1;background:var(--bg);border:1px solid var(--border);border-right:none;color:var(--tx);padding:15px 18px;font-family:var(--body);font-size:.85rem;outline:none;transition:border-color .3s}
+.nl-row input:focus{border-color:var(--orange)}
+.nl-row input::placeholder{color:var(--tx3)}
+.nl-row button{background:var(--orange);color:#fff;padding:15px 28px;font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border:1px solid var(--orange);font-family:var(--body);cursor:pointer;transition:background .3s;white-space:nowrap}
+.nl-row button:hover{background:var(--orange-d)}
+.nl-row button:disabled{opacity:.5;cursor:not-allowed}
+.nl-legal{font-size:.68rem;color:var(--tx3);line-height:1.5}
+.nl-msg{font-size:.82rem;padding:10px 0}
+.nl-msg.ok{color:#22c55e}
+.nl-msg.err{color:#ef4444}
+
 /* ── FOOTER ── */
 footer a:hover{opacity:.7}
 
@@ -332,6 +349,8 @@ footer a:hover{opacity:.7}
   .contact-sub{max-width:100%}
   .zone-layout{grid-template-columns:1fr;gap:28px}
   .zone-num{align-self:flex-start;min-width:auto;padding:28px 24px}
+  .nl-inner{grid-template-columns:1fr;gap:24px}
+  .nl-desc{max-width:100%}
   footer .si>div:first-child{grid-template-columns:1fr!important;gap:32px!important}
   .reels-prev{left:0}.reels-next{right:0}
 }
@@ -643,6 +662,26 @@ footer a:hover{opacity:.7}
   </div>
 </section>
 
+<!-- ═══ NEWSLETTER ═══ -->
+<section class="newsletter" id="newsletter">
+  <div class="si">
+    <div class="nl-inner">
+      <div class="nl-text">
+        <div class="s-label">Newsletter</div>
+        <h2 class="s-title">Restez informés.</h2>
+        <p class="nl-desc">Coulisses de nos tournages, nouveaux projets, offres exclusives. Pas de spam, une à deux fois par mois maximum.</p>
+      </div>
+      <form class="nl-form" id="nlForm" action="https://f25b306e.sibforms.com/serve/MUIFACvaH-8OTfq2Vce9J6eV7SyIKXuBK_105T2-Oz0wl01UKwi6yqLpaO1vPN8YygmbH5MHzzmaajRHsoHZnhG5uSjzcEBUhDTSW4SBkC18EdrBk0_W_GwvlJ6tSC589uPWGMKUyDtZ_2icSS-xAbPgCtvdyQtu9iUWb-vuJFH1bCcof5RM9r2VJHL_mKePP42_PgsoWGM7OfBBkg==" method="POST">
+        <div class="nl-row">
+          <input type="email" name="EMAIL" id="nlEmail" placeholder="Votre adresse email" required>
+          <button type="submit" id="nlBtn">S'inscrire</button>
+        </div>
+        <p class="nl-legal">En vous inscrivant, vous acceptez de recevoir nos communications. Désabonnement possible à tout moment. <a href="../mentions-legales/" style="color:var(--orange)">Mentions légales</a></p>
+      </form>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ FOOTER (aligned with main site) ═══ -->
 <footer style="background-color:#f5400a" class="relative">
   <div class="si" style="max-width:var(--max);margin:0 auto;padding:48px 60px 0">
@@ -883,6 +922,7 @@ lbPrev.onclick=function(){lbIdx=(lbIdx-1+lbItems.length)%lbItems.length;lbShow()
 lbNext.onclick=function(){lbIdx=(lbIdx+1)%lbItems.length;lbShow()};
 lb.onclick=function(e){if(e.target===lb)lbClose()};
 document.addEventListener('keydown',function(e){if(!lb.classList.contains('on'))return;if(e.key==='Escape')lbClose();if(e.key==='ArrowLeft')lbPrev.click();if(e.key==='ArrowRight')lbNext.click()});
+
 </script>
 </body>
 </html>
