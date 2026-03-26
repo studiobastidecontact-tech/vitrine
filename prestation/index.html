@@ -671,13 +671,14 @@ footer a:hover{opacity:.7}
         <h2 class="s-title">Restez informés.</h2>
         <p class="nl-desc">Coulisses de nos tournages, nouveaux projets, offres exclusives. Pas de spam, une à deux fois par mois maximum.</p>
       </div>
-      <form class="nl-form" id="nlForm" action="https://f25b306e.sibforms.com/serve/MUIFACvaH-8OTfq2Vce9J6eV7SyIKXuBK_105T2-Oz0wl01UKwi6yqLpaO1vPN8YygmbH5MHzzmaajRHsoHZnhG5uSjzcEBUhDTSW4SBkC18EdrBk0_W_GwvlJ6tSC589uPWGMKUyDtZ_2icSS-xAbPgCtvdyQtu9iUWb-vuJFH1bCcof5RM9r2VJHL_mKePP42_PgsoWGM7OfBBkg==" method="POST">
+      <form class="nl-form" id="nlForm" action="https://f25b306e.sibforms.com/serve/MUIFACvaH-8OTfq2Vce9J6eV7SyIKXuBK_105T2-Oz0wl01UKwi6yqLpaO1vPN8YygmbH5MHzzmaajRHsoHZnhG5uSjzcEBUhDTSW4SBkC18EdrBk0_W_GwvlJ6tSC589uPWGMKUyDtZ_2icSS-xAbPgCtvdyQtu9iUWb-vuJFH1bCcof5RM9r2VJHL_mKePP42_PgsoWGM7OfBBkg==" method="POST" target="nlFrame">
         <div class="nl-row">
           <input type="email" name="EMAIL" id="nlEmail" placeholder="Votre adresse email" required>
           <button type="submit" id="nlBtn">S'inscrire</button>
         </div>
         <p class="nl-legal">En vous inscrivant, vous acceptez de recevoir nos communications. Désabonnement possible à tout moment. <a href="../mentions-legales/" style="color:var(--orange)">Mentions légales</a></p>
       </form>
+      <iframe name="nlFrame" style="display:none"></iframe>
     </div>
   </div>
 </section>
@@ -922,6 +923,21 @@ lbPrev.onclick=function(){lbIdx=(lbIdx-1+lbItems.length)%lbItems.length;lbShow()
 lbNext.onclick=function(){lbIdx=(lbIdx+1)%lbItems.length;lbShow()};
 lb.onclick=function(e){if(e.target===lb)lbClose()};
 document.addEventListener('keydown',function(e){if(!lb.classList.contains('on'))return;if(e.key==='Escape')lbClose();if(e.key==='ArrowLeft')lbPrev.click();if(e.key==='ArrowRight')lbNext.click()});
+
+/* ═══ NEWSLETTER ═══ */
+var nlForm=document.getElementById('nlForm');
+var nlBtn=document.getElementById('nlBtn');
+nlForm.addEventListener('submit',function(){
+  nlBtn.disabled=true;nlBtn.textContent='Inscription…';
+  var prev=nlForm.querySelector('.nl-msg');if(prev)prev.remove();
+  setTimeout(function(){
+    nlBtn.textContent='✓ Inscrit !';
+    nlForm.reset();
+    var m=document.createElement('p');m.className='nl-msg ok';m.textContent='Merci ! Vous recevrez nos prochaines actualités.';
+    nlForm.appendChild(m);
+    setTimeout(function(){nlBtn.textContent="S'inscrire";nlBtn.disabled=false;if(m.parentNode)m.remove()},4000);
+  },1500);
+});
 
 </script>
 </body>
