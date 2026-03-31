@@ -25,7 +25,7 @@
       "title": "Shooting Photo",
       "price": "250 €",
       "pricePrefix": "à partir de",
-      "desc": "Portraits, mode, événements, produits. En studio ou sur place, en extérieur ou en décor naturel. Retouches incluses, livrées en haute résolution.",
+      "desc": "Portraits, mode, événements, produits. En studio ou chez vous, en extérieur ou en décor naturel. Retouches incluses, livrées en haute résolution.",
       "feats": [
         "Portrait",
         "Mode",
@@ -33,9 +33,12 @@
         "Produit"
       ],
       "images": [
-        "../assets/img/Shooting toit.jpg",
-        "../assets/img/Shooting metro 1.jpg",
-        "../assets/img/Shooting metro 2.jpg"
+        "../assets/img/TOIT%20PARIS.jpg",
+        "../assets/img/Shooting%20metro%201.jpg",
+        "../assets/img/ALTO%20SUISSE.JPG",
+        "../assets/img/MAX%20ALTO.JPG",
+        "../assets/img/Shooting%20toit.jpg",
+        "../assets/img/Shooting%20metro%202.jpg"
       ],
       "layout": "normal"
     },
@@ -51,6 +54,7 @@
         "Multi-formats"
       ],
       "videoSrc": "../assets/videos/video5.mp4",
+      "videoTime": 2,
       "layout": "flip"
     },
     {
@@ -59,11 +63,7 @@
       "price": "150 €",
       "pricePrefix": "à partir de",
       "desc": "Contenu percutant, pensé pour les réseaux. Montage rapide, sous-titres, format vertical. Prêt à poster.",
-      "feats": [
-        "Format vertical",
-        "Montage dynamique",
-        "Sous-titres"
-      ],
+      "feats": [],
       "videos": [
         6,
         7,
@@ -72,7 +72,23 @@
         10,
         11
       ],
-      "layout": "normal"
+      "timestamps": [
+        1,
+        23,
+        20,
+        17,
+        14,
+        31
+      ],
+      "layout": "normal",
+      "videoPaths": [
+        "../assets/videos/video6.mp4",
+        "../assets/videos/video7.mp4",
+        "../assets/videos/video8.mp4",
+        "../assets/videos/video9.mp4",
+        "../assets/videos/video10.mp4",
+        "../assets/videos/video11.mp4"
+      ]
     }
   ],
   "tarifs": [
