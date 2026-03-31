@@ -197,7 +197,7 @@ a{color:var(--orange);text-decoration:none}
     <div class="panel" id="p-showcase">
       <div class="card">
         <h3>Réalisations — Showcase</h3>
-        <p style="color:var(--tx3);font-size:.78rem;margin-bottom:14px">Chaque bloc apparaît entre le pitch et les tarifs. Les types disponibles sont : photos, video, reels.</p>
+        <p style="color:var(--tx3);font-size:.78rem;margin-bottom:14px">Gérez tout le contenu vidéo et photo. Types : <strong>photos</strong> (grille d'images), <strong>video</strong> (vidéo promo avec poster), <strong>reels</strong> (carrousel de vidéos verticales). Pour ajouter des fichiers, uploadez-les sur GitHub dans <code>assets/img/</code> ou <code>assets/videos/</code> puis renseignez les chemins ici.</p>
         <div class="item-list" id="showcaseList"></div>
         <button class="btn btn-sec btn-sm" style="margin-top:10px" onclick="addShowcase()">+ Ajouter un showcase</button>
       </div>
@@ -505,9 +505,18 @@ function renderShowcases(){
   var el=document.getElementById('showcaseList');el.innerHTML='';
   (DATA.showcase||[]).forEach(function(s,i){
     var extra='';
-    if(s.type==='photos')extra='<div class="field"><label>Images (1 par ligne)</label><textarea class="sh-images" rows="3">'+(s.images||[]).join('\n')+'</textarea></div>';
-    if(s.type==='video')extra='<div class="field"><label>Source vidéo</label><input class="sh-videosrc" value="'+(s.videoSrc||'')+'"></div>';
-    if(s.type==='reels')extra='<div class="field"><label>Numéros de vidéos (séparés par virgule)</label><input class="sh-reelvids" value="'+(s.videos||[]).join(',')+'"></div>';
+    if(s.type==='photos')extra='<div class="field"><label>Images (1 chemin par ligne)</label><textarea class="sh-images" rows="4" placeholder="../assets/img/photo.jpg">'+(s.images||[]).join('\n')+'</textarea></div>';
+    if(s.type==='video')extra='<div class="field-row"><div class="field"><label>Source vidéo</label><input class="sh-videosrc" value="'+(s.videoSrc||'')+'" placeholder="../assets/videos/video5.mp4"></div><div class="field"><label>Poster (seconde)</label><input class="sh-videotime" type="number" value="'+(s.videoTime||2)+'"></div></div>';
+    if(s.type==='reels'){
+      var vids=s.videoPaths||[];
+      if(!vids.length&&s.videos){vids=s.videos.map(function(n){return '../assets/videos/video'+n+'.mp4'})}
+      var times=s.timestamps||[];
+      extra='<div class="field"><label>Reels (1 par ligne : chemin vidéo | seconde du poster)</label>'
+        +'<textarea class="sh-reelpaths" rows="6" placeholder="../assets/videos/video6.mp4 | 1\n../assets/videos/video7.mp4 | 23">'
+        +vids.map(function(v,j){return v+' | '+(times[j]||1)}).join('\n')
+        +'</textarea></div>'
+        +'<p style="font-size:.7rem;color:var(--tx3);margin-top:4px">Format : chemin_video | seconde_poster (une ligne par reel). Pour ajouter un reel, ajoutez une ligne. Pour en supprimer, supprimez la ligne.</p>';
+    }
     el.innerHTML+='<div class="item-card" data-idx="'+i+'">'
       +'<div class="item-head"><span class="item-title">'+(i+1)+'. '+s.title+' ('+s.type+')</span>'
       +'<div class="item-actions"><button onclick="moveItem(\'showcase\','+i+',-1)">↑</button><button onclick="moveItem(\'showcase\','+i+',1)">↓</button><button class="del" onclick="delItem(\'showcase\','+i+')">×</button></div></div>'
@@ -531,12 +540,23 @@ function collectShowcases(){
   document.querySelectorAll('#showcaseList .item-card').forEach(function(card){
     var o={type:card.querySelector('.sh-type').value,title:card.querySelector('.sh-title').value,price:card.querySelector('.sh-price').value,pricePrefix:card.querySelector('.sh-prefix').value,desc:card.querySelector('.sh-desc').value,feats:card.querySelector('.sh-feats').value.split(',').map(function(s){return s.trim()}).filter(Boolean),layout:card.querySelector('.sh-layout').value};
     if(o.type==='photos'){var ta=card.querySelector('.sh-images');o.images=ta?ta.value.split('\n').map(function(s){return s.trim()}).filter(Boolean):[]}
-    if(o.type==='video'){var inp=card.querySelector('.sh-videosrc');o.videoSrc=inp?inp.value:''}
-    if(o.type==='reels'){var inp=card.querySelector('.sh-reelvids');o.videos=inp?inp.value.split(',').map(function(s){return parseInt(s.trim())}).filter(function(n){return !isNaN(n)}):[]}
+    if(o.type==='video'){var inp=card.querySelector('.sh-videosrc');o.videoSrc=inp?inp.value:'';var tinp=card.querySelector('.sh-videotime');o.videoTime=tinp?parseInt(tinp.value)||2:2}
+    if(o.type==='reels'){
+      var ta=card.querySelector('.sh-reelpaths');
+      o.videoPaths=[];o.timestamps=[];o.videos=[];
+      if(ta){ta.value.split('\n').forEach(function(line){
+        var parts=line.split('|');if(parts.length>=2){
+          var path=parts[0].trim();var time=parseInt(parts[1].trim())||1;
+          if(path){o.videoPaths.push(path);o.timestamps.push(time);
+            var m=path.match(/video(\d+)\.mp4/);if(m)o.videos.push(parseInt(m[1]));
+          }
+        }
+      })}
+    }
     DATA.showcase.push(o);
   });
 }
-function addShowcase(){DATA.showcase.push({type:'photos',title:'Nouveau',price:'Sur devis',pricePrefix:'à partir de',desc:'',feats:[],images:[],layout:'normal'});renderShowcases()}
+function addShowcase(){DATA.showcase.push({type:'photos',title:'Nouveau',price:'Sur devis',pricePrefix:'à partir de',desc:'',feats:[],images:[],videoPaths:[],timestamps:[],layout:'normal'});renderShowcases()}
 
 /* ═══ TARIFS ═══ */
 function renderTarifs(){
