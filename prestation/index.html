@@ -392,21 +392,9 @@ footer a:hover{opacity:.7}
   .lb-nav{display:none}
 }
 </style>
-  <!-- Google Analytics -->
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-
-<script>
-
-  window.dataLayer = window.dataLayer || [];
-
-  function gtag(){dataLayer.push(arguments);}
-
-  gtag('js', new Date());
-
-  gtag('config', 'G-BF5LNB4ZQ1');
-
-</script>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BF5LNB4ZQ1"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-BF5LNB4ZQ1");</script>
 </head>
 <body>
 
@@ -485,73 +473,8 @@ footer a:hover{opacity:.7}
   </div>
 </section>
 
-<!-- ═══ SHOWCASE : SHOOTING PHOTO ═══ -->
-<section class="showcase" id="realisations">
-  <div class="si">
-    <div class="s-label rv">En images</div>
-    <h2 class="s-title rv rv-d1">Nos réalisations.</h2>
-    <div class="show-layout rv rv-d2">
-      <div class="show-media">
-        <div class="show-grid" id="showPhotoGrid">
-          <img src="../assets/img/TOIT%20PARIS.jpg" alt="Portrait toits de Paris" loading="lazy">
-          <img src="../assets/img/Shooting%20metro%201.jpg" alt="Shooting métro" loading="lazy">
-          <img src="../assets/img/ALTO%20SUISSE.JPG" alt="Horlogerie Alto Watch" loading="lazy">
-          <img src="../assets/img/MAX%20ALTO.JPG" alt="Plateau de tournage" loading="lazy">
-          <img src="../assets/img/Shooting%20toit.jpg" alt="Portrait toits coucher de soleil" loading="lazy">
-          <img src="../assets/img/Shooting%20metro%202.jpg" alt="Shooting duo métro" loading="lazy">
-        </div>
-      </div>
-      <div class="show-text">
-        <h3>Shooting Photo</h3>
-        <div class="show-price"><small>à partir de</small> 250 €</div>
-        <p class="show-desc">Portraits, mode, événements, produits. En studio ou chez vous, en extérieur ou en décor naturel. Retouches incluses, livrées en haute résolution.</p>
-        <div class="show-feats"><span>Portrait</span><span>Mode</span><span>Événement</span><span>Produit</span></div>
-        <a href="#contact" class="show-cta">Demander un devis</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ SHOWCASE : VIDÉO PROMO ═══ -->
-<section class="showcase">
-  <div class="si">
-    <div class="show-layout flip rv">
-      <div class="show-media">
-        <div class="show-vid" id="promoVid" data-src="../assets/videos/video5.mp4">
-          <video muted playsinline preload="metadata" src="../assets/videos/video5.mp4#t=2" class="promo-poster-vid"></video>
-          <div class="play-overlay"><svg><use href="#playIcon"/></svg></div>
-        </div>
-      </div>
-      <div class="show-text">
-        <h3>Vidéo Promo</h3>
-        <div class="show-price"><small>à partir de</small> 750 €</div>
-        <p class="show-desc">Spots publicitaires, films d'entreprise, vidéos de présentation. Du scénario au montage, nous gérons tout. Vous récupérez un fichier prêt à diffuser.</p>
-        <div class="show-feats"><span>Scénario sur mesure</span><span>Voix off</span><span>Multi-formats</span></div>
-        <a href="#contact" class="show-cta">Demander un devis</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ REELS CAROUSEL ═══ -->
-<section class="reels-section" id="reelsSection">
-  <div class="si">
-    <div class="reels-info rv">
-      <div class="show-text">
-        <div class="s-label">Format court</div>
-        <h3>Reels & TikTok</h3>
-        <div class="show-price"><small>à partir de</small> 150 €</div>
-        <p class="show-desc" style="margin-bottom:0">Contenu percutant, pensé pour les réseaux. Montage rapide, sous-titres, format vertical. Prêt à poster.</p>
-      </div>
-      <a href="#contact" class="show-cta">Demander un devis</a>
-    </div>
-    <div class="reels-wrap rv rv-d1">
-      <button class="reels-nav reels-prev" id="reelsPrev" aria-label="Précédent"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></svg></button>
-      <div class="reels-track"><div class="reels-scroll" id="reelsScroll"></div></div>
-      <button class="reels-nav reels-next" id="reelsNext" aria-label="Suivant"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></svg></button>
-    </div>
-  </div>
-</section>
+<!-- ═══ SHOWCASE (dynamic from data.json) ═══ -->
+<div id="showcaseContainer"></div>
 
 <!-- ═══ TARIFS ═══ -->
 <section class="tarifs" id="tarifs">
@@ -793,20 +716,71 @@ var D={
     {n:"MJC Saint-Sulpice",img:"../assets/logos/mjc_st_sulpice.png"},{n:"Origine",img:"../assets/logos/origine.jpg"},
     {n:"Resistium",img:"../assets/logos/resistium.png"},{n:"Saint-Sulpice",img:"../assets/logos/st-sulpice.png"}
   ],
-  contact:{subtitle:"Un devis, une question, une idée à creuser. Nous répondons sous 48 h, sans engagement.",address:"10 place de l'Église, Saint-Sulpice-la-Pointe (81370)",email:"studiobastide.contact@gmail.com",phone:"09 55 51 97 46",notice:"<strong>Réponse sous 48 h ouvrées.</strong><br>Devis détaillé dans les 48 h suivant notre échange."}
+  contact:{subtitle:"Un devis, une question, une idée à creuser. Nous répondons sous 48 h, sans engagement.",address:"10 place de l'Église, Saint-Sulpice-la-Pointe (81370)",email:"studiobastide.contact@gmail.com",phone:"09 55 51 97 46",notice:"<strong>Réponse sous 48 h ouvrées.</strong><br>Devis détaillé dans les 48 h suivant notre échange."},
+  showcase:[
+    {type:"photos",title:"Shooting Photo",price:"250 €",pricePrefix:"à partir de",desc:"Portraits, mode, événements, produits. En studio ou chez vous, en extérieur ou en décor naturel. Retouches incluses, livrées en haute résolution.",feats:["Portrait","Mode","Événement","Produit"],images:["../assets/img/TOIT%20PARIS.jpg","../assets/img/Shooting%20metro%201.jpg","../assets/img/ALTO%20SUISSE.JPG","../assets/img/MAX%20ALTO.JPG","../assets/img/Shooting%20toit.jpg","../assets/img/Shooting%20metro%202.jpg"],layout:"normal"},
+    {type:"video",title:"Vidéo Promo",price:"750 €",pricePrefix:"à partir de",desc:"Spots publicitaires, films d'entreprise, vidéos de présentation. Du scénario au montage, nous gérons tout. Vous récupérez un fichier prêt à diffuser.",feats:["Scénario sur mesure","Voix off","Multi-formats"],videoSrc:"../assets/videos/video5.mp4",videoTime:2,layout:"flip"},
+    {type:"reels",title:"Reels & TikTok",price:"150 €",pricePrefix:"à partir de",desc:"Contenu percutant, pensé pour les réseaux. Montage rapide, sous-titres, format vertical. Prêt à poster.",feats:[],videos:[6,7,8,9,10,11],timestamps:[1,23,20,17,14,31],layout:"normal"}
+  ]
 };
 var reelNums=[6,7,8,9,10,11];
+var reelTimestamps=[1,23,20,17,14,31];
 
 /* ═══ TRY LOADING data.json (override) ═══ */
 (async function(){
 try{
   var r=await fetch('./data.json?v='+Date.now());
-  if(r.ok){var d=await r.json();Object.assign(D,d);if(d.showcase){var rs=d.showcase.find(function(s){return s.type==='reels'});if(rs&&rs.videos)reelNums=rs.videos}}
+  if(r.ok){var d=await r.json();Object.assign(D,d);if(d.showcase){var rs=d.showcase.find(function(s){return s.type==='reels'});if(rs&&rs.videos)reelNums=rs.videos;if(rs&&rs.timestamps)reelTimestamps=rs.timestamps}}
 }catch(e){}
 render();
 })();
 
 function render(){
+/* ═══ SHOWCASE — build from D.showcase ═══ */
+var sc=document.getElementById('showcaseContainer');
+var scHtml='';
+var isFirst=true;
+(D.showcase||[]).forEach(function(s){
+  if(s.type==='photos'){
+    var imgs=(s.images||[]).map(function(src){return '<img src="'+src+'" alt="'+s.title+'" loading="lazy">'}).join('');
+    scHtml+='<section class="showcase"'+(isFirst?' id="realisations"':'')+'><div class="si">';
+    if(isFirst){scHtml+='<div class="s-label rv">En images</div><h2 class="s-title rv rv-d1">Nos réalisations.</h2>';isFirst=false}
+    scHtml+='<div class="show-layout'+(s.layout==='flip'?' flip':'')+' rv rv-d2"><div class="show-media"><div class="show-grid" id="showPhotoGrid">'+imgs+'</div></div>'
+      +'<div class="show-text"><h3>'+s.title+'</h3><div class="show-price"><small>'+(s.pricePrefix||'')+'</small> '+s.price+'</div>'
+      +'<p class="show-desc">'+s.desc+'</p>'
+      +'<div class="show-feats">'+(s.feats||[]).map(function(f){return '<span>'+f+'</span>'}).join('')+'</div>'
+      +'<a href="#contact" class="show-cta">Demander un devis</a></div></div></div></section>';
+  }
+  if(s.type==='video'){
+    var vt=s.videoTime||2;
+    var vsrc=s.videoSrc||'';
+    if(isFirst){scHtml+='<section class="showcase" id="realisations"><div class="si"><div class="s-label rv">En images</div><h2 class="s-title rv rv-d1">Nos réalisations.</h2>';isFirst=false}
+    else{scHtml+='<section class="showcase"><div class="si">'}
+    scHtml+='<div class="show-layout'+(s.layout==='flip'?' flip':'')+' rv">'
+      +'<div class="show-media"><div class="show-vid" data-src="'+vsrc+'">'
+      +'<video muted playsinline preload="metadata" src="'+vsrc+'#t='+vt+'" class="promo-poster-vid"></video>'
+      +'<div class="play-overlay"><svg><use href="#playIcon"/></svg></div></div></div>'
+      +'<div class="show-text"><h3>'+s.title+'</h3><div class="show-price"><small>'+(s.pricePrefix||'')+'</small> '+s.price+'</div>'
+      +'<p class="show-desc">'+s.desc+'</p>'
+      +'<div class="show-feats">'+(s.feats||[]).map(function(f){return '<span>'+f+'</span>'}).join('')+'</div>'
+      +'<a href="#contact" class="show-cta">Demander un devis</a></div></div></div></section>';
+  }
+  if(s.type==='reels'){
+    reelNums=s.videos||reelNums;
+    reelTimestamps=s.timestamps||reelTimestamps;
+    scHtml+='<section class="reels-section" id="reelsSection"><div class="si">'
+      +'<div class="reels-info rv"><div class="show-text"><div class="s-label">Format court</div>'
+      +'<h3>'+s.title+'</h3><div class="show-price"><small>'+(s.pricePrefix||'')+'</small> '+s.price+'</div>'
+      +'<p class="show-desc" style="margin-bottom:0">'+s.desc+'</p></div>'
+      +'<a href="#contact" class="show-cta">Demander un devis</a></div>'
+      +'<div class="reels-wrap rv rv-d1">'
+      +'<button class="reels-nav reels-prev" id="reelsPrev" aria-label="Précédent"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></svg></button>'
+      +'<div class="reels-track"><div class="reels-scroll" id="reelsScroll"></div></div>'
+      +'<button class="reels-nav reels-next" id="reelsNext" aria-label="Suivant"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></svg></button>'
+      +'</div></div></section>';
+  }
+});
+sc.innerHTML=scHtml;
 /* ═══ TARIFS — 4 featured + rest expandable ═══ */
 var featured=D.tarifs.filter(function(t){return t.hot});
 var rest=D.tarifs.filter(function(t){return !t.hot});
@@ -835,11 +809,21 @@ if(D.contact){
 
 /* ═══ REELS — poster frames at specific timestamps ═══ */
 var rs=document.getElementById('reelsScroll');
-var reelTimes={6:1,7:23,8:20,9:17,10:14,11:31};
-/* Triple the items for infinite loop effect */
-var reelHtml=reelNums.map(function(n){
-  var t=reelTimes[n]||1;
-  return '<div class="reel-item" data-src="../assets/videos/video'+n+'.mp4"><video muted playsinline preload="metadata" src="../assets/videos/video'+n+'.mp4#t='+t+'"></video><div class="play-overlay"><svg><use href="#playIcon"/></svg></div></div>';
+if(rs){
+var reelPaths=[];
+var reelTs=[];
+/* Support both formats: videoPaths or legacy numbered videos */
+var reelData=(D.showcase||[]).find(function(s){return s.type==='reels'});
+if(reelData&&reelData.videoPaths&&reelData.videoPaths.length){
+  reelPaths=reelData.videoPaths;
+  reelTs=reelData.timestamps||[];
+}else{
+  reelPaths=reelNums.map(function(n){return '../assets/videos/video'+n+'.mp4'});
+  reelTs=reelTimestamps;
+}
+var reelHtml=reelPaths.map(function(src,i){
+  var t=reelTs[i]||1;
+  return '<div class="reel-item" data-src="'+src+'"><video muted playsinline preload="metadata" src="'+src+'#t='+t+'"></video><div class="play-overlay"><svg><use href="#playIcon"/></svg></div></div>';
 }).join('');
 rs.innerHTML=reelHtml+reelHtml+reelHtml;
 
@@ -868,14 +852,18 @@ reelsTrackEl.addEventListener('scroll',function(){
     reelScrolling=false;
   }
 });
+} /* end if(rs) */
 
 /* ═══ REVEAL ═══ */
 var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target)}})},{threshold:.12});
 document.querySelectorAll('.rv').forEach(function(el){obs.observe(el)});
 
 /* ═══ REELS NAV ═══ */
-document.getElementById('reelsPrev').onclick=function(){reelsTrackEl.scrollBy({left:-200,behavior:'smooth'})};
-document.getElementById('reelsNext').onclick=function(){reelsTrackEl.scrollBy({left:200,behavior:'smooth'})};
+var reelsTrackGlobal=document.querySelector('.reels-track');
+if(reelsTrackGlobal){
+  document.getElementById('reelsPrev').onclick=function(){reelsTrackGlobal.scrollBy({left:-200,behavior:'smooth'})};
+  document.getElementById('reelsNext').onclick=function(){reelsTrackGlobal.scrollBy({left:200,behavior:'smooth'})};
+}
 
 /* ═══ PHOTO LIGHTBOX ═══ */
 document.querySelectorAll('#showPhotoGrid img').forEach(function(img,i,all){
