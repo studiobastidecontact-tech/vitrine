@@ -572,17 +572,20 @@ function renderTarifs(){
       +'</div>'
       +'<div class="field"><label>Description</label><textarea class="tf-desc" rows="2">'+t.desc+'</textarea></div>'
       +'<div class="field"><label>Features (séparées par virgule)</label><input class="tf-feat" value="'+(t.feat||[]).join(', ')+'"></div>'
-      +'<label class="toggle"><input type="checkbox" class="tf-hot"'+(t.hot?' checked':'')+'><span class="sw"></span>Le plus demandé</label>'
+      +'<div class="field-row">'
+      +'<label class="toggle"><input type="checkbox" class="tf-hot"'+(t.hot?' checked':'')+'><span class="sw"></span>Mis en avant</label>'
+      +'<div class="field" style="flex:1"><label>Tag (ex: Le plus demandé, Best-seller, Populaire...)</label><input class="tf-tag" value="'+(t.tag||'')+'"></div>'
+      +'</div>'
       +'</div>';
   });
 }
 function collectTarifs(){
   DATA.tarifs=[];
   document.querySelectorAll('#tarifsList .item-card').forEach(function(card){
-    DATA.tarifs.push({name:card.querySelector('.tf-name').value,price:card.querySelector('.tf-price').value,sub:card.querySelector('.tf-sub').value,desc:card.querySelector('.tf-desc').value,feat:card.querySelector('.tf-feat').value.split(',').map(function(s){return s.trim()}).filter(Boolean),hot:card.querySelector('.tf-hot').checked});
+    DATA.tarifs.push({name:card.querySelector('.tf-name').value,price:card.querySelector('.tf-price').value,sub:card.querySelector('.tf-sub').value,desc:card.querySelector('.tf-desc').value,feat:card.querySelector('.tf-feat').value.split(',').map(function(s){return s.trim()}).filter(Boolean),hot:card.querySelector('.tf-hot').checked,tag:card.querySelector('.tf-tag').value});
   });
 }
-function addTarif(){DATA.tarifs.push({name:'Nouveau',price:'Sur devis',sub:'',desc:'',feat:[],hot:false});renderTarifs()}
+function addTarif(){DATA.tarifs.push({name:'Nouveau',price:'Sur devis',sub:'',desc:'',feat:[],hot:false,tag:''});renderTarifs()}
 
 /* ═══ PROCESS ═══ */
 function renderProcess(){
