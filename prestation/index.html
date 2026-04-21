@@ -178,7 +178,7 @@ h2.s-title{margin:0 0 20px}
 .tarifs-note{color:var(--tx2);font-size:.82rem;max-width:480px;line-height:1.7}
 .tarifs-note strong{color:var(--tx);font-weight:700}
 /* Featured tarifs — 2x2 grid larger */
-.t-featured{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+.t-featured{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:24px}
 .t-card{background:var(--surface);border:1px solid var(--border);padding:36px 28px;position:relative;transition:all .4s var(--ease);display:flex;flex-direction:column}
 .t-card:hover{border-color:var(--border-h)}
 .t-card.hot{background:var(--card);border-color:var(--border-h);box-shadow:0 12px 40px rgba(0,0,0,.4)}
@@ -413,10 +413,11 @@ footer a:hover{opacity:.7}
   <button class="close-btn" id="sbClose" aria-label="Fermer le menu">✕</button>
   <nav>
     <a href="#realisations" data-nav>Réalisations</a>
+    <a href="#clients" data-nav>Clients</a>
+    <a href="#pitch" data-nav>Le réalisateur</a>
     <a href="#tarifs" data-nav>Tarifs</a>
     <a href="#process" data-nav>Process</a>
     <a href="#deplacements" data-nav>Zone</a>
-    <a href="#clients" data-nav>Clients</a>
     <a href="#faq" data-nav>FAQ</a>
     <a href="#contact" data-nav>Contact</a>
     <a href="../" data-nav>← Site principal</a>
@@ -429,8 +430,8 @@ footer a:hover{opacity:.7}
   <div class="hero-inner">
     <div class="hero-content rv">
       <div class="hero-tag" id="dHeroTag">Studio Bastide Production</div>
-      <h1 id="dHeroTitle">Nous filmons ce que<br>les mots <em>ne disent pas.</em></h1>
-      <p class="hero-sub" id="dHeroSub">Vidéo, photo, drone, clips musicaux, live sessions et contenu réseaux sociaux. Un studio basé dans le Tarn, présent partout en France.</p>
+      <h1 id="dHeroTitle">Production vidéo & photo<br>dans le <em>Tarn et partout en France.</em></h1>
+      <p class="hero-sub" id="dHeroSub">Clips, films corporate, live sessions, drone, shooting photo et reels. Un studio à 20 min de Toulouse, une exigence parisienne.</p>
       <div class="hero-pills" id="dHeroPills">
         <span>Shooting photo</span><span>Vidéo corporate</span><span>Clips musicaux</span><span>Live sessions</span><span>Drone</span><span>Reels & TikTok</span>
       </div>
@@ -444,6 +445,18 @@ footer a:hover{opacity:.7}
         <source src="../assets/videos/presentation.mp4" type="video/mp4">
       </video>
     </div>
+  </div>
+</section>
+
+<!-- ═══ SHOWCASE (dynamic from data.json) ═══ -->
+<div id="showcaseContainer"></div>
+
+<!-- ═══ CLIENTS ═══ -->
+<section class="clients" id="clients">
+  <div class="si">
+    <div class="s-label rv">Références</div>
+    <h2 class="s-title rv rv-d1">Ils nous font confiance.</h2>
+    <div class="cl-track rv rv-d2"><div class="cl-scroll" id="clScroll"></div></div>
   </div>
 </section>
 
@@ -472,9 +485,6 @@ footer a:hover{opacity:.7}
     </div>
   </div>
 </section>
-
-<!-- ═══ SHOWCASE (dynamic from data.json) ═══ -->
-<div id="showcaseContainer"></div>
 
 <!-- ═══ TARIFS ═══ -->
 <section class="tarifs" id="tarifs">
@@ -524,12 +534,12 @@ footer a:hover{opacity:.7}
   </div>
 </section>
 
-<!-- ═══ CLIENTS ═══ -->
-<section class="clients" id="clients">
+<!-- ═══ FAQ ═══ -->
+<section class="faq" id="faq">
   <div class="si">
-    <div class="s-label rv">Références</div>
-    <h2 class="s-title rv rv-d1">Ils nous font confiance.</h2>
-    <div class="cl-track rv rv-d2"><div class="cl-scroll" id="clScroll"></div></div>
+    <div class="s-label rv">FAQ</div>
+    <h2 class="s-title rv rv-d1">Questions fréquentes.</h2>
+    <div class="faq-list rv rv-d2" id="faqList"></div>
   </div>
 </section>
 
@@ -612,15 +622,6 @@ footer a:hover{opacity:.7}
   </div>
 </section>
 
-<!-- ═══ FAQ ═══ -->
-<section class="faq" id="faq">
-  <div class="si">
-    <div class="s-label rv">FAQ</div>
-    <h2 class="s-title rv rv-d1">Questions fréquentes.</h2>
-    <div class="faq-list rv rv-d2" id="faqList"></div>
-  </div>
-</section>
-
 <!-- ═══ FOOTER (aligned with main site) ═══ -->
 <footer style="background-color:#f5400a" class="relative">
   <div class="si" style="max-width:var(--max);margin:0 auto;padding:48px 60px 0">
@@ -681,24 +682,24 @@ footer a:hover{opacity:.7}
 /* ═══ DATA — hardcoded fallback, overridden by data.json ═══ */
 var D={
   tarifs:[
-    {name:"Live Session",price:"375 €",sub:"à partir de",desc:"Captation multi-cam d'une performance musicale en studio. Montage complet et mixage audio inclus.",feat:["Tournage studio","Montage complet","Mixage audio inclus"],hot:true},
-    {name:"Clip Musical",price:"625 €",sub:"à partir de",desc:"Réalisation complète : concept, tournage, montage, étalonnage.",feat:["Direction artistique","Post-production","Étalonnage couleur"],hot:true},
-    {name:"Shooting Photo",price:"250 €",sub:"à partir de",desc:"Séance photo professionnelle : portrait, produit, événement. Retouches incluses.",feat:["Retouches incluses","Haute résolution","Livraison rapide"],hot:true},
-    {name:"Vidéo Promo",price:"750 €",sub:"à partir de",desc:"Spot publicitaire ou vidéo de présentation pour votre activité.",feat:["Scénario sur mesure","Voix off possible","Multi-formats"],hot:true},
+    {name:"Live Session",price:"375 €",sub:"à partir de",desc:"Captation multi-cam d'une performance musicale en studio. Montage complet et mixage audio inclus.",feat:["Tournage studio","Montage complet","Mixage audio inclus"],hot:true,tag:"Le plus demandé"},
+    {name:"Clip Musical",price:"625 €",sub:"à partir de",desc:"Réalisation complète : concept, tournage, montage, étalonnage.",feat:["Direction artistique","Post-production","Étalonnage couleur"],hot:true,tag:"Best-seller"},
+    {name:"Shooting Photo",price:"250 €",sub:"à partir de",desc:"Séance photo professionnelle : portrait, produit, événement. Retouches incluses.",feat:["Retouches incluses","Haute résolution","Livraison rapide"],hot:true,tag:"Populaire"},
+    {name:"Vidéo Promo",price:"750 €",sub:"à partir de",desc:"Spot publicitaire ou vidéo de présentation pour votre activité.",feat:["Scénario sur mesure","Voix off possible","Multi-formats"],hot:true,tag:"Premium"},
+    {name:"Reel / TikTok",price:"150 €",sub:"à partir de",desc:"Contenu court et percutant pour les réseaux sociaux.",feat:["Format vertical","Montage dynamique","Sous-titres"],hot:true,tag:"Entrée de gamme"},
+    {name:"Drone",price:"295 €",sub:"à partir de",desc:"Prises de vue aériennes 4K.",feat:["Pilote certifié","4K stabilisé","Autorisations gérées"],hot:true,tag:"Différenciant"},
     {name:"Clip Pro",price:"1 200 €",sub:"à partir de",desc:"Version premium avec moyens renforcés, figurants et décors.",feat:["Repérages inclus","Équipe élargie","Effets spéciaux"],hot:false},
-    {name:"Reel / TikTok",price:"150 €",sub:"à partir de",desc:"Contenu court et percutant pour les réseaux sociaux.",feat:["Format vertical","Montage dynamique","Sous-titres"],hot:false},
     {name:"Podcast Vidéo",price:"300 €",sub:"à partir de",desc:"Captation et montage d'un podcast filmé.",feat:["Multi-caméras","Export audio + vidéo"],hot:false},
-    {name:"Drone",price:"295 €",sub:"à partir de",desc:"Prises de vue aériennes 4K.",feat:["Pilote certifié","4K stabilisé","Autorisations gérées"],hot:false},
     {name:"Atelier Vidéo",price:"Sur devis",sub:"",desc:"Formation pratique à la création vidéo.",feat:["Programme sur mesure","Matériel fourni"],hot:false},
     {name:"Motion Design",price:"Sur devis",sub:"",desc:"Animation graphique pour vos vidéos.",feat:["Logo animé","Titrages"],hot:false},
     {name:"Captation Live",price:"Sur devis",sub:"",desc:"Captation événementielle multi-cam.",feat:["Régie en direct","Streaming possible"],hot:false},
     {name:"Sur Mesure",price:"Sur devis",sub:"",desc:"Projet spécifique ? Nous nous adaptons.",feat:["Devis sous 48 h","Sans engagement"],hot:false}
   ],
   process:[
-    {n:"01",t:"Appel",d:"Un échange de 15 minutes pour comprendre votre projet. Devis envoyé sous 48 h."},
-    {n:"02",t:"Prépa",d:"Repérages, brief créatif, planning de tournage. Tout est organisé."},
-    {n:"03",t:"Tournage",d:"Nous tournons avec notre matériel pro. Vous validez les rushs si besoin."},
-    {n:"04",t:"Livraison",d:"Montage, étalonnage, mixage. Rendu final livré, avec une révision incluse."}
+    {n:"01",t:"Appel — 15 min",d:"Un échange de 15 minutes pour comprendre votre projet. Devis détaillé envoyé sous 48 h, sans engagement."},
+    {n:"02",t:"Prépa — 1 à 2 semaines",d:"Repérages, brief créatif, planning de tournage. Tout est organisé avant le jour J."},
+    {n:"03",t:"Tournage — équipe 1 à 3 pers.",d:"Nous tournons avec notre matériel professionnel. Vous validez les rushs si besoin."},
+    {n:"04",t:"Livraison — 7 à 14 jours",d:"Montage, étalonnage, mixage. Rendu final livré avec une révision incluse. 48 h pour les formats courts."}
   ],
   faq:[
     {q:"Quels sont vos horaires ?",a:"Du lundi au vendredi, 9h30 – 18h. Le week-end est possible sur réservation."},
@@ -872,7 +873,7 @@ document.querySelectorAll('#showPhotoGrid img').forEach(function(img,i,all){
 }
 
 /* ═══ CARD HTML ═══ */
-function cardHtml(t){return '<div class="t-card'+(t.hot?' hot':'')+'"><span class="t-tag">Le plus demandé</span><div class="t-name">'+t.name+'</div><div class="t-price">'+(t.sub?'<small>'+t.sub+'</small> ':'')+t.price+'</div><div class="t-desc">'+t.desc+'</div><ul class="t-feat">'+t.feat.map(function(f){return '<li>'+f+'</li>'}).join('')+'</ul><a href="#contact" class="t-cta">Demander un devis</a></div>'}
+function cardHtml(t){return '<div class="t-card'+(t.hot?' hot':'')+'"><span class="t-tag">'+(t.tag||'Le plus demandé')+'</span><div class="t-name">'+t.name+'</div><div class="t-price">'+(t.sub?'<small>'+t.sub+'</small> ':'')+t.price+'</div><div class="t-desc">'+t.desc+'</div><ul class="t-feat">'+t.feat.map(function(f){return '<li>'+f+'</li>'}).join('')+'</ul><a href="#contact" class="t-cta">Demander un devis</a></div>'}
 function miniCardHtml(t){return '<div class="t-mini"><div class="t-name">'+t.name+'</div><div class="t-price">'+(t.sub?'<small>'+t.sub+'</small> ':'')+t.price+'</div><div class="t-desc">'+t.desc+'</div><a href="#contact" class="t-cta">Devis</a></div>'}
 
 /* ═══ TARIFS TOGGLE ═══ */
