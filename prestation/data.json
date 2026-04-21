@@ -1,8 +1,8 @@
 {
   "hero": {
     "tag": "Studio Bastide Production",
-    "title": "Nous filmons ce que<br>les mots <em>ne disent pas.</em>",
-    "subtitle": "Vidéo, photo, drone, clips musicaux, live sessions et contenu réseaux sociaux. Un studio basé dans le Tarn, présent partout en France.",
+    "title": "Production vidéo & photo<br>dans le <em>Tarn et partout en France.</em>",
+    "subtitle": "Clips, films corporate, live sessions, drone, shooting photo et reels. Un studio à 20 min de Toulouse, une exigence parisienne.",
     "pills": [
       "Shooting photo",
       "Vidéo corporate",
@@ -32,7 +32,6 @@
         "Événement",
         "Produit"
       ],
-      "layout": "normal",
       "images": [
         "../assets/img/TOIT%20PARIS.jpg",
         "../assets/img/Shooting%20metro%201.jpg",
@@ -40,7 +39,8 @@
         "../assets/img/MAX%20ALTO.JPG",
         "../assets/img/Shooting%20toit.jpg",
         "../assets/img/Shooting%20metro%202.jpg"
-      ]
+      ],
+      "layout": "normal"
     },
     {
       "type": "video",
@@ -53,9 +53,9 @@
         "Voix off",
         "Multi-formats"
       ],
-      "layout": "flip",
       "videoSrc": "../assets/videos/video5.mp4",
-      "videoTime": 2
+      "videoTime": 2,
+      "layout": "flip"
     },
     {
       "type": "reels",
@@ -64,25 +64,6 @@
       "pricePrefix": "à partir de",
       "desc": "Contenu percutant, pensé pour les réseaux. Montage rapide, sous-titres, format vertical. Prêt à poster.",
       "feats": [],
-      "layout": "normal",
-      "videoPaths": [
-        "../assets/videos/ALPINE_REEL_BASTIDE.mp4",
-        "../assets/videos/video6.mp4",
-        "../assets/videos/video7.mp4",
-        "../assets/videos/video8.mp4",
-        "../assets/videos/video9.mp4",
-        "../assets/videos/video10.mp4",
-        "../assets/videos/video11.mp4"
-      ],
-      "timestamps": [
-        1,
-        1,
-        23,
-        20,
-        17,
-        14,
-        31
-      ],
       "videos": [
         6,
         7,
@@ -90,6 +71,23 @@
         9,
         10,
         11
+      ],
+      "timestamps": [
+        1,
+        23,
+        20,
+        17,
+        14,
+        31
+      ],
+      "layout": "normal",
+      "videoPaths": [
+        "../assets/videos/video6.mp4",
+        "../assets/videos/video7.mp4",
+        "../assets/videos/video8.mp4",
+        "../assets/videos/video9.mp4",
+        "../assets/videos/video10.mp4",
+        "../assets/videos/video11.mp4"
       ]
     }
   ],
@@ -98,13 +96,14 @@
       "name": "Live Session",
       "price": "375 €",
       "sub": "à partir de",
-      "desc": "Performance musicale filmée en multi-cam. Montage complet, mixage audio inclus.",
+      "desc": "Captation multi-cam d'une performance musicale en studio. Montage complet et mixage audio inclus.",
       "feat": [
         "Tournage studio",
         "Montage complet",
         "Mixage audio inclus"
       ],
-      "hot": true
+      "hot": true,
+      "tag": "Le plus demandé"
     },
     {
       "name": "Clip Musical",
@@ -116,7 +115,8 @@
         "Post-production",
         "Étalonnage couleur"
       ],
-      "hot": true
+      "hot": true,
+      "tag": "Best-seller"
     },
     {
       "name": "Shooting Photo",
@@ -128,7 +128,8 @@
         "Haute résolution",
         "Livraison rapide"
       ],
-      "hot": true
+      "hot": true,
+      "tag": "Populaire"
     },
     {
       "name": "Vidéo Promo",
@@ -140,7 +141,34 @@
         "Voix off possible",
         "Multi-formats"
       ],
-      "hot": true
+      "hot": true,
+      "tag": "Premium"
+    },
+    {
+      "name": "Reel / TikTok",
+      "price": "150 €",
+      "sub": "à partir de",
+      "desc": "Contenu court et percutant pour les réseaux sociaux.",
+      "feat": [
+        "Format vertical",
+        "Montage dynamique",
+        "Sous-titres"
+      ],
+      "hot": true,
+      "tag": "Entrée de gamme"
+    },
+    {
+      "name": "Drone",
+      "price": "295 €",
+      "sub": "à partir de",
+      "desc": "Prises de vue aériennes 4K.",
+      "feat": [
+        "Pilote certifié",
+        "4K stabilisé",
+        "Autorisations gérées"
+      ],
+      "hot": true,
+      "tag": "Différenciant"
     },
     {
       "name": "Clip Pro",
@@ -155,22 +183,10 @@
       "hot": false
     },
     {
-      "name": "Reel / TikTok",
-      "price": "150 €",
-      "sub": "à partir de",
-      "desc": "Contenu court et percutant pour les réseaux sociaux.",
-      "feat": [
-        "Format vertical",
-        "Montage dynamique",
-        "Sous-titres"
-      ],
-      "hot": false
-    },
-    {
       "name": "Podcast Vidéo",
       "price": "300 €",
       "sub": "à partir de",
-      "desc": "Captation et montage d'un épisode de podcast filmé.",
+      "desc": "Captation et montage d'un podcast filmé.",
       "feat": [
         "Multi-caméras",
         "Export audio + vidéo"
@@ -178,22 +194,10 @@
       "hot": false
     },
     {
-      "name": "Drone",
-      "price": "295 €",
-      "sub": "à partir de",
-      "desc": "Prises de vue aériennes pour vos projets photo ou vidéo.",
-      "feat": [
-        "Pilote certifié",
-        "4K stabilisé",
-        "Autorisations gérées"
-      ],
-      "hot": false
-    },
-    {
       "name": "Atelier Vidéo",
       "price": "Sur devis",
       "sub": "",
-      "desc": "Formation pratique à la création de contenu vidéo.",
+      "desc": "Formation pratique à la création vidéo.",
       "feat": [
         "Programme sur mesure",
         "Matériel fourni"
@@ -204,7 +208,7 @@
       "name": "Motion Design",
       "price": "Sur devis",
       "sub": "",
-      "desc": "Animation graphique pour habiller vos vidéos et réseaux.",
+      "desc": "Animation graphique pour vos vidéos.",
       "feat": [
         "Logo animé",
         "Titrages"
@@ -215,7 +219,7 @@
       "name": "Captation Live",
       "price": "Sur devis",
       "sub": "",
-      "desc": "Captation événementielle multi-cam : concerts, conférences, spectacles.",
+      "desc": "Captation événementielle multi-cam.",
       "feat": [
         "Régie en direct",
         "Streaming possible"
@@ -226,7 +230,7 @@
       "name": "Sur Mesure",
       "price": "Sur devis",
       "sub": "",
-      "desc": "Projet spécifique ? Nous nous adaptons à vos besoins.",
+      "desc": "Projet spécifique ? Nous nous adaptons.",
       "feat": [
         "Devis sous 48 h",
         "Sans engagement"
@@ -237,23 +241,23 @@
   "process": [
     {
       "n": "01",
-      "t": "Appel",
-      "d": "Un échange de 15 minutes pour comprendre votre projet. Devis envoyé sous 48 h."
+      "t": "Appel — 15 min",
+      "d": "Un échange de 15 minutes pour comprendre votre projet. Devis détaillé envoyé sous 48 h, sans engagement."
     },
     {
       "n": "02",
-      "t": "Prépa",
+      "t": "Prépa — 1 à 2 semaines",
       "d": "Repérages, brief créatif, planning de tournage. Tout est organisé avant le jour J."
     },
     {
       "n": "03",
-      "t": "Tournage",
+      "t": "Tournage — équipe 1 à 3 pers.",
       "d": "Nous tournons avec notre matériel professionnel. Vous validez les rushs si besoin."
     },
     {
       "n": "04",
-      "t": "Livraison",
-      "d": "Montage, étalonnage, mixage. Vous recevez le rendu final, avec une révision incluse."
+      "t": "Livraison — 7 à 14 jours",
+      "d": "Montage, étalonnage, mixage. Rendu final livré avec une révision incluse. 48 h pour les formats courts."
     }
   ],
   "faq": [
