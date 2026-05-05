@@ -281,6 +281,25 @@ h2.s-title{margin:0 0 20px}
 .f-check label{display:flex;align-items:center;gap:8px;font-size:.78rem;color:var(--tx2);cursor:pointer;text-transform:none;letter-spacing:0}
 .f-check input[type="checkbox"]{width:16px;height:16px;accent-color:var(--orange);cursor:pointer;flex-shrink:0}
 
+/* ── MATOS DROPDOWN ── */
+.matos-section{border-bottom:1px solid var(--border)}
+.matos-intro{font-size:.88rem;color:var(--tx2);margin-bottom:24px}
+.matos-toggle{display:flex;align-items:center;justify-content:center;gap:8px;padding:16px 28px;background:var(--surface);border:1px solid var(--border);border-radius:8px;font-size:.78rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--tx2);cursor:pointer;transition:all .3s}
+.matos-toggle:hover{border-color:var(--orange);color:var(--tx)}
+.matos-toggle .arrow{transition:transform .3s}
+.matos-toggle.open .arrow{transform:rotate(180deg)}
+.matos-toggle.open{border-color:var(--orange);color:var(--orange)}
+.matos-content{max-height:0;overflow:hidden;transition:max-height .5s ease}
+.matos-content.open{max-height:8000px}
+.matos-cat-title{font-family:var(--head);font-size:.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--tx3);padding:36px 0 12px;border-bottom:1px solid var(--border);margin-bottom:0}
+.matos-item{display:grid;grid-template-columns:120px 1fr;gap:20px;align-items:center;padding:20px 0;border-bottom:1px solid var(--border)}
+.matos-item img{width:100%;height:90px;object-fit:contain;border-radius:8px;background:#0a0a0a;padding:8px}
+.matos-item strong{display:block;font-size:.92rem;color:var(--tx);margin-bottom:4px}
+.matos-item span{font-size:.82rem;color:var(--tx2);line-height:1.6}
+.matos-partner{margin-top:28px;padding:18px 24px;background:var(--surface);border-left:3px solid var(--orange);border-radius:0 8px 8px 0}
+.matos-partner p{font-size:.82rem;color:var(--tx2);line-height:1.6}
+.matos-partner a{color:var(--orange);text-decoration:underline;text-underline-offset:3px;font-weight:600}
+
 /* ── NEWSLETTER ── */
 .newsletter{border-bottom:1px solid var(--border);background:var(--surface)}
 .nl-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
@@ -382,6 +401,8 @@ footer a:hover{opacity:.7}
   .t-more{grid-template-columns:1fr}
   .p-steps{grid-template-columns:1fr}
   .p-step{padding:28px 20px}
+  .matos-item{grid-template-columns:80px 1fr;gap:12px}
+  .matos-item img{height:70px}
   .f-row{grid-template-columns:1fr}
   .faq-q{font-size:.85rem}
   .to-top{width:36px;height:36px;font-size:12px;right:20px;bottom:calc(28px + env(safe-area-inset-bottom,0px))}
@@ -417,6 +438,7 @@ footer a:hover{opacity:.7}
     <a href="#pitch" data-nav>Le réalisateur</a>
     <a href="#tarifs" data-nav>Tarifs</a>
     <a href="#process" data-nav>Process</a>
+    <a href="#matos" data-nav>Équipement</a>
     <a href="#deplacements" data-nav>Zone</a>
     <a href="#faq" data-nav>FAQ</a>
     <a href="#contact" data-nav>Contact</a>
@@ -513,6 +535,96 @@ footer a:hover{opacity:.7}
     <div class="s-label rv">Comment ça marche</div>
     <h2 class="s-title rv rv-d1">Du premier échange à la livraison.</h2>
     <div class="p-steps rv rv-d2" id="pSteps"></div>
+  </div>
+</section>
+
+<!-- ═══ MATOS (dropdown) ═══ -->
+<section class="matos-section" id="matos">
+  <div class="si">
+    <div class="s-label rv">Équipement</div>
+    <h2 class="s-title rv rv-d1">Notre matériel vidéo.</h2>
+    <p class="matos-intro rv">Du capteur à l'écran, chaque outil est choisi pour servir l'image.</p>
+    <div class="matos-toggle rv" id="matosToggle" onclick="document.getElementById('matosContent').classList.toggle('open');this.classList.toggle('open')">
+      Voir notre équipement <span class="arrow">▼</span>
+    </div>
+    <div class="matos-content" id="matosContent">
+
+      <div class="matos-cat-title">Caméra</div>
+      <div class="matos-item">
+        <img src="../assets/img/matos/Sony%20Alpha%207III.png" alt="Sony Alpha 7III" loading="lazy">
+        <div><strong>Sony Alpha 7III</strong><span>Hybride plein format 4K, 24 MP. Autofocus à détection de phase. Notre boîtier principal, il tourne sur 90 % de nos projets.</span></div>
+      </div>
+      <div class="matos-item">
+        <img src="../assets/img/matos/DJI%20MINI%203.png" alt="DJI Mini 3" loading="lazy">
+        <div><strong>DJI Mini 3</strong><span>Drone 4K HDR, nacelle 3 axes, 249g. Plans aériens de domaines, événements, immobilier et clips. Pilote certifié DGAC.</span></div>
+      </div>
+      <div class="matos-item">
+        <img src="../assets/img/matos/insta%20360%20x3.png" alt="Insta360 X3" loading="lazy">
+        <div><strong>Insta360 X3</strong><span>Caméra 360° 5.7K. On choisit le cadrage après le tournage grâce à l'édition IA. Behind-the-scenes, visites immersives.</span></div>
+      </div>
+      <div class="matos-item">
+        <img src="../assets/img/matos/gopro%20hero%209.png" alt="GoPro HERO 9" loading="lazy">
+        <div><strong>GoPro HERO 9</strong><span>5K, HyperSmooth 3.0, étanche 10m. Pour les situations extrêmes et les deuxièmes angles discrets.</span></div>
+      </div>
+
+      <div class="matos-cat-title">Optique</div>
+      <div class="matos-item">
+        <img src="../assets/img/matos/Sigma%2028-70mm%20f_2%2C8.png" alt="Sigma 28-70mm f/2.8" loading="lazy">
+        <div><strong>Sigma 28-70mm f/2.8</strong><span>Zoom pro plein format, ouverture constante f/2.8. Couvre 80 % des situations sans changer d'optique. Se marie parfaitement avec le gimbal.</span></div>
+      </div>
+      <div class="matos-item">
+        <img src="../assets/img/matos/50mm%20f_1.8%20_%20Helios%2044M%20%E2%80%94%2058mm%20f_2.png" alt="Sony 50mm f/1.8 + Helios 44M" loading="lazy">
+        <div><strong>Sony 50mm f/1.8 + Helios 44M</strong><span>Le Sony pour le portrait autofocus en basse lumière. Le Helios vintage pour le bokeh swirl unique sur les clips et projets artistiques.</span></div>
+      </div>
+      <div class="matos-item">
+        <img src="../assets/img/matos/Viltrox%209mm%20f_2%2C8.png" alt="Viltrox 9mm f/2.8" loading="lazy">
+        <div><strong>Viltrox 9mm f/2.8</strong><span>Ultra grand angle APS-C. Plans immersifs, immobilier, architecture, intérieurs de studio.</span></div>
+      </div>
+
+      <div class="matos-cat-title">Stabilisation et mouvement</div>
+      <div class="matos-item">
+        <img src="../assets/img/matos/DJI%20RS2%20Pro%20Combo.png" alt="DJI RS2 Pro Combo" loading="lazy">
+        <div><strong>DJI RS2 Pro Combo</strong><span>Gimbal 3 axes, 4.5 kg max, focus motor inclus. Stabilise le Sony A7III + Sigma 28-70 + moniteur sans broncher.</span></div>
+      </div>
+      <div class="matos-item">
+        <img src="../assets/img/matos/GVM%20Slider%20Motoris%C3%A9%2080cm.png" alt="GVM Slider Motorisé 80cm" loading="lazy">
+        <div><strong>GVM Slider Motorisé 80cm</strong><span>Travelling latéral fluide, piloté par app. Présentation produit, interviews, corporate. Mode time-lapse motorisé.</span></div>
+      </div>
+      <div class="matos-item">
+        <img src="../assets/img/matos/Tr%C3%A9pied%20neewer%202m.png" alt="Trépied Neewer 2m" loading="lazy">
+        <div><strong>Trépied Neewer 79" (2m)</strong><span>Support vidéo robuste avec tête fluide 360°, plaque QR. Charge jusqu'à 8 kg. Base stable pour interviews, podcasts et plans fixes.</span></div>
+      </div>
+      <div class="matos-item">
+        <img src="../assets/img/matos/Ventouse%20neewer.png" alt="Ventouse Neewer" loading="lazy">
+        <div><strong>Ventouse triple Neewer</strong><span>Fixation triple ventouse avec perche d'extension pour GoPro et Insta360. Plans embarqués sur véhicule et surfaces lisses.</span></div>
+      </div>
+
+      <div class="matos-cat-title">Lumière</div>
+      <div class="matos-item">
+        <img src="../assets/img/matos/NEEWER%20660%20PRO%20II%20RGB%20%C3%972.png" alt="NEEWER 660 PRO II RGB ×2" loading="lazy">
+        <div><strong>NEEWER 660 PRO II RGB ×2</strong><span>Deux panneaux LED 50W, RGB 360°, CRI 97+, pilotables par app. Kit lumière principal pour tous nos tournages.</span></div>
+      </div>
+
+      <div class="matos-cat-title">Son</div>
+      <div class="matos-item">
+        <img src="../assets/img/matos/AT2020%20%2B%20R%C3%98DE%20VideoMicro%20II.png" alt="AT2020 + RØDE VideoMicro II" loading="lazy">
+        <div><strong>AT2020 + RØDE VideoMicro II</strong><span>AT2020 pour les voix off studio. RØDE VideoMicro II sur la caméra en tournage. Interface Universal Audio Volt 1.</span></div>
+      </div>
+      <div class="matos-item">
+        <img src="../assets/img/matos/DJI%20MIC%20MINI%202.png" alt="DJI Mic Mini 2" loading="lazy">
+        <div><strong>DJI Mic Mini 2 (2TX + 1RX)</strong><span>Micro HF sans fil ultra-léger, audio HQ, 48h d'autonomie, annulation du bruit. Pour interviews, vlogs et streaming sans câble.</span></div>
+      </div>
+
+      <div class="matos-cat-title">Monitoring</div>
+      <div class="matos-item">
+        <img src="../assets/img/matos/VILTROX%20DC-X2%20%2B%20Feelworld%20FW568V3.png" alt="VILTROX DC-X2 + Feelworld FW568V3" loading="lazy">
+        <div><strong>VILTROX DC-X2 + Feelworld FW568V3</strong><span>Deux moniteurs 6" pour retour image. VILTROX 2000 nit (lisible en plein soleil), Feelworld avec 3D LUT pour prévisualiser l'étalonnage.</span></div>
+      </div>
+
+      <div class="matos-partner">
+        <p>Pour les projets nécessitant du matériel complémentaire (grue, steadicam, éclairage HMI, machinerie), nous faisons appel à des loueurs professionnels comme <a href="https://stopandgo.fr/location/" target="_blank" rel="noopener">Stop & Go</a>.</p>
+      </div>
+    </div>
   </div>
 </section>
 
