@@ -506,7 +506,7 @@ function renderShowcases(){
   (DATA.showcase||[]).forEach(function(s,i){
     var extra='';
     if(s.type==='photos')extra='<div class="field"><label>Images (1 chemin par ligne)</label><textarea class="sh-images" rows="4" placeholder="../assets/img/photo.jpg">'+(s.images||[]).join('\n')+'</textarea></div>';
-    if(s.type==='video')extra='<div class="field-row"><div class="field"><label>Source vidéo</label><input class="sh-videosrc" value="'+(s.videoSrc||'')+'" placeholder="../assets/videos/video5.mp4"></div><div class="field"><label>Poster (seconde)</label><input class="sh-videotime" type="number" value="'+(s.videoTime||2)+'"></div></div>';
+    if(s.type==='video')extra='<div class="field-row"><div class="field"><label>Source vidéo locale (laisser vide si YouTube)</label><input class="sh-videosrc" value="'+(s.videoSrc||'')+'" placeholder="../assets/videos/video5.mp4"></div><div class="field"><label>Poster (seconde)</label><input class="sh-videotime" type="number" value="'+(s.videoTime||2)+'"></div></div><div class="field"><label>OU YouTube ID (ex: 2P5PwWu5a7c)</label><input class="sh-ytid" value="'+(s.youtubeId||'')+'" placeholder="2P5PwWu5a7c"></div>';
     if(s.type==='reels'){
       var vids=s.videoPaths||[];
       if(!vids.length&&s.videos){vids=s.videos.map(function(n){return '../assets/videos/video'+n+'.mp4'})}
@@ -540,7 +540,7 @@ function collectShowcases(){
   document.querySelectorAll('#showcaseList .item-card').forEach(function(card){
     var o={type:card.querySelector('.sh-type').value,title:card.querySelector('.sh-title').value,price:card.querySelector('.sh-price').value,pricePrefix:card.querySelector('.sh-prefix').value,desc:card.querySelector('.sh-desc').value,feats:card.querySelector('.sh-feats').value.split(',').map(function(s){return s.trim()}).filter(Boolean),layout:card.querySelector('.sh-layout').value};
     if(o.type==='photos'){var ta=card.querySelector('.sh-images');o.images=ta?ta.value.split('\n').map(function(s){return s.trim()}).filter(Boolean):[]}
-    if(o.type==='video'){var inp=card.querySelector('.sh-videosrc');o.videoSrc=inp?inp.value:'';var tinp=card.querySelector('.sh-videotime');o.videoTime=tinp?parseInt(tinp.value)||2:2}
+    if(o.type==='video'){var inp=card.querySelector('.sh-videosrc');o.videoSrc=inp?inp.value:'';var tinp=card.querySelector('.sh-videotime');o.videoTime=tinp?parseInt(tinp.value)||2:2;var ytinp=card.querySelector('.sh-ytid');o.youtubeId=ytinp?ytinp.value:''}
     if(o.type==='reels'){
       var ta=card.querySelector('.sh-reelpaths');
       o.videoPaths=[];o.timestamps=[];o.videos=[];
