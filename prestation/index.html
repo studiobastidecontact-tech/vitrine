@@ -144,6 +144,8 @@ h2.s-title{margin:0 0 20px}
 /* Video thumbnail */
 .show-vid{position:relative;cursor:pointer;aspect-ratio:16/9;overflow:hidden}
 .show-vid img,.show-vid .promo-poster-vid{width:100%;height:100%;object-fit:cover;pointer-events:none}
+.show-yt{position:relative;width:100%;padding-bottom:56.25%;border-radius:10px;overflow:hidden;background:#0a0a0a}
+.show-yt iframe{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:10px}
 .show-vid .play-overlay svg{width:48px;height:48px}
 .show-text h3{font-family:var(--head);font-weight:700;font-size:1.1rem;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
 .show-price{font-size:1.6rem;font-weight:700;color:var(--orange);margin-bottom:4px;line-height:1.2}
@@ -833,6 +835,7 @@ var D={
   showcase:[
     {type:"photos",title:"Shooting Photo",price:"250 €",pricePrefix:"à partir de",desc:"Portraits, mode, événements, produits. En studio ou chez vous, en extérieur ou en décor naturel. Retouches incluses, livrées en haute résolution.",feats:["Portrait","Mode","Événement","Produit"],images:["../assets/img/TOIT%20PARIS.jpg","../assets/img/Shooting%20metro%201.jpg","../assets/img/ALTO%20SUISSE.JPG","../assets/img/MAX%20ALTO.JPG","../assets/img/Shooting%20toit.jpg","../assets/img/Shooting%20metro%202.jpg"],layout:"normal"},
     {type:"video",title:"Vidéo Promo",price:"750 €",pricePrefix:"à partir de",desc:"Spots publicitaires, films d'entreprise, vidéos de présentation. Du scénario au montage, nous gérons tout. Vous récupérez un fichier prêt à diffuser.",feats:["Scénario sur mesure","Voix off","Multi-formats"],videoSrc:"../assets/videos/video5.mp4",videoTime:2,layout:"flip"},
+    {type:"video",title:"Clip Musical",price:"625 €",pricePrefix:"à partir de",desc:"Réalisation complète d'un clip musical : concept, repérages, tournage, montage et étalonnage. Une direction artistique soignée pour donner vie à votre univers musical.",feats:["Direction artistique","Post-production","Étalonnage couleur"],youtubeId:"2P5PwWu5a7c",layout:"normal"},
     {type:"reels",title:"Reels & TikTok",price:"150 €",pricePrefix:"à partir de",desc:"Contenu percutant, pensé pour les réseaux. Montage rapide, sous-titres, format vertical. Prêt à poster.",feats:[],videos:[6,7,8,9,10,11],timestamps:[1,23,20,17,14,31],layout:"normal"}
   ]
 };
@@ -867,12 +870,19 @@ var isFirst=true;
   if(s.type==='video'){
     var vt=s.videoTime||2;
     var vsrc=s.videoSrc||'';
+    var ytId=s.youtubeId||'';
     if(isFirst){scHtml+='<section class="showcase" id="realisations"><div class="si"><div class="s-label rv">En images</div><h2 class="s-title rv rv-d1">Nos réalisations.</h2>';isFirst=false}
     else{scHtml+='<section class="showcase"><div class="si">'}
     scHtml+='<div class="show-layout'+(s.layout==='flip'?' flip':'')+' rv">'
-      +'<div class="show-media"><div class="show-vid" data-src="'+vsrc+'">'
+      +'<div class="show-media">';
+    if(ytId){
+      scHtml+='<div class="show-yt"><iframe src="https://www.youtube.com/embed/'+ytId+'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>';
+    }else{
+      scHtml+='<div class="show-vid" data-src="'+vsrc+'">'
       +'<video muted playsinline preload="metadata" src="'+vsrc+'#t='+vt+'" class="promo-poster-vid"></video>'
-      +'<div class="play-overlay"><svg><use href="#playIcon"/></svg></div></div></div>'
+      +'<div class="play-overlay"><svg><use href="#playIcon"/></svg></div></div>';
+    }
+    scHtml+='</div>'
       +'<div class="show-text"><h3>'+s.title+'</h3><div class="show-price"><small>'+(s.pricePrefix||'')+'</small> '+s.price+'</div>'
       +'<p class="show-desc">'+s.desc+'</p>'
       +'<div class="show-feats">'+(s.feats||[]).map(function(f){return '<span>'+f+'</span>'}).join('')+'</div>'
