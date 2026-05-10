@@ -32,6 +32,7 @@
         "Événement",
         "Produit"
       ],
+      "layout": "normal",
       "images": [
         "../assets/img/TOIT%20PARIS.jpg",
         "../assets/img/Shooting%20metro%201.jpg",
@@ -39,8 +40,7 @@
         "../assets/img/MAX%20ALTO.JPG",
         "../assets/img/Shooting%20toit.jpg",
         "../assets/img/Shooting%20metro%202.jpg"
-      ],
-      "layout": "normal"
+      ]
     },
     {
       "type": "video",
@@ -53,9 +53,10 @@
         "Voix off",
         "Multi-formats"
       ],
+      "layout": "flip",
       "videoSrc": "../assets/videos/video5.mp4",
       "videoTime": 2,
-      "layout": "flip"
+      "youtubeId": ""
     },
     {
       "type": "video",
@@ -68,8 +69,10 @@
         "Post-production",
         "Étalonnage couleur"
       ],
-      "youtubeId": "2P5PwWu5a7c",
-      "layout": "normal"
+      "layout": "normal",
+      "videoSrc": "",
+      "videoTime": 2,
+      "youtubeId": "2P5PwWu5a7c"
     },
     {
       "type": "reels",
@@ -78,13 +81,14 @@
       "pricePrefix": "à partir de",
       "desc": "Contenu percutant, pensé pour les réseaux. Montage rapide, sous-titres, format vertical. Prêt à poster.",
       "feats": [],
-      "videos": [
-        6,
-        7,
-        8,
-        9,
-        10,
-        11
+      "layout": "normal",
+      "videoPaths": [
+        "../assets/videos/video6.mp4",
+        "../assets/videos/video7.mp4",
+        "../assets/videos/video8.mp4",
+        "../assets/videos/video9.mp4",
+        "../assets/videos/video10.mp4",
+        "../assets/videos/video11.mp4"
       ],
       "timestamps": [
         1,
@@ -94,14 +98,13 @@
         14,
         31
       ],
-      "layout": "normal",
-      "videoPaths": [
-        "../assets/videos/video6.mp4",
-        "../assets/videos/video7.mp4",
-        "../assets/videos/video8.mp4",
-        "../assets/videos/video9.mp4",
-        "../assets/videos/video10.mp4",
-        "../assets/videos/video11.mp4"
+      "videos": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
       ]
     }
   ],
@@ -194,7 +197,8 @@
         "Équipe élargie",
         "Effets spéciaux"
       ],
-      "hot": false
+      "hot": false,
+      "tag": ""
     },
     {
       "name": "Podcast Vidéo",
@@ -205,7 +209,8 @@
         "Multi-caméras",
         "Export audio + vidéo"
       ],
-      "hot": false
+      "hot": false,
+      "tag": ""
     },
     {
       "name": "Atelier Vidéo",
@@ -216,7 +221,8 @@
         "Programme sur mesure",
         "Matériel fourni"
       ],
-      "hot": false
+      "hot": false,
+      "tag": ""
     },
     {
       "name": "Motion Design",
@@ -227,7 +233,8 @@
         "Logo animé",
         "Titrages"
       ],
-      "hot": false
+      "hot": false,
+      "tag": ""
     },
     {
       "name": "Captation Live",
@@ -238,7 +245,8 @@
         "Régie en direct",
         "Streaming possible"
       ],
-      "hot": false
+      "hot": false,
+      "tag": ""
     },
     {
       "name": "Sur Mesure",
@@ -249,7 +257,8 @@
         "Devis sous 48 h",
         "Sans engagement"
       ],
-      "hot": false
+      "hot": false,
+      "tag": ""
     }
   ],
   "process": [
