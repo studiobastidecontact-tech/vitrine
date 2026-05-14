@@ -84,6 +84,7 @@
       "layout": "normal",
       "videoPaths": [
         "../assets/videos/video6.mp4",
+        "../assets/videos/ALPINE_VERTICAL _POUR_STUD.mp4",
         "../assets/videos/JINN_BASTIDE.mp4",
         "../assets/videos/video7.mp4",
         "../assets/videos/video8.mp4",
@@ -93,7 +94,8 @@
       ],
       "timestamps": [
         1,
-        5,
+        1,
+        1,
         23,
         20,
         17,
