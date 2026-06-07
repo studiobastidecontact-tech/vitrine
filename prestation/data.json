@@ -361,6 +361,10 @@
     {
       "n": "Saint-Sulpice",
       "img": "../assets/logos/st-sulpice.png"
+    },
+    {
+      "n": "Myriad-event",
+      "img": "../assets/logos/myriad-event.png"
     }
   ],
   "contact": {
