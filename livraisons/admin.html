@@ -313,8 +313,10 @@ main{max-width:1200px;margin:0 auto;padding:40px 28px 80px}
         <div class="form-group">
           <label>Fichiers livrés</label>
           <p class="form-help" style="margin-bottom:10px">
-            Pour chaque fichier, renseigne l'ID Drive de la <strong>version aperçu</strong> (avec watermark, visible avant paiement) et/ou l'ID Drive de la <strong>version HD</strong> (sans watermark, accessible après paiement).
-            <br>L'ID Drive se trouve dans l'URL : <span class="form-hint">drive.google.com/file/d/<strong>L'ID-ICI</strong>/view</span>
+            Pour chaque fichier, renseigne le <strong>lien aperçu</strong> (watermark, visible avant paiement) et/ou le <strong>lien HD</strong> (sans watermark, après paiement).
+            <br>2 formats acceptés :
+            <br>• <strong>ID Google Drive</strong> seul — ex. <span class="form-hint">11hrrfxXtvpnsMHilEeAUFi5ILlVaA18H</span> (depuis l'URL <span class="form-hint">drive.google.com/file/d/<strong>ID-ICI</strong>/view</span>)
+            <br>• <strong>URL complète</strong> — ex. <span class="form-hint">https://studiobastideprod.synology.me/d/s/...</span> (NAS Synology, Dropbox, WeTransfer, etc.)
           </p>
           <div class="files-form" id="filesForm"></div>
           <button type="button" class="btn-add-file" id="addFileBtn">+ Ajouter un fichier</button>
@@ -552,7 +554,7 @@ function addFileRow(prefill) {
     <div class="file-card-body">
       <div class="ref-group">
         <div class="section-label preview">Aperçu (avec watermark)</div>
-        <input data-field="previewId" placeholder="ID Drive (laisser vide si pas d'aperçu)" value="${initial.previewDriveId || ''}">
+        <input data-field="previewId" placeholder="ID Drive ou URL complète (vide si pas d'aperçu)" value="${initial.previewDriveId || ''}">
         <div class="size-row">
           <input data-field="previewSize" type="number" placeholder="Taille en Mo" value="${initial.previewSize ? Math.round(initial.previewSize/1024/1024) : ''}">
           <span style="align-self:center;color:var(--tx3);font-size:.7rem;letter-spacing:1px">MO</span>
@@ -560,7 +562,7 @@ function addFileRow(prefill) {
       </div>
       <div class="ref-group">
         <div class="section-label hd">HD final (verrouillé)</div>
-        <input data-field="hdId" placeholder="ID Drive (laisser vide si pas de HD)" value="${initial.hdDriveId || ''}">
+        <input data-field="hdId" placeholder="ID Drive ou URL complète (vide si pas de HD)" value="${initial.hdDriveId || ''}">
         <div class="size-row">
           <input data-field="hdSize" type="number" placeholder="Taille en Mo" value="${initial.hdSize ? Math.round(initial.hdSize/1024/1024) : ''}">
           <span style="align-self:center;color:var(--tx3);font-size:.7rem;letter-spacing:1px">MO</span>
