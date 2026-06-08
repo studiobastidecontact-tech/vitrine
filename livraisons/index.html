@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Espace client — Studio Bastide Production</title>
+<meta name="description" content="Accédez à vos livrables Studio Bastide Production.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/jpeg" href="../assets/img/logo_square.jpg">
+
+<style>
+@font-face{font-family:'Panchang';src:url('../assets/fonts/Panchang-Medium.otf') format('opentype');font-weight:500;font-display:swap}
+@font-face{font-family:'Panchang';src:url('../assets/fonts/Panchang-Semibold.otf') format('opentype');font-weight:600;font-display:swap}
+@font-face{font-family:'Panchang';src:url('../assets/fonts/Panchang-Bold.otf') format('opentype');font-weight:700;font-display:swap}
+@font-face{font-family:'Panchang';src:url('../assets/fonts/Panchang-Extrabold.otf') format('opentype');font-weight:800;font-display:swap}
+@font-face{font-family:'Switzer';src:url('../assets/fonts/Switzer-Light.otf') format('opentype');font-weight:300;font-display:swap}
+@font-face{font-family:'Switzer';src:url('../assets/fonts/Switzer-Regular.otf') format('opentype');font-weight:400;font-display:swap}
+@font-face{font-family:'Switzer';src:url('../assets/fonts/Switzer-Medium.otf') format('opentype');font-weight:500;font-display:swap}
+@font-face{font-family:'Switzer';src:url('../assets/fonts/Switzer-Bold.otf') format('opentype');font-weight:700;font-display:swap}
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#000;--surface:#0a0a0a;--card:#0e0e0e;
+  --border:#161616;--border-h:#222;
+  --orange:#E8390C;--orange-d:#c52e08;
+  --tx:#fff;--tx2:#bbb;--tx3:#777;
+  --ok:#22c55e;--err:#ef4444;--warn:#f59e0b;
+  --head:'Panchang',sans-serif;--body:'Switzer',sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--tx);
+  font-family:var(--body);font-weight:300;line-height:1.7;
+  min-height:100vh;display:flex;flex-direction:column;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+::selection{background:var(--orange);color:#fff}
+
+/* ── TOPBAR ── */
+.topbar{padding:24px 32px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+.topbar-logo{font-family:var(--head);font-weight:800;font-size:1.15rem;letter-spacing:-.5px;color:#fff}
+.topbar-logo sup{font-size:.55em;vertical-align:super;margin-left:2px;font-weight:700}
+.topbar-link{font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--tx3);transition:color .3s var(--ease)}
+.topbar-link:hover{color:var(--tx)}
+
+main{flex:1;display:flex;align-items:center;justify-content:center;padding:60px 32px}
+.wrapper{width:100%;max-width:780px}
+
+.s-label{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--tx3);margin-bottom:16px;font-weight:500;display:flex;align-items:center;gap:10px}
+.s-label::before{content:'';width:20px;height:1.5px;background:var(--orange)}
+.s-title{font-family:var(--head);font-weight:800;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.1;margin-bottom:14px;letter-spacing:-.5px}
+.s-sub{color:var(--tx2);font-size:.95rem;line-height:1.7;max-width:580px}
+
+.state{display:none}
+.state.active{display:block;animation:fadeUp .5s var(--ease)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+.loader{display:inline-block;width:16px;height:16px;border:2px solid var(--border-h);border-top-color:var(--orange);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-inline{display:flex;align-items:center;gap:10px;color:var(--tx2);font-size:.85rem}
+
+/* ── CODE FORM ── */
+.code-card{background:var(--surface);border:1px solid var(--border);padding:40px;margin-top:32px}
+.code-meta{display:flex;flex-direction:column;gap:4px;padding-bottom:24px;margin-bottom:24px;border-bottom:1px solid var(--border)}
+.code-meta-label{font-size:.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--tx3)}
+.code-meta-value{font-family:var(--head);font-weight:700;font-size:1.15rem;color:var(--tx)}
+.code-meta-row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.code-meta-row > div{display:flex;flex-direction:column;gap:4px}
+
+.f-group{margin-bottom:16px}
+.f-group label{display:block;font-size:.7rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--tx3);margin-bottom:8px;font-weight:500}
+.f-input{width:100%;background:var(--bg);border:1px solid var(--border-h);color:var(--tx);padding:14px 16px;font-family:var(--body);font-size:1rem;letter-spacing:.5px;transition:border-color .3s;outline:none}
+.f-input:focus{border-color:var(--orange)}
+.f-input::placeholder{color:var(--tx3)}
+
+.btn-p{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--orange);color:#fff;padding:14px 28px;font-size:.75rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;transition:all .3s var(--ease);width:100%}
+.btn-p:hover{background:var(--orange-d)}
+.btn-p:disabled{opacity:.5;cursor:not-allowed}
+
+.f-error{font-size:.82rem;color:var(--err);margin-top:12px;display:none;align-items:center;gap:6px}
+.f-error.show{display:flex}
+.f-help{font-size:.78rem;color:var(--tx3);margin-top:16px;line-height:1.6}
+.f-help a{color:var(--orange);text-decoration:underline;text-underline-offset:3px}
+
+/* ── FILES VIEW ── */
+.files-header{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--border)}
+.files-info h2{font-family:var(--head);font-weight:700;font-size:1.4rem;letter-spacing:-.3px;margin-bottom:4px}
+.files-info p{color:var(--tx2);font-size:.88rem}
+.files-info p strong{color:var(--tx);font-weight:600}
+.files-meta{display:flex;gap:24px;font-size:.78rem;color:var(--tx3)}
+.files-meta strong{color:var(--tx);font-weight:600;display:block;font-size:1.1rem}
+
+/* ── PAYMENT BANNER ── */
+.banner{
+  margin-bottom:24px;padding:18px 22px;
+  display:flex;align-items:center;gap:14px;
+  font-size:.88rem;line-height:1.6;
+}
+.banner.locked{border:1px solid var(--warn);background:rgba(245,158,11,.06);color:var(--tx2)}
+.banner.unlocked{border:1px solid var(--ok);background:rgba(34,197,94,.05);color:var(--tx2)}
+.banner.free{border:1px solid #a855f7;background:rgba(168,85,247,.06);color:var(--tx2)}
+.banner-icon{
+  width:36px;height:36px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--head);font-weight:800;font-size:1.2rem;
+}
+.banner.locked .banner-icon{color:var(--warn);border:1px solid var(--warn)}
+.banner.unlocked .banner-icon{color:var(--ok);border:1px solid var(--ok)}
+.banner.free .banner-icon{color:#a855f7;border:1px solid #a855f7}
+.banner strong{color:var(--tx);font-weight:600}
+.banner .amount{font-family:var(--head);font-weight:700;color:var(--orange)}
+
+/* ── FILE LIST ── */
+.file-list{display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+.file-item{
+  display:grid;grid-template-columns:48px 1fr auto;gap:14px;align-items:center;
+  padding:16px 20px;background:var(--surface);border:1px solid var(--border);
+  transition:border-color .3s var(--ease);
+}
+.file-item:hover{border-color:var(--border-h)}
+.file-icon{
+  width:42px;height:42px;
+  background:var(--card);border:1px solid var(--border-h);
+  display:flex;align-items:center;justify-content:center;
+}
+.file-icon svg{width:20px;height:20px;color:var(--tx2)}
+.file-info{min-width:0}
+.file-name{font-weight:500;font-size:.92rem;color:var(--tx);margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.file-meta{font-size:.74rem;color:var(--tx3);display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.file-tag{
+  text-transform:uppercase;letter-spacing:1px;font-weight:600;font-size:.65rem;
+  padding:2px 6px;border:1px solid;
+}
+.file-tag.video{color:#a855f7;border-color:rgba(168,85,247,.4)}
+.file-tag.audio{color:#06b6d4;border-color:rgba(6,182,212,.4)}
+.file-tag.photo{color:#f97316;border-color:rgba(249,115,22,.4)}
+.file-tag.archive{color:#94a3b8;border-color:rgba(148,163,184,.4)}
+
+.file-actions{display:flex;flex-direction:column;gap:6px;align-items:flex-end}
+.btn-dl{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:9px 16px;font-size:.7rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  transition:all .3s var(--ease);min-width:160px;justify-content:center;
+}
+.btn-dl-preview{border:1px solid var(--border-h);color:var(--tx2)}
+.btn-dl-preview:hover{border-color:var(--tx);color:var(--tx)}
+.btn-dl-hd{background:var(--orange);color:#fff;border:1px solid var(--orange)}
+.btn-dl-hd:hover{background:var(--orange-d)}
+.btn-dl-locked{
+  border:1px dashed var(--border-h);color:var(--tx3);cursor:not-allowed;
+  background:transparent;
+}
+.btn-dl svg{width:11px;height:11px}
+
+.files-footer{
+  padding:18px 22px;border-left:2px solid var(--orange);
+  background:rgba(232,57,12,.03);font-size:.82rem;color:var(--tx3);line-height:1.7;
+}
+.files-footer strong{color:var(--tx2)}
+
+.expired{padding:32px;border:1px solid var(--err);background:rgba(239,68,68,.06);margin-top:24px}
+.expired h3{font-family:var(--head);font-weight:700;font-size:1.1rem;color:var(--err);margin-bottom:8px}
+.expired p{color:var(--tx2);font-size:.88rem;line-height:1.7}
+
+footer{padding:24px 32px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:.72rem;color:var(--tx3);flex-wrap:wrap;gap:12px}
+footer a{color:var(--tx3);transition:color .3s}
+footer a:hover{color:var(--tx)}
+
+@media(max-width:640px){
+  .topbar{padding:18px 20px}
+  main{padding:32px 20px}
+  .code-card{padding:28px 22px}
+  .file-item{grid-template-columns:42px 1fr;gap:12px;padding:14px}
+  .file-actions{grid-column:1/-1;flex-direction:row;justify-content:stretch;align-items:stretch}
+  .btn-dl{flex:1;min-width:0}
+  footer{padding:18px 20px;font-size:.68rem}
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+  <a href="../" class="topbar-logo">Studio Bastide<sup>®</sup></a>
+  <a href="../#contact" class="topbar-link">← Site principal</a>
+</header>
+
+<main>
+  <div class="wrapper">
+
+    <!-- LOADING -->
+    <div class="state active" id="stLoading">
+      <div class="s-label">Espace client</div>
+      <h1 class="s-title">Chargement de votre projet…</h1>
+      <div class="loading-inline" style="margin-top:24px"><span class="loader"></span> Vérification de votre lien</div>
+    </div>
+
+    <!-- NO PROJECT -->
+    <div class="state" id="stNoProject">
+      <div class="s-label">Espace client</div>
+      <h1 class="s-title">Bienvenue sur l'espace client Studio Bastide.</h1>
+      <p class="s-sub">
+        Cet espace est réservé à nos clients pour récupérer leurs livrables :
+        photos, vidéos, fichiers audio et exports finaux. Vous avez reçu un lien
+        personnalisé par mail contenant votre code d'accès.
+      </p>
+      <div class="code-card" style="margin-top:32px">
+        <p style="color:var(--tx2);font-size:.9rem;line-height:1.7">
+          Si vous n'avez pas reçu de lien ou si vous avez perdu votre code,
+          contactez-nous à
+          <a href="mailto:studiobastide.contact@gmail.com" style="color:var(--orange);text-decoration:underline">studiobastide.contact@gmail.com</a>
+          ou au <strong style="color:var(--tx)">09 55 51 97 46</strong>.
+        </p>
+      </div>
+    </div>
+
+    <!-- NOT FOUND -->
+    <div class="state" id="stNotFound">
+      <div class="s-label">Erreur</div>
+      <h1 class="s-title">Projet introuvable.</h1>
+      <p class="s-sub">Le lien n'est pas valide. Vérifiez l'URL complète envoyée par mail.</p>
+      <p class="f-help" style="margin-top:24px">Besoin d'aide ? <a href="mailto:studiobastide.contact@gmail.com">studiobastide.contact@gmail.com</a></p>
+    </div>
+
+    <!-- CODE FORM -->
+    <div class="state" id="stCodeForm">
+      <div class="s-label">Espace client</div>
+      <h1 class="s-title">Vos livrables sont prêts.</h1>
+      <p class="s-sub">Entrez le code d'accès reçu par mail pour accéder à vos fichiers.</p>
+
+      <div class="code-card">
+        <div class="code-meta">
+          <div class="code-meta-row">
+            <div>
+              <span class="code-meta-label">Client</span>
+              <span class="code-meta-value" id="metaClient">—</span>
+            </div>
+            <div style="text-align:right">
+              <span class="code-meta-label">Projet</span>
+              <span class="code-meta-value" id="metaProject">—</span>
+            </div>
+          </div>
+        </div>
+
+        <form id="codeForm">
+          <div class="f-group">
+            <label for="codeInput">Code d'accès</label>
+            <input type="text" id="codeInput" class="f-input" placeholder="Ex : 7K3-92F" autocomplete="off" autocapitalize="characters" required>
+          </div>
+          <button type="submit" class="btn-p" id="codeSubmit">
+            <span id="codeSubmitText">Accéder à mes fichiers</span>
+          </button>
+          <div class="f-error" id="codeError">
+            <span>✕</span> <span id="codeErrorText">Code incorrect.</span>
+          </div>
+          <p class="f-help">
+            Le code vous a été transmis par mail. Si vous l'avez perdu,
+            <a href="mailto:studiobastide.contact@gmail.com">contactez-nous</a>.
+          </p>
+        </form>
+      </div>
+    </div>
+
+    <!-- EXPIRED -->
+    <div class="state" id="stExpired">
+      <div class="s-label">Lien expiré</div>
+      <h1 class="s-title">Ce lien n'est plus actif.</h1>
+      <p class="s-sub">Les livrables de ce projet ne sont plus disponibles. Contactez-nous pour récupérer une nouvelle copie.</p>
+      <div class="expired">
+        <h3>Comment récupérer mes fichiers ?</h3>
+        <p>Écrivez-nous à <a href="mailto:studiobastide.contact@gmail.com" style="color:var(--orange);text-decoration:underline">studiobastide.contact@gmail.com</a> en précisant le nom de votre projet, nous vous renverrons un nouveau lien sous 24 h.</p>
+      </div>
+    </div>
+
+    <!-- FILES UNLOCKED -->
+    <div class="state" id="stFiles">
+      <div class="files-header">
+        <div class="files-info">
+          <div class="s-label" style="margin-bottom:10px">Livrables</div>
+          <h2 id="filesClient">Client</h2>
+          <p>Projet : <strong id="filesProject">—</strong></p>
+        </div>
+        <div class="files-meta">
+          <div><strong id="filesCount">0</strong><span>fichier(s)</span></div>
+        </div>
+      </div>
+
+      <!-- Payment status banner -->
+      <div id="paymentBanner"></div>
+
+      <div class="file-list" id="fileList"></div>
+
+      <div class="files-footer">
+        <strong>Conservez ces fichiers.</strong> Le lien restera actif jusqu'au <span id="filesExpiry">nouvel ordre</span>.
+        Pour toute question, écrivez-nous à
+        <a href="mailto:studiobastide.contact@gmail.com" style="color:var(--orange);text-decoration:underline">studiobastide.contact@gmail.com</a>.
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <span>© 2026 Studio Bastide Production</span>
+  <a href="../mentions-legales/">Mentions légales</a>
+</footer>
+
+<script type="module">
+import { initializeApp }
+  from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+import { getFirestore, doc, getDoc, updateDoc, increment, serverTimestamp }
+  from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
+
+// ── Firebase init ─────────────────────────────────────────────
+const firebaseConfig = {
+  apiKey: "AIzaSyCvL0nNQf2eJIUTpExDj7GHv4c9gPHEl8M",
+  authDomain: "studio-bastide-admin.firebaseapp.com",
+  projectId: "studio-bastide-admin",
+  storageBucket: "studio-bastide-admin.firebasestorage.app",
+  messagingSenderId: "982414411603",
+  appId: "1:982414411603:web:0fdd1d537b6781687803a6",
+};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// ── State switching ───────────────────────────────────────────
+const states = ['stLoading','stNoProject','stNotFound','stCodeForm','stExpired','stFiles'];
+function show(s) { states.forEach(x => document.getElementById(x).classList.toggle('active', x === s)); }
+
+// ── PBKDF2 hashing ────────────────────────────────────────────
+async function hashCode(code, saltHex) {
+  const enc = new TextEncoder();
+  const saltBytes = Uint8Array.from(saltHex.match(/.{2}/g).map(b => parseInt(b, 16)));
+  const km = await crypto.subtle.importKey('raw', enc.encode(code.trim().toUpperCase()),
+    { name: 'PBKDF2' }, false, ['deriveBits']);
+  const bits = await crypto.subtle.deriveBits(
+    { name: 'PBKDF2', salt: saltBytes, iterations: 100000, hash: 'SHA-256' },
+    km, 256);
+  return Array.from(new Uint8Array(bits)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+// ── Formatting helpers ────────────────────────────────────────
+function fmtSize(bytes) {
+  if (!bytes) return '—';
+  const u = ['o','Ko','Mo','Go','To'];
+  let i = 0;
+  while (bytes >= 1024 && i < u.length-1) { bytes /= 1024; i++; }
+  return bytes.toFixed(bytes < 10 && i > 0 ? 1 : 0) + ' ' + u[i];
+}
+function fmtDate(ts) {
+  if (!ts) return 'nouvel ordre';
+  const d = ts.toDate ? ts.toDate() : new Date(ts);
+  return d.toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' });
+}
+function fmtAmount(n) {
+  if (!n) return '—';
+  return n.toLocaleString('fr-FR') + ' €';
+}
+
+// ── File type icons & labels ──────────────────────────────────
+const ICONS = {
+  video: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>`,
+  audio: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>`,
+  photo: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>`,
+  archive: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>`,
+};
+const LABELS = { video: 'Vidéo', audio: 'Audio', photo: 'Photo', archive: 'Archive' };
+
+// Auto-detect type from filename
+function detectType(name = '') {
+  const ext = name.toLowerCase().split('.').pop();
+  if (['mp4','mov','avi','mkv','webm','m4v','prores'].includes(ext)) return 'video';
+  if (['mp3','wav','flac','aiff','aif','m4a','ogg','opus'].includes(ext)) return 'audio';
+  if (['jpg','jpeg','png','heic','heif','webp','tiff','tif','raw','cr2','arw','nef','dng','psd'].includes(ext)) return 'photo';
+  if (['zip','rar','7z','tar','gz'].includes(ext)) return 'archive';
+  return 'archive';
+}
+
+// Build Drive download URL
+function driveUrl(driveId) {
+  return `https://drive.usercontent.google.com/download?id=${driveId}&export=download&authuser=0&confirm=t`;
+}
+
+// ── Render unlocked files ─────────────────────────────────────
+function renderFiles(project) {
+  document.getElementById('filesClient').textContent = project.clientName || 'Client';
+  document.getElementById('filesProject').textContent = project.projectName || '—';
+  document.getElementById('filesCount').textContent = (project.files || []).length;
+  document.getElementById('filesExpiry').textContent = project.expiresAt ? fmtDate(project.expiresAt) : 'nouvel ordre';
+
+  const isFree = project.status === 'free';
+  const isPaid = project.status === 'paid';
+  const filesUnlocked = isFree || isPaid;
+  const hasLockedFiles = (project.files || []).some(f => f.hdDriveId);
+
+  // ── Status banner ──
+  const banner = document.getElementById('paymentBanner');
+  if (isFree) {
+    // Prestation gratuite avec contrepartie tag réseaux sociaux
+    const tagText = project.taggingRequirement
+      || 'Identifiez <strong>@stud_bastide</strong> sur vos publications Instagram et TikTok, ou <strong>@studiobastide</strong> sur YouTube.';
+    banner.innerHTML = `
+      <div class="banner free">
+        <div class="banner-icon">★</div>
+        <div>
+          <strong>Prestation offerte par Studio Bastide.</strong>
+          ${tagText}
+          Merci pour votre soutien !
+        </div>
+      </div>`;
+  } else if (!hasLockedFiles) {
+    banner.innerHTML = '';
+  } else if (isPaid) {
+    banner.innerHTML = `
+      <div class="banner unlocked">
+        <div class="banner-icon">✓</div>
+        <div><strong>Fichiers HD débloqués.</strong> Vous pouvez télécharger l'intégralité de votre projet en qualité maximale.</div>
+      </div>`;
+  } else {
+    banner.innerHTML = `
+      <div class="banner locked">
+        <div class="banner-icon">🔒</div>
+        <div>
+          <strong>Versions HD en attente de paiement.</strong>
+          Vous pouvez consulter les versions de validation ci-dessous.
+          Une fois le règlement reçu${project.amount ? ` (<span class="amount">${fmtAmount(project.amount)}</span>)` : ''}, nous débloquons les fichiers définitifs sous 24 h.
+        </div>
+      </div>`;
+  }
+
+  // ── File rows ──
+  const listEl = document.getElementById('fileList');
+  listEl.innerHTML = '';
+
+  (project.files || []).forEach((file, idx) => {
+    const type = file.type || detectType(file.name);
+    const hasPreview = !!file.previewDriveId;
+    const hasHd = !!file.hdDriveId;
+
+    let actionsHtml = '';
+    if (hasPreview) {
+      actionsHtml += `
+        <button class="btn-dl btn-dl-preview" data-act="preview" data-idx="${idx}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3v12m0 0l-5-5m5 5l5-5M5 21h14" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          ${hasHd ? 'Aperçu' : 'Télécharger'}
+        </button>`;
+    }
+    if (hasHd) {
+      if (filesUnlocked) {
+        actionsHtml += `
+          <button class="btn-dl btn-dl-hd" data-act="hd" data-idx="${idx}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3v12m0 0l-5-5m5 5l5-5M5 21h14" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            HD
+          </button>`;
+      } else {
+        actionsHtml += `
+          <button class="btn-dl btn-dl-locked" disabled title="Disponible après paiement">
+            🔒 HD verrouillé
+          </button>`;
+      }
+    }
+
+    const sizes = [];
+    if (hasPreview && file.previewSize) sizes.push(`Aperçu ${fmtSize(file.previewSize)}`);
+    if (hasHd && file.hdSize) sizes.push(`HD ${fmtSize(file.hdSize)}`);
+
+    const item = document.createElement('div');
+    item.className = 'file-item';
+    item.innerHTML = `
+      <div class="file-icon">${ICONS[type] || ICONS.archive}</div>
+      <div class="file-info">
+        <div class="file-name">${file.name}</div>
+        <div class="file-meta">
+          <span class="file-tag ${type}">${LABELS[type] || 'Fichier'}</span>
+          ${sizes.map(s => `<span>${s}</span>`).join('')}
+        </div>
+      </div>
+      <div class="file-actions">${actionsHtml}</div>
+    `;
+    listEl.appendChild(item);
+  });
+
+  // ── Bind download buttons ──
+  listEl.querySelectorAll('[data-act]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = parseInt(btn.dataset.idx, 10);
+      const act = btn.dataset.act;
+      const file = project.files[idx];
+      const driveId = act === 'hd' ? file.hdDriveId : file.previewDriveId;
+      if (!driveId) return;
+      window.open(driveUrl(driveId), '_blank', 'noopener');
+      // Track (best-effort)
+      updateDoc(doc(db, 'deliveries', currentSlug), {
+        downloadCount: increment(1),
+        lastAccessAt: serverTimestamp(),
+      }).catch(() => {});
+    });
+  });
+
+  show('stFiles');
+}
+
+// ── Main flow ────────────────────────────────────────────────
+const params = new URLSearchParams(window.location.search);
+const slug = params.get('p');
+let currentSlug = null;
+let currentProject = null;
+
+(async function init() {
+  if (!slug) { show('stNoProject'); return; }
+
+  let snap;
+  try { snap = await getDoc(doc(db, 'deliveries', slug)); }
+  catch (e) { console.error(e); show('stNotFound'); return; }
+
+  if (!snap.exists()) { show('stNotFound'); return; }
+
+  const project = snap.data();
+  currentSlug = slug;
+  currentProject = project;
+
+  // Expiration
+  if (project.expiresAt) {
+    const exp = project.expiresAt.toDate ? project.expiresAt.toDate() : new Date(project.expiresAt);
+    if (exp < new Date()) { show('stExpired'); return; }
+  }
+
+  // Already unlocked in this session
+  const sessKey = 'sb_unlocked_' + slug;
+  if (sessionStorage.getItem(sessKey) === project.codeHash) {
+    renderFiles(project);
+    return;
+  }
+
+  document.getElementById('metaClient').textContent = project.clientName || '—';
+  document.getElementById('metaProject').textContent = project.projectName || '—';
+  show('stCodeForm');
+})();
+
+// ── Code submission ──────────────────────────────────────────
+document.getElementById('codeForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const code = document.getElementById('codeInput').value.trim();
+  if (!code || !currentProject) return;
+
+  const btn = document.getElementById('codeSubmit');
+  const btnText = document.getElementById('codeSubmitText');
+  const errBox = document.getElementById('codeError');
+  errBox.classList.remove('show');
+  btn.disabled = true;
+  btnText.innerHTML = '<span class="loader"></span> Vérification…';
+
+  try {
+    const hash = await hashCode(code, currentProject.codeSalt);
+    if (hash === currentProject.codeHash) {
+      sessionStorage.setItem('sb_unlocked_' + currentSlug, currentProject.codeHash);
+      renderFiles(currentProject);
+    } else {
+      errBox.classList.add('show');
+      document.getElementById('codeErrorText').textContent = 'Code incorrect. Vérifiez votre mail.';
+      btn.disabled = false;
+      btnText.textContent = 'Accéder à mes fichiers';
+      document.getElementById('codeInput').focus();
+      document.getElementById('codeInput').select();
+    }
+  } catch (e) {
+    console.error(e);
+    errBox.classList.add('show');
+    document.getElementById('codeErrorText').textContent = 'Erreur technique. Réessayez.';
+    btn.disabled = false;
+    btnText.textContent = 'Accéder à mes fichiers';
+  }
+});
+</script>
+
+</body>
+</html>
