@@ -379,9 +379,12 @@ function detectType(name = '') {
   return 'archive';
 }
 
-// Build Drive download URL
+// Build Drive URL — works for both files and folders.
+// drive.google.com/open?id=... auto-detects type:
+//   - file → opens preview page with Download button
+//   - folder → opens folder interface (user can "Download all" → auto-zip)
 function driveUrl(driveId) {
-  return `https://drive.usercontent.google.com/download?id=${driveId}&export=download&authuser=0&confirm=t`;
+  return `https://drive.google.com/open?id=${driveId}`;
 }
 
 // ── Render unlocked files ─────────────────────────────────────
