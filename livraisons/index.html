@@ -41,8 +41,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 
 /* ── TOPBAR ── */
 .topbar{padding:24px 32px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
-.topbar-logo{font-family:var(--head);font-weight:800;font-size:1.15rem;letter-spacing:-.5px;color:#fff}
-.topbar-logo sup{font-size:.55em;vertical-align:super;margin-left:2px;font-weight:700}
+.topbar-logo{display:flex;align-items:center}
+.topbar-logo img{height:32px;width:auto;display:block}
 .topbar-link{font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--tx3);transition:color .3s var(--ease)}
 .topbar-link:hover{color:var(--tx)}
 
@@ -171,6 +171,7 @@ footer a:hover{color:var(--tx)}
 
 @media(max-width:640px){
   .topbar{padding:18px 20px}
+  .topbar-logo img{height:26px}
   main{padding:32px 20px}
   .code-card{padding:28px 22px}
   .file-item{grid-template-columns:42px 1fr;gap:12px;padding:14px}
@@ -184,7 +185,7 @@ footer a:hover{color:var(--tx)}
 <body>
 
 <header class="topbar">
-  <a href="../" class="topbar-logo">Studio Bastide<sup>®</sup></a>
+  <a href="../" class="topbar-logo"><img src="../assets/img/logo_blanc.png" alt="Studio Bastide Production"></a>
   <a href="../#contact" class="topbar-link">← Site principal</a>
 </header>
 
