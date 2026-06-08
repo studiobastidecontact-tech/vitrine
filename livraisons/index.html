@@ -358,6 +358,54 @@ async function hashCode(code, saltHex) {
   return Array.from(new Uint8Array(bits)).map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
+// ── Code verification — master OR any sub-code ───────────────
+// Returns:
+//   { matched: false }                                          → no match
+//   { matched: true, isMaster: true,  hash }                    → master code
+//   { matched: true, isMaster: false, hash, subIndex, subId }   → sub-code (multi-codes feature)
+async function verifyCode(project, code) {
+  // Master code
+  try {
+    const masterHash = await hashCode(code, project.codeSalt);
+    if (masterHash === project.codeHash) {
+      return { matched: true, isMaster: true, hash: masterHash };
+    }
+  } catch (_) { /* salt missing/bad → fall through to sub-codes */ }
+
+  // Sub-codes (Myriad-style multi-codes)
+  const subs = Array.isArray(project.accessCodes) ? project.accessCodes : [];
+  for (let i = 0; i < subs.length; i++) {
+    const sub = subs[i];
+    if (!sub || !sub.codeHash || !sub.codeSalt) continue;
+    try {
+      const subHash = await hashCode(code, sub.codeSalt);
+      if (subHash === sub.codeHash) {
+        return { matched: true, isMaster: false, hash: subHash, subIndex: i, subId: sub.id };
+      }
+    } catch (_) { /* skip malformed entry */ }
+  }
+
+  return { matched: false };
+}
+
+// Best-effort: increment the use counter on a sub-code (multi-codes tracking).
+// Silent on failure — never blocks the user from accessing files.
+async function incrementSubCodeCounter(slug, project, subIndex) {
+  const subs = Array.isArray(project.accessCodes) ? [...project.accessCodes] : [];
+  if (subIndex < 0 || subIndex >= subs.length) return;
+  const old = subs[subIndex] || {};
+  subs[subIndex] = {
+    ...old,
+    downloadCount: (Number(old.downloadCount) || 0) + 1,
+    lastAccessAt: new Date().toISOString(),
+  };
+  try {
+    await updateDoc(doc(db, 'deliveries', slug), { accessCodes: subs });
+  } catch (e) {
+    console.warn('Sub-code counter update failed:', e);
+  }
+}
+
 // ── Formatting helpers ────────────────────────────────────────
 function fmtSize(bytes) {
   if (!bytes) return '—';
@@ -552,25 +600,30 @@ let currentProject = null;
     if (exp < new Date()) { show('stExpired'); return; }
   }
 
-  // Already unlocked in this session
+  // Already unlocked in this session (master code OR any sub-code)
   const sessKey = 'sb_unlocked_' + slug;
-  if (sessionStorage.getItem(sessKey) === project.codeHash) {
-    renderFiles(project);
-    return;
+  const savedHash = sessionStorage.getItem(sessKey);
+  if (savedHash) {
+    const subs = Array.isArray(project.accessCodes) ? project.accessCodes : [];
+    const hashStillValid = savedHash === project.codeHash
+      || subs.some(s => s && s.codeHash === savedHash);
+    if (hashStillValid) {
+      renderFiles(project);
+      return;
+    }
   }
 
-  // Code provided in URL (?c=...) → try auto-unlock
+  // Code provided in URL (?c=...) → try auto-unlock (master OR sub-code)
   if (codeFromUrl) {
-    try {
-      const hash = await hashCode(codeFromUrl.trim(), project.codeSalt);
-      if (hash === project.codeHash) {
-        sessionStorage.setItem(sessKey, project.codeHash);
-        // Strip ?c= from URL for security/cleanliness, keep ?p=
-        history.replaceState(null, '', '?p=' + encodeURIComponent(slug));
-        renderFiles(project);
-        return;
-      }
-    } catch (e) { /* fall through to code form */ }
+    const result = await verifyCode(project, codeFromUrl.trim());
+    if (result.matched) {
+      sessionStorage.setItem(sessKey, result.hash);
+      if (!result.isMaster) incrementSubCodeCounter(slug, project, result.subIndex);
+      // Strip ?c= from URL for security/cleanliness, keep ?p=
+      history.replaceState(null, '', '?p=' + encodeURIComponent(slug));
+      renderFiles(project);
+      return;
+    }
   }
 
   document.getElementById('metaClient').textContent = project.clientName || '—';
@@ -592,9 +645,10 @@ document.getElementById('codeForm').addEventListener('submit', async (e) => {
   btnText.innerHTML = '<span class="loader"></span> Vérification…';
 
   try {
-    const hash = await hashCode(code, currentProject.codeSalt);
-    if (hash === currentProject.codeHash) {
-      sessionStorage.setItem('sb_unlocked_' + currentSlug, currentProject.codeHash);
+    const result = await verifyCode(currentProject, code);
+    if (result.matched) {
+      sessionStorage.setItem('sb_unlocked_' + currentSlug, result.hash);
+      if (!result.isMaster) incrementSubCodeCounter(currentSlug, currentProject, result.subIndex);
       renderFiles(currentProject);
     } else {
       errBox.classList.add('show');
@@ -657,10 +711,11 @@ document.getElementById('entryForm').addEventListener('submit', async (e) => {
       }
     }
 
-    // Verify code
-    const hash = await hashCode(codeVal, project.codeSalt);
-    if (hash === project.codeHash) {
-      sessionStorage.setItem('sb_unlocked_' + cleanSlug, project.codeHash);
+    // Verify code (master OR any sub-code)
+    const result = await verifyCode(project, codeVal);
+    if (result.matched) {
+      sessionStorage.setItem('sb_unlocked_' + cleanSlug, result.hash);
+      if (!result.isMaster) incrementSubCodeCounter(cleanSlug, project, result.subIndex);
       // Redirect to clean URL with slug only
       location.href = '?p=' + encodeURIComponent(cleanSlug);
     } else {
