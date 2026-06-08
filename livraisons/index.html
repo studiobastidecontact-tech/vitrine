@@ -199,22 +199,37 @@ footer a:hover{color:var(--tx)}
       <div class="loading-inline" style="margin-top:24px"><span class="loader"></span> Vérification de votre lien</div>
     </div>
 
-    <!-- NO PROJECT -->
+    <!-- ENTRY FORM - Page d'accueil /livraisons/ -->
     <div class="state" id="stNoProject">
       <div class="s-label">Espace client</div>
-      <h1 class="s-title">Bienvenue sur l'espace client Studio Bastide.</h1>
+      <h1 class="s-title">Accédez à vos livrables.</h1>
       <p class="s-sub">
-        Cet espace est réservé à nos clients pour récupérer leurs livrables :
-        photos, vidéos, fichiers audio et exports finaux. Vous avez reçu un lien
-        personnalisé par mail contenant votre code d'accès.
+        Entrez l'identifiant et le code d'accès que vous avez reçus
+        par mail pour récupérer vos fichiers.
       </p>
+
       <div class="code-card" style="margin-top:32px">
-        <p style="color:var(--tx2);font-size:.9rem;line-height:1.7">
-          Si vous n'avez pas reçu de lien ou si vous avez perdu votre code,
-          contactez-nous à
-          <a href="mailto:studiobastide.contact@gmail.com" style="color:var(--orange);text-decoration:underline">studiobastide.contact@gmail.com</a>
-          ou au <strong style="color:var(--tx)">09 55 51 97 46</strong>.
-        </p>
+        <form id="entryForm">
+          <div class="f-group">
+            <label for="slugInput">Identifiant de la livraison</label>
+            <input type="text" id="slugInput" class="f-input" placeholder="Ex : clip-lucile-adam-2026" autocomplete="off" required>
+          </div>
+          <div class="f-group">
+            <label for="codeEntry">Code d'accès</label>
+            <input type="text" id="codeEntry" class="f-input" placeholder="Ex : 7K3-92F" autocomplete="off" autocapitalize="characters" required>
+          </div>
+          <button type="submit" class="btn-p" id="entrySubmit">
+            <span id="entrySubmitText">Accéder à mes fichiers</span>
+          </button>
+          <div class="f-error" id="entryError">
+            <span>✕</span> <span id="entryErrorText">Identifiant ou code incorrect.</span>
+          </div>
+          <p class="f-help">
+            Pas reçu de lien ou code perdu ?
+            <a href="mailto:studiobastide.contact@gmail.com">contactez-nous</a>
+            ou au <strong style="color:var(--tx)">09 55 51 97 46</strong>.
+          </p>
+        </form>
       </div>
     </div>
 
@@ -510,6 +525,7 @@ function renderFiles(project) {
 // ── Main flow ────────────────────────────────────────────────
 const params = new URLSearchParams(window.location.search);
 const slug = params.get('p');
+const codeFromUrl = params.get('c');
 let currentSlug = null;
 let currentProject = null;
 
@@ -537,6 +553,20 @@ let currentProject = null;
   if (sessionStorage.getItem(sessKey) === project.codeHash) {
     renderFiles(project);
     return;
+  }
+
+  // Code provided in URL (?c=...) → try auto-unlock
+  if (codeFromUrl) {
+    try {
+      const hash = await hashCode(codeFromUrl.trim(), project.codeSalt);
+      if (hash === project.codeHash) {
+        sessionStorage.setItem(sessKey, project.codeHash);
+        // Strip ?c= from URL for security/cleanliness, keep ?p=
+        history.replaceState(null, '', '?p=' + encodeURIComponent(slug));
+        renderFiles(project);
+        return;
+      }
+    } catch (e) { /* fall through to code form */ }
   }
 
   document.getElementById('metaClient').textContent = project.clientName || '—';
@@ -574,6 +604,73 @@ document.getElementById('codeForm').addEventListener('submit', async (e) => {
     console.error(e);
     errBox.classList.add('show');
     document.getElementById('codeErrorText').textContent = 'Erreur technique. Réessayez.';
+    btn.disabled = false;
+    btnText.textContent = 'Accéder à mes fichiers';
+  }
+});
+
+// ── Entry form (page d'accueil /livraisons/) ─────────────────
+document.getElementById('entryForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const slugVal = document.getElementById('slugInput').value.trim().toLowerCase();
+  const codeVal = document.getElementById('codeEntry').value.trim();
+  if (!slugVal || !codeVal) return;
+
+  const btn = document.getElementById('entrySubmit');
+  const btnText = document.getElementById('entrySubmitText');
+  const errBox = document.getElementById('entryError');
+  const errText = document.getElementById('entryErrorText');
+  errBox.classList.remove('show');
+  btn.disabled = true;
+  btnText.innerHTML = '<span class="loader"></span> Vérification…';
+
+  // Sanitize slug input — accept either raw slug or full URL paste
+  let cleanSlug = slugVal;
+  const urlMatch = cleanSlug.match(/[?&]p=([^&]+)/);
+  if (urlMatch) cleanSlug = decodeURIComponent(urlMatch[1]);
+  cleanSlug = cleanSlug.replace(/[^a-z0-9-]/g, '');
+
+  try {
+    const snap = await getDoc(doc(db, 'deliveries', cleanSlug));
+    if (!snap.exists()) {
+      errText.textContent = "Identifiant introuvable. Vérifiez la saisie.";
+      errBox.classList.add('show');
+      btn.disabled = false;
+      btnText.textContent = 'Accéder à mes fichiers';
+      return;
+    }
+    const project = snap.data();
+
+    // Check expiration
+    if (project.expiresAt) {
+      const exp = project.expiresAt.toDate ? project.expiresAt.toDate() : new Date(project.expiresAt);
+      if (exp < new Date()) {
+        errText.textContent = "Ce lien a expiré. Contactez-nous.";
+        errBox.classList.add('show');
+        btn.disabled = false;
+        btnText.textContent = 'Accéder à mes fichiers';
+        return;
+      }
+    }
+
+    // Verify code
+    const hash = await hashCode(codeVal, project.codeSalt);
+    if (hash === project.codeHash) {
+      sessionStorage.setItem('sb_unlocked_' + cleanSlug, project.codeHash);
+      // Redirect to clean URL with slug only
+      location.href = '?p=' + encodeURIComponent(cleanSlug);
+    } else {
+      errText.textContent = "Identifiant ou code incorrect.";
+      errBox.classList.add('show');
+      btn.disabled = false;
+      btnText.textContent = 'Accéder à mes fichiers';
+      document.getElementById('codeEntry').focus();
+      document.getElementById('codeEntry').select();
+    }
+  } catch (err) {
+    console.error(err);
+    errText.textContent = "Erreur technique. Réessayez.";
+    errBox.classList.add('show');
     btn.disabled = false;
     btnText.textContent = 'Accéder à mes fichiers';
   }
