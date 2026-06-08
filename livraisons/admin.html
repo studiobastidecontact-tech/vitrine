@@ -3,334 +3,371 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Espace client — Studio Bastide Production</title>
-<meta name="description" content="Accédez à vos livrables Studio Bastide Production.">
+<title>Admin Livraisons — Studio Bastide</title>
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" type="image/jpeg" href="../assets/img/logo_square.jpg">
 
 <style>
-@font-face{font-family:'Panchang';src:url('../assets/fonts/Panchang-Medium.otf') format('opentype');font-weight:500;font-display:swap}
 @font-face{font-family:'Panchang';src:url('../assets/fonts/Panchang-Semibold.otf') format('opentype');font-weight:600;font-display:swap}
 @font-face{font-family:'Panchang';src:url('../assets/fonts/Panchang-Bold.otf') format('opentype');font-weight:700;font-display:swap}
 @font-face{font-family:'Panchang';src:url('../assets/fonts/Panchang-Extrabold.otf') format('opentype');font-weight:800;font-display:swap}
-@font-face{font-family:'Switzer';src:url('../assets/fonts/Switzer-Light.otf') format('opentype');font-weight:300;font-display:swap}
 @font-face{font-family:'Switzer';src:url('../assets/fonts/Switzer-Regular.otf') format('opentype');font-weight:400;font-display:swap}
 @font-face{font-family:'Switzer';src:url('../assets/fonts/Switzer-Medium.otf') format('opentype');font-weight:500;font-display:swap}
 @font-face{font-family:'Switzer';src:url('../assets/fonts/Switzer-Bold.otf') format('opentype');font-weight:700;font-display:swap}
 
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#000;--surface:#0a0a0a;--card:#0e0e0e;
-  --border:#161616;--border-h:#222;
+  --bg:#0a0a0a;--surface:#111;--card:#161616;
+  --border:#1f1f1f;--border-h:#2c2c2c;
   --orange:#E8390C;--orange-d:#c52e08;
   --tx:#fff;--tx2:#bbb;--tx3:#777;
   --ok:#22c55e;--err:#ef4444;--warn:#f59e0b;
   --head:'Panchang',sans-serif;--body:'Switzer',sans-serif;
   --ease:cubic-bezier(.22,1,.36,1);
 }
-html{scroll-behavior:smooth}
-body{
-  background:var(--bg);color:var(--tx);
-  font-family:var(--body);font-weight:300;line-height:1.7;
-  min-height:100vh;display:flex;flex-direction:column;
-  -webkit-font-smoothing:antialiased;
-}
+body{background:var(--bg);color:var(--tx);font-family:var(--body);font-weight:400;min-height:100vh;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
-::selection{background:var(--orange);color:#fff}
+input,select,textarea{font-family:inherit}
 
-/* ── TOPBAR ── */
-.topbar{padding:24px 32px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
-.topbar-logo{display:flex;align-items:center}
-.topbar-logo img{height:32px;width:auto;display:block}
-.topbar-link{font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--tx3);transition:color .3s var(--ease)}
-.topbar-link:hover{color:var(--tx)}
+header{border-bottom:1px solid var(--border);padding:18px 28px;display:flex;justify-content:space-between;align-items:center;background:var(--bg);position:sticky;top:0;z-index:50}
+.logo{display:flex;align-items:center;gap:12px}
+.logo img{height:28px;width:auto;display:block}
+.logo span{color:var(--tx3);font-weight:500;font-family:var(--body);font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;padding-left:12px;border-left:1px solid var(--border-h)}
+.user-info{display:flex;align-items:center;gap:12px;font-size:.78rem;color:var(--tx2)}
+.user-info .email{max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.btn-ghost{padding:8px 16px;border:1px solid var(--border-h);font-size:.7rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;transition:all .3s var(--ease)}
+.btn-ghost:hover{border-color:var(--orange);color:var(--orange)}
 
-main{flex:1;display:flex;align-items:center;justify-content:center;padding:60px 32px}
-.wrapper{width:100%;max-width:780px}
+main{max-width:1200px;margin:0 auto;padding:40px 28px 80px}
 
-.s-label{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--tx3);margin-bottom:16px;font-weight:500;display:flex;align-items:center;gap:10px}
-.s-label::before{content:'';width:20px;height:1.5px;background:var(--orange)}
-.s-title{font-family:var(--head);font-weight:800;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.1;margin-bottom:14px;letter-spacing:-.5px}
-.s-sub{color:var(--tx2);font-size:.95rem;line-height:1.7;max-width:580px}
+.gate{text-align:center;padding:80px 20px}
+.gate h1{font-family:var(--head);font-weight:800;font-size:1.6rem;margin-bottom:8px;letter-spacing:-.3px}
+.gate p{color:var(--tx2);margin-bottom:24px;font-size:.9rem}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:var(--orange);color:#fff;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;font-size:.75rem;transition:all .3s var(--ease)}
+.btn-primary:hover{background:var(--orange-d)}
+.btn-primary:disabled{opacity:.5;cursor:not-allowed}
 
-.state{display:none}
-.state.active{display:block;animation:fadeUp .5s var(--ease)}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.warning{padding:18px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.3);color:var(--warn);font-size:.85rem;margin-bottom:24px}
 
-.loader{display:inline-block;width:16px;height:16px;border:2px solid var(--border-h);border-top-color:var(--orange);border-radius:50%;animation:spin .8s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.loading-inline{display:flex;align-items:center;gap:10px;color:var(--tx2);font-size:.85rem}
+.s-label{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--tx3);margin-bottom:10px;font-weight:500}
+.s-title{font-family:var(--head);font-weight:800;font-size:1.6rem;letter-spacing:-.3px;margin-bottom:20px}
 
-/* ── CODE FORM ── */
-.code-card{background:var(--surface);border:1px solid var(--border);padding:40px;margin-top:32px}
-.code-meta{display:flex;flex-direction:column;gap:4px;padding-bottom:24px;margin-bottom:24px;border-bottom:1px solid var(--border)}
-.code-meta-label{font-size:.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--tx3)}
-.code-meta-value{font-family:var(--head);font-weight:700;font-size:1.15rem;color:var(--tx)}
-.code-meta-row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.code-meta-row > div{display:flex;flex-direction:column;gap:4px}
+.tab-row{display:flex;gap:0;margin-bottom:24px;border-bottom:1px solid var(--border)}
+.tab{padding:14px 24px;font-size:.78rem;font-weight:600;color:var(--tx3);letter-spacing:1.5px;text-transform:uppercase;border-bottom:2px solid transparent;transition:all .3s var(--ease)}
+.tab.active{color:var(--tx);border-bottom-color:var(--orange)}
+.tab:hover{color:var(--tx2)}
 
-.f-group{margin-bottom:16px}
-.f-group label{display:block;font-size:.7rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--tx3);margin-bottom:8px;font-weight:500}
-.f-input{width:100%;background:var(--bg);border:1px solid var(--border-h);color:var(--tx);padding:14px 16px;font-family:var(--body);font-size:1rem;letter-spacing:.5px;transition:border-color .3s;outline:none}
-.f-input:focus{border-color:var(--orange)}
-.f-input::placeholder{color:var(--tx3)}
+.panel{display:none}
+.panel.active{display:block}
 
-.btn-p{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--orange);color:#fff;padding:14px 28px;font-size:.75rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;transition:all .3s var(--ease);width:100%}
-.btn-p:hover{background:var(--orange-d)}
-.btn-p:disabled{opacity:.5;cursor:not-allowed}
+.form-card{background:var(--surface);border:1px solid var(--border);padding:28px;margin-bottom:24px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px}
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:.7rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--tx3);margin-bottom:6px;font-weight:500}
+.form-input,.form-select{width:100%;background:var(--bg);border:1px solid var(--border-h);color:var(--tx);padding:11px 14px;font-size:.88rem;transition:border-color .3s;outline:none}
+.form-input:focus,.form-select:focus{border-color:var(--orange)}
+.form-help{font-size:.72rem;color:var(--tx3);margin-top:4px;line-height:1.5}
+.form-hint{display:inline-block;padding:3px 8px;background:var(--card);border:1px solid var(--border-h);font-size:.7rem;color:var(--tx2);font-family:monospace}
 
-.f-error{font-size:.82rem;color:var(--err);margin-top:12px;display:none;align-items:center;gap:6px}
-.f-error.show{display:flex}
-.f-help{font-size:.78rem;color:var(--tx3);margin-top:16px;line-height:1.6}
-.f-help a{color:var(--orange);text-decoration:underline;text-underline-offset:3px}
+.code-display{background:var(--card);border:1px solid var(--orange);padding:14px 18px;font-family:monospace;font-size:1.3rem;letter-spacing:3px;color:var(--orange);font-weight:700;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.code-display button{padding:6px 12px;font-size:.65rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;border:1px solid var(--border-h);color:var(--tx2);transition:all .3s var(--ease)}
+.code-display button:hover{color:var(--tx);border-color:var(--tx2)}
 
-/* ── FILES VIEW ── */
-.files-header{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--border)}
-.files-info h2{font-family:var(--head);font-weight:700;font-size:1.4rem;letter-spacing:-.3px;margin-bottom:4px}
-.files-info p{color:var(--tx2);font-size:.88rem}
-.files-info p strong{color:var(--tx);font-weight:600}
-.files-meta{display:flex;gap:24px;font-size:.78rem;color:var(--tx3)}
-.files-meta strong{color:var(--tx);font-weight:600;display:block;font-size:1.1rem}
-
-/* ── PAYMENT BANNER ── */
-.banner{
-  margin-bottom:24px;padding:18px 22px;
-  display:flex;align-items:center;gap:14px;
-  font-size:.88rem;line-height:1.6;
-}
-.banner.locked{border:1px solid var(--warn);background:rgba(245,158,11,.06);color:var(--tx2)}
-.banner.unlocked{border:1px solid var(--ok);background:rgba(34,197,94,.05);color:var(--tx2)}
-.banner.free{border:1px solid #a855f7;background:rgba(168,85,247,.06);color:var(--tx2)}
-.banner-icon{
-  width:36px;height:36px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--head);font-weight:800;font-size:1.2rem;
-}
-.banner.locked .banner-icon{color:var(--warn);border:1px solid var(--warn)}
-.banner.unlocked .banner-icon{color:var(--ok);border:1px solid var(--ok)}
-.banner.free .banner-icon{color:#a855f7;border:1px solid #a855f7}
-.banner strong{color:var(--tx);font-weight:600}
-.banner .amount{font-family:var(--head);font-weight:700;color:var(--orange)}
-
-/* ── FILE LIST ── */
-.file-list{display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
-.file-item{
-  display:grid;grid-template-columns:48px 1fr auto;gap:14px;align-items:center;
-  padding:16px 20px;background:var(--surface);border:1px solid var(--border);
-  transition:border-color .3s var(--ease);
-}
-.file-item:hover{border-color:var(--border-h)}
-.file-icon{
-  width:42px;height:42px;
+/* ── Payment toggle ── */
+.toggle-card{
   background:var(--card);border:1px solid var(--border-h);
+  padding:16px 18px;display:flex;justify-content:space-between;align-items:center;gap:14px;
+}
+.toggle-card label{font-size:.85rem;color:var(--tx);font-weight:500;letter-spacing:.3px;margin:0;text-transform:none}
+.toggle-card label small{display:block;color:var(--tx3);font-size:.72rem;margin-top:2px;font-weight:400}
+.switch{position:relative;width:48px;height:26px;background:var(--border-h);border-radius:13px;cursor:pointer;transition:background .3s;flex-shrink:0}
+.switch::after{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;background:#fff;border-radius:50%;transition:transform .3s var(--ease)}
+.switch.on{background:var(--ok)}
+.switch.on::after{transform:translateX(22px)}
+
+/* ── Type selector (Payante/Gratuite) ── */
+.type-cards{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;
+}
+.type-card{
+  background:var(--card);border:1px solid var(--border-h);
+  padding:16px 18px;display:flex;align-items:flex-start;gap:14px;
+  text-align:left;transition:all .3s var(--ease);width:100%;
+}
+.type-card:hover{border-color:var(--tx3)}
+.type-card.active{border-color:var(--orange);background:rgba(232,57,12,.04)}
+.type-card .type-icon{
+  width:36px;height:36px;flex-shrink:0;border:1px solid var(--border-h);
   display:flex;align-items:center;justify-content:center;
+  font-family:var(--head);font-weight:800;font-size:1rem;color:var(--tx3);
 }
-.file-icon svg{width:20px;height:20px;color:var(--tx2)}
-.file-info{min-width:0}
-.file-name{font-weight:500;font-size:.92rem;color:var(--tx);margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.file-meta{font-size:.74rem;color:var(--tx3);display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-.file-tag{
-  text-transform:uppercase;letter-spacing:1px;font-weight:600;font-size:.65rem;
-  padding:2px 6px;border:1px solid;
+.type-card.active .type-icon{border-color:var(--orange);color:var(--orange)}
+.type-card .type-title{font-family:var(--head);font-weight:700;font-size:.92rem;color:var(--tx);margin-bottom:2px}
+.type-card .type-desc{color:var(--tx3);font-size:.74rem;line-height:1.5}
+
+/* ── Files form ── */
+.files-form{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.file-card{
+  background:var(--card);border:1px solid var(--border);padding:14px;
+  display:flex;flex-direction:column;gap:8px;
 }
-.file-tag.video{color:#a855f7;border-color:rgba(168,85,247,.4)}
-.file-tag.audio{color:#06b6d4;border-color:rgba(6,182,212,.4)}
-.file-tag.photo{color:#f97316;border-color:rgba(249,115,22,.4)}
-.file-tag.archive{color:#94a3b8;border-color:rgba(148,163,184,.4)}
+.file-card-head{display:grid;grid-template-columns:1fr 90px 36px;gap:8px;align-items:center}
+.file-card-body{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.file-card label{font-size:.65rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--tx3);margin-bottom:3px;display:block;font-weight:500}
+.file-card input,.file-card select{background:var(--bg);border:1px solid var(--border-h);color:var(--tx);padding:8px 10px;font-size:.82rem;width:100%;outline:none}
+.file-card input:focus,.file-card select:focus{border-color:var(--orange)}
+.file-card .ref-group{display:flex;flex-direction:column;gap:6px}
+.file-card .ref-group .size-row{display:grid;grid-template-columns:1fr 80px;gap:6px}
+.file-card .del{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:var(--err);padding:7px;font-size:.85rem;transition:background .3s;align-self:start}
+.file-card .del:hover{background:rgba(239,68,68,.25)}
 
-.file-actions{display:flex;flex-direction:column;gap:6px;align-items:flex-end}
-.btn-dl{
-  display:inline-flex;align-items:center;gap:6px;
-  padding:9px 16px;font-size:.7rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
-  transition:all .3s var(--ease);min-width:160px;justify-content:center;
+.section-label{
+  font-size:.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--tx3);
+  font-weight:600;margin-bottom:4px;display:flex;align-items:center;gap:6px;
 }
-.btn-dl-preview{border:1px solid var(--border-h);color:var(--tx2)}
-.btn-dl-preview:hover{border-color:var(--tx);color:var(--tx)}
-.btn-dl-hd{background:var(--orange);color:#fff;border:1px solid var(--orange)}
-.btn-dl-hd:hover{background:var(--orange-d)}
-.btn-dl-locked{
-  border:1px dashed var(--border-h);color:var(--tx3);cursor:not-allowed;
-  background:transparent;
-}
-.btn-dl svg{width:11px;height:11px}
+.section-label::before{content:'';width:14px;height:1.5px;background:currentColor}
+.section-label.preview{color:#94a3b8}
+.section-label.hd{color:var(--orange)}
 
-.files-footer{
-  padding:18px 22px;border-left:2px solid var(--orange);
-  background:rgba(232,57,12,.03);font-size:.82rem;color:var(--tx3);line-height:1.7;
-}
-.files-footer strong{color:var(--tx2)}
+.btn-add-file{padding:11px 16px;border:1px dashed var(--border-h);font-size:.72rem;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--tx3);transition:all .3s var(--ease);width:100%}
+.btn-add-file:hover{border-color:var(--orange);color:var(--orange)}
 
-.expired{padding:32px;border:1px solid var(--err);background:rgba(239,68,68,.06);margin-top:24px}
-.expired h3{font-family:var(--head);font-weight:700;font-size:1.1rem;color:var(--err);margin-bottom:8px}
-.expired p{color:var(--tx2);font-size:.88rem;line-height:1.7}
+.form-actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+.btn-secondary{padding:12px 20px;border:1px solid var(--border-h);color:var(--tx2);font-size:.72rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;transition:all .3s var(--ease)}
+.btn-secondary:hover{border-color:var(--tx);color:var(--tx)}
 
-footer{padding:24px 32px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:.72rem;color:var(--tx3);flex-wrap:wrap;gap:12px}
-footer a{color:var(--tx3);transition:color .3s}
-footer a:hover{color:var(--tx)}
+/* ── List ── */
+.delivery-list{display:flex;flex-direction:column;gap:10px}
+.delivery-item{background:var(--surface);border:1px solid var(--border);padding:18px 20px;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center}
+.delivery-meta-row{display:flex;align-items:center;gap:14px;margin-bottom:6px;flex-wrap:wrap}
+.delivery-client{font-family:var(--head);font-weight:700;font-size:1rem;color:var(--tx)}
+.delivery-project{color:var(--tx2);font-size:.85rem}
+.delivery-tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:.65rem;padding:2px 8px;letter-spacing:1px;text-transform:uppercase;font-weight:600;border:1px solid;font-family:monospace}
+.tag-files{color:var(--tx3);border-color:var(--border-h)}
+.tag-dl{color:var(--orange);border-color:var(--orange)}
+.tag-expired{color:var(--err);border-color:var(--err)}
+.tag-paid{color:var(--ok);border-color:var(--ok)}
+.tag-unpaid{color:var(--warn);border-color:var(--warn)}
+.tag-free{color:#a855f7;border-color:#a855f7}
 
-@media(max-width:640px){
-  .topbar{padding:18px 20px}
-  .topbar-logo img{height:26px}
-  main{padding:32px 20px}
-  .code-card{padding:28px 22px}
-  .file-item{grid-template-columns:42px 1fr;gap:12px;padding:14px}
-  .file-actions{grid-column:1/-1;flex-direction:row;justify-content:stretch;align-items:stretch}
-  .btn-dl{flex:1;min-width:0}
-  footer{padding:18px 20px;font-size:.68rem}
+.delivery-actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.btn-mini{padding:7px 12px;font-size:.65rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;border:1px solid var(--border-h);color:var(--tx2);transition:all .3s var(--ease)}
+.btn-mini:hover{color:var(--tx);border-color:var(--tx2)}
+.btn-mini.danger{color:var(--err);border-color:rgba(239,68,68,.4)}
+.btn-mini.danger:hover{background:rgba(239,68,68,.1);border-color:var(--err)}
+.btn-mini.primary{background:var(--orange);color:#fff;border-color:var(--orange)}
+.btn-mini.primary:hover{background:var(--orange-d)}
+.btn-mini.pay{background:var(--ok);color:#000;border-color:var(--ok);font-weight:700}
+.btn-mini.pay:hover{background:#16a34a}
+.btn-mini.unpay{color:var(--warn);border-color:var(--warn)}
+.btn-mini.unpay:hover{background:rgba(245,158,11,.1)}
+
+.empty{padding:60px 20px;text-align:center;color:var(--tx3);font-size:.88rem}
+
+.toast{position:fixed;bottom:24px;right:24px;background:var(--surface);border:1px solid var(--border-h);padding:14px 20px;font-size:.85rem;display:flex;align-items:center;gap:10px;transform:translateY(120%);transition:transform .35s var(--ease);z-index:200}
+.toast.show{transform:translateY(0)}
+.toast.ok{border-color:var(--ok);color:var(--ok)}
+.toast.err{border-color:var(--err);color:var(--err)}
+
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:300;padding:20px}
+.modal.show{display:flex}
+.modal-card{background:var(--surface);border:1px solid var(--border-h);padding:32px;max-width:580px;width:100%}
+.modal-card h3{font-family:var(--head);font-weight:700;font-size:1.2rem;margin-bottom:16px}
+.modal-card p{color:var(--tx2);font-size:.88rem;line-height:1.6;margin-bottom:14px}
+
+.link-box{background:var(--bg);border:1px solid var(--border-h);padding:14px;font-family:monospace;font-size:.78rem;color:var(--orange);word-break:break-all;margin:14px 0;line-height:1.5}
+
+.loader{display:inline-block;width:14px;height:14px;border:2px solid var(--border-h);border-top-color:var(--orange);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+@media(max-width:720px){
+  main{padding:24px 18px 60px}
+  .form-row,.form-row-3{grid-template-columns:1fr}
+  .file-card-head{grid-template-columns:1fr 36px}
+  .file-card-head select{grid-column:1/-1}
+  .file-card-body{grid-template-columns:1fr}
+  .delivery-item{grid-template-columns:1fr}
 }
 </style>
 </head>
 
 <body>
 
-<header class="topbar">
-  <a href="../" class="topbar-logo"><img src="../assets/img/logo_blanc.png" alt="Studio Bastide Production"></a>
-  <a href="../#contact" class="topbar-link">← Site principal</a>
+<header>
+  <div class="logo"><img src="../assets/img/logo_blanc.png" alt="Studio Bastide Production"><span>Admin Livraisons</span></div>
+  <div style="display:flex;align-items:center;gap:10px">
+    <div class="user-info" id="userInfo" style="display:none">
+      <span class="email" id="userEmail"></span>
+    </div>
+    <button id="loginBtn" class="btn-primary">Connexion Google</button>
+    <button id="logoutBtn" class="btn-ghost" style="display:none">Déconnexion</button>
+  </div>
 </header>
 
 <main>
-  <div class="wrapper">
 
-    <!-- LOADING -->
-    <div class="state active" id="stLoading">
-      <div class="s-label">Espace client</div>
-      <h1 class="s-title">Chargement de votre projet…</h1>
-      <div class="loading-inline" style="margin-top:24px"><span class="loader"></span> Vérification de votre lien</div>
+  <div id="gate" class="gate">
+    <h1>Accès restreint.</h1>
+    <p>Connectez-vous avec un compte Studio Bastide autorisé.</p>
+  </div>
+
+  <div id="app" style="display:none">
+
+    <div class="warning" id="warnUnauth" style="display:none">
+      Votre compte n'est pas autorisé à accéder à cet espace.
     </div>
 
-    <!-- ENTRY FORM - Page d'accueil /livraisons/ -->
-    <div class="state" id="stNoProject">
-      <div class="s-label">Espace client</div>
-      <h1 class="s-title">Accédez à vos livrables.</h1>
-      <p class="s-sub">
-        Entrez l'identifiant et le code d'accès que vous avez reçus
-        par mail pour récupérer vos fichiers.
-      </p>
-
-      <div class="code-card" style="margin-top:32px">
-        <form id="entryForm">
-          <div class="f-group">
-            <label for="slugInput">Identifiant de la livraison</label>
-            <input type="text" id="slugInput" class="f-input" placeholder="Ex : clip-lucile-adam-2026" autocomplete="off" required>
-          </div>
-          <div class="f-group">
-            <label for="codeEntry">Code d'accès</label>
-            <input type="text" id="codeEntry" class="f-input" placeholder="Ex : 7K3-92F" autocomplete="off" autocapitalize="characters" required>
-          </div>
-          <button type="submit" class="btn-p" id="entrySubmit">
-            <span id="entrySubmitText">Accéder à mes fichiers</span>
-          </button>
-          <div class="f-error" id="entryError">
-            <span>✕</span> <span id="entryErrorText">Identifiant ou code incorrect.</span>
-          </div>
-          <p class="f-help">
-            Pas reçu de lien ou code perdu ?
-            <a href="mailto:studiobastide.contact@gmail.com">contactez-nous</a>
-            ou au <strong style="color:var(--tx)">09 55 51 97 46</strong>.
-          </p>
-        </form>
-      </div>
+    <div class="tab-row">
+      <button class="tab active" data-tab="create">+ Nouvelle livraison</button>
+      <button class="tab" data-tab="list">Livraisons existantes</button>
     </div>
 
-    <!-- NOT FOUND -->
-    <div class="state" id="stNotFound">
-      <div class="s-label">Erreur</div>
-      <h1 class="s-title">Projet introuvable.</h1>
-      <p class="s-sub">Le lien n'est pas valide. Vérifiez l'URL complète envoyée par mail.</p>
-      <p class="f-help" style="margin-top:24px">Besoin d'aide ? <a href="mailto:studiobastide.contact@gmail.com">studiobastide.contact@gmail.com</a></p>
-    </div>
+    <!-- ─────── PANEL CREATE ─────── -->
+    <div class="panel active" id="panelCreate">
+      <div class="form-card">
+        <div class="s-label" id="formLabel">Créer une livraison</div>
+        <h2 class="s-title" id="formTitle">Nouveau projet client</h2>
 
-    <!-- CODE FORM -->
-    <div class="state" id="stCodeForm">
-      <div class="s-label">Espace client</div>
-      <h1 class="s-title">Vos livrables sont prêts.</h1>
-      <p class="s-sub">Entrez le code d'accès reçu par mail pour accéder à vos fichiers.</p>
+        <input type="hidden" id="editingSlug">
 
-      <div class="code-card">
-        <div class="code-meta">
-          <div class="code-meta-row">
-            <div>
-              <span class="code-meta-label">Client</span>
-              <span class="code-meta-value" id="metaClient">—</span>
-            </div>
-            <div style="text-align:right">
-              <span class="code-meta-label">Projet</span>
-              <span class="code-meta-value" id="metaProject">—</span>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="clientName">Nom du client *</label>
+            <input id="clientName" class="form-input" placeholder="Prénom Nom du client" required>
+          </div>
+          <div class="form-group">
+            <label for="projectName">Nom du projet *</label>
+            <input id="projectName" class="form-input" placeholder="Titre de la prestation" required>
+          </div>
+        </div>
+
+        <div class="form-row-3">
+          <div class="form-group">
+            <label for="slug">Identifiant URL (slug) *</label>
+            <input id="slug" class="form-input" placeholder="identifiant-du-projet" required>
+            <p class="form-help"><span class="form-hint">?p=<span id="slugPreview">…</span></span></p>
+          </div>
+          <div class="form-group">
+            <label for="expiresAt">Expiration (optionnel)</label>
+            <input id="expiresAt" type="date" class="form-input">
+            <p class="form-help">Vide = pas d'expiration.</p>
+          </div>
+          <div class="form-group">
+            <label>Code d'accès client *</label>
+            <div class="code-display">
+              <span id="accessCode">7K3-92F</span>
+              <button type="button" id="regenCode">Régénérer</button>
             </div>
           </div>
         </div>
 
-        <form id="codeForm">
-          <div class="f-group">
-            <label for="codeInput">Code d'accès</label>
-            <input type="text" id="codeInput" class="f-input" placeholder="Ex : 7K3-92F" autocomplete="off" autocapitalize="characters" required>
+        <div class="form-group">
+          <label>Type de prestation *</label>
+          <div class="type-cards">
+            <button type="button" class="type-card active" data-type="paid">
+              <div class="type-icon">€</div>
+              <div>
+                <div class="type-title">Prestation payante</div>
+                <div class="type-desc">Le client règle un montant. Les fichiers HD restent verrouillés jusqu'à réception du paiement.</div>
+              </div>
+            </button>
+            <button type="button" class="type-card" data-type="free">
+              <div class="type-icon">★</div>
+              <div>
+                <div class="type-title">Prestation gratuite</div>
+                <div class="type-desc">Contrepartie : tag sur les réseaux sociaux. Fichiers immédiatement débloqués.</div>
+              </div>
+            </button>
           </div>
-          <button type="submit" class="btn-p" id="codeSubmit">
-            <span id="codeSubmitText">Accéder à mes fichiers</span>
-          </button>
-          <div class="f-error" id="codeError">
-            <span>✕</span> <span id="codeErrorText">Code incorrect.</span>
+        </div>
+
+        <!-- ─── Champs spécifiques si Payante ─── -->
+        <div class="form-row" id="paidFields">
+          <div class="form-group">
+            <label for="amount">Montant à régler (€ HT)</label>
+            <input id="amount" type="number" min="0" step="1" class="form-input" placeholder="750">
+            <p class="form-help">Affiché côté client si statut "non payé".</p>
           </div>
-          <p class="f-help">
-            Le code vous a été transmis par mail. Si vous l'avez perdu,
-            <a href="mailto:studiobastide.contact@gmail.com">contactez-nous</a>.
+          <div class="form-group">
+            <label>Statut paiement</label>
+            <div class="toggle-card">
+              <label>
+                <span id="payToggleLabel">Non payé — fichiers HD verrouillés</span>
+                <small>Coche quand tu reçois le règlement</small>
+              </label>
+              <div class="switch" id="payToggle"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── Champs spécifiques si Gratuite ─── -->
+        <div class="form-group" id="freeFields" style="display:none">
+          <label for="taggingRequirement">Contrepartie réseaux sociaux</label>
+          <input id="taggingRequirement" class="form-input" value="Identifiez @stud_bastide sur vos publications Instagram et TikTok, ou @studiobastide sur YouTube.">
+          <p class="form-help">Message affiché au client dans le bandeau de livraison. Personnalisable au cas par cas.</p>
+        </div>
+
+        <div class="form-group">
+          <label>Fichiers livrés</label>
+          <p class="form-help" style="margin-bottom:10px">
+            Pour chaque fichier, renseigne l'ID Drive de la <strong>version aperçu</strong> (avec watermark, visible avant paiement) et/ou l'ID Drive de la <strong>version HD</strong> (sans watermark, accessible après paiement).
+            <br>L'ID Drive se trouve dans l'URL : <span class="form-hint">drive.google.com/file/d/<strong>L'ID-ICI</strong>/view</span>
           </p>
-        </form>
+          <div class="files-form" id="filesForm"></div>
+          <button type="button" class="btn-add-file" id="addFileBtn">+ Ajouter un fichier</button>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn-primary" id="saveBtn">Créer la livraison</button>
+          <button class="btn-secondary" id="resetBtn">Annuler</button>
+        </div>
       </div>
     </div>
 
-    <!-- EXPIRED -->
-    <div class="state" id="stExpired">
-      <div class="s-label">Lien expiré</div>
-      <h1 class="s-title">Ce lien n'est plus actif.</h1>
-      <p class="s-sub">Les livrables de ce projet ne sont plus disponibles. Contactez-nous pour récupérer une nouvelle copie.</p>
-      <div class="expired">
-        <h3>Comment récupérer mes fichiers ?</h3>
-        <p>Écrivez-nous à <a href="mailto:studiobastide.contact@gmail.com" style="color:var(--orange);text-decoration:underline">studiobastide.contact@gmail.com</a> en précisant le nom de votre projet, nous vous renverrons un nouveau lien sous 24 h.</p>
-      </div>
-    </div>
-
-    <!-- FILES UNLOCKED -->
-    <div class="state" id="stFiles">
-      <div class="files-header">
-        <div class="files-info">
-          <div class="s-label" style="margin-bottom:10px">Livrables</div>
-          <h2 id="filesClient">Client</h2>
-          <p>Projet : <strong id="filesProject">—</strong></p>
-        </div>
-        <div class="files-meta">
-          <div><strong id="filesCount">0</strong><span>fichier(s)</span></div>
-        </div>
-      </div>
-
-      <!-- Payment status banner -->
-      <div id="paymentBanner"></div>
-
-      <div class="file-list" id="fileList"></div>
-
-      <div class="files-footer">
-        <strong>Conservez ces fichiers.</strong> Le lien restera actif jusqu'au <span id="filesExpiry">nouvel ordre</span>.
-        Pour toute question, écrivez-nous à
-        <a href="mailto:studiobastide.contact@gmail.com" style="color:var(--orange);text-decoration:underline">studiobastide.contact@gmail.com</a>.
+    <!-- ─────── PANEL LIST ─────── -->
+    <div class="panel" id="panelList">
+      <h2 class="s-title">Livraisons existantes</h2>
+      <div class="delivery-list" id="deliveryList">
+        <div class="empty">Chargement…</div>
       </div>
     </div>
 
   </div>
+
 </main>
 
-<footer>
-  <span>© 2026 Studio Bastide Production</span>
-  <a href="../mentions-legales/">Mentions légales</a>
-</footer>
+<div id="toast" class="toast"></div>
+
+<div class="modal" id="linkModal">
+  <div class="modal-card">
+    <h3>Livraison créée !</h3>
+    <p>Voici le lien et le code à envoyer au client. Le code <strong>ne sera plus visible</strong> ensuite.</p>
+    <div class="link-box" id="modalLink"></div>
+    <p style="font-size:.82rem">Code : <span class="form-hint" id="modalCode" style="font-size:1rem;letter-spacing:2px"></span></p>
+    <div class="form-actions">
+      <button class="btn-primary" id="copyAllBtn">Copier le mail prêt à envoyer</button>
+      <button class="btn-secondary" id="closeModalBtn">Fermer</button>
+    </div>
+  </div>
+</div>
 
 <script type="module">
 import { initializeApp }
   from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
-import { getFirestore, doc, getDoc, updateDoc, increment, serverTimestamp }
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged }
+  from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc, updateDoc, deleteDoc, collection, getDocs, query, orderBy, serverTimestamp, Timestamp }
   from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
 
-// ── Firebase init ─────────────────────────────────────────────
+const ALLOWED_EMAILS = [
+  "fournier.solal.pro@gmail.com",
+  "studiobastide.contact@gmail.com",
+  "maelarnaud.pro@gmail.com",
+];
+
 const firebaseConfig = {
   apiKey: "AIzaSyA8r8wc7a9aR96SQmc8cCEqkydOwm5ljwI",
   authDomain: "studio-bastide-livraisons.firebaseapp.com",
@@ -340,341 +377,518 @@ const firebaseConfig = {
   appId: "1:812744504330:web:79f75f6ef4e723a0cf9bf3",
 };
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 const db = getFirestore(app);
 
-// ── State switching ───────────────────────────────────────────
-const states = ['stLoading','stNoProject','stNotFound','stCodeForm','stExpired','stFiles'];
-function show(s) { states.forEach(x => document.getElementById(x).classList.toggle('active', x === s)); }
-
-// ── PBKDF2 hashing ────────────────────────────────────────────
+// ── Helpers ──────────────────────────────────────────────────
+function slugify(s) {
+  return s.toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,60);
+}
+function randomCode() {
+  const chars = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
+  let s = '';
+  for (let i = 0; i < 6; i++) s += chars[Math.floor(Math.random() * chars.length)];
+  return s.slice(0,3) + '-' + s.slice(3);
+}
+function randomSalt() {
+  const arr = new Uint8Array(16);
+  crypto.getRandomValues(arr);
+  return Array.from(arr).map(b => b.toString(16).padStart(2,'0')).join('');
+}
 async function hashCode(code, saltHex) {
   const enc = new TextEncoder();
-  const saltBytes = Uint8Array.from(saltHex.match(/.{2}/g).map(b => parseInt(b, 16)));
+  const saltBytes = Uint8Array.from(saltHex.match(/.{2}/g).map(b => parseInt(b,16)));
   const km = await crypto.subtle.importKey('raw', enc.encode(code.trim().toUpperCase()),
-    { name: 'PBKDF2' }, false, ['deriveBits']);
+    { name:'PBKDF2' }, false, ['deriveBits']);
   const bits = await crypto.subtle.deriveBits(
-    { name: 'PBKDF2', salt: saltBytes, iterations: 100000, hash: 'SHA-256' },
-    km, 256);
-  return Array.from(new Uint8Array(bits)).map(b => b.toString(16).padStart(2, '0')).join('');
-}
-
-// ── Formatting helpers ────────────────────────────────────────
-function fmtSize(bytes) {
-  if (!bytes) return '—';
-  const u = ['o','Ko','Mo','Go','To'];
-  let i = 0;
-  while (bytes >= 1024 && i < u.length-1) { bytes /= 1024; i++; }
-  return bytes.toFixed(bytes < 10 && i > 0 ? 1 : 0) + ' ' + u[i];
+    { name:'PBKDF2', salt:saltBytes, iterations:100000, hash:'SHA-256' }, km, 256);
+  return Array.from(new Uint8Array(bits)).map(b => b.toString(16).padStart(2,'0')).join('');
 }
 function fmtDate(ts) {
-  if (!ts) return 'nouvel ordre';
+  if (!ts) return '—';
   const d = ts.toDate ? ts.toDate() : new Date(ts);
-  return d.toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' });
+  return d.toLocaleDateString('fr-FR', { day:'2-digit', month:'2-digit', year:'numeric' });
 }
 function fmtAmount(n) {
-  if (!n) return '—';
+  if (!n) return '';
   return n.toLocaleString('fr-FR') + ' €';
 }
-
-// ── File type icons & labels ──────────────────────────────────
-const ICONS = {
-  video: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>`,
-  audio: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>`,
-  photo: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>`,
-  archive: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>`,
-};
-const LABELS = { video: 'Vidéo', audio: 'Audio', photo: 'Photo', archive: 'Archive' };
-
-// Auto-detect type from filename
 function detectType(name = '') {
   const ext = name.toLowerCase().split('.').pop();
   if (['mp4','mov','avi','mkv','webm','m4v','prores'].includes(ext)) return 'video';
   if (['mp3','wav','flac','aiff','aif','m4a','ogg','opus'].includes(ext)) return 'audio';
   if (['jpg','jpeg','png','heic','heif','webp','tiff','tif','raw','cr2','arw','nef','dng','psd'].includes(ext)) return 'photo';
-  if (['zip','rar','7z','tar','gz'].includes(ext)) return 'archive';
   return 'archive';
 }
-
-// Build Drive URL — works for both files and folders.
-// drive.google.com/open?id=... auto-detects type:
-//   - file → opens preview page with Download button
-//   - folder → opens folder interface (user can "Download all" → auto-zip)
-function driveUrl(driveId) {
-  return `https://drive.google.com/open?id=${driveId}`;
+function toast(msg, type='ok') {
+  const t = document.getElementById('toast');
+  t.className = 'toast show ' + type;
+  t.textContent = msg;
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+function publicUrl(slug) {
+  return `${window.location.origin}/livraisons/?p=${slug}`;
 }
 
-// ── Render unlocked files ─────────────────────────────────────
-function renderFiles(project) {
-  document.getElementById('filesClient').textContent = project.clientName || 'Client';
-  document.getElementById('filesProject').textContent = project.projectName || '—';
-  document.getElementById('filesCount').textContent = (project.files || []).length;
-  document.getElementById('filesExpiry').textContent = project.expiresAt ? fmtDate(project.expiresAt) : 'nouvel ordre';
+// ── Auth ─────────────────────────────────────────────────────
+document.getElementById('loginBtn').onclick = async () => {
+  try { await signInWithPopup(auth, new GoogleAuthProvider()); }
+  catch (e) { toast('Connexion impossible', 'err'); console.error(e); }
+};
+document.getElementById('logoutBtn').onclick = () => signOut(auth);
 
-  const isFree = project.status === 'free';
-  const isPaid = project.status === 'paid';
-  const filesUnlocked = isFree || isPaid;
-  const hasLockedFiles = (project.files || []).some(f => f.hdDriveId);
+onAuthStateChanged(auth, async (user) => {
+  const gate = document.getElementById('gate');
+  const appEl = document.getElementById('app');
+  const loginBtn = document.getElementById('loginBtn');
+  const logoutBtn = document.getElementById('logoutBtn');
+  const userInfo = document.getElementById('userInfo');
 
-  // ── Status banner ──
-  const banner = document.getElementById('paymentBanner');
-  if (isFree) {
-    // Prestation gratuite avec contrepartie tag réseaux sociaux
-    const tagText = project.taggingRequirement
-      || 'Identifiez <strong>@stud_bastide</strong> sur vos publications Instagram et TikTok, ou <strong>@studiobastide</strong> sur YouTube.';
-    banner.innerHTML = `
-      <div class="banner free">
-        <div class="banner-icon">★</div>
-        <div>
-          <strong>Prestation offerte par Studio Bastide.</strong>
-          ${tagText}
-          Merci pour votre soutien !
-        </div>
-      </div>`;
-  } else if (!hasLockedFiles) {
-    banner.innerHTML = '';
-  } else if (isPaid) {
-    banner.innerHTML = `
-      <div class="banner unlocked">
-        <div class="banner-icon">✓</div>
-        <div><strong>Fichiers HD débloqués.</strong> Vous pouvez télécharger l'intégralité de votre projet en qualité maximale.</div>
-      </div>`;
-  } else {
-    banner.innerHTML = `
-      <div class="banner locked">
-        <div class="banner-icon">🔒</div>
-        <div>
-          <strong>Versions HD en attente de paiement.</strong>
-          Vous pouvez consulter les versions de validation ci-dessous.
-          Une fois le règlement reçu${project.amount ? ` (<span class="amount">${fmtAmount(project.amount)}</span>)` : ''}, nous débloquons les fichiers définitifs sous 24 h.
-        </div>
-      </div>`;
-  }
-
-  // ── File rows ──
-  const listEl = document.getElementById('fileList');
-  listEl.innerHTML = '';
-
-  (project.files || []).forEach((file, idx) => {
-    const type = file.type || detectType(file.name);
-    const hasPreview = !!file.previewDriveId;
-    const hasHd = !!file.hdDriveId;
-
-    let actionsHtml = '';
-    if (hasPreview) {
-      actionsHtml += `
-        <button class="btn-dl btn-dl-preview" data-act="preview" data-idx="${idx}">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3v12m0 0l-5-5m5 5l5-5M5 21h14" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          ${hasHd ? 'Aperçu' : 'Télécharger'}
-        </button>`;
-    }
-    if (hasHd) {
-      if (filesUnlocked) {
-        actionsHtml += `
-          <button class="btn-dl btn-dl-hd" data-act="hd" data-idx="${idx}">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3v12m0 0l-5-5m5 5l5-5M5 21h14" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            HD
-          </button>`;
-      } else {
-        actionsHtml += `
-          <button class="btn-dl btn-dl-locked" disabled title="Disponible après paiement">
-            🔒 HD verrouillé
-          </button>`;
-      }
-    }
-
-    const sizes = [];
-    if (hasPreview && file.previewSize) sizes.push(`Aperçu ${fmtSize(file.previewSize)}`);
-    if (hasHd && file.hdSize) sizes.push(`HD ${fmtSize(file.hdSize)}`);
-
-    const item = document.createElement('div');
-    item.className = 'file-item';
-    item.innerHTML = `
-      <div class="file-icon">${ICONS[type] || ICONS.archive}</div>
-      <div class="file-info">
-        <div class="file-name">${file.name}</div>
-        <div class="file-meta">
-          <span class="file-tag ${type}">${LABELS[type] || 'Fichier'}</span>
-          ${sizes.map(s => `<span>${s}</span>`).join('')}
-        </div>
-      </div>
-      <div class="file-actions">${actionsHtml}</div>
-    `;
-    listEl.appendChild(item);
-  });
-
-  // ── Bind download buttons ──
-  listEl.querySelectorAll('[data-act]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const idx = parseInt(btn.dataset.idx, 10);
-      const act = btn.dataset.act;
-      const file = project.files[idx];
-      const driveId = act === 'hd' ? file.hdDriveId : file.previewDriveId;
-      if (!driveId) return;
-      window.open(driveUrl(driveId), '_blank', 'noopener');
-      // Track (best-effort)
-      updateDoc(doc(db, 'deliveries', currentSlug), {
-        downloadCount: increment(1),
-        lastAccessAt: serverTimestamp(),
-      }).catch(() => {});
-    });
-  });
-
-  show('stFiles');
-}
-
-// ── Main flow ────────────────────────────────────────────────
-const params = new URLSearchParams(window.location.search);
-const slug = params.get('p');
-const codeFromUrl = params.get('c');
-let currentSlug = null;
-let currentProject = null;
-
-(async function init() {
-  if (!slug) { show('stNoProject'); return; }
-
-  let snap;
-  try { snap = await getDoc(doc(db, 'deliveries', slug)); }
-  catch (e) { console.error(e); show('stNotFound'); return; }
-
-  if (!snap.exists()) { show('stNotFound'); return; }
-
-  const project = snap.data();
-  currentSlug = slug;
-  currentProject = project;
-
-  // Expiration
-  if (project.expiresAt) {
-    const exp = project.expiresAt.toDate ? project.expiresAt.toDate() : new Date(project.expiresAt);
-    if (exp < new Date()) { show('stExpired'); return; }
-  }
-
-  // Already unlocked in this session
-  const sessKey = 'sb_unlocked_' + slug;
-  if (sessionStorage.getItem(sessKey) === project.codeHash) {
-    renderFiles(project);
+  if (!user) {
+    gate.style.display = 'block'; appEl.style.display = 'none';
+    loginBtn.style.display = ''; logoutBtn.style.display = 'none';
+    userInfo.style.display = 'none';
     return;
   }
 
-  // Code provided in URL (?c=...) → try auto-unlock
-  if (codeFromUrl) {
-    try {
-      const hash = await hashCode(codeFromUrl.trim(), project.codeSalt);
-      if (hash === project.codeHash) {
-        sessionStorage.setItem(sessKey, project.codeHash);
-        // Strip ?c= from URL for security/cleanliness, keep ?p=
-        history.replaceState(null, '', '?p=' + encodeURIComponent(slug));
-        renderFiles(project);
-        return;
-      }
-    } catch (e) { /* fall through to code form */ }
+  document.getElementById('userEmail').textContent = user.email;
+  userInfo.style.display = ''; loginBtn.style.display = 'none'; logoutBtn.style.display = '';
+
+  if (!ALLOWED_EMAILS.map(e => e.toLowerCase()).includes(user.email.toLowerCase())) {
+    document.getElementById('warnUnauth').style.display = 'block';
+    gate.style.display = 'none'; appEl.style.display = 'block';
+    return;
   }
 
-  document.getElementById('metaClient').textContent = project.clientName || '—';
-  document.getElementById('metaProject').textContent = project.projectName || '—';
-  show('stCodeForm');
-})();
+  document.getElementById('warnUnauth').style.display = 'none';
+  gate.style.display = 'none'; appEl.style.display = 'block';
+  resetForm();
+  await refreshList();
+});
 
-// ── Code submission ──────────────────────────────────────────
-document.getElementById('codeForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const code = document.getElementById('codeInput').value.trim();
-  if (!code || !currentProject) return;
+// ── Tabs ─────────────────────────────────────────────────────
+document.querySelectorAll('.tab').forEach(t => {
+  t.onclick = () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById('panel' + t.dataset.tab[0].toUpperCase() + t.dataset.tab.slice(1)).classList.add('active');
+    if (t.dataset.tab === 'list') refreshList();
+  };
+});
 
-  const btn = document.getElementById('codeSubmit');
-  const btnText = document.getElementById('codeSubmitText');
-  const errBox = document.getElementById('codeError');
-  errBox.classList.remove('show');
-  btn.disabled = true;
-  btnText.innerHTML = '<span class="loader"></span> Vérification…';
+// ── Form fields ──────────────────────────────────────────────
+const clientNameEl = document.getElementById('clientName');
+const projectNameEl = document.getElementById('projectName');
+const slugEl = document.getElementById('slug');
+const slugPreviewEl = document.getElementById('slugPreview');
+const accessCodeEl = document.getElementById('accessCode');
+const amountEl = document.getElementById('amount');
+const payToggle = document.getElementById('payToggle');
+const payToggleLabel = document.getElementById('payToggleLabel');
+const taggingEl = document.getElementById('taggingRequirement');
+const paidFields = document.getElementById('paidFields');
+const freeFields = document.getElementById('freeFields');
+
+// Type de prestation : 'paid' (défaut) ou 'free'
+let currentType = 'paid';
+
+function setType(type) {
+  currentType = type;
+  document.querySelectorAll('.type-card').forEach(card => {
+    card.classList.toggle('active', card.dataset.type === type);
+  });
+  paidFields.style.display = type === 'paid' ? '' : 'none';
+  freeFields.style.display = type === 'free' ? '' : 'none';
+}
+document.querySelectorAll('.type-card').forEach(card => {
+  card.onclick = () => setType(card.dataset.type);
+});
+
+function updateSlug() {
+  const auto = slugify(clientNameEl.value + ' ' + projectNameEl.value);
+  if (!slugEl.dataset.userEdited) slugEl.value = auto;
+  slugPreviewEl.textContent = slugEl.value || '…';
+}
+clientNameEl.oninput = projectNameEl.oninput = updateSlug;
+slugEl.oninput = () => { slugEl.dataset.userEdited = '1'; slugPreviewEl.textContent = slugEl.value || '…'; };
+document.getElementById('regenCode').onclick = () => { accessCodeEl.textContent = randomCode(); };
+
+payToggle.onclick = () => {
+  payToggle.classList.toggle('on');
+  const paid = payToggle.classList.contains('on');
+  payToggleLabel.textContent = paid ? 'Payé — fichiers HD débloqués' : 'Non payé — fichiers HD verrouillés';
+};
+
+// ── Files form rows ──────────────────────────────────────────
+let fileRowId = 0;
+function addFileRow(prefill) {
+  fileRowId++;
+  const rid = fileRowId;
+  const initial = prefill || { name:'', type:'', previewDriveId:'', hdDriveId:'', previewSize:0, hdSize:0 };
+  const detectedType = initial.type || (initial.name ? detectType(initial.name) : 'video');
+
+  const wrap = document.createElement('div');
+  wrap.className = 'file-card';
+  wrap.dataset.rowId = rid;
+  wrap.innerHTML = `
+    <div class="file-card-head">
+      <div>
+        <label>Nom affiché au client</label>
+        <input data-field="name" placeholder="Ex : Clip_Final_v3.mp4" value="${initial.name || ''}">
+      </div>
+      <div>
+        <label>Type</label>
+        <select data-field="type">
+          <option value="video" ${detectedType==='video'?'selected':''}>Vidéo</option>
+          <option value="audio" ${detectedType==='audio'?'selected':''}>Audio</option>
+          <option value="photo" ${detectedType==='photo'?'selected':''}>Photo</option>
+          <option value="archive" ${detectedType==='archive'?'selected':''}>Archive</option>
+        </select>
+      </div>
+      <button class="del" data-action="delete-row" title="Retirer">✕</button>
+    </div>
+    <div class="file-card-body">
+      <div class="ref-group">
+        <div class="section-label preview">Aperçu (avec watermark)</div>
+        <input data-field="previewId" placeholder="ID Drive (laisser vide si pas d'aperçu)" value="${initial.previewDriveId || ''}">
+        <div class="size-row">
+          <input data-field="previewSize" type="number" placeholder="Taille en Mo" value="${initial.previewSize ? Math.round(initial.previewSize/1024/1024) : ''}">
+          <span style="align-self:center;color:var(--tx3);font-size:.7rem;letter-spacing:1px">MO</span>
+        </div>
+      </div>
+      <div class="ref-group">
+        <div class="section-label hd">HD final (verrouillé)</div>
+        <input data-field="hdId" placeholder="ID Drive (laisser vide si pas de HD)" value="${initial.hdDriveId || ''}">
+        <div class="size-row">
+          <input data-field="hdSize" type="number" placeholder="Taille en Mo" value="${initial.hdSize ? Math.round(initial.hdSize/1024/1024) : ''}">
+          <span style="align-self:center;color:var(--tx3);font-size:.7rem;letter-spacing:1px">MO</span>
+        </div>
+      </div>
+    </div>
+  `;
+  document.getElementById('filesForm').appendChild(wrap);
+
+  // Auto-detect type from filename
+  const nameInput = wrap.querySelector('[data-field="name"]');
+  const typeSelect = wrap.querySelector('[data-field="type"]');
+  nameInput.oninput = () => {
+    if (!typeSelect.dataset.userEdited && nameInput.value) {
+      typeSelect.value = detectType(nameInput.value);
+    }
+  };
+  typeSelect.onchange = () => { typeSelect.dataset.userEdited = '1'; };
+
+  wrap.querySelector('[data-action="delete-row"]').onclick = () => wrap.remove();
+}
+
+document.getElementById('addFileBtn').onclick = () => addFileRow();
+
+// ── Reset form ───────────────────────────────────────────────
+function resetForm() {
+  document.getElementById('editingSlug').value = '';
+  clientNameEl.value = ''; projectNameEl.value = '';
+  slugEl.value = ''; slugEl.dataset.userEdited = '';
+  slugPreviewEl.textContent = '…';
+  document.getElementById('expiresAt').value = '';
+  amountEl.value = '';
+  accessCodeEl.textContent = randomCode();
+  payToggle.classList.remove('on');
+  payToggleLabel.textContent = 'Non payé — fichiers HD verrouillés';
+  taggingEl.value = 'Identifiez @stud_bastide sur vos publications Instagram et TikTok, ou @studiobastide sur YouTube.';
+  setType('paid');
+  document.getElementById('filesForm').innerHTML = '';
+  document.getElementById('formLabel').textContent = 'Créer une livraison';
+  document.getElementById('formTitle').textContent = 'Nouveau projet client';
+  document.getElementById('saveBtn').textContent = 'Créer la livraison';
+  addFileRow();
+}
+document.getElementById('resetBtn').onclick = resetForm;
+
+// ── Save (create or update) ──────────────────────────────────
+document.getElementById('saveBtn').onclick = async () => {
+  const saveBtn = document.getElementById('saveBtn');
+  const editingSlug = document.getElementById('editingSlug').value;
+  const slug = slugEl.value.trim();
+  const clientName = clientNameEl.value.trim();
+  const projectName = projectNameEl.value.trim();
+  const code = accessCodeEl.textContent.trim();
+  const expiresInput = document.getElementById('expiresAt').value;
+  const amount = parseFloat(amountEl.value) || 0;
+  const isPaid = payToggle.classList.contains('on');
+
+  if (!slug || !clientName || !projectName) {
+    toast('Champs obligatoires manquants', 'err');
+    return;
+  }
+
+  saveBtn.disabled = true;
+  saveBtn.innerHTML = '<span class="loader"></span> Sauvegarde…';
 
   try {
-    const hash = await hashCode(code, currentProject.codeSalt);
-    if (hash === currentProject.codeHash) {
-      sessionStorage.setItem('sb_unlocked_' + currentSlug, currentProject.codeHash);
-      renderFiles(currentProject);
+    // Files array
+    const files = [];
+    document.querySelectorAll('#filesForm > .file-card').forEach(card => {
+      const name = card.querySelector('[data-field="name"]').value.trim();
+      const type = card.querySelector('[data-field="type"]').value;
+      const previewDriveId = card.querySelector('[data-field="previewId"]').value.trim();
+      const hdDriveId = card.querySelector('[data-field="hdId"]').value.trim();
+      const previewSize = (parseFloat(card.querySelector('[data-field="previewSize"]').value) || 0) * 1024 * 1024;
+      const hdSize = (parseFloat(card.querySelector('[data-field="hdSize"]').value) || 0) * 1024 * 1024;
+
+      if (!name || (!previewDriveId && !hdDriveId)) return; // skip incomplete
+      const f = { name, type };
+      if (previewDriveId) { f.previewDriveId = previewDriveId; f.previewSize = Math.round(previewSize); }
+      if (hdDriveId) { f.hdDriveId = hdDriveId; f.hdSize = Math.round(hdSize); }
+      files.push(f);
+    });
+
+    // Hash code
+    let codeHash, codeSalt;
+    if (editingSlug) {
+      const existing = await getDoc(doc(db, 'deliveries', editingSlug));
+      if (existing.exists() && existing.data().codeDisplayed === code) {
+        codeHash = existing.data().codeHash;
+        codeSalt = existing.data().codeSalt;
+      } else {
+        codeSalt = randomSalt();
+        codeHash = await hashCode(code, codeSalt);
+      }
     } else {
-      errBox.classList.add('show');
-      document.getElementById('codeErrorText').textContent = 'Code incorrect. Vérifiez votre mail.';
-      btn.disabled = false;
-      btnText.textContent = 'Accéder à mes fichiers';
-      document.getElementById('codeInput').focus();
-      document.getElementById('codeInput').select();
+      codeSalt = randomSalt();
+      codeHash = await hashCode(code, codeSalt);
     }
+
+    const payload = {
+      clientName, projectName, files,
+      codeHash, codeSalt, codeDisplayed: code,
+      updatedAt: serverTimestamp(),
+    };
+
+    // Statut + montant + contrepartie selon le type
+    if (currentType === 'free') {
+      payload.status = 'free';
+      payload.amount = 0;
+      payload.taggingRequirement = taggingEl.value.trim();
+    } else {
+      payload.status = isPaid ? 'paid' : 'preview';
+      payload.amount = amount;
+      payload.taggingRequirement = null;
+    }
+
+    if (!editingSlug) {
+      payload.createdAt = serverTimestamp();
+      payload.downloadCount = 0;
+    }
+    payload.expiresAt = expiresInput
+      ? Timestamp.fromDate(new Date(expiresInput + 'T23:59:59'))
+      : null;
+
+    if (editingSlug && editingSlug !== slug) {
+      await deleteDoc(doc(db, 'deliveries', editingSlug));
+    }
+    await setDoc(doc(db, 'deliveries', slug), payload, { merge: false });
+
+    document.getElementById('modalLink').textContent = publicUrl(slug);
+    document.getElementById('modalCode').textContent = code;
+    // Stocker le type pour adapter le mail copié
+    document.getElementById('modalLink').dataset.type = currentType;
+    document.getElementById('modalLink').dataset.tagging = currentType === 'free' ? taggingEl.value.trim() : '';
+    document.getElementById('linkModal').classList.add('show');
+
+    resetForm();
+    refreshList();
   } catch (e) {
     console.error(e);
-    errBox.classList.add('show');
-    document.getElementById('codeErrorText').textContent = 'Erreur technique. Réessayez.';
-    btn.disabled = false;
-    btnText.textContent = 'Accéder à mes fichiers';
+    toast('Erreur : ' + e.message, 'err');
+  } finally {
+    saveBtn.disabled = false;
+    saveBtn.textContent = editingSlug ? 'Mettre à jour' : 'Créer la livraison';
   }
-});
+};
 
-// ── Entry form (page d'accueil /livraisons/) ─────────────────
-document.getElementById('entryForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const slugVal = document.getElementById('slugInput').value.trim().toLowerCase();
-  const codeVal = document.getElementById('codeEntry').value.trim();
-  if (!slugVal || !codeVal) return;
+// ── Modal ────────────────────────────────────────────────────
+document.getElementById('closeModalBtn').onclick = () => {
+  document.getElementById('linkModal').classList.remove('show');
+};
+document.getElementById('copyAllBtn').onclick = () => {
+  const url = document.getElementById('modalLink').textContent;
+  const code = document.getElementById('modalCode').textContent;
+  const type = document.getElementById('modalLink').dataset.type || 'paid';
+  const tagging = document.getElementById('modalLink').dataset.tagging || '';
 
-  const btn = document.getElementById('entrySubmit');
-  const btnText = document.getElementById('entrySubmitText');
-  const errBox = document.getElementById('entryError');
-  const errText = document.getElementById('entryErrorText');
-  errBox.classList.remove('show');
-  btn.disabled = true;
-  btnText.innerHTML = '<span class="loader"></span> Vérification…';
+  let txt;
+  if (type === 'free') {
+    txt =
+`Bonjour,
 
-  // Sanitize slug input — accept either raw slug or full URL paste
-  let cleanSlug = slugVal;
-  const urlMatch = cleanSlug.match(/[?&]p=([^&]+)/);
-  if (urlMatch) cleanSlug = decodeURIComponent(urlMatch[1]);
-  cleanSlug = cleanSlug.replace(/[^a-z0-9-]/g, '');
+Voici l'accès à vos livrables :
+${url}
 
+Code d'accès : ${code}
+
+Cette prestation vous est offerte par Studio Bastide. En contrepartie, ${tagging || 'identifiez @stud_bastide sur vos publications Instagram et TikTok, ou @studiobastide sur YouTube'}.
+
+Merci pour votre confiance et bonne diffusion !
+
+Studio Bastide Production
+studiobastide.contact@gmail.com`;
+  } else {
+    txt =
+`Bonjour,
+
+Voici l'accès à vos livrables :
+${url}
+
+Code d'accès : ${code}
+
+Vous pourrez consulter les versions de validation tout de suite. Les fichiers HD sans watermark seront débloqués dès réception du règlement.
+
+À bientôt,
+Studio Bastide Production
+studiobastide.contact@gmail.com`;
+  }
+  navigator.clipboard.writeText(txt).then(() => toast('Mail copié'));
+};
+
+// ── List / edit / delete / mark paid ─────────────────────────
+async function refreshList() {
+  const listEl = document.getElementById('deliveryList');
+  listEl.innerHTML = '<div class="empty"><span class="loader"></span> Chargement…</div>';
   try {
-    const snap = await getDoc(doc(db, 'deliveries', cleanSlug));
-    if (!snap.exists()) {
-      errText.textContent = "Identifiant introuvable. Vérifiez la saisie.";
-      errBox.classList.add('show');
-      btn.disabled = false;
-      btnText.textContent = 'Accéder à mes fichiers';
+    const q = query(collection(db, 'deliveries'), orderBy('createdAt', 'desc'));
+    const snap = await getDocs(q);
+    if (snap.empty) {
+      listEl.innerHTML = '<div class="empty">Aucune livraison pour le moment.</div>';
       return;
     }
-    const project = snap.data();
+    listEl.innerHTML = '';
+    snap.forEach(docSnap => {
+      const d = docSnap.data();
+      const slug = docSnap.id;
+      const expired = d.expiresAt && d.expiresAt.toDate && d.expiresAt.toDate() < new Date();
+      const isFree = d.status === 'free';
+      const isPaid = d.status === 'paid';
+      const hasLockedFiles = (d.files || []).some(f => f.hdDriveId);
 
-    // Check expiration
-    if (project.expiresAt) {
-      const exp = project.expiresAt.toDate ? project.expiresAt.toDate() : new Date(project.expiresAt);
-      if (exp < new Date()) {
-        errText.textContent = "Ce lien a expiré. Contactez-nous.";
-        errBox.classList.add('show');
-        btn.disabled = false;
-        btnText.textContent = 'Accéder à mes fichiers';
-        return;
+      // Tag de statut
+      let statusTag = '';
+      if (isFree) {
+        statusTag = '<span class="tag tag-free">★ Gratuit</span>';
+      } else if (hasLockedFiles) {
+        statusTag = isPaid
+          ? '<span class="tag tag-paid">Payé ✓</span>'
+          : `<span class="tag tag-unpaid">Non payé${d.amount ? ' · ' + fmtAmount(d.amount) : ''}</span>`;
       }
-    }
 
-    // Verify code
-    const hash = await hashCode(codeVal, project.codeSalt);
-    if (hash === project.codeHash) {
-      sessionStorage.setItem('sb_unlocked_' + cleanSlug, project.codeHash);
-      // Redirect to clean URL with slug only
-      location.href = '?p=' + encodeURIComponent(cleanSlug);
-    } else {
-      errText.textContent = "Identifiant ou code incorrect.";
-      errBox.classList.add('show');
-      btn.disabled = false;
-      btnText.textContent = 'Accéder à mes fichiers';
-      document.getElementById('codeEntry').focus();
-      document.getElementById('codeEntry').select();
-    }
-  } catch (err) {
-    console.error(err);
-    errText.textContent = "Erreur technique. Réessayez.";
-    errBox.classList.add('show');
-    btn.disabled = false;
-    btnText.textContent = 'Accéder à mes fichiers';
+      // Actions paiement (seulement pour les payantes avec fichiers verrouillés)
+      let payAction = '';
+      if (!isFree && hasLockedFiles) {
+        payAction = isPaid
+          ? `<button class="btn-mini unpay" data-act="unpay" data-slug="${slug}">Reverrouiller</button>`
+          : `<button class="btn-mini pay" data-act="pay" data-slug="${slug}">Marquer payé</button>`;
+      }
+
+      const el = document.createElement('div');
+      el.className = 'delivery-item';
+      el.innerHTML = `
+        <div>
+          <div class="delivery-meta-row">
+            <span class="delivery-client">${d.clientName || '—'}</span>
+            <span class="delivery-project">— ${d.projectName || ''}</span>
+          </div>
+          <div class="delivery-tags">
+            <span class="tag tag-files">${(d.files || []).length} fichier(s)</span>
+            ${d.downloadCount > 0 ? `<span class="tag tag-dl">${d.downloadCount} DL</span>` : ''}
+            ${statusTag}
+            ${expired ? `<span class="tag tag-expired">Expiré ${fmtDate(d.expiresAt)}</span>` : ''}
+            ${d.expiresAt && !expired ? `<span class="tag tag-files">Expire ${fmtDate(d.expiresAt)}</span>` : ''}
+          </div>
+        </div>
+        <div class="delivery-actions">
+          ${payAction}
+          <button class="btn-mini primary" data-act="open" data-slug="${slug}">Voir</button>
+          <button class="btn-mini" data-act="copy" data-slug="${slug}">Copier lien</button>
+          <button class="btn-mini" data-act="edit" data-slug="${slug}">Modifier</button>
+          <button class="btn-mini danger" data-act="del" data-slug="${slug}">Supprimer</button>
+        </div>
+      `;
+      listEl.appendChild(el);
+    });
+
+    listEl.querySelectorAll('[data-act]').forEach(b => {
+      b.onclick = async () => {
+        const slug = b.dataset.slug;
+        const act = b.dataset.act;
+
+        if (act === 'open') window.open(publicUrl(slug), '_blank');
+
+        else if (act === 'copy') {
+          navigator.clipboard.writeText(publicUrl(slug)).then(() => toast('Lien copié'));
+        }
+
+        else if (act === 'pay' || act === 'unpay') {
+          const newStatus = act === 'pay' ? 'paid' : 'preview';
+          try {
+            await updateDoc(doc(db, 'deliveries', slug), { status: newStatus, updatedAt: serverTimestamp() });
+            toast(act === 'pay' ? 'Marqué payé — HD débloqués' : 'Reverrouillé');
+            refreshList();
+          } catch (e) { toast('Échec : ' + e.message, 'err'); }
+        }
+
+        else if (act === 'edit') {
+          const dSnap = await getDoc(doc(db, 'deliveries', slug));
+          if (!dSnap.exists()) return;
+          const d = dSnap.data();
+          document.getElementById('editingSlug').value = slug;
+          clientNameEl.value = d.clientName || '';
+          projectNameEl.value = d.projectName || '';
+          slugEl.value = slug; slugEl.dataset.userEdited = '1';
+          slugPreviewEl.textContent = slug;
+          accessCodeEl.textContent = d.codeDisplayed || randomCode();
+          amountEl.value = d.amount || '';
+          if (d.expiresAt) {
+            const dd = d.expiresAt.toDate();
+            document.getElementById('expiresAt').value = dd.toISOString().slice(0,10);
+          }
+          // Type de prestation
+          if (d.status === 'free') {
+            setType('free');
+            taggingEl.value = d.taggingRequirement || 'Identifiez @stud_bastide sur vos publications Instagram et TikTok, ou @studiobastide sur YouTube.';
+          } else {
+            setType('paid');
+            if (d.status === 'paid') {
+              payToggle.classList.add('on');
+              payToggleLabel.textContent = 'Payé — fichiers HD débloqués';
+            } else {
+              payToggle.classList.remove('on');
+              payToggleLabel.textContent = 'Non payé — fichiers HD verrouillés';
+            }
+          }
+          document.getElementById('filesForm').innerHTML = '';
+          (d.files || []).forEach(f => addFileRow(f));
+          document.getElementById('formLabel').textContent = 'Modifier une livraison';
+          document.getElementById('formTitle').textContent = d.clientName + ' — ' + d.projectName;
+          document.getElementById('saveBtn').textContent = 'Mettre à jour';
+          document.querySelector('[data-tab="create"]').click();
+        }
+
+        else if (act === 'del') {
+          if (!confirm('Supprimer cette livraison ? Les fichiers Drive ne seront PAS effacés.')) return;
+          try {
+            await deleteDoc(doc(db, 'deliveries', slug));
+            toast('Livraison supprimée');
+            refreshList();
+          } catch (e) { toast('Suppression impossible', 'err'); }
+        }
+      };
+    });
+  } catch (e) {
+    console.error(e);
+    listEl.innerHTML = '<div class="empty" style="color:var(--err)">Erreur de chargement.</div>';
   }
-});
+}
 </script>
 
 </body>
