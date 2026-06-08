@@ -183,6 +183,26 @@ main{max-width:1200px;margin:0 auto;padding:40px 28px 80px}
 .loader{display:inline-block;width:14px;height:14px;border:2px solid var(--border-h);border-top-color:var(--orange);border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
+/* ── Sub-codes (multi-codes) ── */
+.sub-code-row{display:grid;grid-template-columns:1fr 1fr auto auto;gap:8px;align-items:center;padding:10px 12px;background:var(--bg);border:1px solid var(--border-h);margin-bottom:6px;font-size:.82rem}
+.sub-code-row input{background:transparent;border:none;color:var(--tx);font-size:.82rem;padding:6px 8px;outline:none}
+.sub-code-row input:focus{background:var(--bg-card);border:1px solid var(--orange);outline:none}
+.sub-code-row .sub-code-input{font-family:monospace;color:var(--orange);letter-spacing:1px}
+.sub-code-row .sub-stats{font-size:.7rem;color:var(--tx3);font-family:monospace;white-space:nowrap;padding:0 8px}
+.sub-code-row .sub-stats strong{color:var(--tx2);font-weight:600}
+.sub-code-row .sub-del{background:transparent;border:1px solid var(--border-h);color:var(--tx3);width:30px;height:30px;cursor:pointer;font-size:1rem;line-height:1;transition:all .2s var(--ease)}
+.sub-code-row .sub-del:hover{border-color:var(--err);color:var(--err)}
+.sub-codes-empty{padding:18px;text-align:center;color:var(--tx3);font-size:.85rem;background:var(--bg);border:1px dashed var(--border-h)}
+
+/* ── Modal génération masse ── */
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;display:none;align-items:center;justify-content:center;padding:24px}
+.modal-backdrop.show{display:flex}
+.modal-box{background:var(--bg-card);border:1px solid var(--border-h);max-width:520px;width:100%;padding:28px;max-height:90vh;overflow-y:auto}
+.modal-box h3{font-family:var(--head);font-weight:700;font-size:1.4rem;margin-bottom:8px}
+.modal-box p{color:var(--tx2);font-size:.85rem;margin-bottom:18px;line-height:1.5}
+.modal-box .form-group{margin-bottom:14px}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}
+
 @media(max-width:720px){
   main{padding:24px 18px 60px}
   .form-row,.form-row-3{grid-template-columns:1fr}
@@ -190,6 +210,9 @@ main{max-width:1200px;margin:0 auto;padding:40px 28px 80px}
   .file-card-head select{grid-column:1/-1}
   .file-card-body{grid-template-columns:1fr}
   .delivery-item{grid-template-columns:1fr}
+  .sub-code-row{grid-template-columns:1fr 1fr;gap:6px}
+  .sub-code-row .sub-stats{grid-column:1/-1}
+  .sub-code-row .sub-del{grid-column:1/-1;width:100%;height:36px}
 }
 </style>
 </head>
@@ -322,6 +345,24 @@ main{max-width:1200px;margin:0 auto;padding:40px 28px 80px}
           <button type="button" class="btn-add-file" id="addFileBtn">+ Ajouter un fichier</button>
         </div>
 
+        <!-- ─────── MULTI-CODES (édition uniquement) ─────── -->
+        <div class="form-group" id="subCodesSection" style="display:none">
+          <label>Codes d'accès personnalisés <span style="color:var(--tx3);font-weight:400;font-size:.7rem">(optionnel)</span></label>
+          <p class="form-help" style="margin-bottom:14px">
+            Pour distribuer des codes <strong>personnalisés par destinataire</strong> (ex : un code par stand pour un festival).
+            Tous les codes ouvrent la même livraison.
+            Compteur de téléchargement individuel pour chaque code.
+          </p>
+
+          <div id="subCodesList"></div>
+
+          <div class="sub-codes-actions" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
+            <button type="button" class="btn-secondary" id="addSubCodeBtn">+ Ajouter un code</button>
+            <button type="button" class="btn-secondary" id="bulkSubCodeBtn">+ Générer en masse</button>
+            <button type="button" class="btn-secondary" id="exportSubCodesBtn">📥 Exporter CSV</button>
+          </div>
+        </div>
+
         <div class="form-actions">
           <button class="btn-primary" id="saveBtn">Créer la livraison</button>
           <button class="btn-secondary" id="resetBtn">Annuler</button>
@@ -352,6 +393,44 @@ main{max-width:1200px;margin:0 auto;padding:40px 28px 80px}
     <div class="form-actions">
       <button class="btn-primary" id="copyAllBtn">Copier le mail prêt à envoyer</button>
       <button class="btn-secondary" id="closeModalBtn">Fermer</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal : génération de codes en masse -->
+<div class="modal-backdrop" id="bulkModal">
+  <div class="modal-box">
+    <h3>Générer des codes en masse</h3>
+    <p>Crée plusieurs codes d'accès d'un coup. Tous ouvrent la même livraison, avec un compteur individuel par code.</p>
+
+    <div class="form-group">
+      <label for="bulkCount">Nombre de codes à générer</label>
+      <input id="bulkCount" type="number" min="1" max="500" value="50" class="form-input">
+    </div>
+
+    <div class="form-group">
+      <label for="bulkStyle">Style de code</label>
+      <select id="bulkStyle" class="form-input">
+        <option value="sequential">Séquentiel — ex : BESSIERES-001, BESSIERES-002…</option>
+        <option value="random">Aléatoire — ex : K3X-9F2, P7B-Q4M…</option>
+      </select>
+    </div>
+
+    <div class="form-group" id="bulkPrefixGroup">
+      <label for="bulkPrefix">Préfixe (pour mode séquentiel)</label>
+      <input id="bulkPrefix" type="text" value="BESSIERES" placeholder="BESSIERES" class="form-input">
+      <p class="form-help">Le numéro de séquence sera ajouté avec un tiret : <span class="form-hint">PREFIXE-001</span></p>
+    </div>
+
+    <div class="form-group">
+      <label for="bulkLabel">Modèle de label</label>
+      <input id="bulkLabel" type="text" value="Stand {N}" placeholder="Stand {N}" class="form-input">
+      <p class="form-help"><span class="form-hint">{N}</span> sera remplacé par le numéro de séquence (1, 2, 3…)</p>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-secondary" id="bulkCancelBtn">Annuler</button>
+      <button class="btn-primary" id="bulkGenerateBtn">Générer</button>
     </div>
   </div>
 </div>
@@ -605,6 +684,9 @@ function resetForm() {
   document.getElementById('formTitle').textContent = 'Nouveau projet client';
   document.getElementById('saveBtn').textContent = 'Créer la livraison';
   addFileRow();
+  // Sub-codes section : hidden in create mode
+  currentSubCodes = [];
+  document.getElementById('subCodesSection').style.display = 'none';
 }
 document.getElementById('resetBtn').onclick = resetForm;
 
@@ -682,6 +764,12 @@ document.getElementById('saveBtn').onclick = async () => {
     if (!editingSlug) {
       payload.createdAt = serverTimestamp();
       payload.downloadCount = 0;
+    } else {
+      // Preserve sub-codes (multi-codes feature) on update — they are
+      // edited via their own UI buttons, not through this main form.
+      if (Array.isArray(currentSubCodes) && currentSubCodes.length) {
+        payload.accessCodes = currentSubCodes;
+      }
     }
     payload.expiresAt = expiresInput
       ? Timestamp.fromDate(new Date(expiresInput + 'T23:59:59'))
@@ -707,6 +795,239 @@ document.getElementById('saveBtn').onclick = async () => {
   } finally {
     saveBtn.disabled = false;
     saveBtn.textContent = editingSlug ? 'Mettre à jour' : 'Créer la livraison';
+  }
+};
+
+// ═══════════════════════════════════════════════════════════════
+// SUB-CODES (multi-codes par livraison — feature Myriad)
+// ═══════════════════════════════════════════════════════════════
+//
+// Architecture : les sub-codes sont stockés dans le doc Firestore
+// principal sous le champ `accessCodes` (array). Chaque entrée :
+//   { id, label, codeDisplayed, codeHash, codeSalt,
+//     downloadCount, lastAccessAt, createdAt }
+//
+// Toutes les opérations CRUD persistent immédiatement dans Firestore
+// (pas d'attente du clic "Mettre à jour"). L'admin peut ainsi générer
+// 50 codes en masse et exporter le CSV directement.
+
+let currentSubCodes = [];
+
+function uid() {
+  // Short unique id for sub-codes (collision-resistant for our scale)
+  return 'c' + Math.random().toString(36).slice(2, 9) + Date.now().toString(36).slice(-4);
+}
+
+function fmtDateShort(ts) {
+  if (!ts) return '—';
+  try {
+    const d = ts.toDate ? ts.toDate() : new Date(ts);
+    return d.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' })
+         + ' ' + d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+  } catch { return '—'; }
+}
+
+function renderSubCodes() {
+  const listEl = document.getElementById('subCodesList');
+  if (!listEl) return;
+
+  if (!currentSubCodes.length) {
+    listEl.innerHTML = '<div class="sub-codes-empty">Aucun code personnalisé pour l\'instant. Utilisez les boutons ci-dessous pour en ajouter.</div>';
+    return;
+  }
+
+  listEl.innerHTML = currentSubCodes.map((sc, i) => `
+    <div class="sub-code-row" data-id="${sc.id}">
+      <input type="text" data-field="label" value="${(sc.label || '').replace(/"/g, '&quot;')}" placeholder="Libellé (ex: Stand La Forge)">
+      <input type="text" class="sub-code-input" data-field="code" value="${(sc.codeDisplayed || '').replace(/"/g, '&quot;')}" placeholder="CODE-UNIQUE">
+      <div class="sub-stats" title="Téléchargements / Dernier accès">
+        <strong>${Number(sc.downloadCount) || 0}</strong> dl<br>
+        ${sc.lastAccessAt ? fmtDateShort(sc.lastAccessAt) : 'jamais'}
+      </div>
+      <button type="button" class="sub-del" data-act="del-subcode" data-idx="${i}" title="Supprimer ce code">×</button>
+    </div>
+  `).join('');
+
+  // Wire up handlers
+  listEl.querySelectorAll('input[data-field]').forEach(inp => {
+    inp.addEventListener('change', onSubCodeFieldChange);
+  });
+  listEl.querySelectorAll('[data-act="del-subcode"]').forEach(btn => {
+    btn.addEventListener('click', () => removeSubCode(parseInt(btn.dataset.idx, 10)));
+  });
+}
+
+async function onSubCodeFieldChange(e) {
+  const row = e.target.closest('.sub-code-row');
+  const idx = currentSubCodes.findIndex(sc => sc.id === row.dataset.id);
+  if (idx < 0) return;
+  const field = e.target.dataset.field;
+  const value = e.target.value.trim();
+
+  if (field === 'label') {
+    currentSubCodes[idx].label = value;
+  } else if (field === 'code') {
+    // Code changed → rehash with a new salt
+    const newCode = value.toUpperCase();
+    if (!newCode) { toast('Code vide impossible', 'err'); renderSubCodes(); return; }
+    currentSubCodes[idx].codeDisplayed = newCode;
+    currentSubCodes[idx].codeSalt = randomSalt();
+    currentSubCodes[idx].codeHash = await hashCode(newCode, currentSubCodes[idx].codeSalt);
+  }
+  await persistSubCodes();
+}
+
+async function addSubCode(label = '', code = '') {
+  const slug = document.getElementById('editingSlug').value;
+  if (!slug) { toast('Sauvegarde d\'abord la livraison', 'err'); return; }
+
+  const finalCode = (code || randomCode()).toUpperCase();
+  const salt = randomSalt();
+  const hash = await hashCode(finalCode, salt);
+
+  currentSubCodes.push({
+    id: uid(),
+    label: label || `Code ${currentSubCodes.length + 1}`,
+    codeDisplayed: finalCode,
+    codeHash: hash,
+    codeSalt: salt,
+    downloadCount: 0,
+    lastAccessAt: null,
+    createdAt: new Date().toISOString(),
+  });
+  await persistSubCodes();
+  renderSubCodes();
+}
+
+async function removeSubCode(idx) {
+  if (idx < 0 || idx >= currentSubCodes.length) return;
+  const sc = currentSubCodes[idx];
+  if (!confirm(`Supprimer le code "${sc.label || sc.codeDisplayed}" ?\nLes utilisateurs ayant ce code perdront l'accès.`)) return;
+  currentSubCodes.splice(idx, 1);
+  await persistSubCodes();
+  renderSubCodes();
+}
+
+async function persistSubCodes() {
+  const slug = document.getElementById('editingSlug').value;
+  if (!slug) return;
+  try {
+    await updateDoc(doc(db, 'deliveries', slug), { accessCodes: currentSubCodes });
+  } catch (e) {
+    console.error(e);
+    toast('Erreur sauvegarde codes : ' + e.message, 'err');
+  }
+}
+
+// ── Bulk generation ──────────────────────────────────────────
+async function generateBulkSubCodes(count, style, prefix, labelTemplate) {
+  const slug = document.getElementById('editingSlug').value;
+  if (!slug) { toast('Sauvegarde d\'abord la livraison', 'err'); return; }
+
+  const startIdx = currentSubCodes.length;
+  const codes = [];
+
+  for (let i = 0; i < count; i++) {
+    const n = startIdx + i + 1;
+    let codeStr;
+    if (style === 'sequential') {
+      const padded = String(n).padStart(3, '0');
+      codeStr = `${prefix}-${padded}`;
+    } else {
+      codeStr = randomCode();
+    }
+    const salt = randomSalt();
+    const hash = await hashCode(codeStr, salt);
+    codes.push({
+      id: uid(),
+      label: labelTemplate.replace(/\{N\}/g, n),
+      codeDisplayed: codeStr,
+      codeHash: hash,
+      codeSalt: salt,
+      downloadCount: 0,
+      lastAccessAt: null,
+      createdAt: new Date().toISOString(),
+    });
+  }
+  currentSubCodes.push(...codes);
+  await persistSubCodes();
+  renderSubCodes();
+  toast(`${count} code(s) générés`);
+}
+
+// ── CSV export ───────────────────────────────────────────────
+function exportSubCodesCSV() {
+  const slug = document.getElementById('editingSlug').value;
+  if (!slug) { toast('Aucune livraison sélectionnée', 'err'); return; }
+  if (!currentSubCodes.length) { toast('Aucun code à exporter', 'err'); return; }
+
+  const baseUrl = publicUrl(slug);
+  // CSV header
+  const rows = [
+    ['label', 'code', 'url', 'downloads', 'last_access']
+  ];
+  currentSubCodes.forEach(sc => {
+    const url = `${baseUrl}&c=${encodeURIComponent(sc.codeDisplayed || '')}`;
+    rows.push([
+      sc.label || '',
+      sc.codeDisplayed || '',
+      url,
+      String(Number(sc.downloadCount) || 0),
+      sc.lastAccessAt ? new Date(sc.lastAccessAt).toISOString() : '',
+    ]);
+  });
+
+  // CSV encoding with proper quoting (RFC 4180-ish)
+  const csv = rows.map(row =>
+    row.map(cell => {
+      const s = String(cell ?? '');
+      return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+    }).join(',')
+  ).join('\n');
+
+  const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8' }); // BOM for Excel
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `codes-${slug}-${new Date().toISOString().slice(0,10)}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  toast(`${currentSubCodes.length} code(s) exportés`);
+}
+
+// ── UI hooks (buttons) ───────────────────────────────────────
+document.getElementById('addSubCodeBtn').onclick = () => addSubCode();
+document.getElementById('exportSubCodesBtn').onclick = exportSubCodesCSV;
+
+// Bulk modal
+const bulkModal = document.getElementById('bulkModal');
+document.getElementById('bulkSubCodeBtn').onclick = () => {
+  const slug = document.getElementById('editingSlug').value;
+  if (!slug) { toast('Sauvegarde d\'abord la livraison', 'err'); return; }
+  bulkModal.classList.add('show');
+};
+document.getElementById('bulkCancelBtn').onclick = () => bulkModal.classList.remove('show');
+document.getElementById('bulkStyle').onchange = (e) => {
+  document.getElementById('bulkPrefixGroup').style.display = e.target.value === 'sequential' ? '' : 'none';
+};
+document.getElementById('bulkGenerateBtn').onclick = async () => {
+  const count = Math.max(1, Math.min(500, parseInt(document.getElementById('bulkCount').value, 10) || 0));
+  const style = document.getElementById('bulkStyle').value;
+  const prefix = document.getElementById('bulkPrefix').value.trim().toUpperCase() || 'CODE';
+  const labelTpl = document.getElementById('bulkLabel').value.trim() || 'Code {N}';
+  const btn = document.getElementById('bulkGenerateBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loader"></span> Génération…';
+  try {
+    await generateBulkSubCodes(count, style, prefix, labelTpl);
+    bulkModal.classList.remove('show');
+  } catch (e) {
+    toast('Erreur : ' + e.message, 'err');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Générer';
   }
 };
 
@@ -870,6 +1191,10 @@ async function refreshList() {
           }
           document.getElementById('filesForm').innerHTML = '';
           (d.files || []).forEach(f => addFileRow(f));
+          // Sub-codes : load and display section
+          currentSubCodes = Array.isArray(d.accessCodes) ? [...d.accessCodes] : [];
+          document.getElementById('subCodesSection').style.display = '';
+          renderSubCodes();
           document.getElementById('formLabel').textContent = 'Modifier une livraison';
           document.getElementById('formTitle').textContent = d.clientName + ' — ' + d.projectName;
           document.getElementById('saveBtn').textContent = 'Mettre à jour';
