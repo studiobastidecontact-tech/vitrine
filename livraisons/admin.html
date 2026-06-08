@@ -31,8 +31,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 input,select,textarea{font-family:inherit}
 
 header{border-bottom:1px solid var(--border);padding:18px 28px;display:flex;justify-content:space-between;align-items:center;background:var(--bg);position:sticky;top:0;z-index:50}
-.logo{font-family:var(--head);font-weight:800;font-size:1rem;letter-spacing:-.5px}
-.logo span{color:var(--tx3);font-weight:500;margin-left:8px;font-family:var(--body);font-size:.78rem;letter-spacing:1px;text-transform:uppercase}
+.logo{display:flex;align-items:center;gap:12px}
+.logo img{height:28px;width:auto;display:block}
+.logo span{color:var(--tx3);font-weight:500;font-family:var(--body);font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;padding-left:12px;border-left:1px solid var(--border-h)}
 .user-info{display:flex;align-items:center;gap:12px;font-size:.78rem;color:var(--tx2)}
 .user-info .email{max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .btn-ghost{padding:8px 16px;border:1px solid var(--border-h);font-size:.7rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;transition:all .3s var(--ease)}
@@ -196,7 +197,7 @@ main{max-width:1200px;margin:0 auto;padding:40px 28px 80px}
 <body>
 
 <header>
-  <div class="logo">Studio Bastide<span>Admin Livraisons</span></div>
+  <div class="logo"><img src="../assets/img/logo_blanc.png" alt="Studio Bastide Production"><span>Admin Livraisons</span></div>
   <div style="display:flex;align-items:center;gap:10px">
     <div class="user-info" id="userInfo" style="display:none">
       <span class="email" id="userEmail"></span>
