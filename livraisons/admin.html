@@ -359,6 +359,8 @@ main{max-width:1200px;margin:0 auto;padding:40px 28px 80px}
           <div class="sub-codes-actions" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
             <button type="button" class="btn-secondary" id="addSubCodeBtn">+ Ajouter un code</button>
             <button type="button" class="btn-secondary" id="bulkSubCodeBtn">+ Générer en masse</button>
+            <button type="button" class="btn-secondary" id="importSubCodesBtn">📂 Importer CSV</button>
+            <input type="file" id="importSubCodesFile" accept=".csv" style="display:none">
             <button type="button" class="btn-secondary" id="exportSubCodesBtn">📥 Exporter CSV</button>
           </div>
         </div>
@@ -955,6 +957,98 @@ async function generateBulkSubCodes(count, style, prefix, labelTemplate) {
   toast(`${count} code(s) générés`);
 }
 
+// ── CSV import ───────────────────────────────────────────────
+// Parse a small CSV (RFC 4180-ish: handles quoted fields with commas/newlines).
+function parseCSV(text) {
+  // Strip BOM
+  if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+  const rows = [];
+  let row = [], field = '', inQuotes = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (inQuotes) {
+      if (c === '"') {
+        if (text[i + 1] === '"') { field += '"'; i++; }
+        else inQuotes = false;
+      } else field += c;
+    } else {
+      if (c === '"') inQuotes = true;
+      else if (c === ',') { row.push(field); field = ''; }
+      else if (c === '\n' || c === '\r') {
+        if (c === '\r' && text[i + 1] === '\n') i++;
+        row.push(field); rows.push(row); row = []; field = '';
+      } else field += c;
+    }
+  }
+  if (field !== '' || row.length) { row.push(field); rows.push(row); }
+  return rows.filter(r => r.length && r.some(c => c.trim() !== ''));
+}
+
+async function handleCSVImport(file) {
+  const slug = document.getElementById('editingSlug').value;
+  if (!slug) { toast('Sauvegarde d\'abord la livraison', 'err'); return; }
+
+  const text = await file.text();
+  const rows = parseCSV(text);
+  if (rows.length < 2) { toast('CSV vide ou mal formé', 'err'); return; }
+
+  // Detect header (case-insensitive)
+  const header = rows[0].map(h => h.trim().toLowerCase());
+  const idxLabel = header.indexOf('label');
+  const idxCode  = header.indexOf('code');
+  const idxEmail = header.indexOf('email');
+  if (idxLabel < 0) {
+    toast('Colonne "label" obligatoire dans le CSV', 'err');
+    return;
+  }
+
+  const dataRows = rows.slice(1);
+  if (!confirm(`Importer ${dataRows.length} code(s) depuis ce CSV ?\nLes codes existants seront conservés et les nouveaux ajoutés.`)) return;
+
+  const btn = document.getElementById('importSubCodesBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loader"></span> Import…';
+
+  try {
+    const startIdx = currentSubCodes.length;
+    for (let i = 0; i < dataRows.length; i++) {
+      const r = dataRows[i];
+      const label = (r[idxLabel] || '').trim();
+      if (!label) continue; // skip empty rows
+
+      let codeStr = idxCode >= 0 ? (r[idxCode] || '').trim().toUpperCase() : '';
+      if (!codeStr) codeStr = randomCode(); // auto-generate if absent
+
+      const email = idxEmail >= 0 ? (r[idxEmail] || '').trim() : '';
+
+      const salt = randomSalt();
+      const hash = await hashCode(codeStr, salt);
+
+      const subCode = {
+        id: uid(),
+        label,
+        codeDisplayed: codeStr,
+        codeHash: hash,
+        codeSalt: salt,
+        downloadCount: 0,
+        lastAccessAt: null,
+        createdAt: new Date().toISOString(),
+      };
+      if (email) subCode.email = email;
+      currentSubCodes.push(subCode);
+    }
+    await persistSubCodes();
+    renderSubCodes();
+    toast(`${currentSubCodes.length - startIdx} code(s) importés`);
+  } catch (e) {
+    console.error(e);
+    toast('Erreur import : ' + e.message, 'err');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '📂 Importer CSV';
+  }
+}
+
 // ── CSV export ───────────────────────────────────────────────
 function exportSubCodesCSV() {
   const slug = document.getElementById('editingSlug').value;
@@ -962,19 +1056,23 @@ function exportSubCodesCSV() {
   if (!currentSubCodes.length) { toast('Aucun code à exporter', 'err'); return; }
 
   const baseUrl = publicUrl(slug);
-  // CSV header
-  const rows = [
-    ['label', 'code', 'url', 'downloads', 'last_access']
-  ];
+  // Detect whether any code has an email → include the column only if relevant
+  const hasEmail = currentSubCodes.some(sc => sc && sc.email);
+  const header = ['label', 'code', 'url', 'downloads', 'last_access'];
+  if (hasEmail) header.splice(1, 0, 'email'); // email after label
+
+  const rows = [header];
   currentSubCodes.forEach(sc => {
     const url = `${baseUrl}&c=${encodeURIComponent(sc.codeDisplayed || '')}`;
-    rows.push([
+    const base = [
       sc.label || '',
       sc.codeDisplayed || '',
       url,
       String(Number(sc.downloadCount) || 0),
       sc.lastAccessAt ? new Date(sc.lastAccessAt).toISOString() : '',
-    ]);
+    ];
+    if (hasEmail) base.splice(1, 0, sc.email || '');
+    rows.push(base);
   });
 
   // CSV encoding with proper quoting (RFC 4180-ish)
@@ -1000,6 +1098,16 @@ function exportSubCodesCSV() {
 // ── UI hooks (buttons) ───────────────────────────────────────
 document.getElementById('addSubCodeBtn').onclick = () => addSubCode();
 document.getElementById('exportSubCodesBtn').onclick = exportSubCodesCSV;
+document.getElementById('importSubCodesBtn').onclick = () => {
+  const slug = document.getElementById('editingSlug').value;
+  if (!slug) { toast('Sauvegarde d\'abord la livraison', 'err'); return; }
+  document.getElementById('importSubCodesFile').click();
+};
+document.getElementById('importSubCodesFile').onchange = (e) => {
+  const f = e.target.files && e.target.files[0];
+  if (f) handleCSVImport(f);
+  e.target.value = ''; // reset so same file can be re-imported
+};
 
 // Bulk modal
 const bulkModal = document.getElementById('bulkModal');
