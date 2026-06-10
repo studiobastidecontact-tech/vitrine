@@ -730,13 +730,20 @@ document.getElementById('saveBtn').onclick = async () => {
       files.push(f);
     });
 
-    // Hash code
+    // Hash code + load existing doc (we'll need it later to preserve system fields)
     let codeHash, codeSalt;
+    let existingData = null;
     if (editingSlug) {
       const existing = await getDoc(doc(db, 'deliveries', editingSlug));
-      if (existing.exists() && existing.data().codeDisplayed === code) {
-        codeHash = existing.data().codeHash;
-        codeSalt = existing.data().codeSalt;
+      if (existing.exists()) {
+        existingData = existing.data();
+        if (existingData.codeDisplayed === code) {
+          codeHash = existingData.codeHash;
+          codeSalt = existingData.codeSalt;
+        } else {
+          codeSalt = randomSalt();
+          codeHash = await hashCode(code, codeSalt);
+        }
       } else {
         codeSalt = randomSalt();
         codeHash = await hashCode(code, codeSalt);
@@ -764,13 +771,34 @@ document.getElementById('saveBtn').onclick = async () => {
     }
 
     if (!editingSlug) {
+      // CREATION mode
       payload.createdAt = serverTimestamp();
       payload.downloadCount = 0;
     } else {
-      // Preserve sub-codes (multi-codes feature) on update — they are
-      // edited via their own UI buttons, not through this main form.
-      if (Array.isArray(currentSubCodes) && currentSubCodes.length) {
-        payload.accessCodes = currentSubCodes;
+      // UPDATE mode : preserve system fields the form doesn't manage.
+      // setDoc(merge:false) below would otherwise WIPE them, making the
+      // delivery disappear from the admin list (which sorts by createdAt).
+      if (existingData) {
+        // createdAt : essential — listing query uses orderBy('createdAt')
+        if (existingData.createdAt) {
+          payload.createdAt = existingData.createdAt;
+        } else {
+          payload.createdAt = serverTimestamp(); // recovery for docs that lost it
+        }
+        // downloadCount : preserve global counter
+        payload.downloadCount = typeof existingData.downloadCount === 'number'
+          ? existingData.downloadCount : 0;
+        // accessCodes (sub-codes feature) : keep current UI state, which may
+        // have been edited via the dedicated section. Empty [] is intentional.
+        if (Array.isArray(currentSubCodes)) {
+          payload.accessCodes = currentSubCodes;
+        } else if (Array.isArray(existingData.accessCodes)) {
+          payload.accessCodes = existingData.accessCodes;
+        }
+      } else {
+        // editingSlug pointed to a non-existing doc — treat as creation
+        payload.createdAt = serverTimestamp();
+        payload.downloadCount = 0;
       }
     }
     payload.expiresAt = expiresInput
