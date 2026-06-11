@@ -182,6 +182,16 @@ footer a:hover{color:var(--tx)}
   .btn-dl{flex:1;min-width:0}
   footer{padding:18px 20px;font-size:.68rem}
 }
+
+/* ── Modal (service indisponible) ── */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:200;display:none;align-items:center;justify-content:center;padding:24px}
+.modal.show{display:flex}
+.modal-card{background:var(--bg-card);border:1px solid var(--border-h);max-width:480px;width:100%;padding:32px;max-height:90vh;overflow-y:auto}
+.modal-card h3{font-family:var(--head);font-weight:700;font-size:1.5rem;margin-bottom:14px;color:var(--orange)}
+.modal-card p{color:var(--tx2);font-size:.9rem;line-height:1.6;margin-bottom:14px}
+.modal-card ul{margin:14px 0 18px;padding-left:24px;color:var(--tx2);font-size:.88rem;line-height:1.6}
+.modal-card ul li{margin-bottom:6px}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}
 </style>
 </head>
 
@@ -322,6 +332,29 @@ footer a:hover{color:var(--tx)}
   </div>
 </main>
 
+<!-- Modal "Service temporairement indisponible" (NAS Synology down) -->
+<div class="modal" id="serviceDownModal">
+  <div class="modal-card">
+    <h3>⚠️ Service temporairement indisponible</h3>
+    <p>
+      Le serveur de fichiers semble injoignable pour le moment. Cela peut
+      arriver pendant les opérations de maintenance ou en cas de coupure
+      réseau temporaire.
+    </p>
+    <p><strong>Que faire ?</strong></p>
+    <ul>
+      <li>Réessayez dans quelques minutes</li>
+      <li>Vérifiez votre propre connexion internet</li>
+      <li>Si le problème persiste plus de 30 minutes, contactez
+        <a href="mailto:studiobastide.contact@gmail.com" style="color:var(--orange)">studiobastide.contact@gmail.com</a>
+      </li>
+    </ul>
+    <div class="modal-actions">
+      <button class="btn-primary" id="serviceDownCloseBtn">Compris</button>
+    </div>
+  </div>
+</div>
+
 <footer>
   <span>© 2026 Studio Bastide Production</span>
   <a href="../mentions-legales/">Mentions légales</a>
@@ -458,6 +491,34 @@ function driveUrl(idOrUrl) {
   return `https://drive.google.com/open?id=${v}`; // raw Drive ID → wrap
 }
 
+// ── Healthcheck — vérifie qu'une URL est joignable avant d'ouvrir ─
+// Surtout utile pour le NAS Synology qui peut tomber (coupure courant,
+// reboot, certif expiré). Mode 'no-cors' bypasse CORS — on ne peut pas
+// lire le status HTTP, mais on détecte si la couche TCP/TLS répond.
+// Retourne true si OK, false sinon.
+async function checkUrlReachable(url, timeoutMs = 3000) {
+  if (!url) return false;
+  if (!/^https?:\/\//i.test(url)) return true; // raw Drive ID → on suppose OK
+  // Google Drive : on skip le check (toujours up, ça ferait juste perdre du temps)
+  if (/drive\.google\.com/i.test(url)) return true;
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    await fetch(url, { method: 'HEAD', mode: 'no-cors', signal: controller.signal, cache: 'no-store' });
+    return true;
+  } catch (e) {
+    console.warn('Healthcheck failed for', url, ':', e.message);
+    return false;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+function showServiceDownMessage() {
+  document.getElementById('serviceDownModal').classList.add('show');
+}
+
 // ── Render unlocked files ─────────────────────────────────────
 function renderFiles(project) {
   document.getElementById('filesClient').textContent = project.clientName || 'Client';
@@ -559,14 +620,33 @@ function renderFiles(project) {
 
   // ── Bind download buttons ──
   listEl.querySelectorAll('[data-act]').forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', async () => {
       const idx = parseInt(btn.dataset.idx, 10);
       const act = btn.dataset.act;
       const file = project.files[idx];
       const driveId = act === 'hd' ? file.hdDriveId : file.previewDriveId;
       if (!driveId) return;
-      window.open(driveUrl(driveId), '_blank', 'noopener');
-      // Track (best-effort)
+
+      const url = driveUrl(driveId);
+
+      // Loading state on button during healthcheck
+      const originalText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Vérification…';
+
+      // Healthcheck — surtout utile pour le NAS Synology
+      const reachable = await checkUrlReachable(url);
+
+      btn.disabled = false;
+      btn.textContent = originalText;
+
+      if (!reachable) {
+        showServiceDownMessage();
+        return;
+      }
+
+      // Open download + track (best-effort)
+      window.open(url, '_blank', 'noopener');
       updateDoc(doc(db, 'deliveries', currentSlug), {
         downloadCount: increment(1),
         lastAccessAt: serverTimestamp(),
@@ -735,6 +815,17 @@ document.getElementById('entryForm').addEventListener('submit', async (e) => {
     errBox.classList.add('show');
     btn.disabled = false;
     btnText.textContent = 'Accéder à mes fichiers';
+  }
+});
+
+// ── Modal "Service indisponible" ─────────────────────────────
+document.getElementById('serviceDownCloseBtn').onclick = () => {
+  document.getElementById('serviceDownModal').classList.remove('show');
+};
+// Click outside modal also closes it
+document.getElementById('serviceDownModal').addEventListener('click', (e) => {
+  if (e.target.id === 'serviceDownModal') {
+    e.target.classList.remove('show');
   }
 });
 </script>
