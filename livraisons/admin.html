@@ -754,85 +754,97 @@ document.getElementById('saveBtn').onclick = async () => {
       files.push(f);
     });
 
-    // Hash code + load existing doc (we'll need it later to preserve system fields)
-    let codeHash, codeSalt;
+    // ── 1. Determine operation type ──────────────────────────────
+    // 3 cases:
+    //   - CREATE : !editingSlug                  → setDoc fresh
+    //   - RENAME : editingSlug && slug ≠ editingSlug
+    //                                            → setDoc(new) + deleteDoc(old)
+    //   - UPDATE : editingSlug === slug          → updateDoc PARTIAL
+    //              (only fields in formPayload are touched server-side;
+    //              createdAt, downloadCount, accessCodes are LEFT ALONE)
+    const isCreate = !editingSlug;
+    const isRename = editingSlug && editingSlug !== slug;
+    const isUpdate = editingSlug && editingSlug === slug;
+
+    // ── 2. Load existing doc (UPDATE or RENAME) ──────────────────
     let existingData = null;
-    if (editingSlug) {
+    if (!isCreate) {
       const existing = await getDoc(doc(db, 'deliveries', editingSlug));
       if (existing.exists()) {
         existingData = existing.data();
-        if (existingData.codeDisplayed === code) {
-          codeHash = existingData.codeHash;
-          codeSalt = existingData.codeSalt;
-        } else {
-          codeSalt = randomSalt();
-          codeHash = await hashCode(code, codeSalt);
-        }
       } else {
-        codeSalt = randomSalt();
-        codeHash = await hashCode(code, codeSalt);
+        console.warn(`Doc ${editingSlug} not found, falling back to create`);
       }
+    }
+
+    // ── 3. Hash code (reuse from existing if unchanged) ──────────
+    let codeHash, codeSalt;
+    if (existingData && existingData.codeDisplayed === code) {
+      codeHash = existingData.codeHash;
+      codeSalt = existingData.codeSalt;
     } else {
       codeSalt = randomSalt();
       codeHash = await hashCode(code, codeSalt);
     }
 
-    const payload = {
+    // ── 4. Build form payload (ONLY fields managed by this form) ─
+    // System fields (createdAt, downloadCount, accessCodes) are NOT
+    // here on purpose : they must never be touched by a regular save.
+    const formPayload = {
       clientName, projectName, files,
       codeHash, codeSalt, codeDisplayed: code,
       updatedAt: serverTimestamp(),
     };
 
-    // Statut + montant + contrepartie selon le type
     if (currentType === 'free') {
-      payload.status = 'free';
-      payload.amount = 0;
-      payload.taggingRequirement = taggingEl.value.trim();
+      formPayload.status = 'free';
+      formPayload.amount = 0;
+      formPayload.taggingRequirement = taggingEl.value.trim();
     } else {
-      payload.status = isPaid ? 'paid' : 'preview';
-      payload.amount = amount;
-      payload.taggingRequirement = null;
+      formPayload.status = isPaid ? 'paid' : 'preview';
+      formPayload.amount = amount;
+      formPayload.taggingRequirement = null;
     }
 
-    if (!editingSlug) {
-      // CREATION mode
-      payload.createdAt = serverTimestamp();
-      payload.downloadCount = 0;
-    } else {
-      // UPDATE mode : preserve system fields the form doesn't manage.
-      // setDoc(merge:false) below would otherwise WIPE them, making the
-      // delivery disappear from the admin list (which sorts by createdAt).
-      if (existingData) {
-        // createdAt : essential — listing query uses orderBy('createdAt')
-        if (existingData.createdAt) {
-          payload.createdAt = existingData.createdAt;
-        } else {
-          payload.createdAt = serverTimestamp(); // recovery for docs that lost it
-        }
-        // downloadCount : preserve global counter
-        payload.downloadCount = typeof existingData.downloadCount === 'number'
-          ? existingData.downloadCount : 0;
-        // accessCodes (sub-codes feature) : keep current UI state, which may
-        // have been edited via the dedicated section. Empty [] is intentional.
-        if (Array.isArray(currentSubCodes)) {
-          payload.accessCodes = currentSubCodes;
-        } else if (Array.isArray(existingData.accessCodes)) {
-          payload.accessCodes = existingData.accessCodes;
-        }
-      } else {
-        // editingSlug pointed to a non-existing doc — treat as creation
-        payload.createdAt = serverTimestamp();
-        payload.downloadCount = 0;
-      }
-    }
-    payload.expiresAt = expiresInput
+    formPayload.expiresAt = expiresInput
       ? Timestamp.fromDate(new Date(expiresInput + 'T23:59:59'))
       : null;
 
-    if (editingSlug && editingSlug !== slug) {
+    // ── 5. Execute the write based on operation type ─────────────
+    if (isCreate || (!existingData && editingSlug)) {
+      // CREATE — fresh doc with system fields initialized to defaults
+      const fullPayload = {
+        ...formPayload,
+        createdAt: serverTimestamp(),
+        downloadCount: 0,
+        accessCodes: [],
+      };
+      await setDoc(doc(db, 'deliveries', slug), fullPayload);
+
+    } else if (isRename) {
+      // RENAME — migrate to new slug, PRESERVE all system fields.
+      // We build a complete payload (existing + form + sub-codes from UI)
+      // because setDoc on the new doc creates it fresh.
+      const fullPayload = {
+        ...existingData,    // preserve everything from old doc
+        ...formPayload,     // override with form fields
+        accessCodes: Array.isArray(currentSubCodes)
+          ? currentSubCodes
+          : (existingData.accessCodes || []),
+      };
+      await setDoc(doc(db, 'deliveries', slug), fullPayload);
       await deleteDoc(doc(db, 'deliveries', editingSlug));
+      // Update editingSlug so further actions target the new slug
+      document.getElementById('editingSlug').value = slug;
+
+    } else {
+      // UPDATE — partial update on the same slug.
+      // updateDoc ONLY touches fields in formPayload. Everything else
+      // (createdAt, downloadCount, accessCodes, expiresAt history…)
+      // is LEFT ALONE on the server. This is the safe path that
+      // makes deliveries impossible to lose by accident.
+      await updateDoc(doc(db, 'deliveries', slug), formPayload);
     }
-    await setDoc(doc(db, 'deliveries', slug), payload, { merge: false });
 
     document.getElementById('modalLink').textContent = publicUrl(slug);
     document.getElementById('modalCode').textContent = code;
