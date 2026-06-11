@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>Admin Livraisons — Studio Bastide</title>
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" type="image/jpeg" href="../assets/img/logo_square.jpg">
@@ -430,6 +433,14 @@ main{max-width:1200px;margin:0 auto;padding:40px 28px 80px}
       <p class="form-help"><span class="form-hint">{N}</span> sera remplacé par le numéro de séquence (1, 2, 3…)</p>
     </div>
 
+    <div class="form-group" id="bulkProgressGroup" style="display:none">
+      <label>Progression</label>
+      <div style="background:var(--bg);border:1px solid var(--border-h);height:24px;position:relative;overflow:hidden">
+        <div id="bulkProgressBar" style="background:var(--orange);height:100%;width:0%;transition:width .2s var(--ease)"></div>
+        <div id="bulkProgressText" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-family:monospace;color:#fff;mix-blend-mode:difference">0 / 0</div>
+      </div>
+    </div>
+
     <div class="modal-actions">
       <button class="btn-secondary" id="bulkCancelBtn">Annuler</button>
       <button class="btn-primary" id="bulkGenerateBtn">Générer</button>
@@ -596,7 +607,20 @@ function updateSlug() {
 }
 clientNameEl.oninput = projectNameEl.oninput = updateSlug;
 slugEl.oninput = () => { slugEl.dataset.userEdited = '1'; slugPreviewEl.textContent = slugEl.value || '…'; };
-document.getElementById('regenCode').onclick = () => { accessCodeEl.textContent = randomCode(); };
+document.getElementById('regenCode').onclick = () => {
+  const editingSlug = document.getElementById('editingSlug').value;
+  // Mode édition : prévenir des conséquences
+  if (editingSlug) {
+    const confirmed = confirm(
+      '⚠️ Régénérer le code maître ?\n\n' +
+      'Les liens déjà envoyés avec l\'ancien code ne fonctionneront plus.\n' +
+      'Les sub-codes (codes personnalisés) ne sont pas affectés.\n\n' +
+      'Continuer ?'
+    );
+    if (!confirmed) return;
+  }
+  accessCodeEl.textContent = randomCode();
+};
 
 payToggle.onclick = () => {
   payToggle.classList.toggle('on');
@@ -954,6 +978,14 @@ async function generateBulkSubCodes(count, style, prefix, labelTemplate) {
   const slug = document.getElementById('editingSlug').value;
   if (!slug) { toast('Sauvegarde d\'abord la livraison', 'err'); return; }
 
+  // Show progress UI
+  const progressGroup = document.getElementById('bulkProgressGroup');
+  const progressBar = document.getElementById('bulkProgressBar');
+  const progressText = document.getElementById('bulkProgressText');
+  progressGroup.style.display = '';
+  progressBar.style.width = '0%';
+  progressText.textContent = `0 / ${count}`;
+
   const startIdx = currentSubCodes.length;
   const codes = [];
 
@@ -978,10 +1010,21 @@ async function generateBulkSubCodes(count, style, prefix, labelTemplate) {
       lastAccessAt: null,
       createdAt: new Date().toISOString(),
     });
+
+    // Update progress every 5 codes (avoid UI jank)
+    if ((i + 1) % 5 === 0 || i === count - 1) {
+      const pct = Math.round(((i + 1) / count) * 100);
+      progressBar.style.width = pct + '%';
+      progressText.textContent = `${i + 1} / ${count}`;
+      // Yield to browser so UI updates
+      await new Promise(r => setTimeout(r, 0));
+    }
   }
+
   currentSubCodes.push(...codes);
   await persistSubCodes();
   renderSubCodes();
+  progressGroup.style.display = 'none';
   toast(`${count} code(s) générés`);
 }
 
