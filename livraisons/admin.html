@@ -191,10 +191,16 @@ main{max-width:1200px;margin:0 auto;padding:40px 28px 80px}
 .sub-code-row input{background:transparent;border:none;color:var(--tx);font-size:.82rem;padding:6px 8px;outline:none}
 .sub-code-row input:focus{background:var(--bg-card);border:1px solid var(--orange);outline:none}
 .sub-code-row .sub-code-input{font-family:monospace;color:var(--orange);letter-spacing:1px}
-.sub-code-row .sub-stats{font-size:.7rem;color:var(--tx3);font-family:monospace;white-space:nowrap;padding:0 8px}
+.sub-code-row .sub-stats{font-size:.7rem;color:var(--tx3);font-family:monospace;white-space:nowrap;padding:0 8px;line-height:1.4}
 .sub-code-row .sub-stats strong{color:var(--tx2);font-weight:600}
 .sub-code-row .sub-del{background:transparent;border:1px solid var(--border-h);color:var(--tx3);width:30px;height:30px;cursor:pointer;font-size:1rem;line-height:1;transition:all .2s var(--ease)}
 .sub-code-row .sub-del:hover{border-color:var(--err);color:var(--err)}
+.sub-actions{display:flex;gap:4px;align-items:center}
+.sub-btn{background:transparent;border:1px solid var(--border-h);color:var(--tx2);width:30px;height:30px;cursor:pointer;font-size:.85rem;line-height:1;transition:all .2s var(--ease);display:flex;align-items:center;justify-content:center}
+.sub-btn:hover:not(:disabled){border-color:var(--orange);color:var(--orange)}
+.sub-btn:disabled{opacity:.3;cursor:not-allowed}
+.sub-code-row.revoked{opacity:.5;background:repeating-linear-gradient(45deg,var(--bg),var(--bg) 8px,#1a1a1a 8px,#1a1a1a 16px)}
+.sub-code-row.revoked input{text-decoration:line-through}
 .sub-codes-empty{padding:18px;text-align:center;color:var(--tx3);font-size:.85rem;background:var(--bg);border:1px dashed var(--border-h)}
 
 /* ── Modal génération masse ── */
@@ -215,7 +221,7 @@ main{max-width:1200px;margin:0 auto;padding:40px 28px 80px}
   .delivery-item{grid-template-columns:1fr}
   .sub-code-row{grid-template-columns:1fr 1fr;gap:6px}
   .sub-code-row .sub-stats{grid-column:1/-1}
-  .sub-code-row .sub-del{grid-column:1/-1;width:100%;height:36px}
+  .sub-actions{grid-column:1/-1;justify-content:flex-end}
 }
 </style>
 </head>
@@ -364,6 +370,7 @@ main{max-width:1200px;margin:0 auto;padding:40px 28px 80px}
             <button type="button" class="btn-secondary" id="bulkSubCodeBtn">+ Générer en masse</button>
             <button type="button" class="btn-secondary" id="importSubCodesBtn">📂 Importer CSV</button>
             <input type="file" id="importSubCodesFile" accept=".csv" style="display:none">
+            <button type="button" class="btn-secondary" id="markAllMailedBtn">✉ Tout marquer envoyé</button>
             <button type="button" class="btn-secondary" id="exportSubCodesBtn">📥 Exporter CSV</button>
           </div>
         </div>
@@ -902,17 +909,30 @@ function renderSubCodes() {
     return;
   }
 
-  listEl.innerHTML = currentSubCodes.map((sc, i) => `
-    <div class="sub-code-row" data-id="${sc.id}">
-      <input type="text" data-field="label" value="${(sc.label || '').replace(/"/g, '&quot;')}" placeholder="Libellé (ex: Stand La Forge)">
-      <input type="text" class="sub-code-input" data-field="code" value="${(sc.codeDisplayed || '').replace(/"/g, '&quot;')}" placeholder="CODE-UNIQUE">
-      <div class="sub-stats" title="Téléchargements / Dernier accès">
-        <strong>${Number(sc.downloadCount) || 0}</strong> dl<br>
-        ${sc.lastAccessAt ? fmtDateShort(sc.lastAccessAt) : 'jamais'}
+  listEl.innerHTML = currentSubCodes.map((sc, i) => {
+    const isRevoked = !!sc.revoked;
+    const mailSent = !!sc.mailSentAt;
+    const rowClass = isRevoked ? 'sub-code-row revoked' : 'sub-code-row';
+    return `
+      <div class="${rowClass}" data-id="${sc.id}">
+        <input type="text" data-field="label" value="${(sc.label || '').replace(/"/g, '&quot;')}" placeholder="Libellé (ex: Stand La Forge)" ${isRevoked ? 'disabled' : ''}>
+        <input type="text" class="sub-code-input" data-field="code" value="${(sc.codeDisplayed || '').replace(/"/g, '&quot;')}" placeholder="CODE-UNIQUE" ${isRevoked ? 'disabled' : ''}>
+        <div class="sub-stats" title="Téléchargements / Dernier accès / Mail envoyé">
+          <strong>${Number(sc.downloadCount) || 0}</strong> dl<br>
+          <span style="color:var(--tx3)">${sc.lastAccessAt ? fmtDateShort(sc.lastAccessAt) : 'jamais accédé'}</span><br>
+          <span style="color:${mailSent ? '#4ade80' : 'var(--tx3)'};font-size:.68rem">
+            ${mailSent ? '✓ envoyé ' + fmtDateShort(sc.mailSentAt) : '✗ non envoyé'}
+          </span>
+        </div>
+        <div class="sub-actions">
+          <button type="button" class="sub-btn" data-act="mail-sent" data-idx="${i}" title="Marquer le mail comme envoyé maintenant">${mailSent ? '↻' : '✉'}</button>
+          <button type="button" class="sub-btn" data-act="regen" data-idx="${i}" title="Régénérer ce code (l'ancien ne fonctionnera plus)" ${isRevoked ? 'disabled' : ''}>🔄</button>
+          <button type="button" class="sub-btn" data-act="toggle-revoke" data-idx="${i}" title="${isRevoked ? 'Réactiver ce code' : 'Désactiver ce code'}">${isRevoked ? '▶' : '⏸'}</button>
+          <button type="button" class="sub-del" data-act="del-subcode" data-idx="${i}" title="Supprimer définitivement">×</button>
+        </div>
       </div>
-      <button type="button" class="sub-del" data-act="del-subcode" data-idx="${i}" title="Supprimer ce code">×</button>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 
   // Wire up handlers
   listEl.querySelectorAll('input[data-field]').forEach(inp => {
@@ -920,6 +940,15 @@ function renderSubCodes() {
   });
   listEl.querySelectorAll('[data-act="del-subcode"]').forEach(btn => {
     btn.addEventListener('click', () => removeSubCode(parseInt(btn.dataset.idx, 10)));
+  });
+  listEl.querySelectorAll('[data-act="mail-sent"]').forEach(btn => {
+    btn.addEventListener('click', () => markSubCodeMailed(parseInt(btn.dataset.idx, 10)));
+  });
+  listEl.querySelectorAll('[data-act="regen"]').forEach(btn => {
+    btn.addEventListener('click', () => regenSubCode(parseInt(btn.dataset.idx, 10)));
+  });
+  listEl.querySelectorAll('[data-act="toggle-revoke"]').forEach(btn => {
+    btn.addEventListener('click', () => toggleRevokeSubCode(parseInt(btn.dataset.idx, 10)));
   });
 }
 
@@ -972,6 +1001,77 @@ async function removeSubCode(idx) {
   currentSubCodes.splice(idx, 1);
   await persistSubCodes();
   renderSubCodes();
+}
+
+// ── Mark a sub-code as "mail sent" (or re-mark with new date) ─
+async function markSubCodeMailed(idx) {
+  if (idx < 0 || idx >= currentSubCodes.length) return;
+  const sc = currentSubCodes[idx];
+  const wasAlready = !!sc.mailSentAt;
+  if (wasAlready && !confirm(`Re-marquer "${sc.label || sc.codeDisplayed}" comme envoyé maintenant ?\nLa date précédente sera remplacée.`)) return;
+  currentSubCodes[idx] = { ...sc, mailSentAt: new Date().toISOString() };
+  await persistSubCodes();
+  renderSubCodes();
+  toast(wasAlready ? 'Date d\'envoi mise à jour' : 'Marqué comme envoyé');
+}
+
+// ── Regenerate a single sub-code (keep label & stats) ─────────
+async function regenSubCode(idx) {
+  if (idx < 0 || idx >= currentSubCodes.length) return;
+  const sc = currentSubCodes[idx];
+  if (sc.revoked) { toast('Réactive le code d\'abord', 'err'); return; }
+  if (!confirm(
+    `Régénérer le code "${sc.label || sc.codeDisplayed}" ?\n\n` +
+    `L'ancien code "${sc.codeDisplayed}" ne fonctionnera plus.\n` +
+    `Le compteur de téléchargements et le label sont conservés.\n\n` +
+    `La date d'envoi sera réinitialisée (à toi de renvoyer un nouveau mail).`
+  )) return;
+
+  const newCode = randomCode();
+  const newSalt = randomSalt();
+  const newHash = await hashCode(newCode, newSalt);
+
+  currentSubCodes[idx] = {
+    ...sc,
+    codeDisplayed: newCode,
+    codeHash: newHash,
+    codeSalt: newSalt,
+    mailSentAt: null,  // reset → faut renvoyer
+  };
+  await persistSubCodes();
+  renderSubCodes();
+  toast(`Code régénéré : ${newCode}`);
+}
+
+// ── Toggle revoked status (reversible deactivation) ───────────
+async function toggleRevokeSubCode(idx) {
+  if (idx < 0 || idx >= currentSubCodes.length) return;
+  const sc = currentSubCodes[idx];
+  const willRevoke = !sc.revoked;
+  if (!confirm(
+    willRevoke
+      ? `Désactiver le code "${sc.label || sc.codeDisplayed}" ?\n\nLe destinataire ne pourra plus accéder à la livraison.\nTu peux réactiver à tout moment depuis l'admin.`
+      : `Réactiver le code "${sc.label || sc.codeDisplayed}" ?\n\nLe destinataire pourra à nouveau accéder à la livraison.`
+  )) return;
+  currentSubCodes[idx] = { ...sc, revoked: willRevoke };
+  await persistSubCodes();
+  renderSubCodes();
+  toast(willRevoke ? 'Code désactivé' : 'Code réactivé');
+}
+
+// ── Mark all unmailed (and non-revoked) codes as sent ─────────
+async function markAllMailed() {
+  const unmailedCount = currentSubCodes.filter(sc => !sc.mailSentAt && !sc.revoked).length;
+  if (!unmailedCount) { toast('Tous les codes actifs sont déjà marqués envoyés'); return; }
+  if (!confirm(`Marquer ${unmailedCount} code(s) comme envoyé(s) maintenant ?\n(Les codes désactivés et déjà marqués sont ignorés.)`)) return;
+  const now = new Date().toISOString();
+  currentSubCodes = currentSubCodes.map(sc => {
+    if (sc.mailSentAt || sc.revoked) return sc;
+    return { ...sc, mailSentAt: now };
+  });
+  await persistSubCodes();
+  renderSubCodes();
+  toast(`${unmailedCount} code(s) marqués envoyés`);
 }
 
 async function persistSubCodes() {
@@ -1141,7 +1241,7 @@ function exportSubCodesCSV() {
   const baseUrl = publicUrl(slug);
   // Detect whether any code has an email → include the column only if relevant
   const hasEmail = currentSubCodes.some(sc => sc && sc.email);
-  const header = ['label', 'code', 'url', 'downloads', 'last_access'];
+  const header = ['label', 'code', 'url', 'downloads', 'last_access', 'mail_sent_at', 'revoked'];
   if (hasEmail) header.splice(1, 0, 'email'); // email after label
 
   const rows = [header];
@@ -1153,6 +1253,8 @@ function exportSubCodesCSV() {
       url,
       String(Number(sc.downloadCount) || 0),
       sc.lastAccessAt ? new Date(sc.lastAccessAt).toISOString() : '',
+      sc.mailSentAt ? new Date(sc.mailSentAt).toISOString() : '',
+      sc.revoked ? 'true' : 'false',
     ];
     if (hasEmail) base.splice(1, 0, sc.email || '');
     rows.push(base);
@@ -1181,6 +1283,7 @@ function exportSubCodesCSV() {
 // ── UI hooks (buttons) ───────────────────────────────────────
 document.getElementById('addSubCodeBtn').onclick = () => addSubCode();
 document.getElementById('exportSubCodesBtn').onclick = exportSubCodesCSV;
+document.getElementById('markAllMailedBtn').onclick = markAllMailed;
 document.getElementById('importSubCodesBtn').onclick = () => {
   const slug = document.getElementById('editingSlug').value;
   if (!slug) { toast('Sauvegarde d\'abord la livraison', 'err'); return; }
