@@ -203,6 +203,24 @@ main{max-width:1200px;margin:0 auto;padding:40px 28px 80px}
 .sub-code-row.revoked input{text-decoration:line-through}
 .sub-codes-empty{padding:18px;text-align:center;color:var(--tx3);font-size:.85rem;background:var(--bg);border:1px dashed var(--border-h)}
 
+/* ── Activity feed (Bloc E - Option D) ── */
+.activity-badge{display:inline-flex;align-items:center;justify-content:center;background:var(--orange);color:#fff;font-size:.65rem;font-weight:700;min-width:18px;height:18px;padding:0 5px;border-radius:9px;margin-left:6px;letter-spacing:0}
+.activity-status{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;background:var(--bg);border:1px solid var(--border-h);font-size:.75rem;color:var(--tx2);font-family:monospace}
+.activity-status .dot{width:8px;height:8px;border-radius:50%;background:var(--tx3);transition:background .3s}
+.activity-status.live .dot{background:#4ade80;box-shadow:0 0 0 0 rgba(74,222,128,.5);animation:pulse 2s infinite}
+.activity-status.error .dot{background:var(--err)}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(74,222,128,.5)}70%{box-shadow:0 0 0 8px rgba(74,222,128,0)}100%{box-shadow:0 0 0 0 rgba(74,222,128,0)}}
+
+.feed{display:flex;flex-direction:column;gap:8px;max-height:600px;overflow-y:auto;padding-right:6px}
+.feed-empty{padding:48px 24px;text-align:center;color:var(--tx2);background:var(--bg);border:1px dashed var(--border-h)}
+.feed-item{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;padding:14px 16px;background:var(--bg);border:1px solid var(--border-h);border-left:3px solid var(--orange);font-size:.85rem;animation:slideIn .4s var(--ease)}
+.feed-item.fresh{border-left-color:#4ade80;background:linear-gradient(90deg,rgba(74,222,128,.08) 0%,var(--bg) 60%)}
+.feed-item .feed-icon{font-size:1.4rem}
+.feed-item .feed-body strong{color:var(--orange);font-weight:600}
+.feed-item .feed-body .feed-meta{font-size:.72rem;color:var(--tx3);margin-top:3px}
+.feed-item .feed-time{font-size:.7rem;color:var(--tx3);font-family:monospace;white-space:nowrap}
+@keyframes slideIn{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:translateX(0)}}
+
 /* ── Modal génération masse ── */
 .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;display:none;align-items:center;justify-content:center;padding:24px}
 .modal-backdrop.show{display:flex}
@@ -255,6 +273,7 @@ main{max-width:1200px;margin:0 auto;padding:40px 28px 80px}
     <div class="tab-row">
       <button class="tab active" data-tab="create">+ Nouvelle livraison</button>
       <button class="tab" data-tab="list">Livraisons existantes</button>
+      <button class="tab" data-tab="activity">📊 Activité <span id="activityBadge" class="activity-badge" style="display:none">0</span></button>
     </div>
 
     <!-- ─────── PANEL CREATE ─────── -->
@@ -390,6 +409,37 @@ main{max-width:1200px;margin:0 auto;padding:40px 28px 80px}
       </div>
     </div>
 
+    <!-- ─────── PANEL ACTIVITY (temps réel) ─────── -->
+    <div class="panel" id="panelActivity">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;gap:18px;flex-wrap:wrap">
+        <div>
+          <h2 class="s-title" style="margin-bottom:6px">Activité en temps réel</h2>
+          <p style="color:var(--tx2);font-size:.85rem;line-height:1.5;max-width:540px">
+            Suivez les téléchargements de vos clients en direct. La page doit
+            rester ouverte pour recevoir les notifications.
+          </p>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <span id="activityStatus" class="activity-status" title="État du listener Firestore">
+            <span class="dot"></span>
+            <span class="label">Connexion…</span>
+          </span>
+          <button type="button" class="btn-secondary" id="enableNotifBtn">🔔 Activer les notifications</button>
+          <button type="button" class="btn-secondary" id="clearFeedBtn" title="Vider l'historique de la session">🗑️ Vider</button>
+        </div>
+      </div>
+
+      <div class="feed" id="activityFeed">
+        <div class="feed-empty">
+          <div style="font-size:2rem;margin-bottom:8px">⏳</div>
+          <div>Aucun téléchargement enregistré dans cette session.</div>
+          <div style="font-size:.78rem;color:var(--tx3);margin-top:8px">
+            Les nouveaux téléchargements apparaîtront ici en direct.
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
 </main>
@@ -460,7 +510,7 @@ import { initializeApp }
   from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged }
   from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
-import { getFirestore, doc, getDoc, setDoc, updateDoc, deleteDoc, collection, getDocs, query, orderBy, serverTimestamp, Timestamp }
+import { getFirestore, doc, getDoc, setDoc, updateDoc, deleteDoc, collection, getDocs, query, orderBy, serverTimestamp, Timestamp, onSnapshot }
   from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
 
 const ALLOWED_EMAILS = [
@@ -550,6 +600,7 @@ onAuthStateChanged(auth, async (user) => {
     gate.style.display = 'block'; appEl.style.display = 'none';
     loginBtn.style.display = ''; logoutBtn.style.display = 'none';
     userInfo.style.display = 'none';
+    stopDashboard(); // stop real-time listener on logout
     return;
   }
 
@@ -566,6 +617,7 @@ onAuthStateChanged(auth, async (user) => {
   gate.style.display = 'none'; appEl.style.display = 'block';
   resetForm();
   await refreshList();
+  startDashboard(); // start real-time download listener
 });
 
 // ── Tabs ─────────────────────────────────────────────────────
@@ -576,6 +628,11 @@ document.querySelectorAll('.tab').forEach(t => {
     t.classList.add('active');
     document.getElementById('panel' + t.dataset.tab[0].toUpperCase() + t.dataset.tab.slice(1)).classList.add('active');
     if (t.dataset.tab === 'list') refreshList();
+    if (t.dataset.tab === 'activity') {
+      // Reset badge when user views the tab
+      unseenDownloads = 0;
+      updateActivityBadge();
+    }
   };
 });
 
@@ -1510,6 +1567,269 @@ async function refreshList() {
     listEl.innerHTML = '<div class="empty" style="color:var(--err)">Erreur de chargement.</div>';
   }
 }
+
+// ═══════════════════════════════════════════════════════════════
+// DASHBOARD TEMPS RÉEL — Bloc E (Option D)
+// ───────────────────────────────────────────────────────────────
+// Détecte les nouveaux téléchargements via onSnapshot Firestore,
+// affiche dans un feed in-app + notification browser native.
+// ═══════════════════════════════════════════════════════════════
+
+let dashboardUnsub = null;       // unsubscribe handler
+let lastSeenState = null;        // Map<slug, {globalCount, subCounts, ...}>
+let recentEvents = [];           // historique en mémoire (max 50)
+let unseenDownloads = 0;         // pour le badge
+
+function fmtTimeAgo(date) {
+  const s = Math.round((Date.now() - date.getTime()) / 1000);
+  if (s < 60) return `il y a ${s}s`;
+  if (s < 3600) return `il y a ${Math.round(s/60)}min`;
+  if (s < 86400) return `il y a ${Math.round(s/3600)}h`;
+  return date.toLocaleDateString('fr-FR');
+}
+
+function snapshotState(snap) {
+  const state = new Map();
+  snap.forEach(d => {
+    const data = d.data();
+    const subCounts = {};
+    (data.accessCodes || []).forEach(sc => {
+      if (sc && sc.id) subCounts[sc.id] = Number(sc.downloadCount) || 0;
+    });
+    state.set(d.id, {
+      clientName: data.clientName || '',
+      projectName: data.projectName || '',
+      globalCount: Number(data.downloadCount) || 0,
+      subCounts,
+      accessCodes: data.accessCodes || [],
+    });
+  });
+  return state;
+}
+
+function startDashboard() {
+  if (dashboardUnsub) return; // already running
+
+  setDashboardStatus('connecting', 'Connexion…');
+
+  const q = query(collection(db, 'deliveries'));
+  dashboardUnsub = onSnapshot(q, (snap) => {
+    setDashboardStatus('live', 'Surveillance active');
+    const newState = snapshotState(snap);
+
+    if (lastSeenState === null) {
+      // First snapshot : init without notifying
+      lastSeenState = newState;
+      return;
+    }
+
+    // Detect diffs : a counter that increased = new download
+    for (const [slug, data] of newState.entries()) {
+      const prev = lastSeenState.get(slug);
+      if (!prev) continue; // new delivery, skip
+
+      if (data.globalCount > prev.globalCount) {
+        // Find which sub-code(s) incremented
+        let codeLabel = '(code maître)';
+        for (const sc of data.accessCodes) {
+          if (!sc || !sc.id) continue;
+          const prevCount = prev.subCounts[sc.id] || 0;
+          const newCount = data.subCounts[sc.id] || 0;
+          if (newCount > prevCount) {
+            codeLabel = sc.label || sc.codeDisplayed || '(sans label)';
+            break;
+          }
+        }
+
+        const event = {
+          at: new Date(),
+          slug,
+          clientName: data.clientName,
+          projectName: data.projectName,
+          codeLabel,
+          totalCount: data.globalCount,
+          delta: data.globalCount - prev.globalCount,
+        };
+        recentEvents.unshift(event);
+        if (recentEvents.length > 50) recentEvents.length = 50;
+
+        // Notify
+        notifyDownload(event);
+
+        // Badge if user isn't on the activity tab
+        const activeTab = document.querySelector('.tab.active');
+        if (!activeTab || activeTab.dataset.tab !== 'activity') {
+          unseenDownloads++;
+          updateActivityBadge();
+        }
+      }
+    }
+
+    lastSeenState = newState;
+    renderActivityFeed();
+  }, (err) => {
+    console.error('Dashboard listener error:', err);
+    setDashboardStatus('error', 'Erreur de connexion');
+  });
+}
+
+function stopDashboard() {
+  if (dashboardUnsub) {
+    dashboardUnsub();
+    dashboardUnsub = null;
+  }
+  lastSeenState = null;
+  setDashboardStatus('off', 'Arrêté');
+}
+
+function setDashboardStatus(state, label) {
+  const el = document.getElementById('activityStatus');
+  if (!el) return;
+  el.classList.remove('live', 'error');
+  if (state === 'live') el.classList.add('live');
+  if (state === 'error') el.classList.add('error');
+  el.querySelector('.label').textContent = label;
+}
+
+function updateActivityBadge() {
+  const badge = document.getElementById('activityBadge');
+  if (!badge) return;
+  if (unseenDownloads > 0) {
+    badge.textContent = unseenDownloads > 99 ? '99+' : String(unseenDownloads);
+    badge.style.display = '';
+  } else {
+    badge.style.display = 'none';
+  }
+}
+
+function notifyDownload(event) {
+  // 1. In-app toast (only if not on activity tab to avoid double feedback)
+  const activeTab = document.querySelector('.tab.active');
+  if (!activeTab || activeTab.dataset.tab !== 'activity') {
+    toast(`📥 ${event.codeLabel} — ${event.projectName}`);
+  }
+
+  // 2. Browser system notification (requires permission)
+  if ('Notification' in window && Notification.permission === 'granted') {
+    try {
+      const notif = new Notification('📥 Nouveau téléchargement', {
+        body: `${event.codeLabel}\n${event.projectName}`,
+        icon: '../assets/img/logo_square.jpg',
+        tag: 'sb-' + event.slug + '-' + event.at.getTime(),
+        requireInteraction: false,
+      });
+      // Click brings the tab to focus + opens activity panel
+      notif.onclick = () => {
+        window.focus();
+        const tab = document.querySelector('[data-tab="activity"]');
+        if (tab) tab.click();
+        notif.close();
+      };
+      // Auto-close after 8s
+      setTimeout(() => notif.close(), 8000);
+    } catch (e) {
+      console.warn('Notification failed:', e);
+    }
+  }
+}
+
+function renderActivityFeed() {
+  const feedEl = document.getElementById('activityFeed');
+  if (!feedEl) return;
+
+  if (!recentEvents.length) {
+    feedEl.innerHTML = `
+      <div class="feed-empty">
+        <div style="font-size:2rem;margin-bottom:8px">⏳</div>
+        <div>Aucun téléchargement enregistré dans cette session.</div>
+        <div style="font-size:.78rem;color:var(--tx3);margin-top:8px">
+          Les nouveaux téléchargements apparaîtront ici en direct.
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  const now = Date.now();
+  feedEl.innerHTML = recentEvents.map((ev, i) => {
+    const isFresh = (now - ev.at.getTime()) < 30000; // 30s
+    return `
+      <div class="feed-item${isFresh ? ' fresh' : ''}" data-slug="${ev.slug}">
+        <div class="feed-icon">📥</div>
+        <div class="feed-body">
+          <strong>${escapeHtml(ev.codeLabel)}</strong> vient de télécharger
+          <div class="feed-meta">
+            ${escapeHtml(ev.projectName)} · ${ev.totalCount} téléchargement${ev.totalCount > 1 ? 's' : ''} au total
+          </div>
+        </div>
+        <div class="feed-time">${fmtTimeAgo(ev.at)}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+// Helper to escape HTML in user content (prevent XSS in labels)
+function escapeHtml(s) {
+  return String(s ?? '').replace(/[&<>"']/g, ch => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[ch]));
+}
+
+// Refresh "il y a Xs" labels every 30s
+setInterval(() => {
+  const activeTab = document.querySelector('.tab.active');
+  if (activeTab && activeTab.dataset.tab === 'activity' && recentEvents.length) {
+    renderActivityFeed();
+  }
+}, 30000);
+
+// ── UI hooks for the activity panel ──
+document.getElementById('enableNotifBtn').onclick = async () => {
+  const btn = document.getElementById('enableNotifBtn');
+  if (!('Notification' in window)) {
+    toast('Notifications non supportées par ce navigateur', 'err');
+    return;
+  }
+  if (Notification.permission === 'granted') {
+    toast('Notifications déjà activées ✓');
+    btn.textContent = '🔔 Notifications actives';
+    return;
+  }
+  if (Notification.permission === 'denied') {
+    toast('Notifications bloquées — vérifie les permissions du site dans Chrome', 'err');
+    return;
+  }
+  const result = await Notification.requestPermission();
+  if (result === 'granted') {
+    toast('Notifications activées ✓');
+    btn.textContent = '🔔 Notifications actives';
+    // Test notif
+    new Notification('Studio Bastide', {
+      body: 'Vous recevrez les téléchargements en temps réel.',
+      icon: '../assets/img/logo_square.jpg',
+    });
+  } else {
+    toast('Permission refusée', 'err');
+  }
+};
+
+document.getElementById('clearFeedBtn').onclick = () => {
+  if (!recentEvents.length) { toast('Historique déjà vide'); return; }
+  if (!confirm(`Vider l'historique de ${recentEvents.length} événement(s) ?\n(N'affecte pas Firestore, juste l'affichage.)`)) return;
+  recentEvents = [];
+  unseenDownloads = 0;
+  updateActivityBadge();
+  renderActivityFeed();
+  toast('Historique vidé');
+};
+
+// Init button state based on current permission
+if ('Notification' in window && Notification.permission === 'granted') {
+  document.getElementById('enableNotifBtn').textContent = '🔔 Notifications actives';
+}
+
+// Start dashboard automatically once user is authenticated
+// (handled by onAuthStateChanged below)
 </script>
 
 </body>
