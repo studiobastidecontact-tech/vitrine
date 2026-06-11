@@ -413,6 +413,7 @@ async function verifyCode(project, code) {
   for (let i = 0; i < subs.length; i++) {
     const sub = subs[i];
     if (!sub || !sub.codeHash || !sub.codeSalt) continue;
+    if (sub.revoked === true) continue;  // ← skip revoked sub-codes (bloc D)
     try {
       const subHash = await hashCode(code, sub.codeSalt);
       if (subHash === sub.codeHash) {
@@ -689,7 +690,7 @@ let currentProject = null;
   if (savedHash) {
     const subs = Array.isArray(project.accessCodes) ? project.accessCodes : [];
     const hashStillValid = savedHash === project.codeHash
-      || subs.some(s => s && s.codeHash === savedHash);
+      || subs.some(s => s && s.codeHash === savedHash && s.revoked !== true);
     if (hashStillValid) {
       renderFiles(project);
       return;
