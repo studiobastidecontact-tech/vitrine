@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>La Gare — Coupe du Monde 2026 sur écran géant | Studio Bastide</title>
 
+<link rel="icon" type="image/png" href="assets/img/favicon-bastide.png">
+<link rel="apple-touch-icon" href="assets/img/favicon-bastide.png">
+
 <!-- ============================================================
      PAGE "LA GARE — COUPE DU MONDE 2026" — Studio Bastide Production
      Charte : Panchang (display) + Switzer (body)
@@ -144,6 +147,26 @@
   a.partner .partner__role{color:var(--orange)}
   .partners__x{font-family:"Panchang",sans-serif;font-weight:700;font-size:30px;color:var(--orange);opacity:.7}
 
+  /* ---------- GALERIE / CARROUSEL ---------- */
+  .gallery{padding-bottom:40px}
+  .carousel{position:relative;margin:8px auto 0;max-width:400px}
+  .carousel__viewport{overflow:hidden;border-radius:8px;border:1px solid var(--ligne);background:#000}
+  .carousel__track{display:flex;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+  .carousel__slide{flex:0 0 100%;aspect-ratio:9/16;background:#0d0d0d}
+  .carousel__slide img{width:100%;height:100%;object-fit:cover;display:block}
+  .carousel__empty{display:flex;align-items:center;justify-content:center;height:100%;color:var(--gris);font-size:14px;text-align:center;padding:24px}
+  .carousel__btn{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;border:none;
+    background:rgba(10,10,10,.55);color:#fff;font-size:28px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;
+    backdrop-filter:blur(4px);transition:background .15s,transform .15s;z-index:2}
+  .carousel__btn:hover{background:var(--orange)}
+  .carousel__btn:active{transform:translateY(-50%) scale(.94)}
+  .carousel__btn.prev{left:10px}
+  .carousel__btn.next{right:10px}
+  .carousel__btn:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+  .carousel__dots{display:flex;justify-content:center;gap:9px;margin-top:18px}
+  .carousel__dots button{width:9px;height:9px;border-radius:50%;border:none;background:var(--ligne);cursor:pointer;padding:0;transition:background .2s,width .2s}
+  .carousel__dots button.active{background:var(--orange);width:26px;border-radius:5px}
+
   /* ---------- FOOTER ---------- */
   footer{padding:56px 0;text-align:center}
   .footer__logo-img{width:130px;height:auto;margin:0 auto 22px;display:block;opacity:.92}
@@ -192,7 +215,7 @@
       </div>
       <div class="hero__videowrap">
         <video autoplay muted loop playsinline poster="assets/img/drone-la-gare-poster.jpg">
-          <source src="assets/videos/drone%20sans%20son%20gare.mp4" type="video/mp4">
+          <source src="assets/videos/drone-la-gare.mp4" type="video/mp4">
         </video>
       </div>
     </div>
@@ -205,7 +228,7 @@
     <div class="strip__grid">
       <div class="strip__item"><div class="strip__k">11 juin → 19 juil.</div><div class="strip__l">Tous les matchs</div></div>
       <div class="strip__item"><div class="strip__k">Écran géant</div><div class="strip__l">En direct</div></div>
-      <div class="strip__item"><div class="strip__k">18h – 20h</div><div class="strip__l">Happy hour</div></div>
+      <div class="strip__item"><div class="strip__k">18h – 20h</div><div class="strip__l">Happy hour · tous les jours</div></div>
       <div class="strip__item"><div class="strip__k">DJ set</div><div class="strip__l">À chaque match</div></div>
     </div>
   </div>
@@ -329,7 +352,16 @@
 <!-- ===================== BONUS ===================== -->
 <section class="bonus">
   <div class="wrap">
+    <div class="eyebrow" style="margin-bottom:32px">Sur place</div>
     <div class="bonus__grid">
+      <div class="card">
+        <h3>Baby-foot <span>8 joueurs</span></h3>
+        <p>En accès libre toute la journée. 2 € la partie au monnayeur — parfait pour les tournois entre potes.</p>
+      </div>
+      <div class="card">
+        <h3>Borne <span>photo</span></h3>
+        <p>Disponible lors des soirées DJ : prenez la pose, repartez avec vos clichés et tentez de gagner des lots.</p>
+      </div>
       <div class="card">
         <h3>Concours de <span>pronostics</span></h3>
         <p>Qui soulèvera le trophée ? Venez donner votre pronostic sur place : un maillot à gagner après la finale.</p>
@@ -340,6 +372,99 @@
       </div>
     </div>
   </div>
+</section>
+
+<!-- ===================== GALERIE / CARROUSEL ===================== -->
+<section class="gallery">
+  <div class="wrap">
+    <div class="eyebrow">En images</div>
+    <h2 class="section-title display">L'ambiance</h2>
+    <div class="section-intro" style="margin-bottom:34px">Soirées, matchs sur écran géant et marchés d'artisans à La Gare.</div>
+
+    <div class="carousel">
+      <div class="carousel__viewport">
+        <div class="carousel__track" id="carTrack"><!-- les slides sont générées par le script --></div>
+      </div>
+      <button class="carousel__btn prev" id="carPrev" aria-label="Photo précédente">&#8249;</button>
+      <button class="carousel__btn next" id="carNext" aria-label="Photo suivante">&#8250;</button>
+      <div class="carousel__dots" id="carDots"></div>
+    </div>
+  </div>
+
+  <script>
+    /* ============================================================
+       [[PHOTOS]] GALERIE — Pour ajouter / changer les photos :
+       1. Déposez vos images dans  assets/img/gallery/
+       2. Ajoutez une ligne par photo dans le tableau ci-dessous
+          { src: "assets/img/gallery/NOM.jpg", alt: "description" },
+       L'ordre du tableau = l'ordre d'affichage.
+       ============================================================ */
+    const GALLERY_PHOTOS = [
+      { src: "assets/img/gallery/gallery-1.jpg", alt: "Soirée à la guinguette" },
+      { src: "assets/img/gallery/gallery-2.jpg", alt: "Baby-foot aux couleurs des Bleus" },
+      { src: "assets/img/gallery/gallery-3.jpg", alt: "Jeux et ambiance" },
+      { src: "assets/img/gallery/gallery-4.jpg", alt: "Au cœur de la soirée" },
+      { src: "assets/img/gallery/gallery-5.jpg", alt: "Le jardin et le bassin" },
+      { src: "assets/img/gallery/gallery-6.jpg", alt: "Tables sous les guirlandes" }
+    ];
+
+    (function () {
+      const track = document.getElementById('carTrack');
+      const dots  = document.getElementById('carDots');
+      const prev  = document.getElementById('carPrev');
+      const next  = document.getElementById('carNext');
+      let i = 0, n = GALLERY_PHOTOS.length, timer = null;
+
+      if (n === 0) {
+        track.innerHTML = '<div class="carousel__slide"><div class="carousel__empty">Photos à venir</div></div>';
+        prev.style.display = next.style.display = 'none';
+        return;
+      }
+
+      // build slides + dots
+      track.innerHTML = GALLERY_PHOTOS.map(p =>
+        '<div class="carousel__slide"><img src="' + p.src + '" alt="' + (p.alt || '') + '" loading="lazy"></div>'
+      ).join('');
+      dots.innerHTML = GALLERY_PHOTOS.map((_, k) =>
+        '<button aria-label="Photo ' + (k + 1) + '"></button>'
+      ).join('');
+      const dotEls = Array.from(dots.children);
+
+      // single photo : hide controls
+      if (n === 1) { prev.style.display = next.style.display = 'none'; dots.style.display = 'none'; return; }
+
+      function go(k) {
+        i = (k + n) % n;
+        track.style.transform = 'translateX(' + (-i * 100) + '%)';
+        dotEls.forEach((d, idx) => d.classList.toggle('active', idx === i));
+      }
+      function autoplay() { clearInterval(timer); timer = setInterval(() => go(i + 1), 5000); }
+
+      prev.addEventListener('click', () => { go(i - 1); autoplay(); });
+      next.addEventListener('click', () => { go(i + 1); autoplay(); });
+      dotEls.forEach((d, idx) => d.addEventListener('click', () => { go(idx); autoplay(); }));
+
+      // clavier
+      document.getElementById('carTrack').closest('.carousel').setAttribute('tabindex', '0');
+      document.querySelector('.carousel').addEventListener('keydown', e => {
+        if (e.key === 'ArrowLeft')  { go(i - 1); autoplay(); }
+        if (e.key === 'ArrowRight') { go(i + 1); autoplay(); }
+      });
+
+      // swipe tactile
+      let x0 = null;
+      track.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, { passive: true });
+      track.addEventListener('touchend',   e => {
+        if (x0 === null) return;
+        const dx = e.changedTouches[0].clientX - x0;
+        if (Math.abs(dx) > 40) { go(dx < 0 ? i + 1 : i - 1); autoplay(); }
+        x0 = null;
+      }, { passive: true });
+
+      go(0);
+      autoplay();
+    })();
+  </script>
 </section>
 
 <!-- ===================== ACCÈS ===================== -->
