@@ -13,10 +13,8 @@
             345 route de Montauban, 31340 La Magdelaine-sur-Tarn
             Tél. 05 62 10 12 87
      ------------------------------------------------------------
-     POUR METTRE À JOUR :
-     1. VIDÉO DRONE  -> chercher  [[VIDÉO DRONE]]
-     2. MATCHS       -> chercher  [[MATCHS]]  (dupliquer un bloc .event)
-     3. CARTE        -> chercher  [[CARTE]]
+     POUR AJOUTER / MODIFIER UN MATCH :
+     chercher  [[MATCHS]]  puis dupliquer un bloc <article class="event">
      ============================================================ -->
 
 <link href="https://api.fontshare.com/v2/css?f[]=panchang@500,600,700,800&f[]=switzer@400,500,600,700&display=swap" rel="stylesheet">
@@ -89,6 +87,28 @@
   .badge{display:inline-block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--orange);border:1px solid var(--orange);border-radius:2px;padding:3px 9px;font-weight:600;margin-bottom:6px}
   .events__foot{padding:26px 4px;color:var(--gris);font-size:14px}
 
+  /* ---------- PROGRAMME JOUR PAR JOUR ---------- */
+  .days{display:flex;flex-direction:column;border-top:1px solid var(--ligne)}
+  .day{display:grid;grid-template-columns:140px 1fr;gap:30px;padding:34px 4px;border-bottom:1px solid var(--ligne);transition:background .2s,padding .2s}
+  .day:hover{background:var(--noir-2);padding-left:18px;padding-right:18px}
+  .day--hl{background:linear-gradient(90deg,rgba(232,57,12,.10),transparent 65%)}
+  .day__date{display:flex;flex-direction:column;line-height:1}
+  .day__day{font-family:"Panchang",sans-serif;font-weight:800;font-size:50px;color:var(--orange)}
+  .day__month{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--gris);margin-top:8px}
+  .day__dow{font-size:12px;letter-spacing:.10em;text-transform:uppercase;color:var(--gris);margin-top:3px}
+  .day__theme{display:inline-block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--orange);border:1px solid var(--orange);border-radius:2px;padding:3px 9px;font-weight:600;margin-bottom:16px}
+  .day__items{display:flex;flex-direction:column;gap:12px;margin-bottom:6px}
+  .slot{display:grid;grid-template-columns:74px 1fr;gap:16px;align-items:baseline}
+  .slot__time{font-family:"Panchang",sans-serif;font-weight:700;font-size:17px;color:var(--blanc);white-space:nowrap}
+  .slot__label{font-size:16px}
+  .slot__label .vs{color:var(--orange);font-weight:600;margin:0 6px}
+  .slot__label .match{font-family:"Panchang",sans-serif;font-weight:600}
+  .slot__label small{display:block;color:var(--gris);font-size:13px;margin-top:2px;font-family:"Switzer",sans-serif;font-weight:400}
+  .day__note{margin-top:14px;padding-left:14px;border-left:2px solid var(--ligne);color:var(--gris);font-size:14px}
+  .day__note strong{color:var(--blanc);font-weight:600}
+  .day__note--game{border-left-color:var(--orange);color:var(--blanc)}
+  .days__foot{padding:26px 4px;color:var(--gris);font-size:14px}
+
   /* ---------- BONUS (deux cartes) ---------- */
   .bonus{background:var(--noir-2);border-top:1px solid var(--ligne);border-bottom:1px solid var(--ligne)}
   .bonus__grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
@@ -148,6 +168,10 @@
     .event__meta{grid-column:1 / -1;text-align:left;margin-top:6px}
     .event__day{font-size:32px}
     .event__time{font-size:20px}
+    .day{grid-template-columns:64px 1fr;gap:16px}
+    .day__day{font-size:34px}
+    .slot{grid-template-columns:60px 1fr;gap:12px}
+    .slot__time{font-size:15px}
     section{padding:60px 0}
     .hero__content{padding-bottom:40px}
   }
@@ -190,71 +214,115 @@
 <!-- ===================== PROGRAMME / MATCHS ===================== -->
 <section id="programme">
   <div class="wrap">
-    <div class="eyebrow">Les temps forts</div>
-    <h2 class="section-title display">Le programme</h2>
-    <p class="section-intro">Voici les rendez-vous à ne pas manquer. Et entre deux, on diffuse l'intégralité de la compétition sur grand écran. Pensez à réserver : à partir de 15 personnes, profitez de -10%.</p>
+    <div class="eyebrow">Le programme</div>
+    <h2 class="section-title display">Jour par jour</h2>
+    <p class="section-intro">Matchs des Bleus et des grandes nations sur écran géant, DJ sets, marchés d'artisans et tournois. Et entre les rendez-vous, on diffuse tous les matchs de la compétition. Pensez à réserver : à partir de 15 personnes, profitez de -10%.</p>
 
-    <!-- [[MATCHS]] Dupliquez un bloc <article class="event"> par match -->
-    <div class="events">
+    <!-- [[MATCHS]] Dupliquez un bloc <div class="day"> par journée -->
+    <div class="days">
 
-      <article class="event event--hl">
-        <div class="event__date">
-          <span class="event__day">11</span>
-          <span class="event__month">Juin</span>
-          <span class="event__dow">Jeudi</span>
+      <!-- 16 JUIN -->
+      <div class="day day--hl">
+        <div class="day__date">
+          <span class="day__day">16</span>
+          <span class="day__month">Juin</span>
+          <span class="day__dow">Mardi</span>
         </div>
-        <div class="event__body">
-          <span class="badge">Cérémonie d'ouverture</span>
-          <h3>Mexique <span class="vs">vs</span> Afrique du Sud</h3>
-          <p>Le coup d'envoi de la compétition, sur écran géant. On vous accueille dès 18h pour le happy hour.</p>
+        <div class="day__content">
+          <span class="day__theme">Les Bleus entrent en lice</span>
+          <div class="day__items">
+            <div class="slot"><span class="slot__time">18h00</span><span class="slot__label">Ouverture &amp; DJ set <small>Musique jusqu'au coup d'envoi (20h30–21h)</small></span></div>
+            <div class="slot"><span class="slot__time">21h00</span><span class="slot__label"><span class="match">France</span><span class="vs">vs</span><span class="match">Sénégal</span> <small>Sur écran géant</small></span></div>
+          </div>
+          <div class="day__note"><strong>DJ après le match</strong> jusqu'à 2h max (selon l'affluence).</div>
         </div>
-        <div class="event__meta"><div class="event__time">21h00</div><div class="event__dow" style="margin-top:6px">Ouverture 18h</div></div>
-      </article>
+      </div>
 
-      <article class="event">
-        <div class="event__date">
-          <span class="event__day">16</span>
-          <span class="event__month">Juin</span>
-          <span class="event__dow">Mardi</span>
+      <!-- 17 JUIN -->
+      <div class="day">
+        <div class="day__date">
+          <span class="day__day">17</span>
+          <span class="day__month">Juin</span>
+          <span class="day__dow">Mercredi</span>
         </div>
-        <div class="event__body">
-          <span class="badge">Les Bleus</span>
-          <h3>France <span class="vs">vs</span> Sénégal</h3>
-          <p>On se retrouve pour vibrer ensemble. DJ set toute la soirée.</p>
+        <div class="day__content">
+          <span class="day__theme">Soirée double match &amp; DJ</span>
+          <div class="day__items">
+            <div class="slot"><span class="slot__time">19h00</span><span class="slot__label"><span class="match">Portugal</span><span class="vs">vs</span><span class="match">RD Congo</span> <small>DJ avant le match, set percussions après</small></span></div>
+            <div class="slot"><span class="slot__time">22h00</span><span class="slot__label"><span class="match">Angleterre</span><span class="vs">vs</span><span class="match">Croatie</span> <small>Sur écran géant</small></span></div>
+          </div>
+          <div class="day__note"><strong>DJ après l'Angleterre</strong> jusqu'à 2h (selon l'affluence).</div>
         </div>
-        <div class="event__meta"><div class="event__time">21h00</div></div>
-      </article>
+      </div>
 
-      <article class="event">
-        <div class="event__date">
-          <span class="event__day">22</span>
-          <span class="event__month">Juin</span>
-          <span class="event__dow">Lundi</span>
+      <!-- 20 JUIN -->
+      <div class="day">
+        <div class="day__date">
+          <span class="day__day">20</span>
+          <span class="day__month">Juin</span>
+          <span class="day__dow">Samedi</span>
         </div>
-        <div class="event__body">
-          <span class="badge">Les Bleus</span>
-          <h3>France <span class="vs">vs</span> Irak</h3>
-          <p>Match en nocturne sur grand écran.</p>
+        <div class="day__content">
+          <span class="day__theme">1ᵉʳ marché des artisans</span>
+          <div class="day__items">
+            <div class="slot"><span class="slot__time">15h00</span><span class="slot__label">Ouverture de la guinguette &amp; marché des artisans <small>Tournoi de baby-foot · jusqu'à 19h</small></span></div>
+            <div class="slot"><span class="slot__time">19h00</span><span class="slot__label"><span class="match">Pays-Bas</span><span class="vs">vs</span><span class="match">Suède</span></span></div>
+            <div class="slot"><span class="slot__time">22h00</span><span class="slot__label"><span class="match">Allemagne</span><span class="vs">vs</span><span class="match">Côte d'Ivoire</span></span></div>
+          </div>
+          <div class="day__note">Karaoké en autonomie possible selon la demande. Exposants accueillis dès 14h.</div>
         </div>
-        <div class="event__meta"><div class="event__time">23h00</div></div>
-      </article>
+      </div>
 
-      <article class="event">
-        <div class="event__date">
-          <span class="event__day">26</span>
-          <span class="event__month">Juin</span>
-          <span class="event__dow">Vendredi</span>
+      <!-- 22 JUIN -->
+      <div class="day day--hl">
+        <div class="day__date">
+          <span class="day__day">22</span>
+          <span class="day__month">Juin</span>
+          <span class="day__dow">Lundi</span>
         </div>
-        <div class="event__body">
-          <span class="badge">Les Bleus</span>
-          <h3>France <span class="vs">vs</span> Norvège</h3>
-          <p>Encore quelques jours avant de se retrouver, chanter, vibrer et encourager.</p>
+        <div class="day__content">
+          <span class="day__theme">Double match &amp; DJ</span>
+          <div class="day__items">
+            <div class="slot"><span class="slot__time">19h00</span><span class="slot__label"><span class="match">Argentine</span><span class="vs">vs</span><span class="match">Autriche</span> <small>DJ avant le match</small></span></div>
+            <div class="slot"><span class="slot__time">23h00</span><span class="slot__label"><span class="match">France</span><span class="vs">vs</span><span class="match">Irak</span> <small>Sur écran géant</small></span></div>
+          </div>
+          <div class="day__note"><strong>DJ entre les deux matchs et après</strong> (selon l'affluence).</div>
         </div>
-        <div class="event__meta"><div class="event__time">21h00</div></div>
-      </article>
+      </div>
+
+      <!-- 26 JUIN -->
+      <div class="day day--hl">
+        <div class="day__date">
+          <span class="day__day">26</span>
+          <span class="day__month">Juin</span>
+          <span class="day__dow">Vendredi</span>
+        </div>
+        <div class="day__content">
+          <span class="day__theme">Dernier match de poule des Bleus</span>
+          <div class="day__items">
+            <div class="slot"><span class="slot__time">21h00</span><span class="slot__label"><span class="match">France</span><span class="vs">vs</span><span class="match">Norvège</span> <small>DJ avant et après le match</small></span></div>
+          </div>
+          <div class="day__note day__note--game"><strong>Un maillot de l'équipe de France à gagner 🎁</strong> — la plus belle photo partagée sur les réseaux en taguant @la_gare et @myriadevent l'emporte. <em>(jeu à confirmer)</em></div>
+        </div>
+      </div>
+
+      <!-- 27 JUIN -->
+      <div class="day">
+        <div class="day__date">
+          <span class="day__day">27</span>
+          <span class="day__month">Juin</span>
+          <span class="day__dow">Samedi</span>
+        </div>
+        <div class="day__content">
+          <span class="day__theme">2ᵉ marché des artisans</span>
+          <div class="day__items">
+            <div class="slot"><span class="slot__time">Journée</span><span class="slot__label">Marché des artisans &amp; tournois <small>Mölkky, fléchettes, pétanque (formats à définir)</small></span></div>
+          </div>
+        </div>
+      </div>
 
     </div>
-    <div class="events__foot">Et tous les autres matchs de la compétition diffusés en direct sur écran géant, jusqu'à la finale le 19 juillet.</div>
+    <div class="days__foot">Tous les autres matchs de la compétition sont diffusés en direct sur écran géant. La suite du programme (8ᵉˢ de finale et phases finales) sera précisée à l'issue des poules.</div>
   </div>
 </section>
 
@@ -301,11 +369,10 @@
       </div>
 
       <div class="access__map">
-        <!-- [[CARTE]]
-             Google Maps -> rechercher "345 route de Montauban, 31340 La Magdelaine-sur-Tarn"
-             -> Partager -> Intégrer une carte -> coller l'<iframe> ici (remplace le placeholder ci-dessous).
-        -->
-        <div class="map-placeholder">[[ Carte Google Maps à intégrer — voir commentaire dans le code ]]</div>
+        <iframe
+          src="https://maps.google.com/maps?q=Restaurant+La+Gare+de+la+Magdelaine,+345+route+de+Montauban,+31340+La+Magdelaine-sur-Tarn&z=15&hl=fr&output=embed"
+          loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          title="La Gare — Restaurant &amp; Guinguette, La Magdelaine-sur-Tarn"></iframe>
       </div>
     </div>
   </div>
