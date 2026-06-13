@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>La Gare — Coupe du Monde 2026 sur écran géant | Studio Bastide</title>
 
-<link rel="icon" type="image/png" href="/assets/img/favicon-bastide.png">
-<link rel="apple-touch-icon" href="/assets/img/favicon-bastide.png">
+<link rel="icon" type="image/jpg" href="/assets/img/logo_square.jpg">
+<link rel="apple-touch-icon" href="/assets/img/logo_square.jpg">
 
 <!-- ============================================================
      PAGE "LA GARE — COUPE DU MONDE 2026" — Studio Bastide Production
@@ -92,18 +92,19 @@
 
   /* ---------- PROGRAMME JOUR PAR JOUR ---------- */
   .days{display:flex;flex-direction:column;border-top:1px solid var(--ligne)}
-  .day{display:grid;grid-template-columns:140px 1fr;gap:30px;padding:34px 4px;border-bottom:1px solid var(--ligne);transition:background .2s,padding .2s}
+  .day{display:grid;grid-template-columns:140px minmax(0,1fr);gap:30px;padding:34px 4px;border-bottom:1px solid var(--ligne);transition:background .2s,padding .2s}
   .day:hover{background:var(--noir-2);padding-left:18px;padding-right:18px}
   .day--hl{background:linear-gradient(90deg,rgba(232,57,12,.10),transparent 65%)}
+  .day__content{min-width:0}
   .day__date{display:flex;flex-direction:column;line-height:1}
   .day__day{font-family:"Panchang",sans-serif;font-weight:800;font-size:50px;color:var(--orange)}
   .day__month{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--gris);margin-top:8px}
   .day__dow{font-size:12px;letter-spacing:.10em;text-transform:uppercase;color:var(--gris);margin-top:3px}
   .day__theme{display:inline-block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--orange);border:1px solid var(--orange);border-radius:2px;padding:3px 9px;font-weight:600;margin-bottom:16px}
-  .day__items{display:flex;flex-direction:column;gap:12px;margin-bottom:6px}
-  .slot{display:grid;grid-template-columns:74px 1fr;gap:16px;align-items:baseline}
+  .day__items{display:flex;flex-direction:column;gap:12px;margin-bottom:6px;min-width:0}
+  .slot{display:grid;grid-template-columns:74px minmax(0,1fr);gap:16px;align-items:baseline;min-width:0}
   .slot__time{font-family:"Panchang",sans-serif;font-weight:700;font-size:17px;color:var(--blanc);white-space:nowrap}
-  .slot__label{font-size:16px}
+  .slot__label{font-size:16px;min-width:0;overflow-wrap:break-word}
   .slot__label .vs{color:var(--orange);font-weight:600;margin:0 6px}
   .slot__label .match{font-family:"Panchang",sans-serif;font-weight:600}
   .slot__label small{display:block;color:var(--gris);font-size:13px;margin-top:2px;font-family:"Switzer",sans-serif;font-weight:400}
@@ -193,7 +194,7 @@
     .event__time{font-size:20px}
     .day{grid-template-columns:64px 1fr;gap:16px}
     .day__day{font-size:34px}
-    .slot{grid-template-columns:60px 1fr;gap:12px}
+    .slot{grid-template-columns:54px minmax(0,1fr);gap:10px}
     .slot__time{font-size:15px}
     section{padding:60px 0}
     .hero__content{padding-bottom:40px}
@@ -325,7 +326,7 @@
           <div class="day__items">
             <div class="slot"><span class="slot__time">21h00</span><span class="slot__label"><span class="match">France</span><span class="vs">vs</span><span class="match">Norvège</span> <small>DJ avant et après le match</small></span></div>
           </div>
-          <div class="day__note day__note--game"><strong>Un maillot de l'équipe de France à gagner 🎁</strong> — la plus belle photo partagée sur les réseaux en taguant @la_gare et @myriadevent l'emporte. <em>(jeu à confirmer)</em></div>
+          <div class="day__note day__note--game"><strong>Un maillot de l'équipe de France à gagner 🎁</strong> — la plus belle photo partagée sur les réseaux en taguant @lagaremagdelaine et @myriad_event l'emporte.</div>
         </div>
       </div>
 
