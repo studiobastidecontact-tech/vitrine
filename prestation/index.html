@@ -415,9 +415,7 @@ footer a:hover{opacity:.7}
   .lb-nav{display:none}
 }
 </style>
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-BF5LNB4ZQ1"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-BF5LNB4ZQ1");</script>
+<!-- Google Analytics : chargé uniquement après acceptation du visiteur (voir cookie modal en bas) -->
 </head>
 <body>
 
@@ -778,7 +776,7 @@ footer a:hover{opacity:.7}
         <svg width="14" height="14" fill="none" stroke="#fff" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
       </a>
     </div>
-    <p style="text-align:center;padding:12px 0 24px;font-size:.72rem;color:rgba(255,255,255,.4)">© 2026 Studio Bastide Production · <a href="../mentions-legales/" style="color:rgba(255,255,255,.6)">Mentions légales</a> · <a href="../cgv/" style="color:rgba(255,255,255,.6)">CGV</a> · Tous prix HT, TVA 20 %</p>
+    <p style="text-align:center;padding:12px 0 24px;font-size:.72rem;color:rgba(255,255,255,.4)">© 2026 Studio Bastide Production · <a href="../mentions-legales/" style="color:rgba(255,255,255,.6)">Mentions légales</a> · <a href="../cgv/" style="color:rgba(255,255,255,.6)">CGV</a> · <a href="#" onclick="event.preventDefault();localStorage.removeItem('sb_cookie_consent');location.reload();return false" style="color:rgba(255,255,255,.6)">Gérer les cookies</a> · Tous prix HT, TVA 20 %</p>
   </div>
 </footer>
 
@@ -1065,6 +1063,70 @@ nlForm.addEventListener('submit',function(){
   },1500);
 });
 
+</script>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     COOKIE MODAL — RGPD/CNIL : GA chargé uniquement après acceptation
+     ═══════════════════════════════════════════════════════════════ -->
+<div id="cookieModal" style="position:fixed;inset:0;background:rgba(0,0,0,0.96);z-index:9999;display:none;align-items:center;justify-content:center;padding:32px;font-family:'Switzer',sans-serif">
+  <div style="max-width:580px;width:100%;text-align:center">
+    <div style="font-family:'Panchang','Switzer',sans-serif;font-weight:700;font-size:1.7rem;color:#fff;margin:0 0 22px;letter-spacing:-0.01em;line-height:1.15">Notre site utilise des cookies</div>
+    <p style="color:#bbb;font-size:1.05rem;line-height:1.65;margin:0 0 40px;font-family:'Switzer',sans-serif">
+      On aimerait bien savoir si vous êtes nombreux ici. On analyse juste combien de personnes passent par là. Rien de plus sur vous.
+    </p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <button id="cookieRefuseBtn" type="button" style="background:transparent;border:1px solid #2a2a2a;color:#bbb;padding:14px 36px;font-family:'Switzer',sans-serif;font-size:.88rem;font-weight:500;letter-spacing:.5px;cursor:pointer;transition:all .2s">Refuser</button>
+      <button id="cookieAcceptBtn" type="button" style="background:#E8390C;border:1px solid #E8390C;color:#fff;padding:14px 36px;font-family:'Switzer',sans-serif;font-size:.88rem;font-weight:600;letter-spacing:.5px;cursor:pointer;transition:opacity .2s">Accepter</button>
+    </div>
+  </div>
+</div>
+<style>
+  #cookieRefuseBtn:hover { color: #fff !important; border-color: #3a3a3a !important; }
+  #cookieAcceptBtn:hover { opacity: .85; }
+  @media (max-width:540px) {
+    #cookieModal > div > div:first-child { font-size: 1.4rem !important; }
+    #cookieModal > div > p { font-size: .98rem !important; }
+  }
+</style>
+<script>
+  (function() {
+    var COOKIE_KEY = 'sb_cookie_consent';
+    var GA_ID = 'G-BF5LNB4ZQ1';
+    var modal = document.getElementById('cookieModal');
+    var acceptBtn = document.getElementById('cookieAcceptBtn');
+    var refuseBtn = document.getElementById('cookieRefuseBtn');
+
+    function loadGoogleAnalytics() {
+      if (window.gaLoaded) return;
+      window.gaLoaded = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function(){ dataLayer.push(arguments); };
+      gtag('js', new Date());
+      gtag('config', GA_ID, { anonymize_ip: true });
+    }
+
+    var choice = localStorage.getItem(COOKIE_KEY);
+    if (!choice) {
+      modal.style.display = 'flex';
+    } else if (choice === 'granted') {
+      loadGoogleAnalytics();
+    }
+
+    acceptBtn.addEventListener('click', function() {
+      localStorage.setItem(COOKIE_KEY, 'granted');
+      modal.style.display = 'none';
+      loadGoogleAnalytics();
+    });
+
+    refuseBtn.addEventListener('click', function() {
+      localStorage.setItem(COOKIE_KEY, 'denied');
+      modal.style.display = 'none';
+    });
+  })();
 </script>
 </body>
 </html>
