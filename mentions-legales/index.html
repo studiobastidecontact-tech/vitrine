@@ -74,6 +74,10 @@ a{color:inherit;text-decoration:none}
   font-family:var(--head);font-weight:700;
   font-size:1.05rem;margin-bottom:14px;color:var(--tx);
 }
+.ml-section h3{
+  font-family:var(--head);font-weight:700;
+  font-size:.88rem;margin-top:18px;margin-bottom:10px;color:var(--tx);
+}
 .ml-section p{
   font-size:.88rem;color:var(--tx);line-height:1.85;margin-bottom:10px;
 }
@@ -169,7 +173,7 @@ footer{background:var(--orange);border-top:none;width:100%}
 <div class="page-hero">
   <div class="label">Légal</div>
   <h1>Mentions légales</h1>
-  <p class="updated">Dernière mise à jour : mars 2026</p>
+  <p class="updated">Dernière mise à jour : juin 2026</p>
 </div>
 
 <!-- ── CONTENT ── -->
@@ -248,12 +252,33 @@ footer{background:var(--orange);border-top:none;width:100%}
   </div>
 
   <div class="ml-section">
-    <h2>6. Cookies et mesure d'audience</h2>
+    <h2>6. Service de livraison client</h2>
+    <p>Studio Bastide Production met à disposition de ses clients un service de livraison numérique sécurisé, accessible à l'adresse <strong>studio-bastide-production.fr/livraisons</strong>, permettant la consultation et le téléchargement des fichiers livrables (photos, vidéos, masters audio) via un code d'accès personnel.</p>
+
+    <h3>Données collectées</h3>
+    <p>Pour chaque livraison sont stockés : le <strong>code d'accès du destinataire</strong> (haché en PBKDF2 100 000 itérations SHA-256, non réversible), le <strong>label du destinataire</strong> (nom ou identifiant), l'<strong>adresse email du destinataire</strong> (pour l'envoi automatique du code) ainsi que les <strong>statistiques d'usage</strong> (compteur de téléchargements, date du dernier accès).</p>
+
+    <h3>Sous-traitants</h3>
+    <p>Le système repose sur deux sous-traitants :</p>
+    <p><strong>Google LLC</strong> (Firebase Authentication + Firestore) — serveurs aux États-Unis, transfert encadré par les clauses contractuelles types conformément au RGPD. Politique de confidentialité : <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">policies.google.com/privacy</a>.</p>
+    <p><strong>Synology Inc.</strong> (stockage NAS auto-hébergé) — les fichiers livrables sont stockés physiquement <strong>en France</strong>, au siège de Studio Bastide Production. Aucune copie n'est transmise à un tiers.</p>
+
+    <h3>Durée de conservation</h3>
+    <p>Les données liées à une livraison sont conservées <strong>6 mois après la dernière connexion</strong> du destinataire, puis supprimées automatiquement. Toute demande de suppression anticipée peut être adressée à <a href="mailto:studiobastide.contact@gmail.com">studiobastide.contact@gmail.com</a>.</p>
+
+    <h3>Sécurité</h3>
+    <p>Le service de livraison est protégé par : chiffrement <strong>HTTPS/TLS</strong> sur l'ensemble des échanges, hachage des codes d'accès via <strong>PBKDF2</strong> (100 000 itérations, SHA-256), authentification administrateur restreinte à une liste blanche d'adresses Google, certificat <strong>Let's Encrypt</strong> et DDNS Synology pour l'accès au NAS.</p>
+  </div>
+
+  <div class="ml-section">
+    <h2>7. Cookies et mesure d'audience</h2>
+    <h3>Consentement préalable</h3>
+    <p>Conformément aux recommandations de la CNIL, aucun cookie de mesure d'audience n'est déposé sans votre <strong>consentement explicite</strong>. Un bandeau de consentement vous est présenté lors de votre première visite, vous permettant d'accepter ou de refuser le dépôt de cookies. Votre choix est conservé pendant 6 mois et peut être modifié à tout moment via le lien « Gérer les cookies » présent dans le pied de page.</p>
     <h3>Google Analytics</h3>
-    <p>Ce site utilise <strong>Google Analytics</strong> (Google LLC), un outil de mesure d'audience qui dépose des cookies pour collecter des données anonymisées sur la fréquentation du site : nombre de visiteurs, pages consultées, durée de visite, provenance géographique (ville/pays), appareil utilisé.</p>
+    <p>Si vous acceptez les cookies, ce site utilise <strong>Google Analytics</strong> (Google LLC), un outil de mesure d'audience qui dépose des cookies pour collecter des données anonymisées sur la fréquentation du site : nombre de visiteurs, pages consultées, durée de visite, provenance géographique (ville/pays), appareil utilisé.</p>
     <p><strong>Identifiant de mesure :</strong> G-BF5LNB4ZQ1</p>
-    <p>Ces données sont utilisées exclusivement pour améliorer le contenu et l'ergonomie du site. Aucune donnée personnelle identifiante n'est collectée. Les données sont conservées par Google pour une durée de 14 mois.</p>
-    <p>Vous pouvez désactiver Google Analytics en installant le <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">module complémentaire de navigateur</a> proposé par Google, ou en configurant votre navigateur pour refuser les cookies tiers.</p>
+    <p>Ces données sont utilisées exclusivement pour améliorer le contenu et l'ergonomie du site. L'anonymisation IP est activée. Aucune donnée personnelle identifiante n'est collectée. Les données sont conservées par Google pour une durée de 14 mois.</p>
+    <p>Vous pouvez désactiver Google Analytics en cliquant sur « Refuser » dans le bandeau de consentement, en utilisant le lien « Gérer les cookies » du pied de page, en installant le <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">module complémentaire de navigateur</a> proposé par Google, ou en configurant votre navigateur pour refuser les cookies tiers.</p>
     <p>Politique de confidentialité de Google : <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">policies.google.com/privacy</a>.</p>
     <h3>Vidéos intégrées (YouTube)</h3>
     <p>Certaines pages intègrent des vidéos via <strong>YouTube</strong> (Google LLC) en mode <strong>"nocookie"</strong> (youtube-nocookie.com). Aucun cookie n'est déposé lors du chargement de la page. Des cookies YouTube peuvent être déposés uniquement lorsque vous lancez la lecture d'une vidéo.</p>
@@ -262,18 +287,18 @@ footer{background:var(--orange);border-top:none;width:100%}
   </div>
 
   <div class="ml-section">
-    <h2>7. Liens hypertextes</h2>
+    <h2>8. Liens hypertextes</h2>
     <p>Ce site peut contenir des liens vers des sites tiers (réseaux sociaux, partenaires). Studio Bastide Production ne peut être tenu responsable du contenu de ces sites externes.</p>
   </div>
 
   <div class="ml-section">
-    <h2>8. Limitation de responsabilité</h2>
+    <h2>9. Limitation de responsabilité</h2>
     <p>Studio Bastide Production s'efforce de fournir des informations exactes et à jour sur ce site. Toutefois, nous ne garantissons pas l'exactitude, l'exhaustivité ou l'actualité des informations diffusées.</p>
     <p>Studio Bastide Production ne saurait être tenu responsable des dommages directs ou indirects résultant de l'accès ou de l'utilisation de ce site.</p>
   </div>
 
   <div class="ml-section">
-    <h2>9. Médiation des litiges</h2>
+    <h2>10. Médiation des litiges</h2>
     <p>Conformément aux articles L.616-1 et R.616-1 du Code de la consommation, Studio Bastide Production propose un dispositif de médiation de la consommation. En cas de litige non résolu directement avec notre service, vous pouvez recourir gratuitement au médiateur de la consommation suivant :</p>
     <p>
       <strong>Médiation de la consommation</strong><br>
@@ -283,12 +308,12 @@ footer{background:var(--orange);border-top:none;width:100%}
   </div>
 
   <div class="ml-section">
-    <h2>10. Droit applicable</h2>
+    <h2>11. Droit applicable</h2>
     <p>Les présentes mentions légales sont régies par le droit français. En cas de litige, les tribunaux compétents seront ceux du ressort du Tribunal judiciaire d'Albi (81).</p>
   </div>
 
   <div class="ml-section">
-    <h2>11. Contact</h2>
+    <h2>12. Contact</h2>
     <p>Pour toute question relative aux présentes mentions légales ou à l'utilisation du site :</p>
     <p>
       <strong>Studio Bastide Production</strong><br>
@@ -299,7 +324,7 @@ footer{background:var(--orange);border-top:none;width:100%}
   </div>
 
   <div class="ml-section">
-    <h2>12. Crédits</h2>
+    <h2>13. Crédits</h2>
     <p><strong>Conception et développement du site :</strong> Studio Bastide Production.</p>
     <p><strong>Photographies et vidéos :</strong> Studio Bastide Production, sauf mention contraire.</p>
     <p><strong>Polices :</strong> Panchang, Switzer (polices auto-hébergées).</p>
@@ -331,11 +356,11 @@ footer{background:var(--orange);border-top:none;width:100%}
   </div>
   <div class="footer-bottom">
     <div class="footer-social">
-      <a href="https://www.instagram.com/stud_bastide/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.instagram.com/studio_bastide_production/" target="_blank" rel="noopener">Instagram</a>
       <a href="https://www.youtube.com/@studiobastide" target="_blank" rel="noopener">YouTube</a>
-      <a href="https://www.tiktok.com/@stud_bastide" target="_blank" rel="noopener">TikTok</a>
+      <a href="https://www.tiktok.com/@studio_bastide_production" target="_blank" rel="noopener">TikTok</a>
     </div>
-    <p class="footer-copy">© 2026 Studio Bastide Production · <a href="../mentions-legales/">Mentions légales</a> · <a href="../cgv/">CGV</a> · Tous prix HT, TVA 20 %</p>
+    <p class="footer-copy">© 2026 Studio Bastide Production · <a href="../mentions-legales/">Mentions légales</a> · <a href="../cgv/">CGV</a> · <a href="#" onclick="event.preventDefault();localStorage.removeItem('sb_cookie_consent');location.href='../';return false">Gérer les cookies</a> · Tous prix HT, TVA 20 %</p>
   </div>
 </footer>
 
