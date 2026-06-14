@@ -37,14 +37,14 @@ body{background:var(--bg);color:var(--tx);font-family:var(--body);font-weight:30
 a{color:inherit;text-decoration:none}
 ::selection{background:var(--orange);color:#fff}
 
-/* ── TOPBAR ── */
+/* ── TOPBAR (logo image uniforme avec index.html) ── */
 .topbar{
   position:fixed;top:0;left:0;right:0;z-index:100;
-  display:flex;align-items:center;justify-content:space-between;
+  display:flex;align-items:center;justify-content:flex-start;
   padding:20px 32px;background:var(--bg);
 }
-.topbar-logo{font-family:var(--head);font-weight:800;font-size:1.15rem;letter-spacing:-.5px;color:#fff;transition:transform .3s var(--ease);transform-origin:left center;will-change:transform}
-.topbar-logo sup{font-size:.55em;vertical-align:super;margin-left:2px;font-weight:700}
+.topbar-logo{display:block;transition:transform .3s var(--ease);transform-origin:left center;will-change:transform}
+.topbar-logo img{height:42px;width:auto;display:block}
 
 /* ── HERO ── */
 .page-hero{
@@ -101,39 +101,26 @@ a{color:inherit;text-decoration:none}
 .ml-table td strong{color:var(--tx)}
 .ml-table tr:last-child td{border-bottom:none}
 
-/* ── FOOTER ── */
+/* ── FOOTER (grand format uniforme avec index.html) ── */
 footer{background:var(--orange);border-top:none;width:100%}
-.footer-top{
-  max-width:1120px;margin:0 auto;
-  padding:48px 60px 36px;
-  display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:start;
-}
-.footer-left{}
-.footer-brand{font-family:var(--head);font-weight:800;font-size:1rem;margin-bottom:14px;letter-spacing:-.3px;color:#fff}
-.footer-brand sup{font-size:.5em;vertical-align:super}
-.footer-map{overflow:hidden;border:1px solid rgba(255,255,255,.15)}
-.footer-map iframe{display:block;width:100%;height:220px}
-.footer-right{padding-top:8px}
-.footer-addr{font-size:.82rem;color:rgba(255,255,255,.7);line-height:1.7;margin-bottom:24px}
-.footer-nav{display:flex;flex-direction:column;gap:8px}
-.footer-nav a{font-size:.82rem;color:rgba(255,255,255,.8);transition:color .3s}
-.footer-nav a:hover{color:#fff}
-.footer-bottom{
-  max-width:1120px;margin:0 auto;
-  padding:28px 60px 40px;
-  border-top:1px solid rgba(255,255,255,.15);
-  display:flex;flex-direction:column;align-items:center;gap:16px;
-  text-align:center;
-}
-.footer-social{display:flex;gap:14px}
-.footer-social a{
-  padding:10px 24px;border:1.5px solid rgba(255,255,255,.4);
-  font-size:.78rem;font-weight:600;color:#fff;
-  letter-spacing:1px;transition:all .3s var(--ease);
-}
-.footer-social a:hover{background:#fff;color:var(--orange);border-color:#fff}
-.footer-copy{font-size:.7rem;color:rgba(255,255,255,.5);line-height:1.6}
-.footer-copy a{color:rgba(255,255,255,.65)}
+.footer-inner{max-width:1120px;margin:0 auto;padding:64px 60px 0}
+.footer-grid{display:grid;grid-template-columns:1fr 1fr;gap:96px;margin:32px 0 96px}
+.footer-col h3{font-family:var(--body);font-weight:400;font-size:1.5rem;color:#fff;margin-bottom:24px}
+.footer-map-wrap{width:100%;height:256px;border-radius:8px;overflow:hidden}
+.footer-map-wrap iframe{width:100%;height:100%;display:block;border:0}
+.footer-socials{display:flex;flex-direction:column;gap:10px}
+.footer-socials a{display:flex;align-items:center;gap:12px;color:#fff;font-size:.92rem;opacity:.9;transition:opacity .3s}
+.footer-socials a:hover{opacity:1}
+.footer-socials a svg{width:18px;height:18px;flex-shrink:0;fill:#fff}
+.footer-socials a img{width:16px;height:16px;flex-shrink:0}
+.footer-bar{display:flex;justify-content:space-between;align-items:center;margin-top:48px}
+.footer-bar-logo img{height:64px;width:auto;display:block}
+.footer-bar-back{display:flex;align-items:center;gap:8px;color:#fff;opacity:.8;font-size:.82rem;transition:opacity .3s}
+.footer-bar-back:hover{opacity:1}
+.footer-bar-back svg{width:14px;height:14px;stroke:#fff;fill:none;stroke-width:2}
+.footer-divider{width:100%;height:1px;background:rgba(255,255,255,.3);margin:16px 0}
+.footer-copy{text-align:center;padding:16px 0 32px;font-size:.72rem;color:rgba(255,255,255,.4);line-height:1.6}
+.footer-copy a{color:rgba(255,255,255,.6)}
 .footer-copy a:hover{color:#fff}
 
 /* Scroll top */
@@ -150,23 +137,28 @@ footer{background:var(--orange);border-top:none;width:100%}
 .to-top:hover{border-color:var(--orange);color:var(--tx)}
 
 /* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .footer-inner{padding:48px 32px 0}
+  .footer-grid{grid-template-columns:1fr;gap:32px;margin:24px 0 48px}
+}
 @media(max-width:600px){
   .topbar{padding:16px 20px}
+  .topbar-logo img{height:36px}
   .page-hero{padding:100px 20px 40px}
   .ml-body{padding:0 20px 60px}
-  footer{padding:0}
-  .footer-top{grid-template-columns:1fr;padding:32px 20px 24px}
-  .footer-bottom{padding:20px 20px 28px}
-  .footer-social{flex-wrap:wrap;justify-content:center}
-  .footer-social a{padding:8px 18px;font-size:.7rem}
+  .footer-inner{padding:32px 20px 0}
+  .footer-bar{flex-direction:column;gap:16px;text-align:center}
+  .footer-bar-logo img{height:48px}
 }
 </style>
 </head>
 <body>
 
-<!-- ── TOPBAR ── -->
+<!-- ── TOPBAR (logo image cliquable → retour accueil) ── -->
 <div class="topbar">
-  <a href="../" class="topbar-logo">Studio Bastide<sup>®</sup></a>
+  <a href="../" class="topbar-logo" aria-label="Retour à l'accueil">
+    <img src="../assets/img/logo_blanc.png" alt="Studio Bastide" />
+  </a>
 </div>
 
 <!-- ── HERO ── -->
@@ -334,32 +326,49 @@ footer{background:var(--orange);border-top:none;width:100%}
 
 </div>
 <footer>
-  <div class="footer-top">
-    <div class="footer-left">
-      <div class="footer-brand">Studio Bastide<sup>®</sup></div>
-      <div class="footer-map">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d349.2!2d1.6865805!3d43.7750645!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12ae83001c72278d%3A0x402974375d55af16!2sSTUDIO%20BASTIDE%20PRODUCTION!5e0!3m2!1sfr!2sfr" width="100%" height="220" style="border:0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <!-- Colonne 1 : Nous trouver (carte) -->
+      <div class="footer-col">
+        <h3>Nous trouver</h3>
+        <div class="footer-map-wrap">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d349.2!2d1.6865805!3d43.7750645!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12ae83001c72278d%3A0x402974375d55af16!2sSTUDIO%20BASTIDE%20PRODUCTION!5e0!3m2!1sfr!2sfr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+      <!-- Colonne 2 : Réseaux sociaux -->
+      <div class="footer-col">
+        <h3>Réseaux sociaux</h3>
+        <div class="footer-socials">
+          <a href="https://www.instagram.com/studio_bastide_production/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            Instagram
+          </a>
+          <a href="https://www.youtube.com/@studiobastide" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            YouTube
+          </a>
+          <a href="https://www.tiktok.com/@studio_bastide_production" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+            TikTok
+          </a>
+          <a href="https://fr.ulule.com/un-studio-independant-pour-des-artistes-libres/" target="_blank" rel="noopener">
+            <img src="../assets/icons/ulule_icon.svg" alt="Ulule" />
+            Ulule
+          </a>
+        </div>
       </div>
     </div>
-    <div class="footer-right">
-      <p class="footer-addr">10 place de l'Église<br>81370 Saint-Sulpice-la-Pointe<br>Tarn · Occitanie</p>
-      <nav class="footer-nav">
-        <a href="../prestation/#tarifs">Tarifs</a>
-        <a href="../prestation/#process">Process</a>
-        <a href="../prestation/#clients">Clients</a>
-        <a href="../prestation/#faq">FAQ</a>
-        <a href="../prestation/#contact">Contact</a>
-        <a href="../cgv/">CGV</a>
-        <a href="../">← Site principal</a>
-      </nav>
+    <!-- Logo B + Remonter -->
+    <div class="footer-bar">
+      <div class="footer-bar-logo">
+        <img src="../assets/img/B_blanc.png" alt="B" />
+      </div>
+      <a href="#" class="footer-bar-back" onclick="scrollTo({top:0,behavior:'smooth'});return false">
+        Remonter vers le haut
+        <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+      </a>
     </div>
-  </div>
-  <div class="footer-bottom">
-    <div class="footer-social">
-      <a href="https://www.instagram.com/studio_bastide_production/" target="_blank" rel="noopener">Instagram</a>
-      <a href="https://www.youtube.com/@studiobastide" target="_blank" rel="noopener">YouTube</a>
-      <a href="https://www.tiktok.com/@studio_bastide_production" target="_blank" rel="noopener">TikTok</a>
-    </div>
+    <div class="footer-divider"></div>
     <p class="footer-copy">© 2026 Studio Bastide Production · <a href="../mentions-legales/">Mentions légales</a> · <a href="../cgv/">CGV</a> · <a href="#" onclick="event.preventDefault();localStorage.removeItem('sb_cookie_consent');location.href='../';return false">Gérer les cookies</a> · Tous prix HT, TVA 20 %</p>
   </div>
 </footer>
