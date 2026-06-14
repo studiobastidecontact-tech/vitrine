@@ -53,8 +53,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 
 /* ── TOPBAR ── */
 .topbar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 32px;background:var(--bg)}
-.topbar-logo{font-family:var(--head);font-weight:800;font-size:1.15rem;letter-spacing:-.5px;color:#fff;transition:transform .3s var(--ease);transform-origin:left center;will-change:transform}
-.topbar-logo sup{font-size:.55em;vertical-align:super;margin-left:2px;font-weight:700}
+.topbar-logo{display:block;transition:transform .3s var(--ease);transform-origin:left center;will-change:transform}
+.topbar-logo img{height:42px;width:auto;display:block}
 .nav-trigger{width:44px;height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:transparent;transition:all .4s var(--ease);z-index:1001;position:relative}
 .nav-trigger span{display:block;width:26px;height:1.5px;background:#fff;transition:all .4s var(--ease);transform-origin:center}
 .nav-trigger.active span:nth-child(1){transform:rotate(45deg) translate(2.5px,2.5px)}
@@ -424,7 +424,7 @@ footer a:hover{opacity:.7}
 
 <!-- ═══ TOP BAR ═══ -->
 <div class="topbar">
-  <a href="../" class="topbar-logo">Studio Bastide<sup>®</sup></a>
+  <a href="../" class="topbar-logo" aria-label="Retour à l'accueil"><img src="../assets/img/logo_blanc.png" alt="Studio Bastide" /></a>
   <button class="nav-trigger" id="navTrigger" aria-label="Menu"><span></span><span></span><span></span></button>
 </div>
 
@@ -433,6 +433,7 @@ footer a:hover{opacity:.7}
 <aside class="sidebar" id="sb">
   <button class="close-btn" id="sbClose" aria-label="Fermer le menu">✕</button>
   <nav>
+    <a href="../" data-nav>Accueil</a>
     <a href="#realisations" data-nav>Réalisations</a>
     <a href="#clients" data-nav>Clients</a>
     <a href="#pitch" data-nav>Le réalisateur</a>
@@ -442,7 +443,6 @@ footer a:hover{opacity:.7}
     <a href="#deplacements" data-nav>Zone</a>
     <a href="#faq" data-nav>FAQ</a>
     <a href="#contact" data-nav>Contact</a>
-    <a href="../" data-nav>← Site principal</a>
     <div class="nav-cta"><a href="#contact" data-nav>Demander un devis</a></div>
   </nav>
 </aside>
