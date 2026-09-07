@@ -397,50 +397,425 @@
               </div>
             </div>
           </div>
-          <div id="video-content-inner" class="relative w-full">
-            <!-- Vidéo principale - pleine largeur -->
-            <video id="main-video" controls class="w-full" playsinline>
-              <source src="" type="video/mp4" />
-              Votre navigateur ne supporte pas la vidéo.
-            </video>
+          <!-- ═══════════════════════════════════════════════════════════
+               LECTEUR VIDÉO — habillage maison (remplace les contrôles
+               natifs du navigateur). Le CSS est juste en dessous, le JS
+               dans la fonction renderVideos() en bas de page.
+               ═══════════════════════════════════════════════════════════ -->
+          <style>
+            /* Neutralise le centrage flex + la hauteur mini héritée de styles.css */
+            #video-content-inner {
+              display: block !important;
+              min-height: 0 !important;
+              background: transparent;
+            }
 
-            <!-- Bouton Play overlay (desktop seulement) -->
-            <div
-              id="video-play-overlay"
-              class="hidden md:flex absolute inset-0 items-center justify-center pointer-events-none"
-            >
+            .sb-player {
+              position: relative;
+              width: 100%;
+              aspect-ratio: 16 / 9;
+              background: #000;
+              overflow: hidden;
+            }
+
+            #main-video {
+              position: absolute !important;
+              inset: 0;
+              width: 100% !important;
+              height: 100% !important;
+              max-height: none !important;
+              max-width: none !important;
+              margin: 0 !important;
+              object-fit: contain;
+              background: #000;
+              display: block;
+              cursor: pointer;
+            }
+
+            .sb-poster {
+              position: absolute;
+              inset: 0;
+              background-size: cover;
+              background-position: center;
+              background-color: #0d0d0d;
+              transition: opacity 0.45s ease;
+            }
+            .sb-player.is-playing .sb-poster {
+              opacity: 0;
+              pointer-events: none;
+            }
+
+            .sb-bigplay {
+              position: absolute;
+              inset: 0;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              padding: 0;
+              border: 0;
+              cursor: pointer;
+              background: linear-gradient(
+                180deg,
+                rgba(0, 0, 0, 0.28),
+                rgba(0, 0, 0, 0.5)
+              );
+              transition: opacity 0.3s ease;
+            }
+            .sb-player.is-playing .sb-bigplay {
+              opacity: 0;
+              pointer-events: none;
+            }
+            .sb-bigplay span {
+              width: 64px;
+              height: 64px;
+              border-radius: 50%;
+              border: 1px solid rgba(255, 255, 255, 0.85);
+              background: transparent;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              transition: background-color 0.25s ease, border-color 0.25s ease,
+                transform 0.25s ease;
+            }
+            .sb-bigplay:hover span {
+              background: #e8390c;
+              border-color: #e8390c;
+              transform: scale(1.06);
+            }
+            .sb-bigplay span::after {
+              content: "";
+              border-left: 14px solid #fff;
+              border-top: 9px solid transparent;
+              border-bottom: 9px solid transparent;
+              margin-left: 4px;
+            }
+            @media (max-width: 767px) {
+              .sb-bigplay span {
+                width: 52px;
+                height: 52px;
+              }
+              .sb-bigplay span::after {
+                border-left-width: 12px;
+                border-top-width: 7.5px;
+                border-bottom-width: 7.5px;
+              }
+            }
+
+            .sb-ctl {
+              position: absolute;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              display: flex;
+              align-items: center;
+              gap: 0.85rem;
+              padding: 2.25rem 1rem 0.85rem;
+              background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+              opacity: 0;
+              pointer-events: none;
+              transition: opacity 0.25s ease;
+            }
+            .sb-player.is-playing .sb-ctl {
+              pointer-events: auto;
+            }
+            .sb-player.is-playing:hover .sb-ctl,
+            .sb-player.is-paused .sb-ctl,
+            .sb-player.is-playing:focus-within .sb-ctl {
+              opacity: 1;
+            }
+            @media (hover: none) {
+              .sb-player.is-playing .sb-ctl {
+                opacity: 1;
+              }
+            }
+
+            .sb-btn {
+              background: none;
+              border: 0;
+              padding: 0;
+              line-height: 0;
+              color: #fff;
+              cursor: pointer;
+              opacity: 0.85;
+              transition: opacity 0.2s ease;
+            }
+            .sb-btn:hover {
+              opacity: 1;
+            }
+            .sb-btn svg {
+              width: 18px;
+              height: 18px;
+              fill: currentColor;
+            }
+
+            .sb-bar {
+              position: relative;
+              flex: 1;
+              height: 3px;
+              background: rgba(255, 255, 255, 0.22);
+              cursor: pointer;
+              touch-action: none;
+            }
+            .sb-bar::before {
+              content: "";
+              position: absolute;
+              inset: -9px 0;
+            }
+            .sb-bar b {
+              position: absolute;
+              left: 0;
+              top: 0;
+              bottom: 0;
+              width: 0;
+              display: block;
+              background: #e8390c;
+            }
+
+            .sb-time {
+              font-size: 0.72rem;
+              letter-spacing: 0.06em;
+              color: #ddd;
+              white-space: nowrap;
+              font-variant-numeric: tabular-nums;
+            }
+            @media (max-width: 480px) {
+              .sb-time {
+                display: none;
+              }
+            }
+
+            /* ---- Bandeau de miniatures ---- */
+            .sb-rail-wrap {
+              position: relative;
+              margin-top: 1.25rem;
+              --sb-tw: 148px;
+            }
+            @media (min-width: 768px) {
+              .sb-rail-wrap {
+                --sb-tw: 186px;
+              }
+            }
+            .sb-rail {
+              display: flex;
+              gap: 0.875rem;
+              overflow-x: auto;
+              scroll-behavior: smooth;
+              padding: 2px 0 0.5rem;
+              scrollbar-width: none;
+              -ms-overflow-style: none;
+              -webkit-overflow-scrolling: touch;
+            }
+            .sb-rail::-webkit-scrollbar {
+              display: none;
+            }
+            .sb-thumb {
+              flex: 0 0 auto;
+              width: var(--sb-tw);
+              cursor: pointer;
+              opacity: 0.55;
+              transition: opacity 0.22s ease;
+            }
+            .sb-thumb:hover,
+            .sb-thumb.is-active {
+              opacity: 1;
+            }
+            .sb-thumb-fr {
+              position: relative;
+              aspect-ratio: 16 / 9;
+              overflow: hidden;
+              background: #141414;
+              border: 1px solid transparent;
+              transition: border-color 0.22s ease;
+            }
+            .sb-thumb.is-active .sb-thumb-fr {
+              border-color: #e8390c;
+            }
+            .sb-thumb-fr img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              display: block;
+            }
+            .sb-thumb-prog {
+              position: absolute;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              height: 2px;
+              background: rgba(255, 255, 255, 0.2);
+              opacity: 0;
+            }
+            .sb-thumb.is-active .sb-thumb-prog {
+              opacity: 1;
+            }
+            .sb-thumb-prog b {
+              display: block;
+              height: 100%;
+              width: 0;
+              background: #e8390c;
+            }
+            .sb-thumb-t {
+              margin: 0.5rem 0 0;
+              font-size: 0.78rem;
+              line-height: 1.35;
+              color: #ccc;
+              display: -webkit-box;
+              -webkit-line-clamp: 2;
+              -webkit-box-orient: vertical;
+              overflow: hidden;
+            }
+
+            .sb-arw {
+              position: absolute;
+              top: 0;
+              height: calc(var(--sb-tw) * 0.5625);
+              width: 38px;
+              z-index: 4;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              border: 0;
+              padding: 0;
+              cursor: pointer;
+              color: #fff;
+              background: rgba(10, 10, 10, 0.78);
+              transition: background-color 0.2s ease, opacity 0.2s ease;
+            }
+            .sb-arw:hover {
+              background: #e8390c;
+            }
+            .sb-arw svg {
+              width: 15px;
+              height: 15px;
+            }
+            .sb-arw-l {
+              left: 0;
+            }
+            .sb-arw-r {
+              right: 0;
+            }
+            .sb-arw-off {
+              opacity: 0;
+              pointer-events: none;
+            }
+            @media (hover: none) {
+              .sb-arw {
+                opacity: 0;
+                pointer-events: none;
+              }
+            }
+            .sb-fade {
+              position: absolute;
+              right: 0;
+              top: 0;
+              height: calc(var(--sb-tw) * 0.5625);
+              width: 64px;
+              z-index: 3;
+              pointer-events: none;
+              background: linear-gradient(90deg, transparent, #000);
+            }
+          </style>
+
+          <div id="video-content-inner" class="relative w-full">
+            <div id="sb-player" class="sb-player" tabindex="0">
+              <video id="main-video" playsinline preload="none"></video>
+              <div id="sb-poster" class="sb-poster"></div>
+
               <button
-                id="video-play-btn"
-                class="pointer-events-auto w-20 h-20 rounded-full bg-white bg-opacity-20 backdrop-blur-sm border-2 border-white flex items-center justify-center hover:bg-opacity-35 transition-all duration-200 hover:scale-110"
+                type="button"
+                id="sb-bigplay"
+                class="sb-bigplay"
+                aria-label="Lire la vidéo"
               >
-                <svg
-                  class="w-8 h-8 text-white ml-1"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
+                <span></span>
+              </button>
+
+              <div class="sb-ctl">
+                <button
+                  type="button"
+                  id="sb-toggle"
+                  class="sb-btn"
+                  aria-label="Lecture ou pause"
                 >
-                  <path d="M8 5v14l11-7z" />
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path id="sb-ico" d="M8 5v14l11-7z" />
+                  </svg>
+                </button>
+
+                <div class="sb-bar" id="sb-bar"><b id="sb-fill"></b></div>
+
+                <div class="sb-time" id="sb-time">0:00 / 0:00</div>
+
+                <button
+                  type="button"
+                  id="sb-mute"
+                  class="sb-btn"
+                  aria-label="Couper le son"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 9v6h4l5 5V4L8 9H4z" />
+                    <path
+                      id="sb-mute-x"
+                      d="M16 9.5l4.5 4.5M20.5 9.5L16 14"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      style="display: none"
+                    />
+                  </svg>
+                </button>
+
+                <button
+                  type="button"
+                  id="sb-fs"
+                  class="sb-btn"
+                  aria-label="Plein écran"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="sb-rail-wrap">
+              <button
+                type="button"
+                id="sb-arw-l"
+                class="sb-arw sb-arw-l"
+                aria-label="Miniatures précédentes"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M15 4l-8 8 8 8"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.4"
+                  />
                 </svg>
               </button>
-            </div>
-
-            <!-- Overlay avec miniatures en bas (desktop uniquement) -->
-            <div
-              class="hidden md:block absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/80 to-transparent pt-8 pb-4 px-4"
-            >
-              <div
-                id="video-thumbs-desktop"
-                class="flex overflow-x-auto space-x-3 scrollbar-hide py-2"
+              <button
+                type="button"
+                id="sb-arw-r"
+                class="sb-arw sb-arw-r"
+                aria-label="Miniatures suivantes"
               >
-              </div>
-            </div>
-
-            <!-- Miniatures en dessous (mobile uniquement) -->
-            <div class="md:hidden bg-black pt-4 pb-4 px-4">
-              <div
-                id="video-thumbs-mobile"
-                class="flex overflow-x-auto space-x-3 scrollbar-hide py-2"
-              >
-              </div>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M9 4l8 8-8 8"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.4"
+                  />
+                </svg>
+              </button>
+              <div class="sb-fade"></div>
+              <div id="video-thumbs-desktop" class="sb-rail"></div>
             </div>
           </div>
         </div>
@@ -1015,43 +1390,236 @@
         finally { if (skeleton) skeleton.classList.add("hidden"); }
       }
 
+      // ═══════════════════════════════════════════════════════════════
+      // LECTEUR VIDÉO « Réalisations vidéo »
+      // Habillage maison : plus de contrôles natifs, image de couverture
+      // avant lecture, bandeau de miniatures titré et défilable.
+      // Données Firestore inchangées (title, alt, fileUrl, youtubeId, order).
+      // ═══════════════════════════════════════════════════════════════
       async function renderVideos() {
+        const player = document.getElementById("sb-player");
         const mainVideo = document.getElementById("main-video");
-        const desktopContainer = document.getElementById("video-thumbs-desktop");
-        const mobileContainer = document.getElementById("video-thumbs-mobile");
-        const videoPlayOverlay = document.getElementById("video-play-overlay");
-        const videoPlayBtn = document.getElementById("video-play-btn");
-        if (!mainVideo || !desktopContainer || !mobileContainer) return;
+        const rail = document.getElementById("video-thumbs-desktop");
+        if (!player || !mainVideo || !rail) return;
+
+        const poster = document.getElementById("sb-poster");
+        const bigPlay = document.getElementById("sb-bigplay");
+        const toggleBtn = document.getElementById("sb-toggle");
+        const icoPath = document.getElementById("sb-ico");
+        const bar = document.getElementById("sb-bar");
+        const fill = document.getElementById("sb-fill");
+        const timeEl = document.getElementById("sb-time");
+        const muteBtn = document.getElementById("sb-mute");
+        const muteX = document.getElementById("sb-mute-x");
+        const fsBtn = document.getElementById("sb-fs");
+        const arwL = document.getElementById("sb-arw-l");
+        const arwR = document.getElementById("sb-arw-r");
+
+        const ICON_PLAY = "M8 5v14l11-7z";
+        const ICON_PAUSE = "M6 4h4v16H6zM14 4h4v16h-4z";
+
+        const esc = (s) =>
+          String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+        const fmt = (s) =>
+          isFinite(s) && s >= 0
+            ? Math.floor(s / 60) + ":" + String(Math.floor(s % 60)).padStart(2, "0")
+            : "0:00";
+        const thumbUrl = (ytId, low) =>
+          ytId
+            ? "https://img.youtube.com/vi/" + ytId + "/" + (low ? "hqdefault" : "maxresdefault") + ".jpg"
+            : "assets/img/logo_square.jpg";
+
+        // ---- 1. Données ----
+        let videos = [];
         try {
           const q = query(collection(db, "videos"), orderBy("order", "asc"));
           const snapshot = await getDocs(q);
-          if (snapshot.empty) return;
-          const videos = snapshot.docs.map((docSnap) => ({ id: docSnap.id, ...docSnap.data() }));
-          desktopContainer.innerHTML = ""; mobileContainer.innerHTML = "";
-          let currentVideoIndex = 0;
-          const createThumbnailHTML = (video, index, isDesktop) => {
-            const youtubeId = video.youtubeId || "";
-            const thumbSrc = youtubeId ? `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg` : "assets/img/logo_square.jpg";
-            const thumbFallback = youtubeId ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg` : "";
-            const wc = isDesktop ? "w-32 md:w-40" : "w-32";
-            return `<div class="video-thumbnail flex-shrink-0 ${wc} cursor-pointer relative group" data-video-index="${index}"><div class="relative"><img src="${thumbSrc}" alt="${video.alt || video.title || `Vidéo ${index + 1}`}" class="w-full h-auto rounded border-2 ${index === 0 ? "border-white" : "border-transparent"} group-hover:border-white transition-colors" ${thumbFallback ? `onerror="this.onerror=null;this.src='${thumbFallback}'"` : ""} /><div class="video-progress-overlay absolute inset-0 bg-white opacity-0 rounded" style="clip-path: polygon(0 0, 0% 0, 0% 100%, 0 100%)"></div></div></div>`;
-          };
-          videos.forEach((video, index) => { desktopContainer.insertAdjacentHTML("beforeend", createThumbnailHTML(video, index, true)); mobileContainer.insertAdjacentHTML("beforeend", createThumbnailHTML(video, index, false)); });
-          const allThumbnails = document.querySelectorAll(".video-thumbnail");
-          const updateActiveThumbnail = (index) => { allThumbnails.forEach((thumb) => { const img = thumb.querySelector("img"); const overlay = thumb.querySelector(".video-progress-overlay"); const isActive = parseInt(thumb.getAttribute("data-video-index"), 10) === index; if (isActive) { thumb.classList.add("active"); if (img) { img.classList.remove("border-transparent"); img.classList.add("border-white"); } } else { thumb.classList.remove("active"); if (img) { img.classList.remove("border-white"); img.classList.add("border-transparent"); } if (overlay) overlay.style.clipPath = "polygon(0 0, 0% 0, 0% 100%, 0 100%)"; } }); };
-          const loadVideo = (index, autoplay = false) => { const video = videos[index]; if (!video) return; const sourceElement = mainVideo.querySelector("source"); if (!sourceElement) return; sourceElement.src = `assets/videos/${video.fileUrl || ""}`; mainVideo.load(); currentVideoIndex = index; updateActiveThumbnail(index); if (autoplay) { const playWhenReady = () => { if (mainVideo.readyState >= 2) { mainVideo.play().catch(() => {}); mainVideo.removeEventListener("loadeddata", playWhenReady); mainVideo.removeEventListener("canplay", playWhenReady); } }; if (mainVideo.readyState >= 2) mainVideo.play().catch(() => {}); else { mainVideo.addEventListener("loadeddata", playWhenReady, { once: true }); mainVideo.addEventListener("canplay", playWhenReady, { once: true }); } } };
-          allThumbnails.forEach((thumb) => { thumb.addEventListener("click", () => { const index = parseInt(thumb.getAttribute("data-video-index"), 10); if (!isNaN(index)) { loadVideo(index, true); setTimeout(() => { mainVideo.scrollIntoView({ behavior: "smooth", block: "start" }); }, 100); } }); });
-          const isDesktop = () => window.matchMedia("(min-width: 768px)").matches;
-          if (videoPlayBtn && videoPlayOverlay) {
-            videoPlayBtn.addEventListener("click", () => { if (!isDesktop()) return; mainVideo.play().catch(() => {}); });
-            const updateOverlay = () => { if (!isDesktop()) { videoPlayOverlay.style.display = "none"; return; } videoPlayOverlay.style.display = mainVideo.paused ? "flex" : "none"; };
-            mainVideo.addEventListener("play", updateOverlay); mainVideo.addEventListener("pause", updateOverlay); mainVideo.addEventListener("ended", updateOverlay); mainVideo.addEventListener("loadeddata", updateOverlay);
-            window.addEventListener("resize", () => { if (!isDesktop()) videoPlayOverlay.style.display = "none"; else updateOverlay(); });
+          videos = snapshot.docs.map((docSnap) => ({ id: docSnap.id, ...docSnap.data() }));
+        } catch (error) {
+          console.error("Erreur chargement vidéos (front):", error);
+          return;
+        }
+        if (!videos.length) return;
+
+        let current = 0;
+
+        // ---- 2. Miniatures ----
+        rail.innerHTML = "";
+        videos.forEach((video, index) => {
+          const label = String(video.title || video.alt || "Vidéo " + (index + 1)).trim();
+          const el = document.createElement("div");
+          el.className = "sb-thumb";
+          el.setAttribute("data-video-index", String(index));
+          el.innerHTML =
+            '<div class="sb-thumb-fr">' +
+            '<img loading="lazy" src="' +
+            thumbUrl(video.youtubeId) +
+            '" alt="' +
+            esc(label) +
+            '"' +
+            (video.youtubeId
+              ? " onerror=\"this.onerror=null;this.src='" + thumbUrl(video.youtubeId, true) + "'\""
+              : "") +
+            " />" +
+            '<div class="sb-thumb-prog"><b></b></div>' +
+            "</div>" +
+            '<p class="sb-thumb-t">' +
+            esc(label) +
+            "</p>";
+          el.addEventListener("click", () => load(index, true));
+          rail.appendChild(el);
+        });
+        const thumbs = Array.prototype.slice.call(rail.children);
+
+        function centerThumb(index) {
+          const t = thumbs[index];
+          if (!t) return;
+          const left = t.offsetLeft - (rail.clientWidth - t.clientWidth) / 2;
+          if (rail.scrollTo) rail.scrollTo({ left: left, behavior: "smooth" });
+          else rail.scrollLeft = left;
+        }
+
+        function setActive(index) {
+          thumbs.forEach((t, i) => {
+            t.classList.toggle("is-active", i === index);
+            if (i !== index) {
+              const b = t.querySelector(".sb-thumb-prog b");
+              if (b) b.style.width = "0%";
+            }
+          });
+        }
+
+        // ---- 3. Chargement d'une vidéo ----
+        function load(index, autoplay) {
+          const video = videos[index];
+          if (!video) return;
+          current = index;
+          mainVideo.pause();
+          mainVideo.src = "assets/videos/" + (video.fileUrl || "");
+          mainVideo.load();
+          if (poster) poster.style.backgroundImage = "url('" + thumbUrl(video.youtubeId) + "')";
+          player.classList.remove("is-playing", "is-paused");
+          if (icoPath) icoPath.setAttribute("d", ICON_PLAY);
+          if (fill) fill.style.width = "0%";
+          if (timeEl) timeEl.textContent = "0:00 / 0:00";
+          setActive(index);
+          centerThumb(index);
+          if (autoplay) {
+            const p = mainVideo.play();
+            if (p && p.catch) p.catch(() => {});
           }
-          mainVideo.addEventListener("timeupdate", () => { const progress = (mainVideo.currentTime / mainVideo.duration) * 100; const activeThumb = Array.from(allThumbnails).find((thumb) => parseInt(thumb.getAttribute("data-video-index"), 10) === currentVideoIndex); if (activeThumb) { const overlay = activeThumb.querySelector(".video-progress-overlay"); if (overlay) overlay.style.clipPath = `polygon(0 0, ${progress}% 0, ${progress}% 100%, 0 100%)`; } });
-          mainVideo.addEventListener("ended", () => { loadVideo((currentVideoIndex + 1) % videos.length, true); });
-          loadVideo(0, false);
-        } catch (error) { console.error("Erreur chargement vidéos (front):", error); }
+        }
+
+        function togglePlay() {
+          if (mainVideo.paused) {
+            const p = mainVideo.play();
+            if (p && p.catch) p.catch(() => {});
+          } else {
+            mainVideo.pause();
+          }
+        }
+
+        // ---- 4. Contrôles ----
+        if (bigPlay) bigPlay.addEventListener("click", togglePlay);
+        if (toggleBtn) toggleBtn.addEventListener("click", togglePlay);
+        mainVideo.addEventListener("click", togglePlay);
+
+        mainVideo.addEventListener("play", () => {
+          player.classList.add("is-playing");
+          player.classList.remove("is-paused");
+          if (icoPath) icoPath.setAttribute("d", ICON_PAUSE);
+        });
+        mainVideo.addEventListener("pause", () => {
+          if (player.classList.contains("is-playing")) player.classList.add("is-paused");
+          if (icoPath) icoPath.setAttribute("d", ICON_PLAY);
+        });
+
+        mainVideo.addEventListener("timeupdate", () => {
+          const pct = mainVideo.duration ? (mainVideo.currentTime / mainVideo.duration) * 100 : 0;
+          if (fill) fill.style.width = pct + "%";
+          if (timeEl) timeEl.textContent = fmt(mainVideo.currentTime) + " / " + fmt(mainVideo.duration);
+          const active = thumbs[current];
+          if (active) {
+            const b = active.querySelector(".sb-thumb-prog b");
+            if (b) b.style.width = pct + "%";
+          }
+        });
+
+        mainVideo.addEventListener("loadedmetadata", () => {
+          if (timeEl) timeEl.textContent = "0:00 / " + fmt(mainVideo.duration);
+        });
+
+        // Enchaînement automatique vers la réalisation suivante
+        mainVideo.addEventListener("ended", () => {
+          load((current + 1) % videos.length, true);
+        });
+
+        // Barre de progression : clic et glissé
+        if (bar) {
+          const seek = (clientX) => {
+            if (!mainVideo.duration) return;
+            const r = bar.getBoundingClientRect();
+            const ratio = Math.max(0, Math.min(1, (clientX - r.left) / r.width));
+            mainVideo.currentTime = ratio * mainVideo.duration;
+          };
+          let dragging = false;
+          bar.addEventListener("pointerdown", (e) => {
+            dragging = true;
+            try { bar.setPointerCapture(e.pointerId); } catch (_) {}
+            seek(e.clientX);
+          });
+          bar.addEventListener("pointermove", (e) => { if (dragging) seek(e.clientX); });
+          const stop = (e) => {
+            dragging = false;
+            try { bar.releasePointerCapture(e.pointerId); } catch (_) {}
+          };
+          bar.addEventListener("pointerup", stop);
+          bar.addEventListener("pointercancel", stop);
+        }
+
+        if (muteBtn) {
+          muteBtn.addEventListener("click", () => {
+            mainVideo.muted = !mainVideo.muted;
+            if (muteX) muteX.style.display = mainVideo.muted ? "" : "none";
+            muteBtn.setAttribute("aria-label", mainVideo.muted ? "Activer le son" : "Couper le son");
+          });
+        }
+
+        if (fsBtn) {
+          fsBtn.addEventListener("click", () => {
+            const fsEl = document.fullscreenElement || document.webkitFullscreenElement;
+            if (fsEl) {
+              if (document.exitFullscreen) document.exitFullscreen();
+              else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+            } else if (player.requestFullscreen) player.requestFullscreen();
+            else if (player.webkitRequestFullscreen) player.webkitRequestFullscreen();
+            else if (mainVideo.webkitEnterFullscreen) mainVideo.webkitEnterFullscreen();
+          });
+        }
+
+        // Raccourcis clavier, uniquement quand le lecteur a le focus
+        player.addEventListener("keydown", (e) => {
+          if (e.key === " " || e.key === "k") { e.preventDefault(); togglePlay(); }
+          else if (e.key === "ArrowRight") { e.preventDefault(); mainVideo.currentTime += 5; }
+          else if (e.key === "ArrowLeft") { e.preventDefault(); mainVideo.currentTime -= 5; }
+          else if (e.key === "m") { e.preventDefault(); if (muteBtn) muteBtn.click(); }
+        });
+
+        // ---- 5. Flèches du bandeau ----
+        function updateArrows() {
+          if (!arwL || !arwR) return;
+          const max = rail.scrollWidth - rail.clientWidth - 2;
+          arwL.classList.toggle("sb-arw-off", rail.scrollLeft <= 2);
+          arwR.classList.toggle("sb-arw-off", rail.scrollLeft >= max);
+        }
+        const step = () => Math.max(240, Math.round(rail.clientWidth * 0.8));
+        if (arwL) arwL.addEventListener("click", () => rail.scrollBy({ left: -step(), behavior: "smooth" }));
+        if (arwR) arwR.addEventListener("click", () => rail.scrollBy({ left: step(), behavior: "smooth" }));
+        rail.addEventListener("scroll", updateArrows);
+        window.addEventListener("resize", updateArrows);
+        updateArrows();
+
+        load(0, false);
       }
 
       loadTrustedLogos();
