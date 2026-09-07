@@ -408,11 +408,23 @@
               display: block !important;
               min-height: 0 !important;
               background: transparent;
+              /* Largeur maxi du lecteur. Elle est calculée à partir de la
+                 HAUTEUR de la fenêtre, pour que le titre, le lecteur et le
+                 bandeau de miniatures tiennent toujours ensemble à l'écran,
+                 y compris sur un grand moniteur en plein écran. */
+              --sb-maxw: min(1500px, calc(68vh * 16 / 9));
+            }
+            @media (max-width: 767px) {
+              #video-content-inner {
+                --sb-maxw: 100%;
+              }
             }
 
             .sb-player {
               position: relative;
               width: 100%;
+              max-width: var(--sb-maxw);
+              margin: 0 auto;
               aspect-ratio: 16 / 9;
               background: #000;
               overflow: hidden;
@@ -587,7 +599,8 @@
             /* ---- Bandeau de miniatures ---- */
             .sb-rail-wrap {
               position: relative;
-              margin-top: 1.25rem;
+              margin: 1.25rem auto 0;
+              max-width: var(--sb-maxw);
               --sb-tw: 148px;
             }
             @media (min-width: 768px) {
