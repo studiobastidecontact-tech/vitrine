@@ -513,6 +513,20 @@
               }
             }
 
+            /* Vidéo YouTube (pas de MP4) : lecteur YouTube par-dessus */
+            .sb-yt {
+              position: absolute;
+              inset: 0;
+              width: 100%;
+              height: 100%;
+              border: 0;
+              z-index: 5;
+              background: #000;
+            }
+            .sb-player.is-yt .sb-ctl {
+              display: none !important;
+            }
+
             .sb-ctl {
               position: absolute;
               left: 0;
@@ -1456,6 +1470,38 @@
 
         let current = 0;
 
+        // ---- Vidéos YouTube (champ MP4 vide + ID YouTube rempli) ----
+        const isYt = (v) => !!(v && !String(v.fileUrl || "").trim() && String(v.youtubeId || "").trim());
+        let ytFrame = null;
+        function removeYt() {
+          if (ytFrame) { ytFrame.remove(); ytFrame = null; }
+        }
+        function startYt() {
+          const video = videos[current];
+          if (!isYt(video) || ytFrame) return;
+          ytFrame = document.createElement("iframe");
+          ytFrame.className = "sb-yt";
+          ytFrame.src =
+            "https://www.youtube-nocookie.com/embed/" +
+            encodeURIComponent(String(video.youtubeId).trim()) +
+            "?autoplay=1&rel=0&playsinline=1&enablejsapi=1";
+          ytFrame.title = String(video.title || video.alt || "Vidéo");
+          ytFrame.allow = "autoplay; encrypted-media; fullscreen; picture-in-picture";
+          ytFrame.allowFullscreen = true;
+          player.appendChild(ytFrame);
+          player.classList.add("is-playing");
+        }
+        // Met la vidéo YouTube en pause quand on quitte la section
+        if ("IntersectionObserver" in window) {
+          new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting && ytFrame && ytFrame.contentWindow) {
+                ytFrame.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', "*");
+              }
+            });
+          }, { threshold: 0.25 }).observe(player);
+        }
+
         // ---- 2. Miniatures ----
         rail.innerHTML = "";
         videos.forEach((video, index) => {
@@ -1508,7 +1554,14 @@
           if (!video) return;
           current = index;
           mainVideo.pause();
-          mainVideo.src = "assets/videos/" + (video.fileUrl || "");
+          removeYt();
+          const yt = isYt(video);
+          player.classList.toggle("is-yt", yt);
+          if (yt) {
+            mainVideo.removeAttribute("src");
+          } else {
+            mainVideo.src = "assets/videos/" + (video.fileUrl || "");
+          }
           mainVideo.load();
           if (poster) poster.style.backgroundImage = "url('" + thumbUrl(video.youtubeId) + "')";
           player.classList.remove("is-playing", "is-paused");
@@ -1518,12 +1571,14 @@
           setActive(index);
           centerThumb(index);
           if (autoplay) {
+            if (yt) { startYt(); return; }
             const p = mainVideo.play();
             if (p && p.catch) p.catch(() => {});
           }
         }
 
         function togglePlay() {
+          if (isYt(videos[current])) { startYt(); return; }
           if (mainVideo.paused) {
             const p = mainVideo.play();
             if (p && p.catch) p.catch(() => {});
@@ -1564,7 +1619,9 @@
 
         // Enchaînement automatique vers la réalisation suivante
         mainVideo.addEventListener("ended", () => {
-          load((current + 1) % videos.length, true);
+          const next = (current + 1) % videos.length;
+          // Une vidéo YouTube ne se lance pas toute seule (bloqué par les navigateurs)
+          load(next, !isYt(videos[next]));
         });
 
         // Barre de progression : clic et glissé
