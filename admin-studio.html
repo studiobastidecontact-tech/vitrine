@@ -538,15 +538,18 @@
                   </div>
                   <div>
                     <label for="video-fileUrl" class="admin-label"
-                      >Fichier MP4 (nom seul)</label
+                      >Fichier MP4 (nom seul, facultatif)</label
                     >
                     <input
                       id="video-fileUrl"
                       type="text"
                       class="admin-input"
                       placeholder="video1.mp4"
-                      required
                     />
+                    <p class="admin-card-subtitle mt-1">
+                      Laissez vide pour lire la vidéo directement depuis YouTube
+                      (l'ID YouTube devient alors obligatoire).
+                    </p>
                   </div>
                   <div>
                     <label for="video-youtubeId" class="admin-label"
