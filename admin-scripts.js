@@ -445,6 +445,10 @@ videoForm.addEventListener("submit", async (event) => {
     youtubeId: videoYoutubeIdInput.value.trim(),
     order: Number(videoOrderInput.value) || 0,
   };
+  if (!payload.fileUrl && !payload.youtubeId) {
+    alert("Remplissez au moins le fichier MP4 ou l'ID YouTube.");
+    return;
+  }
   try {
     if (id) {
       await updateDoc(doc(db, "videos", id), payload);
