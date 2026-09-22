@@ -1516,9 +1516,6 @@
             '" alt="' +
             esc(label) +
             '"' +
-            (video.youtubeId
-              ? " onerror=\"this.onerror=null;this.src='" + thumbUrl(video.youtubeId, true) + "'\""
-              : "") +
             " />" +
             '<div class="sb-thumb-prog"><b></b></div>' +
             "</div>" +
@@ -1527,6 +1524,20 @@
             "</p>";
           el.addEventListener("click", () => load(index, true));
           rail.appendChild(el);
+          // YouTube renvoie une image grise (120 px) quand la miniature HD
+          // n'existe pas (fréquent sur les Shorts) : on bascule alors sur la version standard.
+          if (video.youtubeId) {
+            const img = el.querySelector("img");
+            const fallback = () => {
+              if (img.dataset.fb) return;
+              img.dataset.fb = "1";
+              video._thumb = thumbUrl(video.youtubeId, true);
+              img.src = video._thumb;
+              if (index === current && poster) poster.style.backgroundImage = "url('" + video._thumb + "')";
+            };
+            img.addEventListener("error", fallback);
+            img.addEventListener("load", () => { if (img.naturalWidth <= 120) fallback(); });
+          }
         });
         const thumbs = Array.prototype.slice.call(rail.children);
 
@@ -1563,7 +1574,7 @@
             mainVideo.src = "assets/videos/" + (video.fileUrl || "");
           }
           mainVideo.load();
-          if (poster) poster.style.backgroundImage = "url('" + thumbUrl(video.youtubeId) + "')";
+          if (poster) poster.style.backgroundImage = "url('" + (video._thumb || thumbUrl(video.youtubeId)) + "')";
           player.classList.remove("is-playing", "is-paused");
           if (icoPath) icoPath.setAttribute("d", ICON_PLAY);
           if (fill) fill.style.width = "0%";
