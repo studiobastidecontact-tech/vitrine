@@ -102,6 +102,7 @@
       "layout": "normal",
       "videoPaths": [
         "../assets/videos/video6.mp4",
+        "../assets/videos/drone-la-gare.mp4",
         "../assets/videos/video7.mp4",
         "../assets/videos/video8.mp4",
         "../assets/videos/video9.mp4",
@@ -110,6 +111,7 @@
       ],
       "timestamps": [
         1,
+        8,
         23,
         20,
         17,
